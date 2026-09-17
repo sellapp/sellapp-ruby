@@ -1,0 +1,126 @@
+# promotions_phases
+
+[All resources](../methods.md)
+
+## list
+
+List promotion phases
+
+[API reference](https://sell.app/docs/api/promotions/replace-promotion-phases) · Effect: **read**
+
+```ruby
+def list(
+      promotion:,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| promotion | `Object` | Yes |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.promotions_phases.list(promotion: 1)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## replace
+
+Replace promotion phases
+
+[API reference](https://sell.app/docs/api/promotions/replace-promotion-phases) · Effect: **consequential**
+
+```ruby
+def replace(
+      promotion:,
+      phases:,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| promotion | `Object` | Yes |
+| phases | `Object` | Yes |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.promotions_phases.replace(
+  promotion: 1,
+  phases: [
+    {
+      discount_type: "percentage",
+      discount_value: "20",
+      ends_at: "2026-08-04T00:00:00Z",
+      max_redemptions: 200,
+      minimum_amount: "10"
+    },
+    {
+      discount_type: "fixed",
+      discount_value: "5",
+      ends_at: nil,
+      max_redemptions: nil,
+      minimum_amount: "25"
+    }
+  ]
+)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+

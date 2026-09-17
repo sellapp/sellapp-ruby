@@ -1,0 +1,122 @@
+{
+  "product": {
+    "data": {
+      "id": 1,
+      "title": "stub",
+      "slug": "stub",
+      "description": "stub",
+      "images": [],
+      "order": 1,
+      "visibility": "stub",
+      "delivery_text": "stub",
+      "additional_information": [],
+      "other_settings": {
+        "faq": [],
+        "video_url": "stub",
+        "redirect_url": "stub",
+        "product_title": "stub",
+        "product_description": "stub"
+      },
+      "deleted_at": "2024-01-01T00:00:00Z",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z",
+      "store_id": 1,
+      "section_id": 1,
+      "section_order": 1,
+      "is_discoverable": true,
+      "variants": [],
+      "url": "stub"
+    }
+  },
+  "variant": {
+    "data": {
+      "id": 1,
+      "product_id": 1,
+      "title": "stub",
+      "description": "stub",
+      "deliverable": {
+        "data": {
+          "removeDuplicate": true,
+          "parsingMode": "stub"
+        },
+        "types": []
+      },
+      "pricing": {
+        "humble": true,
+        "frequency": {
+          "value": 1,
+          "interval": "stub"
+        },
+        "type": "stub",
+        "price": {
+          "price": "stub",
+          "currency": "stub"
+        }
+      },
+      "minimum_purchase_quantity": 1,
+      "maximum_purchase_quantity": 1,
+      "bulk_discount": [],
+      "payment_methods": [],
+      "other_settings": {
+        "quantity_increments": 1,
+        "discord_data_required": true
+      },
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z",
+      "deleted_at": "2024-01-01T00:00:00Z",
+      "product": {
+        "additional_information": []
+      }
+    }
+  },
+  "order": {
+    "data": {
+      "id": 1,
+      "status": "PENDING",
+      "timeline": [],
+      "customer": {
+        "id": 1,
+        "email": "sdk@example.com",
+        "country": "stub",
+        "location": "stub",
+        "proxied": true
+      },
+      "payment": {
+        "method": "AUTHNET",
+        "transaction_id": "stub",
+        "payment_id": "stub",
+        "payment_capture_id": "stub",
+        "blockchain_txid": "stub",
+        "settlement_gateway": "stub",
+        "has_checkout_url": true,
+        "checkout_url": "https://example.com"
+      },
+      "totals": {
+        "currency": "stub",
+        "subtotal_cents": 0,
+        "total_exclusive_cents": 0,
+        "total_cents": 0,
+        "total_exclusive_usd_cents": 0,
+        "total_usd_cents": 0
+      },
+      "coupon_id": 1,
+      "line_items": [],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  "upload": {
+    "data": {
+      "id": 1,
+      "filename": "stub",
+      "extension": "stub",
+      "mime_type": "stub",
+      "size": 0,
+      "watermark": true,
+      "limit_to_purchase_ip": true,
+      "variant_id": 1,
+      "product_id": 1
+    }
+  }
+}
