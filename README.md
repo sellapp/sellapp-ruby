@@ -12,7 +12,7 @@ Already know the basics? Jump to [configuration](https://github.com/sellapp/sell
 ## Availability and installation
 
 **Use a local checkout for now.** This is pre-release source for the planned
-**0.1.0** release; registry publication and namespace ownership are unconfirmed.
+**0.1.1** release; registry publication and namespace ownership are unconfirmed.
 You'll need access to the private
 [sellapp-ruby](https://github.com/sellapp/sellapp-ruby) repository.
 
@@ -131,7 +131,7 @@ Keep the request ID when reporting an API failure. Never include credentials.
 
 ## Support and releases
 
-This source candidate is not a verified registry release. Use the source installation above.
-[Report an SDK issue](https://github.com/sellapp/sellapp-ruby/issues) if you have repository access.
+Find available packages and installation instructions in the [SDK guide](https://sell.app/docs/api/sdks).
+[Report an SDK issue](https://github.com/sellapp/sellapp-ruby/issues).
 Include the SDK version, runtime version, and a redacted reproduction.
 Licensed under [MIT](https://github.com/sellapp/sellapp-ruby/blob/main/LICENSE.txt); see [third-party notices](https://github.com/sellapp/sellapp-ruby/blob/main/NOTICE.txt).
