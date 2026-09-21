@@ -9,31 +9,22 @@ have its moment once the connection works.
 Already know the basics? Jump to [configuration](https://github.com/sellapp/sellapp-ruby/blob/main/docs/usage.md#client-configuration) or the
 [method index](https://github.com/sellapp/sellapp-ruby/blob/main/docs/methods.md).
 
-## Availability and installation
+## Install
 
-**Use a local checkout for now.** This is pre-release source for the planned
-**0.1.1** release; registry publication and namespace ownership are unconfirmed.
-You'll need access to the private
-[sellapp-ruby](https://github.com/sellapp/sellapp-ruby) repository.
-
-The gem declares **Ruby 3.1 or newer**; local validation used Ruby 3.2 and CI uses Ruby 3.4.10.
-The declared minimum has not yet been separately tested. Use Bundler to resolve dependencies.
-
-Open a terminal in your SDK checkout. Install the dependencies and build the gem:
-
-```sh
-bundle install
-gem build sellapp.gemspec
-```
-
-To use the SDK in your own application, point Bundler to that checkout. Add this
-line to your application's Gemfile, replacing the placeholder path:
+You need **Ruby 3.1 or newer** and Bundler. Add the gem to your application's Gemfile:
 
 ```ruby
-gem "sellapp", path: "/path/to/sellapp-ruby"
+source "https://rubygems.org"
+gem "sellapp", "~> 0.1.1"
 ```
 
-Then run `bundle install`.
+Run `bundle install` from the application directory. Bundler downloads the gem
+and records the selected versions in `Gemfile.lock`. For a new application,
+create a directory and save those two lines as `Gemfile` first.
+
+You can also install the gem directly with `gem install sellapp -v 0.1.1`.
+Browse the [RubyGems package](https://rubygems.org/gems/sellapp) or
+the [source repository](https://github.com/sellapp/sellapp-ruby).
 
 ## Your first request
 
@@ -45,22 +36,7 @@ We'll read one product without changing anything in your store. You'll need:
 Follow [authentication](https://sell.app/docs/api/authentication) for key setup and
 access rules. Keep the key on your server and out of Git.
 
-In a Bash-compatible terminal, run these commands from the SDK checkout after
-replacing the key and store. The `export` lines set environment variables so
-your Ruby code can read the values without storing secrets in the file.
-
-```sh
-export SELLAPP_API_KEY='replace-with-your-key'
-export SELLAPP_STORE='launch-lab'
-export SELLAPP_API_BASE_URL='https://sell.app/api'
-bundle exec ruby examples/first-request.rb
-```
-
-This endpoint reads your real store. `SELLAPP_API_BASE_URL` is an example variable
-passed explicitly to the client, not a built-in SDK setting. Use `SELLAPP_STORE`
-consistently across the API guides.
-
-Here's the complete [first-request.rb](https://github.com/sellapp/sellapp-ruby/blob/main/examples/first-request.rb) you just ran.
+Save this complete program as `first-request.rb` in your application directory.
 It loads the gem, creates a client, and asks the products resource for one item:
 
 ```ruby
@@ -77,6 +53,21 @@ page = client.products.list(limit: 1)
 page.data.each { |product| puts "#{product.id} #{product.title}" }
 puts "No products yet. The request worked!" if page.data.empty?
 ```
+
+In a Bash-compatible terminal, replace the key and store below, then run the
+program from that directory. The `export` lines pass the values to Ruby
+without storing secrets in the file.
+
+```sh
+export SELLAPP_API_KEY='replace-with-your-key'
+export SELLAPP_STORE='launch-lab'
+export SELLAPP_API_BASE_URL='https://sell.app/api'
+bundle exec ruby first-request.rb
+```
+
+This endpoint reads your real store. `SELLAPP_API_BASE_URL` is an example variable
+passed explicitly to the client, not a built-in SDK setting. Use `SELLAPP_STORE`
+consistently across the API guides.
 
 You should see an ID and title from your own store. An empty store prints the
 success message instead: the connection worked, even if the shelves are bare.

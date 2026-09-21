@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ruby",
   "repository": "sellapp/sellapp-ruby",
-  "sourceSha": "e4051383c6618a31c201c050d55d7bdacd157f0c",
+  "sourceSha": "617c71170f5c326d2d707c0f3e01caf9a948d2fc",
   "specSha256": "02043ebfc36589e78743f00a0f4a2f3ac9ac14914b9cf2910f04fc34ad2d0924",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "4283a787d5144c552051a8fde767862a588aa455afcbf9c38fbccbbe48c91c9c",
-  "contentDigest": "8fa66b0c3eb012947105642bdffeda2faabb87fd6c0bee5c0999360309d3c954",
+  "treeDigest": "b1561c75956a773c4badb98a259b081bb65f96e0d5e22ce4ae2438fa8ad013fd",
+  "contentDigest": "62e359af7f589e540caef3307089a0c05230d9558407d262241413f77275c541",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -25,9 +25,19 @@
       "sha256": "8f47fa72bd0b0f70fb3c31cc4440b684f93a3eec51be4208493a3d8ea262698d"
     },
     {
+      "path": ".github/scripts/verify-ruby-publication.py",
+      "mode": "100644",
+      "sha256": "5d11bce49529d2cdcb59e0d62229c049f8d0e30e32ea225aac3518863190ebc7"
+    },
+    {
       "path": ".github/workflows/ci.yml",
       "mode": "100644",
       "sha256": "7b1da65e21cb59c7bcd786814836a2e6210a53cd644fe6ff6b75a1d75e1c9d07"
+    },
+    {
+      "path": ".github/workflows/publish.yml",
+      "mode": "100644",
+      "sha256": "97187c0f48f259b5be4a68f3878ba74d83cb763aef088244563e06b34255391e"
     },
     {
       "path": ".node-version",
@@ -57,7 +67,7 @@
     {
       "path": "README.md",
       "mode": "100644",
-      "sha256": "34d7c811ff4ddea5a6f27d9a030e2eb0cf2e73049dc65024f199896f14654fbe"
+      "sha256": "a1fefe6b1ecad5964a89a9125c6c5d712b3c85372acae66c658695695a1b6759"
     },
     {
       "path": "Rakefile",
@@ -497,7 +507,7 @@
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "081a9bccfdeeb5cf87d9a5e32f726d648ac8e246a5a79abc82188e0da4b391ab"
+      "sha256": "684a9395290c6e58a2edb7c2e9923beedbd34e26ba2086eccd0fab88cdab7703"
     },
     {
       "path": "lib/sellapp.rb",
@@ -29167,7 +29177,7 @@
     {
       "path": "sellapp.gemspec",
       "mode": "100644",
-      "sha256": "7b4add918e81d1f95809e8aef89be03d54955c329c978120a187133fd1d69fc2"
+      "sha256": "7e2d7c8315b283894df5ee369b539dbbcb62e3e316e3e1c5ba59a26528025d4a"
     },
     {
       "path": "sig/sellapp.rbs",

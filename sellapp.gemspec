@@ -5,14 +5,14 @@
 Gem::Specification.new do |spec|
   spec.name = "sellapp"
   spec.version = "0.1.1"
-  spec.summary = "SellApp API Ruby SDK"
-  spec.description = "Official SellApp API client for Ruby."
+  spec.summary = "SellApp API client for Ruby"
+  spec.description = "Build SellApp integrations with typed product, order, checkout, and customer APIs."
   spec.authors = ["SellApp"]
   spec.email = ["support@sell.app"]
   spec.homepage = "https://sell.app/docs"
   spec.license = "MIT"
   spec.files = Dir["lib/**/*.rb", "rbi/**/*.rbi", "sig/**/*.rbs", "docs/**/*.md", "README.md", "LICENSE.txt", "NOTICE.txt"]
-  spec.metadata = {"source_code_uri" => "https://github.com/sellapp/sellapp-ruby", "documentation_uri" => "https://sell.app/docs/api", "bug_tracker_uri" => "https://github.com/sellapp/sellapp-ruby/issues"}
+  spec.metadata = {"allowed_push_host" => "https://rubygems.org", "rubygems_mfa_required" => "true", "source_code_uri" => "https://github.com/sellapp/sellapp-ruby", "documentation_uri" => "https://sell.app/docs/api", "bug_tracker_uri" => "https://github.com/sellapp/sellapp-ruby/issues"}
   spec.require_paths = ["lib"]
   spec.required_ruby_version = ">= 3.1"
   spec.add_dependency "zeitwerk", "~> 2.6"
