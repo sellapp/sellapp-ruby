@@ -32,12 +32,13 @@ module SellApp
         minimum_purchase_quantity: T.nilable(Integer),
         maximum_purchase_quantity: T.nilable(Integer),
         bulk_discount: T.nilable(T::Array[SellApp::CreateProductVariantRequestApplicationJsonPropertyBulkDiscountItem]),
+        custom_payment_method_ids: T.nilable(T::Array[String]),
         other_settings: T.nilable(SellApp::CreateProductVariantRequestApplicationJsonPropertyOtherSettings),
         expected_updated_at: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCreateProductVariantResponseValue201ApplicationJson)
     end
-    def create(product:, title:, description:, deliverable:, pricing:, payment_methods:, minimum_purchase_quantity:, maximum_purchase_quantity:, bulk_discount:, other_settings:, expected_updated_at:, request_options:); end
+    def create(product:, title:, description:, deliverable:, pricing:, payment_methods:, minimum_purchase_quantity:, maximum_purchase_quantity:, bulk_discount:, custom_payment_method_ids:, other_settings:, expected_updated_at:, request_options:); end
 
     sig do
       params(
@@ -62,12 +63,14 @@ module SellApp
         maximum_purchase_quantity: T.nilable(Integer),
         bulk_discount: T.nilable(T::Array[SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyBulkDiscountItem]),
         payment_methods: T.nilable(T::Array[String]),
+        custom_payment_method_ids: T.nilable(T::Array[String]),
         other_settings: T.nilable(SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyOtherSettings),
         expected_updated_at: T.nilable(String),
+        stock: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkReplaceProductVariantWithPutResponseValue200ApplicationJson)
     end
-    def replace(product:, variant:, title:, description:, deliverable:, pricing:, minimum_purchase_quantity:, maximum_purchase_quantity:, bulk_discount:, payment_methods:, other_settings:, expected_updated_at:, request_options:); end
+    def replace(product:, variant:, title:, description:, deliverable:, pricing:, minimum_purchase_quantity:, maximum_purchase_quantity:, bulk_discount:, payment_methods:, custom_payment_method_ids:, other_settings:, expected_updated_at:, stock:, request_options:); end
 
     sig do
       params(
@@ -81,21 +84,24 @@ module SellApp
         maximum_purchase_quantity: T.nilable(Integer),
         bulk_discount: T.nilable(T::Array[SellApp::UpdateProductVariantRequestApplicationJsonPropertyBulkDiscountItem]),
         payment_methods: T.nilable(T::Array[String]),
+        custom_payment_method_ids: T.nilable(T::Array[String]),
         other_settings: T.nilable(SellApp::UpdateProductVariantRequestApplicationJsonPropertyOtherSettings),
         expected_updated_at: T.nilable(String),
+        stock: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdateProductVariantResponseValue200ApplicationJson)
     end
-    def update(product:, variant:, title:, description:, deliverable:, pricing:, minimum_purchase_quantity:, maximum_purchase_quantity:, bulk_discount:, payment_methods:, other_settings:, expected_updated_at:, request_options:); end
+    def update(product:, variant:, title:, description:, deliverable:, pricing:, minimum_purchase_quantity:, maximum_purchase_quantity:, bulk_discount:, payment_methods:, custom_payment_method_ids:, other_settings:, expected_updated_at:, stock:, request_options:); end
 
     sig do
       params(
         product: Integer,
         variant: Integer,
+        expected_updated_at: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkDeleteProductVariantResponseValue200ApplicationJson)
     end
-    def delete(product:, variant:, request_options:); end
+    def delete(product:, variant:, expected_updated_at:, request_options:); end
 
     sig do
       params(

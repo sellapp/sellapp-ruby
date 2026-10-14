@@ -54,6 +54,11 @@ module SellApp
     # @param priority [Integer]
     # @param is_stackable [Boolean]
     # @param max_redemptions [Integer, nil]
+    # @param applies_to [SellApp::Types::SdkCreatePromotionRequestApplicationJsonAppliesTo, nil] What the promotion discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new promotion defaults to `one_time`, and an update that leaves this out keeps the current kind. The promotion only discounts order lines of its kind.
+    # @param subscription_payments [Integer, nil] How many payments a `subscriptions` promotion discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` promotion needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` promotion, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` promotion always stores null here.
+    # @param store_wide [Boolean, nil] Send `false` with `products` to limit a `subscriptions` promotion to picked products and plans. Required whenever the request sends `products` or `product_variants`. A new promotion defaults to `true`, an update that leaves it out keeps the current scope, and switching a promotion to `one_time` makes it store-wide again. A `one_time` promotion with `false` returns `422` on `store_wide` with `A promotion for one-time purchases applies to the whole store.`
+    # @param products [Array<Integer>, nil] Product IDs a narrowed subscription promotion reaches. Each one must sell a subscription, or the request returns `422` on `products` with `Pick only products that sell a subscription.` A narrowed promotion left with no products returns `422` with `Pick at least one subscription product for this promotion.` An update replaces the picks with this list, or keeps them when it is left out.
+    # @param product_variants [Array<Integer>, nil] Subscription plan IDs to limit the picked products to. Each one must be a subscription plan of a product in `products`, or the request returns `422` on `product_variants` with `Pick only subscription plans of the picked products.` A picked product with none of its plans listed takes every plan, including plans added later. An update that leaves this out keeps the listed plans of products that stay picked.
     # @param phases [Array<SellApp::CreatePromotionRequestApplicationJsonPropertyPhasesItem>] The complete ordered phase set. Array order becomes phase position.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCreatePromotionResponseValue201ApplicationJson]
@@ -66,6 +71,11 @@ module SellApp
       starts_at: SellApp::OMIT,
       ends_at: SellApp::OMIT,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       request_options: {}
     )
       body = {
@@ -73,11 +83,16 @@ module SellApp
         'status' => status,
         'priority' => priority,
         'is_stackable' => is_stackable,
+        'applies_to' => applies_to,
+        'store_wide' => store_wide,
+        'products' => products,
+        'product_variants' => product_variants,
         'phases' => phases
-      }
+      }.compact
       body['starts_at'] = starts_at unless starts_at.equal?(SellApp::OMIT)
       body['ends_at'] = ends_at unless ends_at.equal?(SellApp::OMIT)
       body['max_redemptions'] = max_redemptions unless max_redemptions.equal?(SellApp::OMIT)
+      body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCreatePromotionRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'createPromotion', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
@@ -180,6 +195,11 @@ module SellApp
     # @param priority [Integer, nil]
     # @param is_stackable [Boolean, nil]
     # @param max_redemptions [Integer, nil]
+    # @param applies_to [SellApp::Types::SdkReplacePromotionRequestApplicationJsonAppliesTo, nil] What the promotion discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new promotion defaults to `one_time`, and an update that leaves this out keeps the current kind. The promotion only discounts order lines of its kind.
+    # @param subscription_payments [Integer, nil] How many payments a `subscriptions` promotion discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` promotion needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` promotion, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` promotion always stores null here.
+    # @param store_wide [Boolean, nil] Send `false` with `products` to limit a `subscriptions` promotion to picked products and plans. Required whenever the request sends `products` or `product_variants`. A new promotion defaults to `true`, an update that leaves it out keeps the current scope, and switching a promotion to `one_time` makes it store-wide again. A `one_time` promotion with `false` returns `422` on `store_wide` with `A promotion for one-time purchases applies to the whole store.`
+    # @param products [Array<Integer>, nil] Product IDs a narrowed subscription promotion reaches. Each one must sell a subscription, or the request returns `422` on `products` with `Pick only products that sell a subscription.` A narrowed promotion left with no products returns `422` with `Pick at least one subscription product for this promotion.` An update replaces the picks with this list, or keeps them when it is left out.
+    # @param product_variants [Array<Integer>, nil] Subscription plan IDs to limit the picked products to. Each one must be a subscription plan of a product in `products`, or the request returns `422` on `product_variants` with `Pick only subscription plans of the picked products.` A picked product with none of its plans listed takes every plan, including plans added later. An update that leaves this out keeps the listed plans of products that stay picked.
     # @param phases [Array<SellApp::ReplacePromotionRequestApplicationJsonPropertyPhasesItem>, nil] The complete ordered phase set. Array order becomes phase position.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkReplacePromotionResponseValue200ApplicationJson]
@@ -192,6 +212,11 @@ module SellApp
       priority: nil,
       is_stackable: nil,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       phases: nil,
       request_options: {}
     )
@@ -200,11 +225,16 @@ module SellApp
         'status' => status,
         'priority' => priority,
         'is_stackable' => is_stackable,
+        'applies_to' => applies_to,
+        'store_wide' => store_wide,
+        'products' => products,
+        'product_variants' => product_variants,
         'phases' => phases
       }.compact
       body['starts_at'] = starts_at unless starts_at.equal?(SellApp::OMIT)
       body['ends_at'] = ends_at unless ends_at.equal?(SellApp::OMIT)
       body['max_redemptions'] = max_redemptions unless max_redemptions.equal?(SellApp::OMIT)
+      body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(promotion, {kind: :integer}, "$request.promotion")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplacePromotionRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'replacePromotion', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
@@ -232,6 +262,11 @@ module SellApp
     # @param priority [Integer, nil]
     # @param is_stackable [Boolean, nil]
     # @param max_redemptions [Integer, nil]
+    # @param applies_to [SellApp::Types::SdkUpdatePromotionRequestApplicationJsonAppliesTo, nil] What the promotion discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new promotion defaults to `one_time`, and an update that leaves this out keeps the current kind. The promotion only discounts order lines of its kind.
+    # @param subscription_payments [Integer, nil] How many payments a `subscriptions` promotion discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` promotion needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` promotion, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` promotion always stores null here.
+    # @param store_wide [Boolean, nil] Send `false` with `products` to limit a `subscriptions` promotion to picked products and plans. Required whenever the request sends `products` or `product_variants`. A new promotion defaults to `true`, an update that leaves it out keeps the current scope, and switching a promotion to `one_time` makes it store-wide again. A `one_time` promotion with `false` returns `422` on `store_wide` with `A promotion for one-time purchases applies to the whole store.`
+    # @param products [Array<Integer>, nil] Product IDs a narrowed subscription promotion reaches. Each one must sell a subscription, or the request returns `422` on `products` with `Pick only products that sell a subscription.` A narrowed promotion left with no products returns `422` with `Pick at least one subscription product for this promotion.` An update replaces the picks with this list, or keeps them when it is left out.
+    # @param product_variants [Array<Integer>, nil] Subscription plan IDs to limit the picked products to. Each one must be a subscription plan of a product in `products`, or the request returns `422` on `product_variants` with `Pick only subscription plans of the picked products.` A picked product with none of its plans listed takes every plan, including plans added later. An update that leaves this out keeps the listed plans of products that stay picked.
     # @param phases [Array<SellApp::UpdatePromotionRequestApplicationJsonPropertyPhasesItem>, nil] The complete ordered phase set. Array order becomes phase position.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkUpdatePromotionResponseValue200ApplicationJson]
@@ -244,6 +279,11 @@ module SellApp
       priority: nil,
       is_stackable: nil,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       phases: nil,
       request_options: {}
     )
@@ -252,11 +292,16 @@ module SellApp
         'status' => status,
         'priority' => priority,
         'is_stackable' => is_stackable,
+        'applies_to' => applies_to,
+        'store_wide' => store_wide,
+        'products' => products,
+        'product_variants' => product_variants,
         'phases' => phases
       }.compact
       body['starts_at'] = starts_at unless starts_at.equal?(SellApp::OMIT)
       body['ends_at'] = ends_at unless ends_at.equal?(SellApp::OMIT)
       body['max_redemptions'] = max_redemptions unless max_redemptions.equal?(SellApp::OMIT)
+      body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(promotion, {kind: :integer}, "$request.promotion")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdatePromotionRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'updatePromotion', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
@@ -308,6 +353,11 @@ module SellApp
     # @param priority [Integer]
     # @param is_stackable [Boolean]
     # @param max_redemptions [Integer, nil]
+    # @param applies_to [SellApp::Types::SdkRestorePromotionRequestApplicationJsonAppliesTo, nil] What the promotion discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new promotion defaults to `one_time`, and an update that leaves this out keeps the current kind. The promotion only discounts order lines of its kind.
+    # @param subscription_payments [Integer, nil] How many payments a `subscriptions` promotion discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` promotion needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` promotion, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` promotion always stores null here.
+    # @param store_wide [Boolean, nil] Send `false` with `products` to limit a `subscriptions` promotion to picked products and plans. Required whenever the request sends `products` or `product_variants`. A new promotion defaults to `true`, an update that leaves it out keeps the current scope, and switching a promotion to `one_time` makes it store-wide again. A `one_time` promotion with `false` returns `422` on `store_wide` with `A promotion for one-time purchases applies to the whole store.`
+    # @param products [Array<Integer>, nil] Product IDs a narrowed subscription promotion reaches. Each one must sell a subscription, or the request returns `422` on `products` with `Pick only products that sell a subscription.` A narrowed promotion left with no products returns `422` with `Pick at least one subscription product for this promotion.` An update replaces the picks with this list, or keeps them when it is left out.
+    # @param product_variants [Array<Integer>, nil] Subscription plan IDs to limit the picked products to. Each one must be a subscription plan of a product in `products`, or the request returns `422` on `product_variants` with `Pick only subscription plans of the picked products.` A picked product with none of its plans listed takes every plan, including plans added later. An update that leaves this out keeps the listed plans of products that stay picked.
     # @param phases [Array<SellApp::RestorePromotionRequestApplicationJsonPropertyPhasesItem>] The complete ordered phase set. Array order becomes phase position.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkRestorePromotionResponseValue200ApplicationJson]
@@ -321,6 +371,11 @@ module SellApp
       starts_at: SellApp::OMIT,
       ends_at: SellApp::OMIT,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       request_options: {}
     )
       body = {
@@ -328,11 +383,16 @@ module SellApp
         'status' => status,
         'priority' => priority,
         'is_stackable' => is_stackable,
+        'applies_to' => applies_to,
+        'store_wide' => store_wide,
+        'products' => products,
+        'product_variants' => product_variants,
         'phases' => phases
-      }
+      }.compact
       body['starts_at'] = starts_at unless starts_at.equal?(SellApp::OMIT)
       body['ends_at'] = ends_at unless ends_at.equal?(SellApp::OMIT)
       body['max_redemptions'] = max_redemptions unless max_redemptions.equal?(SellApp::OMIT)
+      body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(promotion, {kind: :integer}, "$request.promotion")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkRestorePromotionRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'restorePromotion', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)

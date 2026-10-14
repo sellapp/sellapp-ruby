@@ -62,7 +62,8 @@ module SellApp
     # @param minimum_purchase_quantity [Integer, nil]
     # @param maximum_purchase_quantity [Integer, nil]
     # @param bulk_discount [Array<SellApp::CreateProductVariantRequestApplicationJsonPropertyBulkDiscountItem>, nil]
-    # @param payment_methods [Array<SellApp::Types::SdkCreateProductVariantRequestApplicationJsonPaymentMethods>]
+    # @param payment_methods [Array<SellApp::Types::SdkCreateProductVariantRequestApplicationJsonPaymentMethods>] Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.
+    # @param custom_payment_method_ids [Array<String>, nil] Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.
     # @param other_settings [SellApp::CreateProductVariantRequestApplicationJsonPropertyOtherSettings, nil]
     # @param expected_updated_at [String, nil] Optional optimistic-concurrency snapshot for updates. Use the variant's latest updated_at value; stale snapshots receive a 422 validation response.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -77,6 +78,7 @@ module SellApp
       minimum_purchase_quantity: nil,
       maximum_purchase_quantity: SellApp::OMIT,
       bulk_discount: nil,
+      custom_payment_method_ids: nil,
       other_settings: nil,
       expected_updated_at: nil,
       request_options: {}
@@ -89,6 +91,7 @@ module SellApp
         'minimum_purchase_quantity' => minimum_purchase_quantity,
         'bulk_discount' => bulk_discount,
         'payment_methods' => payment_methods,
+        'custom_payment_method_ids' => custom_payment_method_ids,
         'other_settings' => other_settings,
         'expected_updated_at' => expected_updated_at
       }.compact
@@ -159,9 +162,11 @@ module SellApp
     # @param minimum_purchase_quantity [Integer, nil]
     # @param maximum_purchase_quantity [Integer, nil]
     # @param bulk_discount [Array<SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyBulkDiscountItem>, nil]
-    # @param payment_methods [Array<SellApp::Types::SdkReplaceProductVariantWithPutRequestApplicationJsonPaymentMethods>, nil]
+    # @param payment_methods [Array<SellApp::Types::SdkReplaceProductVariantWithPutRequestApplicationJsonPaymentMethods>, nil] Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.
+    # @param custom_payment_method_ids [Array<String>, nil] Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.
     # @param other_settings [SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyOtherSettings, nil]
     # @param expected_updated_at [String, nil] Optional optimistic-concurrency snapshot for updates. Use the variant's latest updated_at value; stale snapshots receive a 422 validation response.
+    # @param stock [Integer, nil] Set an existing variant's stock count while preserving delivery instructions and uploaded files. Send 0 for out of stock or null for unlimited stock. Omit deliverable for a stock-only change. TEXT variants manage stock through their serial inventory and reject this field.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkReplaceProductVariantWithPutResponseValue200ApplicationJson]
     def replace(
@@ -175,8 +180,10 @@ module SellApp
       maximum_purchase_quantity: SellApp::OMIT,
       bulk_discount: nil,
       payment_methods: nil,
+      custom_payment_method_ids: nil,
       other_settings: nil,
       expected_updated_at: nil,
+      stock: SellApp::OMIT,
       request_options: {}
     )
       body = {
@@ -187,10 +194,12 @@ module SellApp
         'minimum_purchase_quantity' => minimum_purchase_quantity,
         'bulk_discount' => bulk_discount,
         'payment_methods' => payment_methods,
+        'custom_payment_method_ids' => custom_payment_method_ids,
         'other_settings' => other_settings,
         'expected_updated_at' => expected_updated_at
       }.compact
       body['maximum_purchase_quantity'] = maximum_purchase_quantity unless maximum_purchase_quantity.equal?(SellApp::OMIT)
+      body['stock'] = stock unless stock.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
       SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceProductVariantWithPutRequestApplicationJson"}, "$request.body")
@@ -220,9 +229,11 @@ module SellApp
     # @param minimum_purchase_quantity [Integer, nil]
     # @param maximum_purchase_quantity [Integer, nil]
     # @param bulk_discount [Array<SellApp::UpdateProductVariantRequestApplicationJsonPropertyBulkDiscountItem>, nil]
-    # @param payment_methods [Array<SellApp::Types::SdkUpdateProductVariantRequestApplicationJsonPaymentMethods>, nil]
+    # @param payment_methods [Array<SellApp::Types::SdkUpdateProductVariantRequestApplicationJsonPaymentMethods>, nil] Complete gateway selection for this variant. Selecting CUSTOM_PAYMENT_METHOD also requires at least one custom_payment_method_ids entry.
+    # @param custom_payment_method_ids [Array<String>, nil] Enabled, usable custom payment method ULIDs belonging to the selected store. Supply at least one when payment_methods includes CUSTOM_PAYMENT_METHOD. Include CUSTOM_PAYMENT_METHOD in payment_methods whenever sending nonempty IDs. On updates, omitting both selections preserves the current methods. Nonempty IDs are rejected when custom payments are not selected.
     # @param other_settings [SellApp::UpdateProductVariantRequestApplicationJsonPropertyOtherSettings, nil]
     # @param expected_updated_at [String, nil] Optional optimistic-concurrency snapshot for updates. Use the variant's latest updated_at value; stale snapshots receive a 422 validation response.
+    # @param stock [Integer, nil] Set an existing variant's stock count while preserving delivery instructions and uploaded files. Send 0 for out of stock or null for unlimited stock. Omit deliverable for a stock-only change. TEXT variants manage stock through their serial inventory and reject this field.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkUpdateProductVariantResponseValue200ApplicationJson]
     def update(
@@ -236,8 +247,10 @@ module SellApp
       maximum_purchase_quantity: SellApp::OMIT,
       bulk_discount: nil,
       payment_methods: nil,
+      custom_payment_method_ids: nil,
       other_settings: nil,
       expected_updated_at: nil,
+      stock: SellApp::OMIT,
       request_options: {}
     )
       body = {
@@ -248,10 +261,12 @@ module SellApp
         'minimum_purchase_quantity' => minimum_purchase_quantity,
         'bulk_discount' => bulk_discount,
         'payment_methods' => payment_methods,
+        'custom_payment_method_ids' => custom_payment_method_ids,
         'other_settings' => other_settings,
         'expected_updated_at' => expected_updated_at
       }.compact
       body['maximum_purchase_quantity'] = maximum_purchase_quantity unless maximum_purchase_quantity.equal?(SellApp::OMIT)
+      body['stock'] = stock unless stock.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
       SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateProductVariantRequestApplicationJson"}, "$request.body")
@@ -274,20 +289,27 @@ module SellApp
     # Delete a product variant
     # @param product [Integer] The product path parameter.
     # @param variant [Integer] The variant path parameter.
+    # @param expected_updated_at [String, nil] Optional optimistic-concurrency snapshot. Send the exact `updated_at` value from the product you last retrieved; the mutation is rejected if the product has changed.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkDeleteProductVariantResponseValue200ApplicationJson]
     def delete(
       product:,
       variant:,
+      expected_updated_at: nil,
       request_options: {}
     )
+      body = {
+        'expected_updated_at' => expected_updated_at
+      }.compact
       SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
       SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkDeleteProductVariantRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'deleteProductVariant', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :delete,
         path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/#{SellApp::Util.encode_path(variant)}",
         auth: true,
+        body: body,
         request_options: request_options
       )
       value = begin

@@ -20,7 +20,7 @@ class PromotionsTest < Minitest::Test
 
   def test_create_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/promotions(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}}', status: 200)
     result = @client.promotions.create(name: 'stub', status: 'active', priority: 0, is_stackable: true, phases: JSON.parse('[{"discount_type":"percentage","discount_value":1}]'))
     refute_nil result
   end
@@ -34,35 +34,35 @@ class PromotionsTest < Minitest::Test
 
   def test_get_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/promotions/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}}', status: 200)
     result = @client.promotions.get(promotion: 1)
     refute_nil result
   end
 
   def test_replace_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v2/promotions/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}}', status: 200)
     result = @client.promotions.replace(promotion: 1)
     refute_nil result
   end
 
   def test_update_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/promotions/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}}', status: 200)
     result = @client.promotions.update(promotion: 1)
     refute_nil result
   end
 
   def test_delete_returns_expected_result
     stub_request(:delete, %r{\Ahttps://sell\.app/api/v2/promotions/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}}', status: 200)
     result = @client.promotions.delete(promotion: 1)
     refute_nil result
   end
 
   def test_restore_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/promotions/1/restore(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}}', status: 200)
     result = @client.promotions.restore(promotion: 1, name: 'stub', status: 'active', priority: 0, is_stackable: true, phases: JSON.parse('[{"discount_type":"percentage","discount_value":1}]'))
     refute_nil result
   end

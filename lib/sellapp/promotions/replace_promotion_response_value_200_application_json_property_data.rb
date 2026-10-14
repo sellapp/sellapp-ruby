@@ -13,6 +13,11 @@ module SellApp
       priority: :priority,
       is_stackable: :is_stackable,
       max_redemptions: :max_redemptions,
+      applies_to: :applies_to,
+      subscription_payments: :subscription_payments,
+      store_wide: :store_wide,
+      products: :products,
+      product_variants: :product_variants,
       phases: :phases,
       created_at: :created_at,
       updated_at: :updated_at,
@@ -28,6 +33,11 @@ module SellApp
       priority: {required: true, schema: {kind: :integer, minimum: 0}},
       is_stackable: {required: true, schema: {kind: :boolean}},
       max_redemptions: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1}}},
+      applies_to: {required: true, schema: {kind: :enum, values: ["one_time", "subscriptions"]}},
+      subscription_payments: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
+      store_wide: {required: true, schema: {kind: :boolean}},
+      products: {required: true, schema: {kind: :array, items: {kind: :integer}}},
+      product_variants: {required: true, schema: {kind: :array, items: {kind: :integer}}},
       phases: {required: true, schema: {kind: :array, items: {kind: :model, name: "SellApp::ReplacePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem"}}},
       created_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
       updated_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
@@ -45,6 +55,11 @@ module SellApp
       :priority,
       :is_stackable,
       :max_redemptions,
+      :applies_to,
+      :subscription_payments,
+      :store_wide,
+      :products,
+      :product_variants,
       :phases,
       :created_at,
       :updated_at,
@@ -63,6 +78,11 @@ module SellApp
       @priority = hash[:priority]
       @is_stackable = hash[:is_stackable]
       @max_redemptions = hash[:max_redemptions]
+      @applies_to = hash[:applies_to]
+      @subscription_payments = hash[:subscription_payments]
+      @store_wide = hash[:store_wide]
+      @products = hash[:products]
+      @product_variants = hash[:product_variants]
       @phases = hash[:phases] ? hash[:phases].map { |item| item ? SellApp::ReplacePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem.new(item) : nil } : nil
       @created_at = hash[:created_at]
       @updated_at = hash[:updated_at]

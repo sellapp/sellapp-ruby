@@ -9,24 +9,6 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(T::Array[SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem]) }
-    def data; end
-
-    sig { params(value: T::Array[SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem]).returns(T::Array[SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem]) }
-    def data=(value); end
-
-    sig { returns(SellApp::PaginationLinks) }
-    def links; end
-
-    sig { params(value: SellApp::PaginationLinks).returns(SellApp::PaginationLinks) }
-    def links=(value); end
-
-    sig { returns(SellApp::PaginationMeta) }
-    def meta; end
-
-    sig { params(value: SellApp::PaginationMeta).returns(SellApp::PaginationMeta) }
-    def meta=(value); end
-
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

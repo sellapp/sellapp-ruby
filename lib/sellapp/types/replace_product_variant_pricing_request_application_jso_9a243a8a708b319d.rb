@@ -4,12 +4,6 @@
 
 module SellApp
   module Types
-    class ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequencyInterval
-      DAY = 'DAY'
-      WEEK = 'WEEK'
-      MONTH = 'MONTH'
-      YEAR = 'YEAR'
-      ALL = [DAY, WEEK, MONTH, YEAR].freeze
-    end
+    ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequencyInterval = BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLengthInterval
   end
 end

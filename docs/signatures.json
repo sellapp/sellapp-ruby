@@ -2259,7 +2259,7 @@
     "operationId": "createProductVariant",
     "resource": "product_variants",
     "method": "create",
-    "nativeSignature": "def create(\n      product:,\n      title:,\n      description:,\n      deliverable:,\n      pricing:,\n      payment_methods:,\n      minimum_purchase_quantity: nil,\n      maximum_purchase_quantity: SellApp::OMIT,\n      bulk_discount: nil,\n      other_settings: nil,\n      expected_updated_at: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def create(\n      product:,\n      title:,\n      description:,\n      deliverable:,\n      pricing:,\n      payment_methods:,\n      minimum_purchase_quantity: nil,\n      maximum_purchase_quantity: SellApp::OMIT,\n      bulk_discount: nil,\n      custom_payment_method_ids: nil,\n      other_settings: nil,\n      expected_updated_at: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "create",
@@ -2314,6 +2314,12 @@
           },
           {
             "name": "bulk_discount",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "custom_payment_method_ids",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -2393,7 +2399,7 @@
     "operationId": "replaceProductVariantWithPut",
     "resource": "product_variants",
     "method": "replace",
-    "nativeSignature": "def replace(\n      product:,\n      variant:,\n      title: nil,\n      description: nil,\n      deliverable: nil,\n      pricing: nil,\n      minimum_purchase_quantity: nil,\n      maximum_purchase_quantity: SellApp::OMIT,\n      bulk_discount: nil,\n      payment_methods: nil,\n      other_settings: nil,\n      expected_updated_at: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def replace(\n      product:,\n      variant:,\n      title: nil,\n      description: nil,\n      deliverable: nil,\n      pricing: nil,\n      minimum_purchase_quantity: nil,\n      maximum_purchase_quantity: SellApp::OMIT,\n      bulk_discount: nil,\n      payment_methods: nil,\n      custom_payment_method_ids: nil,\n      other_settings: nil,\n      expected_updated_at: nil,\n      stock: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "replace",
@@ -2459,6 +2465,12 @@
             "passingStyle": "keyword"
           },
           {
+            "name": "custom_payment_method_ids",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
             "name": "other_settings",
             "type": "Object",
             "optional": true,
@@ -2466,6 +2478,12 @@
           },
           {
             "name": "expected_updated_at",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "stock",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -2487,7 +2505,7 @@
     "operationId": "updateProductVariant",
     "resource": "product_variants",
     "method": "update",
-    "nativeSignature": "def update(\n      product:,\n      variant:,\n      title: nil,\n      description: nil,\n      deliverable: nil,\n      pricing: nil,\n      minimum_purchase_quantity: nil,\n      maximum_purchase_quantity: SellApp::OMIT,\n      bulk_discount: nil,\n      payment_methods: nil,\n      other_settings: nil,\n      expected_updated_at: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def update(\n      product:,\n      variant:,\n      title: nil,\n      description: nil,\n      deliverable: nil,\n      pricing: nil,\n      minimum_purchase_quantity: nil,\n      maximum_purchase_quantity: SellApp::OMIT,\n      bulk_discount: nil,\n      payment_methods: nil,\n      custom_payment_method_ids: nil,\n      other_settings: nil,\n      expected_updated_at: nil,\n      stock: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "update",
@@ -2553,6 +2571,12 @@
             "passingStyle": "keyword"
           },
           {
+            "name": "custom_payment_method_ids",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
             "name": "other_settings",
             "type": "Object",
             "optional": true,
@@ -2560,6 +2584,12 @@
           },
           {
             "name": "expected_updated_at",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "stock",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -2581,7 +2611,7 @@
     "operationId": "deleteProductVariant",
     "resource": "product_variants",
     "method": "delete",
-    "nativeSignature": "def delete(\n      product:,\n      variant:,\n      request_options: {}\n    )",
+    "nativeSignature": "def delete(\n      product:,\n      variant:,\n      expected_updated_at: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "delete",
@@ -2596,6 +2626,12 @@
             "name": "variant",
             "type": "Object",
             "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "expected_updated_at",
+            "type": "Object",
+            "optional": true,
             "passingStyle": "keyword"
           },
           {
@@ -3096,6 +3132,144 @@
     "sourceFile": "lib/sellapp/subscriptions.rb"
   },
   {
+    "operationId": "listSubscriptions",
+    "resource": "subscriptions",
+    "method": "list_subscriptions",
+    "nativeSignature": "def list_subscriptions(\n      limit: 15,\n      page: 1,\n      pagination: true,\n      status: nil,\n      request_options: {}\n    )",
+    "signatures": [
+      {
+        "name": "list_subscriptions",
+        "params": [
+          {
+            "name": "limit",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "page",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "pagination",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "status",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "request_options",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          }
+        ],
+        "returnType": "Object",
+        "async": false
+      }
+    ],
+    "sourceFile": "lib/sellapp/subscriptions.rb"
+  },
+  {
+    "operationId": "searchSubscriptions",
+    "resource": "subscriptions",
+    "method": "search_subscriptions",
+    "nativeSignature": "def search_subscriptions(\n      filters: nil,\n      sort: nil,\n      search: nil,\n      includes: nil,\n      limit: 15,\n      page: 1,\n      pagination: true,\n      request_options: {}\n    )",
+    "signatures": [
+      {
+        "name": "search_subscriptions",
+        "params": [
+          {
+            "name": "filters",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "sort",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "search",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "includes",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "limit",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "page",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "pagination",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "request_options",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          }
+        ],
+        "returnType": "Object",
+        "async": false
+      }
+    ],
+    "sourceFile": "lib/sellapp/subscriptions.rb"
+  },
+  {
+    "operationId": "getSubscription",
+    "resource": "subscriptions",
+    "method": "get_subscription",
+    "nativeSignature": "def get_subscription(\n      product_subscription:,\n      request_options: {}\n    )",
+    "signatures": [
+      {
+        "name": "get_subscription",
+        "params": [
+          {
+            "name": "product_subscription",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "request_options",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          }
+        ],
+        "returnType": "Object",
+        "async": false
+      }
+    ],
+    "sourceFile": "lib/sellapp/subscriptions.rb"
+  },
+  {
     "operationId": "getSubscriptionCapabilities",
     "resource": "subscriptions",
     "method": "get_capabilities",
@@ -3216,6 +3390,40 @@
     "sourceFile": "lib/sellapp/subscriptions.rb"
   },
   {
+    "operationId": "keepSubscription",
+    "resource": "subscriptions",
+    "method": "keep",
+    "nativeSignature": "def keep(\n      product_subscription:,\n      idempotency_key: SellApp::OMIT,\n      request_options: {}\n    )",
+    "signatures": [
+      {
+        "name": "keep",
+        "params": [
+          {
+            "name": "product_subscription",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "idempotency_key",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "request_options",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          }
+        ],
+        "returnType": "Object",
+        "async": false
+      }
+    ],
+    "sourceFile": "lib/sellapp/subscriptions.rb"
+  },
+  {
     "operationId": "pauseSubscription",
     "resource": "subscriptions",
     "method": "pause",
@@ -3299,7 +3507,7 @@
     "operationId": "updateSubscriptionPaymentMethod",
     "resource": "subscriptions",
     "method": "update_payment_method",
-    "nativeSignature": "def update_payment_method(\n      product_subscription:,\n      idempotency_key: SellApp::OMIT,\n      request_options: {}\n    )",
+    "nativeSignature": "def update_payment_method(\n      product_subscription:,\n      idempotency_key: SellApp::OMIT,\n      return_url: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "update_payment_method",
@@ -3312,6 +3520,12 @@
           },
           {
             "name": "idempotency_key",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "return_url",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -3562,72 +3776,68 @@
     "sourceFile": "lib/sellapp/subscriptions.rb"
   },
   {
-    "operationId": "listSubscriptions",
-    "resource": "subscriptions",
-    "method": "list_subscriptions",
-    "nativeSignature": "def list_subscriptions(request_options: {})",
+    "operationId": "listSubscriptionActions",
+    "resource": "subscriptions_actions",
+    "method": "list",
+    "nativeSignature": "def list(\n      product_subscription:,\n      limit: 15,\n      page: 1,\n      pagination: true,\n      request_options: {}\n    )",
     "signatures": [
       {
-        "name": "list_subscriptions",
-        "params": [
-          {
-            "name": "request_options",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          }
-        ],
-        "returnType": "Object",
-        "async": false
-      }
-    ],
-    "sourceFile": "lib/sellapp/subscriptions.rb"
-  },
-  {
-    "operationId": "searchSubscriptions",
-    "resource": "subscriptions",
-    "method": "search_subscriptions",
-    "nativeSignature": "def search_subscriptions(\n      search: nil,\n      status: nil,\n      request_options: {}\n    )",
-    "signatures": [
-      {
-        "name": "search_subscriptions",
-        "params": [
-          {
-            "name": "search",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "status",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "request_options",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          }
-        ],
-        "returnType": "Object",
-        "async": false
-      }
-    ],
-    "sourceFile": "lib/sellapp/subscriptions.rb"
-  },
-  {
-    "operationId": "getSubscription",
-    "resource": "subscriptions",
-    "method": "get_subscription",
-    "nativeSignature": "def get_subscription(\n      product_subscription:,\n      request_options: {}\n    )",
-    "signatures": [
-      {
-        "name": "get_subscription",
+        "name": "list",
         "params": [
           {
             "name": "product_subscription",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "limit",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "page",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "pagination",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "request_options",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          }
+        ],
+        "returnType": "Object",
+        "async": false
+      }
+    ],
+    "sourceFile": "lib/sellapp/subscriptions_actions.rb"
+  },
+  {
+    "operationId": "getSubscriptionAction",
+    "resource": "subscriptions_actions",
+    "method": "get",
+    "nativeSignature": "def get(\n      product_subscription:,\n      action:,\n      request_options: {}\n    )",
+    "signatures": [
+      {
+        "name": "get",
+        "params": [
+          {
+            "name": "product_subscription",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "action",
             "type": "Object",
             "optional": false,
             "passingStyle": "keyword"
@@ -3643,7 +3853,53 @@
         "async": false
       }
     ],
-    "sourceFile": "lib/sellapp/subscriptions.rb"
+    "sourceFile": "lib/sellapp/subscriptions_actions.rb"
+  },
+  {
+    "operationId": "dismissSubscriptionAction",
+    "resource": "subscriptions_actions",
+    "method": "dismiss",
+    "nativeSignature": "def dismiss(\n      product_subscription:,\n      action:,\n      note:,\n      idempotency_key: SellApp::OMIT,\n      request_options: {}\n    )",
+    "signatures": [
+      {
+        "name": "dismiss",
+        "params": [
+          {
+            "name": "product_subscription",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "action",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "note",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "idempotency_key",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "request_options",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          }
+        ],
+        "returnType": "Object",
+        "async": false
+      }
+    ],
+    "sourceFile": "lib/sellapp/subscriptions_actions.rb"
   },
   {
     "operationId": "listAppointments",
@@ -4447,7 +4703,7 @@
     "operationId": "createPromotion",
     "resource": "promotions",
     "method": "create",
-    "nativeSignature": "def create(\n      name:,\n      status:,\n      priority:,\n      is_stackable:,\n      phases:,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      max_redemptions: SellApp::OMIT,\n      request_options: {}\n    )",
+    "nativeSignature": "def create(\n      name:,\n      status:,\n      priority:,\n      is_stackable:,\n      phases:,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      max_redemptions: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "create",
@@ -4496,6 +4752,36 @@
           },
           {
             "name": "max_redemptions",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "store_wide",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "products",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "product_variants",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -4609,7 +4895,7 @@
     "operationId": "replacePromotion",
     "resource": "promotions",
     "method": "replace",
-    "nativeSignature": "def replace(\n      promotion:,\n      name: nil,\n      status: nil,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      priority: nil,\n      is_stackable: nil,\n      max_redemptions: SellApp::OMIT,\n      phases: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def replace(\n      promotion:,\n      name: nil,\n      status: nil,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      priority: nil,\n      is_stackable: nil,\n      max_redemptions: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      phases: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "replace",
@@ -4663,6 +4949,36 @@
             "passingStyle": "keyword"
           },
           {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "store_wide",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "products",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "product_variants",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
             "name": "phases",
             "type": "Object",
             "optional": true,
@@ -4685,7 +5001,7 @@
     "operationId": "updatePromotion",
     "resource": "promotions",
     "method": "update",
-    "nativeSignature": "def update(\n      promotion:,\n      name: nil,\n      status: nil,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      priority: nil,\n      is_stackable: nil,\n      max_redemptions: SellApp::OMIT,\n      phases: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def update(\n      promotion:,\n      name: nil,\n      status: nil,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      priority: nil,\n      is_stackable: nil,\n      max_redemptions: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      phases: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "update",
@@ -4734,6 +5050,36 @@
           },
           {
             "name": "max_redemptions",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "store_wide",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "products",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "product_variants",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -4789,7 +5135,7 @@
     "operationId": "restorePromotion",
     "resource": "promotions",
     "method": "restore",
-    "nativeSignature": "def restore(\n      promotion:,\n      name:,\n      status:,\n      priority:,\n      is_stackable:,\n      phases:,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      max_redemptions: SellApp::OMIT,\n      request_options: {}\n    )",
+    "nativeSignature": "def restore(\n      promotion:,\n      name:,\n      status:,\n      priority:,\n      is_stackable:,\n      phases:,\n      starts_at: SellApp::OMIT,\n      ends_at: SellApp::OMIT,\n      max_redemptions: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "restore",
@@ -4844,6 +5190,36 @@
           },
           {
             "name": "max_redemptions",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "store_wide",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "products",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "product_variants",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -14893,7 +15269,7 @@
     "operationId": "cancelCustomerSubscriptionAtPeriodEnd",
     "resource": "customer_portal",
     "method": "cancel_customer_subscription_at_period_end",
-    "nativeSignature": "def cancel_customer_subscription_at_period_end(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def cancel_customer_subscription_at_period_end(\n      product_subscription:,\n      reason: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "cancel_customer_subscription_at_period_end",
@@ -14902,30 +15278,6 @@
             "name": "product_subscription",
             "type": "Object",
             "optional": false,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
-            "type": "Object",
-            "optional": true,
             "passingStyle": "keyword"
           },
           {
@@ -14951,7 +15303,7 @@
     "operationId": "cancelCustomerSubscriptionImmediately",
     "resource": "customer_portal",
     "method": "cancel_customer_subscription_immediately",
-    "nativeSignature": "def cancel_customer_subscription_immediately(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def cancel_customer_subscription_immediately(\n      product_subscription:,\n      reason: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "cancel_customer_subscription_immediately",
@@ -14960,30 +15312,6 @@
             "name": "product_subscription",
             "type": "Object",
             "optional": false,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
-            "type": "Object",
-            "optional": true,
             "passingStyle": "keyword"
           },
           {
@@ -15009,7 +15337,7 @@
     "operationId": "pauseCustomerSubscription",
     "resource": "customer_portal",
     "method": "pause_customer_subscription",
-    "nativeSignature": "def pause_customer_subscription(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def pause_customer_subscription(\n      product_subscription:,\n      resume_at: SellApp::OMIT,\n      reason: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "pause_customer_subscription",
@@ -15021,25 +15349,7 @@
             "passingStyle": "keyword"
           },
           {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
+            "name": "resume_at",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -15067,7 +15377,7 @@
     "operationId": "resumeCustomerSubscription",
     "resource": "customer_portal",
     "method": "resume_customer_subscription",
-    "nativeSignature": "def resume_customer_subscription(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def resume_customer_subscription(\n      product_subscription:,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "resume_customer_subscription",
@@ -15076,36 +15386,6 @@
             "name": "product_subscription",
             "type": "Object",
             "optional": false,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "reason",
-            "type": "Object",
-            "optional": true,
             "passingStyle": "keyword"
           },
           {
@@ -15125,7 +15405,7 @@
     "operationId": "updateCustomerSubscriptionPaymentMethod",
     "resource": "customer_portal",
     "method": "update_customer_subscription_payment_method",
-    "nativeSignature": "def update_customer_subscription_payment_method(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def update_customer_subscription_payment_method(\n      product_subscription:,\n      return_url: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "update_customer_subscription_payment_method",
@@ -15137,31 +15417,7 @@
             "passingStyle": "keyword"
           },
           {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
             "name": "return_url",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "reason",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -15183,7 +15439,7 @@
     "operationId": "previewCustomerSubscriptionPlanChange",
     "resource": "customer_portal",
     "method": "preview_customer_subscription_plan_change",
-    "nativeSignature": "def preview_customer_subscription_plan_change(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def preview_customer_subscription_plan_change(\n      product_subscription:,\n      target_variant_id:,\n      effective_timing: nil,\n      proration_behavior: nil,\n      metadata: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "preview_customer_subscription_plan_change",
@@ -15195,31 +15451,25 @@
             "passingStyle": "keyword"
           },
           {
-            "name": "preview_id",
+            "name": "target_variant_id",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "effective_timing",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
           },
           {
-            "name": "product_variant_id",
+            "name": "proration_behavior",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
           },
           {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "reason",
+            "name": "metadata",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -15241,7 +15491,7 @@
     "operationId": "confirmCustomerSubscriptionPlanChange",
     "resource": "customer_portal",
     "method": "confirm_customer_subscription_plan_change",
-    "nativeSignature": "def confirm_customer_subscription_plan_change(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def confirm_customer_subscription_plan_change(\n      product_subscription:,\n      target_variant_id:,\n      preview_token:,\n      effective_timing: nil,\n      proration_behavior: nil,\n      metadata: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "confirm_customer_subscription_plan_change",
@@ -15253,31 +15503,31 @@
             "passingStyle": "keyword"
           },
           {
-            "name": "preview_id",
+            "name": "target_variant_id",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "preview_token",
+            "type": "Object",
+            "optional": false,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "effective_timing",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
           },
           {
-            "name": "product_variant_id",
+            "name": "proration_behavior",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
           },
           {
-            "name": "renewal_date",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "reason",
+            "name": "metadata",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -15299,7 +15549,7 @@
     "operationId": "previewCustomerSubscriptionRenewalDateChange",
     "resource": "customer_portal",
     "method": "preview_customer_subscription_renewal_date_change",
-    "nativeSignature": "def preview_customer_subscription_renewal_date_change(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def preview_customer_subscription_renewal_date_change(\n      product_subscription:,\n      renewal_date:,\n      reason: SellApp::OMIT,\n      metadata: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "preview_customer_subscription_renewal_date_change",
@@ -15311,31 +15561,19 @@
             "passingStyle": "keyword"
           },
           {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
             "name": "renewal_date",
             "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "return_url",
-            "type": "Object",
-            "optional": true,
+            "optional": false,
             "passingStyle": "keyword"
           },
           {
             "name": "reason",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "metadata",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -15357,7 +15595,7 @@
     "operationId": "confirmCustomerSubscriptionRenewalDateChange",
     "resource": "customer_portal",
     "method": "confirm_customer_subscription_renewal_date_change",
-    "nativeSignature": "def confirm_customer_subscription_renewal_date_change(\n      product_subscription:,\n      preview_id: nil,\n      product_variant_id: nil,\n      renewal_date: nil,\n      return_url: nil,\n      reason: nil,\n      request_options: {}\n    )",
+    "nativeSignature": "def confirm_customer_subscription_renewal_date_change(\n      product_subscription:,\n      renewal_date:,\n      preview_token: SellApp::OMIT,\n      reason: SellApp::OMIT,\n      metadata: nil,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "confirm_customer_subscription_renewal_date_change",
@@ -15369,31 +15607,25 @@
             "passingStyle": "keyword"
           },
           {
-            "name": "preview_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
-            "name": "product_variant_id",
-            "type": "Object",
-            "optional": true,
-            "passingStyle": "keyword"
-          },
-          {
             "name": "renewal_date",
             "type": "Object",
-            "optional": true,
+            "optional": false,
             "passingStyle": "keyword"
           },
           {
-            "name": "return_url",
+            "name": "preview_token",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
           },
           {
             "name": "reason",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "metadata",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -16007,7 +16239,7 @@
     "operationId": "createCoupon",
     "resource": "coupons",
     "method": "create",
-    "nativeSignature": "def create(\n      code:,\n      type:,\n      discount:,\n      store_wide:,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      request_options: {}\n    )",
+    "nativeSignature": "def create(\n      code:,\n      type:,\n      discount:,\n      store_wide:,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "create",
@@ -16062,6 +16294,18 @@
           },
           {
             "name": "minimum_amount",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -16123,7 +16367,7 @@
     "operationId": "replaceCoupon",
     "resource": "coupons",
     "method": "replace",
-    "nativeSignature": "def replace(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
+    "nativeSignature": "def replace(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "replace",
@@ -16189,6 +16433,18 @@
             "passingStyle": "keyword"
           },
           {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
             "name": "with_trashed",
             "type": "Object",
             "optional": true,
@@ -16217,7 +16473,7 @@
     "operationId": "updateCoupon",
     "resource": "coupons",
     "method": "update",
-    "nativeSignature": "def update(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
+    "nativeSignature": "def update(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "update",
@@ -16278,6 +16534,18 @@
           },
           {
             "name": "minimum_amount",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -17613,7 +17881,7 @@
     "operationId": "v2CreateCoupon",
     "resource": "coupons",
     "method": "v2_create_coupon",
-    "nativeSignature": "def v2_create_coupon(\n      code:,\n      type:,\n      discount:,\n      store_wide:,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      request_options: {}\n    )",
+    "nativeSignature": "def v2_create_coupon(\n      code:,\n      type:,\n      discount:,\n      store_wide:,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "v2_create_coupon",
@@ -17668,6 +17936,18 @@
           },
           {
             "name": "minimum_amount",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"
@@ -17787,7 +18067,7 @@
     "operationId": "v2ReplaceCoupon",
     "resource": "coupons",
     "method": "v2_replace_coupon",
-    "nativeSignature": "def v2_replace_coupon(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
+    "nativeSignature": "def v2_replace_coupon(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "v2_replace_coupon",
@@ -17853,6 +18133,18 @@
             "passingStyle": "keyword"
           },
           {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
             "name": "with_trashed",
             "type": "Object",
             "optional": true,
@@ -17881,7 +18173,7 @@
     "operationId": "v2UpdateCoupon",
     "resource": "coupons",
     "method": "v2_update_coupon",
-    "nativeSignature": "def v2_update_coupon(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
+    "nativeSignature": "def v2_update_coupon(\n      coupon:,\n      code: nil,\n      type: nil,\n      discount: nil,\n      store_wide: nil,\n      products: nil,\n      product_variants: nil,\n      limit: SellApp::OMIT,\n      expires_at: SellApp::OMIT,\n      minimum_amount: SellApp::OMIT,\n      applies_to: nil,\n      subscription_payments: SellApp::OMIT,\n      with_trashed: false,\n      only_trashed: false,\n      request_options: {}\n    )",
     "signatures": [
       {
         "name": "v2_update_coupon",
@@ -17942,6 +18234,18 @@
           },
           {
             "name": "minimum_amount",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "applies_to",
+            "type": "Object",
+            "optional": true,
+            "passingStyle": "keyword"
+          },
+          {
+            "name": "subscription_payments",
             "type": "Object",
             "optional": true,
             "passingStyle": "keyword"

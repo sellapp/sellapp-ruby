@@ -9,10 +9,10 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(SellApp::GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyData) }
+    sig { returns(SellApp::CustomerPortalSubscription) }
     def data; end
 
-    sig { params(value: SellApp::GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyData).returns(SellApp::GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyData) }
+    sig { params(value: SellApp::CustomerPortalSubscription).returns(SellApp::CustomerPortalSubscription) }
     def data=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

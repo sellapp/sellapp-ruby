@@ -18,6 +18,8 @@ module SellApp
       store_id: :store_id,
       deleted_at: :deleted_at,
       maximum_discount_amount: :maximum_discount_amount,
+      applies_to: :applies_to,
+      subscription_payments: :subscription_payments,
       products: :products,
       product_variants: :product_variants
     }.freeze
@@ -36,6 +38,8 @@ module SellApp
       store_id: {required: true, schema: {kind: :integer}},
       deleted_at: {required: true, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
       maximum_discount_amount: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      applies_to: {required: true, schema: {kind: :enum, values: ["one_time", "subscriptions"]}},
+      subscription_payments: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
       products: {required: true, schema: {kind: :array, items: {kind: :integer}}},
       product_variants: {required: true, schema: {kind: :array, items: {kind: :integer}}}
     }.freeze
@@ -56,6 +60,8 @@ module SellApp
       :store_id,
       :deleted_at,
       :maximum_discount_amount,
+      :applies_to,
+      :subscription_payments,
       :products,
       :product_variants
 
@@ -77,6 +83,8 @@ module SellApp
       @store_id = hash[:store_id]
       @deleted_at = hash[:deleted_at]
       @maximum_discount_amount = hash[:maximum_discount_amount]
+      @applies_to = hash[:applies_to]
+      @subscription_payments = hash[:subscription_payments]
       @products = hash[:products]
       @product_variants = hash[:product_variants]
     end

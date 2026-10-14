@@ -39,6 +39,12 @@ module SellApp
     sig { params(value: T.nilable(SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency)).returns(T.nilable(SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency)) }
     def frequency=(value); end
 
+    sig { returns(T.nilable(SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial)) }
+    def trial; end
+
+    sig { params(value: T.nilable(SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial)).returns(T.nilable(SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial)) }
+    def trial=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

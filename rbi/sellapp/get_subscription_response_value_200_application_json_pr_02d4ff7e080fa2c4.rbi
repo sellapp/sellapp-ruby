@@ -39,10 +39,10 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def locale=(value); end
 
-    sig { returns(SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata) }
+    sig { returns(T::Hash[String, SellApp::ScalarMetadataValue]) }
     def metadata; end
 
-    sig { params(value: SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata).returns(SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata) }
+    sig { params(value: T::Hash[String, SellApp::ScalarMetadataValue]).returns(T::Hash[String, SellApp::ScalarMetadataValue]) }
     def metadata=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

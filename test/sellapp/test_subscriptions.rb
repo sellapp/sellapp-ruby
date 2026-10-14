@@ -13,8 +13,29 @@ class SubscriptionsTest < Minitest::Test
 
   def test_cancel_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/subscriptions/1/cancel(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"invoice_id":1,"provider":"stub","subscription_id":"stub","customer_id":"stub","customer_email":"stub","status":"stub","current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","cancel_at_period_end":true,"cancellation_in_progress":true,"store_id":1,"product_variant_id":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"message":"stub"}', status: 200)
+      .to_return(body: '{"data":{"id":1,"invoice_id":1,"provider":"stub","subscription_id":"stub","customer_id":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}},"customer_email":"stub","status":"ACTIVE","current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","cancel_at_period_end":true,"cancellation_in_progress":true,"store_id":1,"product_variant_id":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"message":"stub"}', status: 200)
     result = @client.subscriptions.cancel(subscription: 1, cancel_at_period_end: true)
+    refute_nil result
+  end
+
+  def test_list_subscriptions_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/subscriptions(\?|\z)})
+      .to_return(body: '{}', status: 200)
+    result = @client.subscriptions.list_subscriptions()
+    refute_nil result
+  end
+
+  def test_search_subscriptions_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/search(\?|\z)})
+      .to_return(body: '{}', status: 200)
+    result = @client.subscriptions.search_subscriptions()
+    refute_nil result
+  end
+
+  def test_get_subscription_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/subscriptions/1(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"invoice_id":1,"provider":"stub","subscription_id":"stub","customer_id":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}},"customer_email":"stub","status":"ACTIVE","current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","cancel_at_period_end":true,"cancellation_in_progress":true,"store_id":1,"product_variant_id":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+    result = @client.subscriptions.get_subscription(product_subscription: 1)
     refute_nil result
   end
 
@@ -39,6 +60,13 @@ class SubscriptionsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_keep_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/keep(\?|\z)})
+      .to_return(body: '{"data":{},"message":"stub"}', status: 200)
+    result = @client.subscriptions.keep(product_subscription: 1)
+    refute_nil result
+  end
+
   def test_pause_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/pause(\?|\z)})
       .to_return(body: '{"data":{},"message":"stub"}', status: 200)
@@ -55,21 +83,21 @@ class SubscriptionsTest < Minitest::Test
 
   def test_update_payment_method_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/update-payment-method(\?|\z)})
-      .to_return(body: '"stub"', status: 200)
+      .to_return(body: '{"data":{},"message":"stub","redirect_url":"https://example.com"}', status: 200)
     result = @client.subscriptions.update_payment_method(product_subscription: 1)
     refute_nil result
   end
 
   def test_preview_plan_change_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/change-plan/preview(\?|\z)})
-      .to_return(body: '"stub"', status: 200)
+      .to_return(body: '{"data":{},"message":"stub"}', status: 200)
     result = @client.subscriptions.preview_plan_change(product_subscription: 1, target_variant_id: 1)
     refute_nil result
   end
 
   def test_confirm_plan_change_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/change-plan/confirm(\?|\z)})
-      .to_return(body: '"stub"', status: 200)
+      .to_return(body: '{"data":{},"message":"stub"}', status: 200)
     result = @client.subscriptions.confirm_plan_change(product_subscription: 1, target_variant_id: 1, preview_token: 'stub')
     refute_nil result
   end
@@ -88,33 +116,16 @@ class SubscriptionsTest < Minitest::Test
     refute_nil result
   end
 
-  def test_list_subscriptions_returns_expected_result
-    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/subscriptions(\?|\z)})
-      .to_return(body: '{"data":[],"links":{"first":"stub","last":"stub","prev":"stub","next":"stub"},"meta":{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1}}', status: 200)
-    result = @client.subscriptions.list_subscriptions()
-    refute_nil result
-  end
-
-  def test_search_subscriptions_returns_expected_result
-    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/subscriptions/search(\?|\z)})
-      .to_return(body: '{"data":[],"links":{"first":"stub","last":"stub","prev":"stub","next":"stub"},"meta":{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1}}', status: 200)
-    result = @client.subscriptions.search_subscriptions()
-    refute_nil result
-  end
-
-  def test_get_subscription_returns_expected_result
-    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/subscriptions/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
-    result = @client.subscriptions.get_subscription(product_subscription: 1)
-    refute_nil result
-  end
-
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :cancel, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/cancel(\?|\z)}, args: {subscription: 1, cancel_at_period_end: true}},
+    {name: :list_subscriptions, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/subscriptions(\?|\z)}},
+    {name: :search_subscriptions, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/search(\?|\z)}},
+    {name: :get_subscription, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1(\?|\z)}, args: {product_subscription: 1}},
     {name: :get_capabilities, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/capabilities(\?|\z)}, args: {product_subscription: 1}},
     {name: :cancel_at_period_end, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/cancel-period-end(\?|\z)}, args: {product_subscription: 1}},
     {name: :cancel_immediately, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/cancel-immediately(\?|\z)}, args: {product_subscription: 1}},
+    {name: :keep, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/keep(\?|\z)}, args: {product_subscription: 1}},
     {name: :pause, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/pause(\?|\z)}, args: {product_subscription: 1}},
     {name: :resume, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/resume(\?|\z)}, args: {product_subscription: 1}},
     {name: :update_payment_method, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/update-payment-method(\?|\z)}, args: {product_subscription: 1}},
@@ -122,9 +133,6 @@ class SubscriptionsTest < Minitest::Test
     {name: :confirm_plan_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/change-plan/confirm(\?|\z)}, args: {product_subscription: 1, target_variant_id: 1, preview_token: 'stub'}},
     {name: :preview_renewal_date, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/change-renewal-date/preview(\?|\z)}, args: {product_subscription: 1, renewal_date: '2024-01-01T00:00:00Z'}},
     {name: :confirm_renewal_date, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1/actions/change-renewal-date/confirm(\?|\z)}, args: {product_subscription: 1, renewal_date: '2024-01-01T00:00:00Z'}},
-    {name: :list_subscriptions, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/subscriptions(\?|\z)}},
-    {name: :search_subscriptions, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/search(\?|\z)}},
-    {name: :get_subscription, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/subscriptions/1(\?|\z)}, args: {product_subscription: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

@@ -10,7 +10,7 @@ module SellApp
     }.freeze
 
     SCHEMA = {
-      history: {required: true, schema: {kind: :array, items: {kind: :string}}},
+      history: {required: true, schema: {kind: :array, items: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem"}}},
       status: {required: true, schema: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus"}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
@@ -25,7 +25,7 @@ module SellApp
       self.class.validate_schema!(hash, SCHEMA, direction: :response, additional_properties: ADDITIONAL_PROPERTIES, constraints: MODEL_CONSTRAINTS)
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
-      @history = hash[:history]
+      @history = hash[:history] ? hash[:history].map { |item| item ? SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem.new(item) : nil } : nil
       @status = hash[:status] ? SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus.new(hash[:status]) : nil
     end
   end

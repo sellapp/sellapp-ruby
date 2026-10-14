@@ -13,6 +13,7 @@ module SellApp
       maximum_purchase_quantity: :maximum_purchase_quantity,
       bulk_discount: :bulk_discount,
       payment_methods: :payment_methods,
+      custom_payment_method_ids: :custom_payment_method_ids,
       other_settings: :other_settings,
       expected_updated_at: :expected_updated_at
     }.freeze
@@ -26,6 +27,7 @@ module SellApp
       maximum_purchase_quantity: {required: false, schema: {kind: :nullable, inner: {kind: :integer}}},
       bulk_discount: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyBulkDiscountItem"}}},
       payment_methods: {required: true, schema: {kind: :array, items: {kind: :enum, values: ["AUTHNET", "BTCPAY", "CASHAPP", "COINBASE", "PADDLE", "PAYDASH", "PAYPAL", "PAYSTACK", "SQUARE", "STRIPE", "VENMO", "NMI", "MERCADO_PAGO", "MOLLIE", "RAZORPAY", "CUSTOM_PAYMENT_METHOD", "LIFI", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI", "BNB_USDT", "BNB_USDC", "TRX_USDT", "TRX_USDC", "SOL_USDT", "SOL_USDC"]}, min: 1}},
+      custom_payment_method_ids: {required: false, schema: {kind: :array, items: {kind: :string, pattern: "^[0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{26}$"}}},
       other_settings: {required: false, schema: {kind: :model, name: "SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyOtherSettings"}},
       expected_updated_at: {required: false, schema: {kind: :string, format: "date-time"}}
     }.freeze
@@ -41,6 +43,7 @@ module SellApp
       :maximum_purchase_quantity,
       :bulk_discount,
       :payment_methods,
+      :custom_payment_method_ids,
       :other_settings,
       :expected_updated_at
 
@@ -57,6 +60,7 @@ module SellApp
       @maximum_purchase_quantity = hash[:maximum_purchase_quantity]
       @bulk_discount = hash[:bulk_discount] ? hash[:bulk_discount].map { |item| item ? SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyBulkDiscountItem.new(item) : nil } : nil
       @payment_methods = hash[:payment_methods]
+      @custom_payment_method_ids = hash[:custom_payment_method_ids]
       @other_settings = hash[:other_settings] ? SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyOtherSettings.new(hash[:other_settings]) : nil
       @expected_updated_at = hash[:expected_updated_at]
     end

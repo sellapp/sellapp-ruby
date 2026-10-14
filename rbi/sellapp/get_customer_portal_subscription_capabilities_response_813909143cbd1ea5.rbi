@@ -10,10 +10,10 @@ module SellApp
     def initialize(json); end
 
     sig { returns(Integer) }
-    def subscription_id; end
+    def id; end
 
     sig { params(value: Integer).returns(Integer) }
-    def subscription_id=(value); end
+    def id=(value); end
 
     sig { returns(SellApp::GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilities) }
     def capabilities; end

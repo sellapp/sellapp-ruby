@@ -45,6 +45,18 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def provider=(value); end
 
+    sig { returns(T.nilable(Integer)) }
+    def proration_order_id; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def proration_order_id=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def error; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def error=(value); end
+
     sig { returns(T.nilable(String)) }
     def customer_message; end
 

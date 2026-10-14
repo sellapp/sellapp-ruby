@@ -15,6 +15,12 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def idempotency_key=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def return_url; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def return_url=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

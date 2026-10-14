@@ -9,7 +9,8 @@ module SellApp
       price: :price,
       compare_at_price: :compare_at_price,
       humble: :humble,
-      frequency: :frequency
+      frequency: :frequency,
+      trial: :trial
     }.freeze
 
     SCHEMA = {
@@ -17,7 +18,8 @@ module SellApp
       price: {required: false, schema: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyPrice"}},
       compare_at_price: {required: false, schema: {kind: :nullable, inner: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyCompareAtPrice"}}},
       humble: {required: false, schema: {kind: :boolean}},
-      frequency: {required: false, schema: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency"}}
+      frequency: {required: false, schema: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency"}},
+      trial: {required: false, schema: {kind: :nullable, inner: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial"}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -27,7 +29,8 @@ module SellApp
       :price,
       :compare_at_price,
       :humble,
-      :frequency
+      :frequency,
+      :trial
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -39,6 +42,7 @@ module SellApp
       @compare_at_price = hash[:compare_at_price] ? SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyCompareAtPrice.new(hash[:compare_at_price]) : nil
       @humble = hash[:humble]
       @frequency = hash[:frequency] ? SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency.new(hash[:frequency]) : nil
+      @trial = hash[:trial] ? SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial.new(hash[:trial]) : nil
     end
   end
 end

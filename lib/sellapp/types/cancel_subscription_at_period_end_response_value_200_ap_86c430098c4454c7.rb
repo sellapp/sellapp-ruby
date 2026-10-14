@@ -4,15 +4,6 @@
 
 module SellApp
   module Types
-    class CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction
-      PAUSE = 'pause'
-      RESUME = 'resume'
-      CANCEL_AT_PERIOD_END = 'cancel_at_period_end'
-      CANCEL_IMMEDIATELY = 'cancel_immediately'
-      UPDATE_PAYMENT_METHOD = 'update_payment_method'
-      CHANGE_PLAN = 'change_plan'
-      SHIFT_BILLING_DATE = 'shift_billing_date'
-      ALL = [PAUSE, RESUME, CANCEL_AT_PERIOD_END, CANCEL_IMMEDIATELY, UPDATE_PAYMENT_METHOD, CHANGE_PLAN, SHIFT_BILLING_DATE].freeze
-    end
+    CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction = CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction
   end
 end

@@ -361,11 +361,7 @@ Cancel at period end
 ```ruby
 def cancel_customer_subscription_at_period_end(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      reason: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -373,10 +369,6 @@ def cancel_customer_subscription_at_period_end(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
 | reason | `Object` | No |
 | request_options | `Object` | No |
 
@@ -389,8 +381,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.cancel_customer_subscription_at_period_end(
   product_subscription: 42,
-  reason: "Customer requested this change",
-  request_options: { idempotency_key: "example-mutation-001" }
+  reason: "Taking a break over the summer."
 )
 puts result.inspect
 ```
@@ -420,11 +411,7 @@ Cancel immediately
 ```ruby
 def cancel_customer_subscription_immediately(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      reason: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -432,10 +419,6 @@ def cancel_customer_subscription_immediately(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
 | reason | `Object` | No |
 | request_options | `Object` | No |
 
@@ -448,8 +431,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.cancel_customer_subscription_immediately(
   product_subscription: 42,
-  reason: "Customer requested this change",
-  request_options: { idempotency_key: "example-mutation-001" }
+  reason: "No longer needed."
 )
 puts result.inspect
 ```
@@ -479,11 +461,8 @@ Pause a subscription
 ```ruby
 def pause_customer_subscription(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      resume_at: SellApp::OMIT,
+      reason: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -491,10 +470,7 @@ def pause_customer_subscription(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
+| resume_at | `Object` | No |
 | reason | `Object` | No |
 | request_options | `Object` | No |
 
@@ -507,8 +483,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.pause_customer_subscription(
   product_subscription: 42,
-  reason: "Customer requested this change",
-  request_options: { idempotency_key: "example-mutation-001" }
+  resume_at: "2026-11-01T00:00:00Z"
 )
 puts result.inspect
 ```
@@ -538,11 +513,6 @@ Resume a subscription
 ```ruby
 def resume_customer_subscription(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
       request_options: {}
     )
 ```
@@ -550,11 +520,6 @@ def resume_customer_subscription(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
-| reason | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -564,11 +529,7 @@ require "sellapp"
 
 client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), customer_session: ENV.fetch("SELLAPP_CUSTOMER_SESSION"), store: "")
 
-result = client.customer_portal.resume_customer_subscription(
-  product_subscription: 42,
-  reason: "Customer requested this change",
-  request_options: { idempotency_key: "example-mutation-001" }
-)
+result = client.customer_portal.resume_customer_subscription(product_subscription: 42)
 puts result.inspect
 ```
 
@@ -597,11 +558,7 @@ Update payment method
 ```ruby
 def update_customer_subscription_payment_method(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      return_url: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -609,11 +566,7 @@ def update_customer_subscription_payment_method(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
 | return_url | `Object` | No |
-| reason | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -625,8 +578,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.update_customer_subscription_payment_method(
   product_subscription: 42,
-  reason: "Customer requested this change",
-  request_options: { idempotency_key: "example-mutation-001" }
+  return_url: "https://acme.sell.app/customer-portal/subscriptions/991"
 )
 puts result.inspect
 ```
@@ -656,11 +608,10 @@ Preview a plan change
 ```ruby
 def preview_customer_subscription_plan_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      target_variant_id:,
+      effective_timing: nil,
+      proration_behavior: nil,
+      metadata: nil,
       request_options: {}
     )
 ```
@@ -668,11 +619,10 @@ def preview_customer_subscription_plan_change(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
-| reason | `Object` | No |
+| target_variant_id | `Object` | Yes |
+| effective_timing | `Object` | No |
+| proration_behavior | `Object` | No |
+| metadata | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -684,8 +634,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.preview_customer_subscription_plan_change(
   product_subscription: 42,
-  product_variant_id: 84,
-  request_options: { idempotency_key: "example-mutation-001" }
+  target_variant_id: 97
 )
 puts result.inspect
 ```
@@ -715,11 +664,11 @@ Confirm a plan change
 ```ruby
 def confirm_customer_subscription_plan_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      target_variant_id:,
+      preview_token:,
+      effective_timing: nil,
+      proration_behavior: nil,
+      metadata: nil,
       request_options: {}
     )
 ```
@@ -727,11 +676,11 @@ def confirm_customer_subscription_plan_change(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
-| reason | `Object` | No |
+| target_variant_id | `Object` | Yes |
+| preview_token | `Object` | Yes |
+| effective_timing | `Object` | No |
+| proration_behavior | `Object` | No |
+| metadata | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -743,8 +692,8 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.confirm_customer_subscription_plan_change(
   product_subscription: 42,
-  preview_id: "preview_01K4",
-  request_options: { idempotency_key: "example-mutation-001" }
+  target_variant_id: 97,
+  preview_token: "subprev_portal_991"
 )
 puts result.inspect
 ```
@@ -774,11 +723,9 @@ Preview a renewal-date change
 ```ruby
 def preview_customer_subscription_renewal_date_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      renewal_date:,
+      reason: SellApp::OMIT,
+      metadata: nil,
       request_options: {}
     )
 ```
@@ -786,11 +733,9 @@ def preview_customer_subscription_renewal_date_change(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
+| renewal_date | `Object` | Yes |
 | reason | `Object` | No |
+| metadata | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -802,8 +747,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.preview_customer_subscription_renewal_date_change(
   product_subscription: 42,
-  renewal_date: "2026-10-15",
-  request_options: { idempotency_key: "example-mutation-001" }
+  renewal_date: "2026-10-15T00:00:00Z"
 )
 puts result.inspect
 ```
@@ -833,11 +777,10 @@ Confirm a renewal-date change
 ```ruby
 def confirm_customer_subscription_renewal_date_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      renewal_date:,
+      preview_token: SellApp::OMIT,
+      reason: SellApp::OMIT,
+      metadata: nil,
       request_options: {}
     )
 ```
@@ -845,11 +788,10 @@ def confirm_customer_subscription_renewal_date_change(
 | Argument | Native type | Required |
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
-| preview_id | `Object` | No |
-| product_variant_id | `Object` | No |
-| renewal_date | `Object` | No |
-| return_url | `Object` | No |
+| renewal_date | `Object` | Yes |
+| preview_token | `Object` | No |
 | reason | `Object` | No |
+| metadata | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -861,8 +803,8 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), custom
 
 result = client.customer_portal.confirm_customer_subscription_renewal_date_change(
   product_subscription: 42,
-  preview_id: "preview_01K4",
-  request_options: { idempotency_key: "example-mutation-001" }
+  renewal_date: "2026-10-15T00:00:00Z",
+  preview_token: "subprev_portal_renewal_991"
 )
 puts result.inspect
 ```

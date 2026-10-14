@@ -58,7 +58,7 @@ module SellApp
     # @param use_all_payment_methods [Boolean, nil]
     # @param deliverable [SellApp::CreateChargeRequestApplicationJsonPropertyDeliverable, nil]
     # @param metadata [SellApp::CreateChargeRequestApplicationJsonPropertyMetadata, nil]
-    # @param coupon_code [String, nil]
+    # @param coupon_code [String, nil] Optional coupon code. A charge takes a store-wide coupon for one-time purchases only: a coupon whose `applies_to` is `subscriptions` returns `422` with `Coupon code {code} only applies to subscriptions.`
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCreateChargeResponseValue201ApplicationJson]
     def create(

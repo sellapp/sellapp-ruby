@@ -4,14 +4,6 @@
 
 module SellApp
   module Types
-    class GetSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValueStatus
-      AVAILABLE = 'available'
-      REQUIRES_REDIRECT = 'requires_redirect'
-      SELLER_ONLY = 'seller_only'
-      CUSTOMER_ONLY = 'customer_only'
-      MANUAL_PRORATION = 'manual_proration'
-      UNSUPPORTED = 'unsupported'
-      ALL = [AVAILABLE, REQUIRES_REDIRECT, SELLER_ONLY, CUSTOMER_ONLY, MANUAL_PRORATION, UNSUPPORTED].freeze
-    end
+    GetSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValueStatus = GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValueStatus
   end
 end

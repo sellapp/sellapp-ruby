@@ -57,6 +57,36 @@ module SellApp
     sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def max_redemptions=(value); end
 
+    sig { returns(String) }
+    def applies_to; end
+
+    sig { params(value: String).returns(String) }
+    def applies_to=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def subscription_payments; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def subscription_payments=(value); end
+
+    sig { returns(T::Boolean) }
+    def store_wide; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def store_wide=(value); end
+
+    sig { returns(T::Array[Integer]) }
+    def products; end
+
+    sig { params(value: T::Array[Integer]).returns(T::Array[Integer]) }
+    def products=(value); end
+
+    sig { returns(T::Array[Integer]) }
+    def product_variants; end
+
+    sig { params(value: T::Array[Integer]).returns(T::Array[Integer]) }
+    def product_variants=(value); end
+
     sig { returns(T::Array[SellApp::RestorePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem]) }
     def phases; end
 

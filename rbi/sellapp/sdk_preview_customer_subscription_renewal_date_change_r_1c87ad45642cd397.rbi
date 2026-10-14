@@ -9,35 +9,23 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(T.nilable(String)) }
-    def preview_id; end
-
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def preview_id=(value); end
-
-    sig { returns(T.nilable(Integer)) }
-    def product_variant_id; end
-
-    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
-    def product_variant_id=(value); end
-
-    sig { returns(T.nilable(String)) }
+    sig { returns(String) }
     def renewal_date; end
 
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    sig { params(value: String).returns(String) }
     def renewal_date=(value); end
-
-    sig { returns(T.nilable(String)) }
-    def return_url; end
-
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def return_url=(value); end
 
     sig { returns(T.nilable(String)) }
     def reason; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def reason=(value); end
+
+    sig { returns(T.nilable(SellApp::PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata)) }
+    def metadata; end
+
+    sig { params(value: T.nilable(SellApp::PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata)).returns(T.nilable(SellApp::PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata)) }
+    def metadata=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end

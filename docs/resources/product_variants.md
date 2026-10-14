@@ -78,6 +78,7 @@ def create(
       minimum_purchase_quantity: nil,
       maximum_purchase_quantity: SellApp::OMIT,
       bulk_discount: nil,
+      custom_payment_method_ids: nil,
       other_settings: nil,
       expected_updated_at: nil,
       request_options: {}
@@ -95,6 +96,7 @@ def create(
 | minimum_purchase_quantity | `Object` | No |
 | maximum_purchase_quantity | `Object` | No |
 | bulk_discount | `Object` | No |
+| custom_payment_method_ids | `Object` | No |
 | other_settings | `Object` | No |
 | expected_updated_at | `Object` | No |
 | request_options | `Object` | No |
@@ -220,8 +222,10 @@ def replace(
       maximum_purchase_quantity: SellApp::OMIT,
       bulk_discount: nil,
       payment_methods: nil,
+      custom_payment_method_ids: nil,
       other_settings: nil,
       expected_updated_at: nil,
+      stock: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -238,8 +242,10 @@ def replace(
 | maximum_purchase_quantity | `Object` | No |
 | bulk_discount | `Object` | No |
 | payment_methods | `Object` | No |
+| custom_payment_method_ids | `Object` | No |
 | other_settings | `Object` | No |
 | expected_updated_at | `Object` | No |
+| stock | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -298,8 +304,10 @@ def update(
       maximum_purchase_quantity: SellApp::OMIT,
       bulk_discount: nil,
       payment_methods: nil,
+      custom_payment_method_ids: nil,
       other_settings: nil,
       expected_updated_at: nil,
+      stock: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -316,8 +324,10 @@ def update(
 | maximum_purchase_quantity | `Object` | No |
 | bulk_discount | `Object` | No |
 | payment_methods | `Object` | No |
+| custom_payment_method_ids | `Object` | No |
 | other_settings | `Object` | No |
 | expected_updated_at | `Object` | No |
+| stock | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -368,6 +378,7 @@ Delete a product variant
 def delete(
       product:,
       variant:,
+      expected_updated_at: nil,
       request_options: {}
     )
 ```
@@ -376,6 +387,7 @@ def delete(
 | --- | --- | --- |
 | product | `Object` | Yes |
 | variant | `Object` | Yes |
+| expected_updated_at | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

@@ -5,19 +5,19 @@
 module SellApp
   class GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyData < SellApp::Types::BaseModel
     HASH_ATTRS = {
-      subscription_id: :subscription_id,
+      id: :id,
       capabilities: :capabilities
     }.freeze
 
     SCHEMA = {
-      subscription_id: {required: true, schema: {kind: :integer}},
+      id: {required: true, schema: {kind: :integer}},
       capabilities: {required: true, schema: {kind: :model, name: "SellApp::GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilities"}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
     attr_accessor \
-      :subscription_id,
+      :id,
       :capabilities
 
     def initialize(json)
@@ -25,7 +25,7 @@ module SellApp
       self.class.validate_schema!(hash, SCHEMA, direction: :response, additional_properties: ADDITIONAL_PROPERTIES, constraints: MODEL_CONSTRAINTS)
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
-      @subscription_id = hash[:subscription_id]
+      @id = hash[:id]
       @capabilities = hash[:capabilities] ? SellApp::GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilities.new(hash[:capabilities]) : nil
     end
   end

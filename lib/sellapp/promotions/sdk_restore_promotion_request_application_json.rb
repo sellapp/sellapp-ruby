@@ -12,6 +12,11 @@ module SellApp
       priority: :priority,
       is_stackable: :is_stackable,
       max_redemptions: :max_redemptions,
+      applies_to: :applies_to,
+      subscription_payments: :subscription_payments,
+      store_wide: :store_wide,
+      products: :products,
+      product_variants: :product_variants,
       phases: :phases
     }.freeze
 
@@ -23,6 +28,11 @@ module SellApp
       priority: {required: true, schema: {kind: :integer, minimum: 0, maximum: 2147483647}},
       is_stackable: {required: true, schema: {kind: :boolean}},
       max_redemptions: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1, maximum: 4294967295}}},
+      applies_to: {required: false, schema: {kind: :enum, values: ["one_time", "subscriptions"]}},
+      subscription_payments: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1, maximum: 36}}},
+      store_wide: {required: false, schema: {kind: :boolean}},
+      products: {required: false, schema: {kind: :array, items: {kind: :integer}}},
+      product_variants: {required: false, schema: {kind: :array, items: {kind: :integer}}},
       phases: {required: true, schema: {kind: :array, items: {kind: :model, name: "SellApp::RestorePromotionRequestApplicationJsonPropertyPhasesItem"}, min: 1}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
@@ -36,6 +46,11 @@ module SellApp
       :priority,
       :is_stackable,
       :max_redemptions,
+      :applies_to,
+      :subscription_payments,
+      :store_wide,
+      :products,
+      :product_variants,
       :phases
 
     def initialize(json)
@@ -50,6 +65,11 @@ module SellApp
       @priority = hash[:priority]
       @is_stackable = hash[:is_stackable]
       @max_redemptions = hash[:max_redemptions]
+      @applies_to = hash[:applies_to]
+      @subscription_payments = hash[:subscription_payments]
+      @store_wide = hash[:store_wide]
+      @products = hash[:products]
+      @product_variants = hash[:product_variants]
       @phases = hash[:phases] ? hash[:phases].map { |item| item ? SellApp::RestorePromotionRequestApplicationJsonPropertyPhasesItem.new(item) : nil } : nil
     end
   end

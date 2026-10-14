@@ -15,7 +15,7 @@ module SellApp
     SCHEMA = {
       pricing: {required: false, schema: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricing"}},
       payment_methods: {required: false, schema: {kind: :array, items: {kind: :enum, values: ["AUTHNET", "BTCPAY", "CASHAPP", "COINBASE", "PADDLE", "PAYDASH", "PAYPAL", "PAYSTACK", "SQUARE", "STRIPE", "VENMO", "NMI", "MERCADO_PAGO", "MOLLIE", "RAZORPAY", "CUSTOM_PAYMENT_METHOD", "LIFI", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI", "BNB_USDT", "BNB_USDC", "TRX_USDT", "TRX_USDC", "SOL_USDT", "SOL_USDC"]}, unique: true}},
-      custom_payment_method_ids: {required: false, schema: {kind: :array, items: {kind: :string, pattern: "^[0-9A-HJKMNP-TV-Z]{26}$"}, unique: true}},
+      custom_payment_method_ids: {required: false, schema: {kind: :array, items: {kind: :string, pattern: "^[0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{26}$"}, unique: true}},
       bulk_discount: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyBulkDiscountItem"}}},
       expected_updated_at: {required: false, schema: {kind: :string, format: "date-time"}}
     }.freeze

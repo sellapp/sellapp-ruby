@@ -10,30 +10,6 @@ module SellApp
     def initialize(json); end
 
     sig { returns(T.nilable(String)) }
-    def preview_id; end
-
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def preview_id=(value); end
-
-    sig { returns(T.nilable(Integer)) }
-    def product_variant_id; end
-
-    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
-    def product_variant_id=(value); end
-
-    sig { returns(T.nilable(String)) }
-    def renewal_date; end
-
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def renewal_date=(value); end
-
-    sig { returns(T.nilable(String)) }
-    def return_url; end
-
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def return_url=(value); end
-
-    sig { returns(T.nilable(String)) }
     def reason; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }

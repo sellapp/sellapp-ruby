@@ -5,6 +5,20 @@
 require 'test_helper'
 
 class SubscriptionsModelRoundTripTest < Minitest::Test
+  def test_subscription_plan_change_preview_payload_round_trip
+    fixture = {
+      "provider" => 'stub',
+      "payment_required" => true,
+      "renewal_date" => '2024-01-01T00:00:00Z',
+      "amount_due" => 1,
+      "discount_warning" => 'stub',
+    }
+    model = SellApp::SubscriptionPlanChangePreviewPayload.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_scalar_metadata_value_round_trip
     model = SellApp::ScalarMetadataValue.new('{}')
     json = model.to_h
@@ -25,6 +39,26 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_cancel_subscription_response_value_200_application_json_e2ce1ae55aff4517_round_trip
+    fixture = {
+      "id" => 1,
+      "email" => 'sdk@example.com',
+      "external_id" => 'stub',
+      "name" => 'stub',
+      "locale" => 'en',
+      "metadata" => JSON.parse('{}'),
+    }
+    model = SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["external_id"], json[:external_id]
+    assert_equal fixture["name"], json[:name]
+    assert_equal fixture["locale"], json[:locale]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_cancel_subscription_response_value_200_application_json_property_data_round_trip
     fixture = {
       "id" => 1,
@@ -32,14 +66,25 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "provider" => 'stub',
       "subscription_id" => 'stub',
       "customer_id" => 'stub',
+      "provider_subscription_id" => 'stub',
+      "provider_customer_id" => 'stub',
+      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}'),
       "customer_email" => 'stub',
-      "status" => 'stub',
+      "status" => 'ACTIVE',
       "current_period_start" => '2024-01-01T00:00:00Z',
       "current_period_end" => '2024-01-01T00:00:00Z',
+      "trial_ends_at" => '2024-01-01T00:00:00Z',
       "cancel_at_period_end" => true,
       "cancellation_in_progress" => true,
       "store_id" => 1,
       "product_variant_id" => 1,
+      "current_plan_variant_id" => 1,
+      "auto_renew" => true,
+      "paused_at" => '2024-01-01T00:00:00Z',
+      "pause_resumes_at" => '2024-01-01T00:00:00Z',
+      "canceled_immediately_at" => '2024-01-01T00:00:00Z',
+      "payment_method_updated_at" => '2024-01-01T00:00:00Z',
+      "last_customer_action_at" => '2024-01-01T00:00:00Z',
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
     }
@@ -51,8 +96,9 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["provider"], json[:provider]
     assert_equal fixture["subscription_id"], json[:subscription_id]
     assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["provider_subscription_id"], json[:provider_subscription_id]
+    assert_equal fixture["provider_customer_id"], json[:provider_customer_id]
     assert_equal fixture["customer_email"], json[:customer_email]
-    assert_equal fixture["status"], json[:status]
     assert_equal fixture["current_period_start"], json[:current_period_start]
     assert_equal fixture["current_period_end"], json[:current_period_end]
     assert_equal fixture["cancel_at_period_end"], json[:cancel_at_period_end]
@@ -66,13 +112,173 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
 
   def test_sdk_cancel_subscription_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"invoice_id":1,"provider":"stub","subscription_id":"stub","customer_id":"stub","customer_email":"stub","status":"stub","current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","cancel_at_period_end":true,"cancellation_in_progress":true,"store_id":1,"product_variant_id":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"invoice_id":1,"provider":"stub","subscription_id":"stub","customer_id":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}},"customer_email":"stub","status":"ACTIVE","current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","cancel_at_period_end":true,"cancellation_in_progress":true,"store_id":1,"product_variant_id":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "message" => 'stub',
     }
     model = SellApp::SdkCancelSubscriptionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["message"], json[:message]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_list_subscriptions_response_value_200_application_json_round_trip
+    model = SellApp::SdkListSubscriptionsResponseValue200ApplicationJson.new('{}')
+    json = model.to_h
+    assert_kind_of Hash, json
+  end
+
+  def test_search_subscriptions_request_application_json_property_d64a9058144ab025_round_trip
+    model = SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItemPropertyNestedItem.new('{}')
+    json = model.to_h
+    assert_kind_of Hash, json
+  end
+
+  def test_search_subscriptions_request_application_json_property_filters_item_round_trip
+    fixture = {
+      "field" => 'stub',
+      "operator" => 'stub',
+      "value" => JSON.parse('{}'),
+      "type" => 'and',
+      "nested" => JSON.parse('[]'),
+    }
+    model = SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_search_subscriptions_request_application_json_property_sort_item_round_trip
+    fixture = {
+      "field" => 'stub',
+      "direction" => 'asc',
+    }
+    model = SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["field"], json[:field]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_search_subscriptions_request_application_json_property_search_round_trip
+    fixture = {
+      "value" => 'stub',
+      "case_sensitive" => true,
+    }
+    model = SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_search_subscriptions_request_application_json_property_includes_item_round_trip
+    fixture = {
+      "relation" => 'stub',
+    }
+    model = SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["relation"], json[:relation]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_search_subscriptions_request_application_json_round_trip
+    fixture = {
+      "filters" => JSON.parse('[]'),
+      "sort" => JSON.parse('[]'),
+      "search" => JSON.parse('{}'),
+      "includes" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkSearchSubscriptionsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_search_subscriptions_response_value_200_application_json_round_trip
+    model = SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson.new('{}')
+    json = model.to_h
+    assert_kind_of Hash, json
+  end
+
+  def test_get_subscription_response_value_200_application_json_pr_02d4ff7e080fa2c4_round_trip
+    fixture = {
+      "id" => 1,
+      "email" => 'sdk@example.com',
+      "external_id" => 'stub',
+      "name" => 'stub',
+      "locale" => 'en',
+      "metadata" => JSON.parse('{}'),
+    }
+    model = SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["external_id"], json[:external_id]
+    assert_equal fixture["name"], json[:name]
+    assert_equal fixture["locale"], json[:locale]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_subscription_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "id" => 1,
+      "invoice_id" => 1,
+      "provider" => 'stub',
+      "subscription_id" => 'stub',
+      "customer_id" => 'stub',
+      "provider_subscription_id" => 'stub',
+      "provider_customer_id" => 'stub',
+      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}'),
+      "customer_email" => 'stub',
+      "status" => 'ACTIVE',
+      "current_period_start" => '2024-01-01T00:00:00Z',
+      "current_period_end" => '2024-01-01T00:00:00Z',
+      "trial_ends_at" => '2024-01-01T00:00:00Z',
+      "cancel_at_period_end" => true,
+      "cancellation_in_progress" => true,
+      "store_id" => 1,
+      "product_variant_id" => 1,
+      "current_plan_variant_id" => 1,
+      "auto_renew" => true,
+      "paused_at" => '2024-01-01T00:00:00Z',
+      "pause_resumes_at" => '2024-01-01T00:00:00Z',
+      "canceled_immediately_at" => '2024-01-01T00:00:00Z',
+      "payment_method_updated_at" => '2024-01-01T00:00:00Z',
+      "last_customer_action_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["provider"], json[:provider]
+    assert_equal fixture["subscription_id"], json[:subscription_id]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["provider_subscription_id"], json[:provider_subscription_id]
+    assert_equal fixture["provider_customer_id"], json[:provider_customer_id]
+    assert_equal fixture["customer_email"], json[:customer_email]
+    assert_equal fixture["current_period_start"], json[:current_period_start]
+    assert_equal fixture["current_period_end"], json[:current_period_end]
+    assert_equal fixture["cancel_at_period_end"], json[:cancel_at_period_end]
+    assert_equal fixture["cancellation_in_progress"], json[:cancellation_in_progress]
+    assert_equal fixture["store_id"], json[:store_id]
+    assert_equal fixture["product_variant_id"], json[:product_variant_id]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_subscription_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"invoice_id":1,"provider":"stub","subscription_id":"stub","customer_id":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}},"customer_email":"stub","status":"ACTIVE","current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","cancel_at_period_end":true,"cancellation_in_progress":true,"store_id":1,"product_variant_id":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkGetSubscriptionResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -137,6 +343,8 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "action" => 'pause',
       "status" => 'pending',
       "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
       "customer_message" => 'stub',
       "confirmed_at" => '2024-01-01T00:00:00Z',
       "failed_at" => '2024-01-01T00:00:00Z',
@@ -182,6 +390,8 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "action" => 'pause',
       "status" => 'pending',
       "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
       "customer_message" => 'stub',
       "confirmed_at" => '2024-01-01T00:00:00Z',
       "failed_at" => '2024-01-01T00:00:00Z',
@@ -200,6 +410,50 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "message" => 'stub',
     }
     model = SellApp::SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["message"], json[:message]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_keep_subscription_request_application_json_round_trip
+    fixture = {
+      "idempotency_key" => 'stub',
+    }
+    model = SellApp::SdkKeepSubscriptionRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_keep_subscription_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "id" => 1,
+      "product_subscription_id" => 1,
+      "subscription_id" => 'stub',
+      "action" => 'pause',
+      "status" => 'pending',
+      "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
+      "customer_message" => 'stub',
+      "confirmed_at" => '2024-01-01T00:00:00Z',
+      "failed_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::KeepSubscriptionResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_keep_subscription_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{}'),
+      "message" => 'stub',
+    }
+    model = SellApp::SdkKeepSubscriptionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["message"], json[:message]
@@ -226,6 +480,8 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "action" => 'pause',
       "status" => 'pending',
       "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
       "customer_message" => 'stub',
       "confirmed_at" => '2024-01-01T00:00:00Z',
       "failed_at" => '2024-01-01T00:00:00Z',
@@ -268,6 +524,8 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "action" => 'pause',
       "status" => 'pending',
       "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
       "customer_message" => 'stub',
       "confirmed_at" => '2024-01-01T00:00:00Z',
       "failed_at" => '2024-01-01T00:00:00Z',
@@ -295,10 +553,47 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
   def test_sdk_update_subscription_payment_method_request_application_json_round_trip
     fixture = {
       "idempotency_key" => 'stub',
+      "return_url" => 'https://example.com',
     }
     model = SellApp::SdkUpdateSubscriptionPaymentMethodRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_subscription_payment_method_response_value_200_a_ef70359cc2691f13_round_trip
+    fixture = {
+      "id" => 1,
+      "product_subscription_id" => 1,
+      "subscription_id" => 'stub',
+      "action" => 'pause',
+      "status" => 'pending',
+      "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
+      "customer_message" => 'stub',
+      "confirmed_at" => '2024-01-01T00:00:00Z',
+      "failed_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::UpdateSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_subscription_payment_method_response_value_2_0e7dda95f205bad2_round_trip
+    fixture = {
+      "data" => JSON.parse('{}'),
+      "message" => 'stub',
+      "redirect_url" => 'https://example.com',
+    }
+    model = SellApp::SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["message"], json[:message]
+    assert_equal fixture["redirect_url"], json[:redirect_url]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -323,6 +618,39 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_preview_subscription_plan_change_response_value_200_app_7c013044a3b1c14f_round_trip
+    model = SellApp::PreviewSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyRequestPayload.new('{}')
+    json = model.to_h
+    assert_kind_of Hash, json
+  end
+
+  def test_preview_subscription_plan_change_response_value_200_app_81f8bf9583de2c22_round_trip
+    fixture = {
+      "preview_token" => 'stub',
+      "expires_at" => '2024-01-01T00:00:00Z',
+      "preview_payload" => JSON.parse('{}'),
+      "request_payload" => JSON.parse('{}'),
+      "customer_message" => 'stub',
+      "seller_message" => 'stub',
+    }
+    model = SellApp::PreviewSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_preview_subscription_plan_change_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{}'),
+      "message" => 'stub',
+    }
+    model = SellApp::SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["message"], json[:message]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_confirm_subscription_plan_change_request_application_js_852551eec6afce67_round_trip
     model = SellApp::ConfirmSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata.new('{}')
     json = model.to_h
@@ -343,6 +671,41 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     assert_equal fixture["target_variant_id"], json[:target_variant_id]
     assert_equal fixture["preview_token"], json[:preview_token]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_confirm_subscription_plan_change_response_value_200_app_165ae818f15da5ad_round_trip
+    fixture = {
+      "id" => 1,
+      "product_subscription_id" => 1,
+      "subscription_id" => 'stub',
+      "action" => 'pause',
+      "status" => 'pending',
+      "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
+      "customer_message" => 'stub',
+      "confirmed_at" => '2024-01-01T00:00:00Z',
+      "failed_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::ConfirmSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_confirm_subscription_plan_change_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{}'),
+      "message" => 'stub',
+      "approval_url" => 'https://example.com',
+    }
+    model = SellApp::SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["message"], json[:message]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -434,6 +797,8 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "action" => 'pause',
       "status" => 'pending',
       "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
       "customer_message" => 'stub',
       "confirmed_at" => '2024-01-01T00:00:00Z',
       "failed_at" => '2024-01-01T00:00:00Z',
@@ -458,189 +823,87 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_list_subscriptions_response_value_200_application_json_5d2c3694b34cc2c9_round_trip
-    model = SellApp::ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata.new('{}')
+  def test_sdk_list_subscription_actions_response_value_200_application_json_round_trip
+    model = SellApp::SdkListSubscriptionActionsResponseValue200ApplicationJson.new('{}')
     json = model.to_h
     assert_kind_of Hash, json
   end
 
-  def test_list_subscriptions_response_value_200_application_json_ef5a64ce42a89897_round_trip
+  def test_get_subscription_action_response_value_200_application_b18090f02f1e4c68_round_trip
     fixture = {
       "id" => 1,
-      "email" => 'sdk@example.com',
-      "external_id" => 'stub',
-      "name" => 'stub',
-      "locale" => 'en',
-      "metadata" => JSON.parse('{}'),
-    }
-    model = SellApp::ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer.new(fixture.to_json)
-    json = model.to_h
-    assert_kind_of Hash, json
-    assert_equal fixture["id"], json[:id]
-    assert_equal fixture["email"], json[:email]
-    assert_equal fixture["external_id"], json[:external_id]
-    assert_equal fixture["name"], json[:name]
-    assert_equal fixture["locale"], json[:locale]
-    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
-  end
-
-  def test_list_subscriptions_response_value_200_application_json_5543a884272391eb_round_trip
-    fixture = {
-      "id" => 1,
-      "status" => 'stub',
+      "product_subscription_id" => 1,
       "subscription_id" => 'stub',
-      "customer_id" => 'stub',
-      "provider_subscription_id" => 'stub',
-      "provider_customer_id" => 'stub',
-      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}'),
-      "product_variant_id" => 1,
+      "action" => 'pause',
+      "status" => 'pending',
+      "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
+      "customer_message" => 'stub',
+      "confirmed_at" => '2024-01-01T00:00:00Z',
+      "failed_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
     }
-    model = SellApp::ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    model = SellApp::GetSubscriptionActionResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
-    assert_equal fixture["id"], json[:id]
-    assert_equal fixture["status"], json[:status]
-    assert_equal fixture["provider_subscription_id"], json[:provider_subscription_id]
-    assert_equal fixture["provider_customer_id"], json[:provider_customer_id]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_sdk_list_subscriptions_response_value_200_application_json_round_trip
+  def test_sdk_get_subscription_action_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('[]'),
-      "links" => JSON.parse('{"first":"stub","last":"stub","prev":"stub","next":"stub"}'),
-      "meta" => JSON.parse('{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1}'),
+      "data" => JSON.parse('{}'),
     }
-    model = SellApp::SdkListSubscriptionsResponseValue200ApplicationJson.new(fixture.to_json)
+    model = SellApp::SdkGetSubscriptionActionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_sdk_search_subscriptions_request_application_json_round_trip
+  def test_sdk_dismiss_subscription_action_request_application_json_round_trip
     fixture = {
-      "search" => 'stub',
-      "status" => 'stub',
+      "idempotency_key" => 'stub',
+      "note" => 'stub',
     }
-    model = SellApp::SdkSearchSubscriptionsRequestApplicationJson.new(fixture.to_json)
+    model = SellApp::SdkDismissSubscriptionActionRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
+    assert_equal fixture["note"], json[:note]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_search_subscriptions_response_value_200_application_jso_7acae8465bf50921_round_trip
-    model = SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
-  def test_search_subscriptions_response_value_200_application_jso_ef42956bab18d4ee_round_trip
+  def test_dismiss_subscription_action_response_value_200_applicat_6a1500e747207621_round_trip
     fixture = {
       "id" => 1,
-      "email" => 'sdk@example.com',
-      "external_id" => 'stub',
-      "name" => 'stub',
-      "locale" => 'en',
-      "metadata" => JSON.parse('{}'),
-    }
-    model = SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer.new(fixture.to_json)
-    json = model.to_h
-    assert_kind_of Hash, json
-    assert_equal fixture["id"], json[:id]
-    assert_equal fixture["email"], json[:email]
-    assert_equal fixture["external_id"], json[:external_id]
-    assert_equal fixture["name"], json[:name]
-    assert_equal fixture["locale"], json[:locale]
-    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
-  end
-
-  def test_search_subscriptions_response_value_200_application_jso_458e9002411933f6_round_trip
-    fixture = {
-      "id" => 1,
-      "status" => 'stub',
+      "product_subscription_id" => 1,
       "subscription_id" => 'stub',
-      "customer_id" => 'stub',
-      "provider_subscription_id" => 'stub',
-      "provider_customer_id" => 'stub',
-      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}'),
-      "product_variant_id" => 1,
+      "action" => 'pause',
+      "status" => 'pending',
+      "provider" => 'stub',
+      "proration_order_id" => 1,
+      "error" => 'stub',
+      "customer_message" => 'stub',
+      "confirmed_at" => '2024-01-01T00:00:00Z',
+      "failed_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
     }
-    model = SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
-    json = model.to_h
-    assert_kind_of Hash, json
-    assert_equal fixture["id"], json[:id]
-    assert_equal fixture["status"], json[:status]
-    assert_equal fixture["provider_subscription_id"], json[:provider_subscription_id]
-    assert_equal fixture["provider_customer_id"], json[:provider_customer_id]
-    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
-  end
-
-  def test_sdk_search_subscriptions_response_value_200_application_json_round_trip
-    fixture = {
-      "data" => JSON.parse('[]'),
-      "links" => JSON.parse('{"first":"stub","last":"stub","prev":"stub","next":"stub"}'),
-      "meta" => JSON.parse('{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1}'),
-    }
-    model = SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson.new(fixture.to_json)
+    model = SellApp::DismissSubscriptionActionResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_get_subscription_response_value_200_application_json_pr_fd726601caff080f_round_trip
-    model = SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
-  def test_get_subscription_response_value_200_application_json_pr_02d4ff7e080fa2c4_round_trip
+  def test_sdk_dismiss_subscription_action_response_value_200_application_json_round_trip
     fixture = {
-      "id" => 1,
-      "email" => 'sdk@example.com',
-      "external_id" => 'stub',
-      "name" => 'stub',
-      "locale" => 'en',
-      "metadata" => JSON.parse('{}'),
+      "data" => JSON.parse('{}'),
+      "message" => 'stub',
     }
-    model = SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer.new(fixture.to_json)
+    model = SellApp::SdkDismissSubscriptionActionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
-    assert_equal fixture["id"], json[:id]
-    assert_equal fixture["email"], json[:email]
-    assert_equal fixture["external_id"], json[:external_id]
-    assert_equal fixture["name"], json[:name]
-    assert_equal fixture["locale"], json[:locale]
-    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
-  end
-
-  def test_get_subscription_response_value_200_application_json_property_data_round_trip
-    fixture = {
-      "id" => 1,
-      "status" => 'stub',
-      "subscription_id" => 'stub',
-      "customer_id" => 'stub',
-      "provider_subscription_id" => 'stub',
-      "provider_customer_id" => 'stub',
-      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}'),
-      "product_variant_id" => 1,
-    }
-    model = SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
-    json = model.to_h
-    assert_kind_of Hash, json
-    assert_equal fixture["id"], json[:id]
-    assert_equal fixture["status"], json[:status]
-    assert_equal fixture["provider_subscription_id"], json[:provider_subscription_id]
-    assert_equal fixture["provider_customer_id"], json[:provider_customer_id]
-    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
-  end
-
-  def test_sdk_get_subscription_response_value_200_application_json_round_trip
-    fixture = {
-      "data" => JSON.parse('{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}'),
-    }
-    model = SellApp::SdkGetSubscriptionResponseValue200ApplicationJson.new(fixture.to_json)
-    json = model.to_h
-    assert_kind_of Hash, json
+    assert_equal fixture["message"], json[:message]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 end

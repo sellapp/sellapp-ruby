@@ -57,6 +57,12 @@ module SellApp
     sig { params(value: T::Array[String]).returns(T::Array[String]) }
     def payment_methods=(value); end
 
+    sig { returns(T.nilable(T::Array[String])) }
+    def custom_payment_method_ids; end
+
+    sig { params(value: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+    def custom_payment_method_ids=(value); end
+
     sig { returns(T.nilable(SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyOtherSettings)) }
     def other_settings; end
 

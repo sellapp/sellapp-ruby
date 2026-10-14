@@ -11,7 +11,7 @@ module SellApp
 
     SCHEMA = {
       data: {required: true, schema: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyGatewayPropertyData"}},
-      type: {required: true, schema: {kind: :string}}
+      type: {required: true, schema: {kind: :nullable, inner: {kind: :string}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze

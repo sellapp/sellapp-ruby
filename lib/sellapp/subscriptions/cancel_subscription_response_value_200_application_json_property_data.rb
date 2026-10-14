@@ -10,14 +10,25 @@ module SellApp
       provider: :provider,
       subscription_id: :subscription_id,
       customer_id: :customer_id,
+      provider_subscription_id: :provider_subscription_id,
+      provider_customer_id: :provider_customer_id,
+      customer: :customer,
       customer_email: :customer_email,
       status: :status,
       current_period_start: :current_period_start,
       current_period_end: :current_period_end,
+      trial_ends_at: :trial_ends_at,
       cancel_at_period_end: :cancel_at_period_end,
       cancellation_in_progress: :cancellation_in_progress,
       store_id: :store_id,
       product_variant_id: :product_variant_id,
+      current_plan_variant_id: :current_plan_variant_id,
+      auto_renew: :auto_renew,
+      paused_at: :paused_at,
+      pause_resumes_at: :pause_resumes_at,
+      canceled_immediately_at: :canceled_immediately_at,
+      payment_method_updated_at: :payment_method_updated_at,
+      last_customer_action_at: :last_customer_action_at,
       created_at: :created_at,
       updated_at: :updated_at
     }.freeze
@@ -25,39 +36,82 @@ module SellApp
     SCHEMA = {
       id: {required: true, schema: {kind: :integer}},
       invoice_id: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
-      provider: {required: true, schema: {kind: :string}},
-      subscription_id: {required: true, schema: {kind: :string}},
-      customer_id: {required: true, schema: {kind: :string}},
-      customer_email: {required: true, schema: {kind: :string}},
-      status: {required: true, schema: {kind: :string}},
-      current_period_start: {required: true, schema: {kind: :string, format: "date-time"}},
-      current_period_end: {required: true, schema: {kind: :string, format: "date-time"}},
+      provider: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      subscription_id: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      customer_id: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      provider_subscription_id: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      provider_customer_id: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      customer: {required: true, schema: {kind: :nullable, inner: {kind: :model, name: "SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer"}}},
+      customer_email: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      status: {required: true, schema: {kind: :enum, values: ["ACTIVE", "PAST_DUE", "UNPAID", "CANCELED", "INCOMPLETE", "INCOMPLETE_EXPIRED", "TRIALING"]}},
+      current_period_start: {required: true, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
+      current_period_end: {required: true, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
+      trial_ends_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
       cancel_at_period_end: {required: true, schema: {kind: :boolean}},
       cancellation_in_progress: {required: true, schema: {kind: :boolean}},
-      store_id: {required: true, schema: {kind: :integer}},
-      product_variant_id: {required: true, schema: {kind: :integer}},
+      store_id: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
+      product_variant_id: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
+      current_plan_variant_id: {required: false, schema: {kind: :nullable, inner: {kind: :integer}}},
+      auto_renew: {required: false, schema: {kind: :boolean}},
+      paused_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
+      pause_resumes_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
+      canceled_immediately_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
+      payment_method_updated_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
+      last_customer_action_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
       created_at: {required: true, schema: {kind: :string, format: "date-time"}},
       updated_at: {required: true, schema: {kind: :string, format: "date-time"}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
+    # @!attribute subscription_id
+    #   @deprecated Deprecated alias of provider_subscription_id.
+    # @!attribute customer_id
+    #   @deprecated Deprecated alias of provider_customer_id.
+
     attr_accessor \
       :id,
       :invoice_id,
       :provider,
-      :subscription_id,
-      :customer_id,
+      :provider_subscription_id,
+      :provider_customer_id,
+      :customer,
       :customer_email,
       :status,
       :current_period_start,
       :current_period_end,
+      :trial_ends_at,
       :cancel_at_period_end,
       :cancellation_in_progress,
       :store_id,
       :product_variant_id,
+      :current_plan_variant_id,
+      :auto_renew,
+      :paused_at,
+      :pause_resumes_at,
+      :canceled_immediately_at,
+      :payment_method_updated_at,
+      :last_customer_action_at,
       :created_at,
       :updated_at
+
+    def subscription_id
+      warn "[DEPRECATION] \`subscription_id\` is deprecated and will be removed in a future version.", uplevel: 1
+      @subscription_id
+    end
+
+    def subscription_id=(value)
+      @subscription_id = value
+    end
+
+    def customer_id
+      warn "[DEPRECATION] \`customer_id\` is deprecated and will be removed in a future version.", uplevel: 1
+      @customer_id
+    end
+
+    def customer_id=(value)
+      @customer_id = value
+    end
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -69,14 +123,25 @@ module SellApp
       @provider = hash[:provider]
       @subscription_id = hash[:subscription_id]
       @customer_id = hash[:customer_id]
+      @provider_subscription_id = hash[:provider_subscription_id]
+      @provider_customer_id = hash[:provider_customer_id]
+      @customer = hash[:customer] ? SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer.new(hash[:customer]) : nil
       @customer_email = hash[:customer_email]
       @status = hash[:status]
       @current_period_start = hash[:current_period_start]
       @current_period_end = hash[:current_period_end]
+      @trial_ends_at = hash[:trial_ends_at]
       @cancel_at_period_end = hash[:cancel_at_period_end]
       @cancellation_in_progress = hash[:cancellation_in_progress]
       @store_id = hash[:store_id]
       @product_variant_id = hash[:product_variant_id]
+      @current_plan_variant_id = hash[:current_plan_variant_id]
+      @auto_renew = hash[:auto_renew]
+      @paused_at = hash[:paused_at]
+      @pause_resumes_at = hash[:pause_resumes_at]
+      @canceled_immediately_at = hash[:canceled_immediately_at]
+      @payment_method_updated_at = hash[:payment_method_updated_at]
+      @last_customer_action_at = hash[:last_customer_action_at]
       @created_at = hash[:created_at]
       @updated_at = hash[:updated_at]
     end

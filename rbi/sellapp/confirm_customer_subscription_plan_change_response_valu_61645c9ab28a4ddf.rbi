@@ -15,6 +15,18 @@ module SellApp
     sig { params(value: Integer).returns(Integer) }
     def id=(value); end
 
+    sig { returns(Integer) }
+    def subscription_id; end
+
+    sig { params(value: Integer).returns(Integer) }
+    def subscription_id=(value); end
+
+    sig { returns(String) }
+    def action; end
+
+    sig { params(value: String).returns(String) }
+    def action=(value); end
+
     sig { returns(String) }
     def status; end
 
@@ -22,40 +34,22 @@ module SellApp
     def status=(value); end
 
     sig { returns(T.nilable(String)) }
-    def subscription_id; end
+    def customer_message; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def subscription_id=(value); end
+    def customer_message=(value); end
 
     sig { returns(T.nilable(String)) }
-    def customer_id; end
+    def redirect_url; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def customer_id=(value); end
+    def redirect_url=(value); end
 
     sig { returns(T.nilable(String)) }
-    def provider_subscription_id; end
+    def created_at; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def provider_subscription_id=(value); end
-
-    sig { returns(T.nilable(String)) }
-    def provider_customer_id; end
-
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def provider_customer_id=(value); end
-
-    sig { returns(SellApp::ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer) }
-    def customer; end
-
-    sig { params(value: SellApp::ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer).returns(SellApp::ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer) }
-    def customer=(value); end
-
-    sig { returns(T.nilable(Integer)) }
-    def product_variant_id; end
-
-    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
-    def product_variant_id=(value); end
+    def created_at=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end

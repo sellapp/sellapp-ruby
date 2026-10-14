@@ -15,10 +15,10 @@ module SellApp
     sig { params(value: SellApp::ListInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPaymentPropertyGatewayPropertyData).returns(SellApp::ListInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPaymentPropertyGatewayPropertyData) }
     def data=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def type; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def type=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

@@ -73,6 +73,11 @@ def create(
       starts_at: SellApp::OMIT,
       ends_at: SellApp::OMIT,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       request_options: {}
     )
 ```
@@ -87,6 +92,11 @@ def create(
 | starts_at | `Object` | No |
 | ends_at | `Object` | No |
 | max_redemptions | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
+| store_wide | `Object` | No |
+| products | `Object` | No |
+| product_variants | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -279,6 +289,11 @@ def replace(
       priority: nil,
       is_stackable: nil,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       phases: nil,
       request_options: {}
     )
@@ -294,6 +309,11 @@ def replace(
 | priority | `Object` | No |
 | is_stackable | `Object` | No |
 | max_redemptions | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
+| store_wide | `Object` | No |
+| products | `Object` | No |
+| product_variants | `Object` | No |
 | phases | `Object` | No |
 | request_options | `Object` | No |
 
@@ -350,6 +370,11 @@ def update(
       priority: nil,
       is_stackable: nil,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       phases: nil,
       request_options: {}
     )
@@ -365,6 +390,11 @@ def update(
 | priority | `Object` | No |
 | is_stackable | `Object` | No |
 | max_redemptions | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
+| store_wide | `Object` | No |
+| products | `Object` | No |
+| product_variants | `Object` | No |
 | phases | `Object` | No |
 | request_options | `Object` | No |
 
@@ -473,6 +503,11 @@ def restore(
       starts_at: SellApp::OMIT,
       ends_at: SellApp::OMIT,
       max_redemptions: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
+      store_wide: nil,
+      products: nil,
+      product_variants: nil,
       request_options: {}
     )
 ```
@@ -488,6 +523,11 @@ def restore(
 | starts_at | `Object` | No |
 | ends_at | `Object` | No |
 | max_redemptions | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
+| store_wide | `Object` | No |
+| products | `Object` | No |
+| product_variants | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

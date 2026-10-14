@@ -11,10 +11,11 @@ module SellApp
     end
 
     # Cancel a subscription
+    # @deprecated
     # @param subscription [Integer] The subscription path parameter.
     # @param cancel_at_period_end [Boolean]
     # @param refund_last_payment [Boolean, nil] Request a real refund of the latest payment during immediate cancellation. Cancellation success does not prove refund success; verify provider/order refund records.
-    # @param pro_rated_refund [Boolean, nil] Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled.
+    # @param pro_rated_refund [Boolean, nil] Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled. Refused with `422` while a Stripe, PayPal, or Razorpay subscription is past due or unpaid.
     # @param idempotency_key [String, nil] Optional idempotency key. You may also send this as the Idempotency-Key header.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCancelSubscriptionResponseValue200ApplicationJson]
@@ -26,6 +27,7 @@ module SellApp
       idempotency_key: SellApp::OMIT,
       request_options: {}
     )
+      warn "[DEPRECATION] \`cancel\` is deprecated.", uplevel: 1
       body = {
         'cancel_at_period_end' => cancel_at_period_end,
         'refund_last_payment' => refund_last_payment,
@@ -44,6 +46,122 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkCancelSubscriptionResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # List subscriptions
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
+    # @param pagination [Boolean, nil] Set to false to return at most 100 matching items in one data array without pagination links or metadata.
+    # @param status [Array<SellApp::Types::SubscriptionsStatus>, nil] Filter by one or more subscription statuses. Repeat the parameter to select several; a single `status=ACTIVE` works too. A status outside the list is rejected with a validation error.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkListSubscriptionsResponseValue200ApplicationJson]
+    def list_subscriptions(
+      limit: 15,
+      page: 1,
+      pagination: true,
+      status: nil,
+      request_options: {}
+    )
+      params = {
+        'limit' => limit,
+        'page' => page,
+        'pagination' => pagination,
+        'status[]' => status
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(pagination, {kind: :boolean}, "$request.pagination") unless pagination.nil?
+      SellApp::Types::BaseModel.validate_value!(status, {kind: :array, items: {kind: :enum, values: ["ACTIVE", "PAST_DUE", "UNPAID", "CANCELED", "INCOMPLETE", "INCOMPLETE_EXPIRED", "TRIALING"]}}, "$request.status[]") unless status.nil?
+      request_options = request_options.merge(operation_id: 'listSubscriptions', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/subscriptions',
+        auth: true,
+        params: params,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkListSubscriptionsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Search subscriptions
+    # @param filters [Array<SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem>, nil]
+    # @param sort [Array<SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem>, nil]
+    # @param search [SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch, nil]
+    # @param includes [Array<SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
+    # @param pagination [Boolean, nil] Set to false to return at most 100 matching items in one data array without pagination links or metadata.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson]
+    def search_subscriptions(
+      filters: nil,
+      sort: nil,
+      search: nil,
+      includes: nil,
+      limit: 15,
+      page: 1,
+      pagination: true,
+      request_options: {}
+    )
+      params = {
+        'limit' => limit,
+        'page' => page,
+        'pagination' => pagination
+      }.compact
+      body = {
+        'filters' => filters,
+        'sort' => sort,
+        'search' => search,
+        'includes' => includes
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(pagination, {kind: :boolean}, "$request.pagination") unless pagination.nil?
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkSearchSubscriptionsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'searchSubscriptions', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: '/v2/subscriptions/search',
+        auth: true,
+        params: params,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve a subscription
+    # @param product_subscription [Integer] The productSubscription path parameter.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetSubscriptionResponseValue200ApplicationJson]
+    def get_subscription(
+      product_subscription:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
+      request_options = request_options.merge(operation_id: 'getSubscription', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: "/v2/subscriptions/#{SellApp::Util.encode_path(product_subscription)}",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetSubscriptionResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end
@@ -112,7 +230,7 @@ module SellApp
     # @param idempotency_key [String, nil] Optional idempotency key. You may also send this as the Idempotency-Key header.
     # @param reason [String, nil]
     # @param refund_last_payment [Boolean, nil] Request a real refund of the latest payment during immediate cancellation. Cancellation success does not prove refund success; verify provider/order refund records.
-    # @param pro_rated_refund [Boolean, nil] Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled.
+    # @param pro_rated_refund [Boolean, nil] Request a prorated refund. Requires refund_last_payment=true. False requests a full latest-payment refund when refund_last_payment is enabled. Refused with `422` while a Stripe, PayPal, or Razorpay subscription is past due or unpaid.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson]
     def cancel_immediately(
@@ -147,10 +265,40 @@ module SellApp
       @client.wrap_response(value, response, request_options)
     end
 
+    # Keep a subscription
+    # @param product_subscription [Integer] The productSubscription path parameter.
+    # @param idempotency_key [String, nil] Optional idempotency key. You may also send this as the Idempotency-Key header.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkKeepSubscriptionResponseValue200ApplicationJson]
+    def keep(
+      product_subscription:,
+      idempotency_key: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {}
+      body['idempotency_key'] = idempotency_key unless idempotency_key.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkKeepSubscriptionRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'keepSubscription', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
+      response = @client.request(
+        method: :post,
+        path: "/v2/subscriptions/#{SellApp::Util.encode_path(product_subscription)}/actions/keep",
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkKeepSubscriptionResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
     # Pause a subscription
     # @param product_subscription [Integer] The productSubscription path parameter.
     # @param idempotency_key [String, nil] Optional idempotency key. You may also send this as the Idempotency-Key header.
-    # @param resume_at [String, nil] Use a future date-time at execution time. Automatic resume dates are supported only for Stripe; the shown date is illustrative.
+    # @param resume_at [String, nil] Use a future date-time at execution time. Automatic resume dates are supported by Stripe and by subscriptions the store bills in house; the shown date is illustrative.
     # @param reason [String, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkPauseSubscriptionResponseValue200ApplicationJson]
@@ -216,15 +364,18 @@ module SellApp
     # Update a subscription payment method
     # @param product_subscription [Integer] The productSubscription path parameter.
     # @param idempotency_key [String, nil] Optional idempotency key. You may also send this as the Idempotency-Key header.
+    # @param return_url [String, nil] Where Stripe returns the customer once its hosted page finishes. Defaults to the store's customer portal page for this subscription. Razorpay subscriptions ignore it.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
-    # @return [String]
+    # @return [SellApp::SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson]
     def update_payment_method(
       product_subscription:,
       idempotency_key: SellApp::OMIT,
+      return_url: SellApp::OMIT,
       request_options: {}
     )
       body = {}
       body['idempotency_key'] = idempotency_key unless idempotency_key.equal?(SellApp::OMIT)
+      body['return_url'] = return_url unless return_url.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateSubscriptionPaymentMethodRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'updateSubscriptionPaymentMethod', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
@@ -236,9 +387,9 @@ module SellApp
         request_options: request_options
       )
       value = begin
-        parsed = JSON.parse(response.body)
-        SellApp::Types::BaseModel.validate_value!(parsed, {kind: :string}, "$response", direction: :response)
-        parsed
+        result = SellApp::SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
       end
       @client.wrap_response(value, response, request_options)
     end
@@ -251,7 +402,7 @@ module SellApp
     # @param proration_behavior [SellApp::Types::SdkPreviewSubscriptionPlanChangeRequestApplicationJsonProrationBehavior, nil]
     # @param metadata [SellApp::PreviewSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
-    # @return [String]
+    # @return [SellApp::SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson]
     def preview_plan_change(
       product_subscription:,
       target_variant_id:,
@@ -279,9 +430,9 @@ module SellApp
         request_options: request_options
       )
       value = begin
-        parsed = JSON.parse(response.body)
-        SellApp::Types::BaseModel.validate_value!(parsed, {kind: :string}, "$response", direction: :response)
-        parsed
+        result = SellApp::SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
       end
       @client.wrap_response(value, response, request_options)
     end
@@ -295,7 +446,7 @@ module SellApp
     # @param proration_behavior [SellApp::Types::SdkConfirmSubscriptionPlanChangeRequestApplicationJsonProrationBehavior, nil]
     # @param metadata [SellApp::ConfirmSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
-    # @return [String]
+    # @return [SellApp::SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson]
     def confirm_plan_change(
       product_subscription:,
       target_variant_id:,
@@ -325,9 +476,9 @@ module SellApp
         request_options: request_options
       )
       value = begin
-        parsed = JSON.parse(response.body)
-        SellApp::Types::BaseModel.validate_value!(parsed, {kind: :string}, "$response", direction: :response)
-        parsed
+        result = SellApp::SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
       end
       @client.wrap_response(value, response, request_options)
     end
@@ -409,80 +560,6 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson.new(response.body)
-        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
-        result
-      end
-      @client.wrap_response(value, response, request_options)
-    end
-
-    # List subscriptions
-    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
-    # @return [SellApp::SdkListSubscriptionsResponseValue200ApplicationJson]
-    def list_subscriptions(request_options: {})
-      request_options = request_options.merge(operation_id: 'listSubscriptions', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
-      response = @client.request(
-        method: :get,
-        path: '/v2/subscriptions',
-        auth: true,
-        request_options: request_options
-      )
-      value = begin
-        result = SellApp::SdkListSubscriptionsResponseValue200ApplicationJson.new(response.body)
-        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
-        result
-      end
-      @client.wrap_response(value, response, request_options)
-    end
-
-    # Search subscriptions
-    # @param search [String, nil]
-    # @param status [String, nil]
-    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
-    # @return [SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson]
-    def search_subscriptions(
-      search: nil,
-      status: nil,
-      request_options: {}
-    )
-      body = {
-        'search' => search,
-        'status' => status
-      }.compact
-      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkSearchSubscriptionsRequestApplicationJson"}, "$request.body")
-      request_options = request_options.merge(operation_id: 'searchSubscriptions', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
-      response = @client.request(
-        method: :post,
-        path: '/v2/subscriptions/search',
-        auth: true,
-        body: body,
-        request_options: request_options
-      )
-      value = begin
-        result = SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson.new(response.body)
-        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
-        result
-      end
-      @client.wrap_response(value, response, request_options)
-    end
-
-    # Retrieve a subscription
-    # @param product_subscription [Integer] The productSubscription identifier.
-    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
-    # @return [SellApp::SdkGetSubscriptionResponseValue200ApplicationJson]
-    def get_subscription(
-      product_subscription:,
-      request_options: {}
-    )
-      SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
-      request_options = request_options.merge(operation_id: 'getSubscription', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
-      response = @client.request(
-        method: :get,
-        path: "/v2/subscriptions/#{SellApp::Util.encode_path(product_subscription)}",
-        auth: true,
-        request_options: request_options
-      )
-      value = begin
-        result = SellApp::SdkGetSubscriptionResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

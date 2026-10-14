@@ -13,7 +13,7 @@ module SellApp
     SCHEMA = {
       name: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 100}}},
       url: {required: false, schema: {kind: :string, format: "uri", max: 2048}},
-      allowed_notifications: {required: false, schema: {kind: :array, items: {kind: :enum, values: ["booking.cancelled", "booking.rescheduled", "cash_app.payment_requires_attention", "charge.completed", "charge.created", "charge.disputed", "charge.partial_paid", "charge.review", "feedback.created", "order.completed", "order.created", "order.disputed", "order.manual_payment_completed", "order.paid", "order.partial_paid", "product.created", "product.trashed", "product.updated", "subscription.cancelled", "subscription.created", "subscription.renewed", "ticket_message.created", "variant.created", "variant.sold_out", "variant.updated"]}, unique: true}}
+      allowed_notifications: {required: false, schema: {kind: :array, items: {kind: :enum, values: ["booking.cancelled", "booking.rescheduled", "cash_app.payment_requires_attention", "charge.completed", "charge.created", "charge.disputed", "charge.partial_paid", "charge.review", "feedback.created", "order.completed", "order.created", "order.disputed", "order.manual_payment_completed", "order.paid", "order.partial_paid", "product.created", "product.trashed", "product.updated", "subscription.action", "subscription.cancelled", "subscription.created", "subscription.plan_change_needs_attention", "subscription.renewal_needs_attention", "subscription.renewed", "subscription.signup_needs_attention", "ticket_message.created", "variant.created", "variant.sold_out", "variant.updated"]}, unique: true}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze

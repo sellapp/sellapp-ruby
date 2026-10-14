@@ -34,6 +34,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[{"discount_type":"percentage","discount_value":1}]'),
     }
     model = SellApp::SdkCreatePromotionRequestApplicationJson.new(fixture.to_json)
@@ -79,6 +84,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
@@ -91,12 +101,14 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["name"], json[:name]
     assert_equal fixture["priority"], json[:priority]
     assert_equal fixture["is_stackable"], json[:is_stackable]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    assert_equal fixture["store_wide"], json[:store_wide]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_create_promotion_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}'),
+      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}'),
     }
     model = SellApp::SdkCreatePromotionResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -211,6 +223,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
@@ -223,12 +240,14 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["name"], json[:name]
     assert_equal fixture["priority"], json[:priority]
     assert_equal fixture["is_stackable"], json[:is_stackable]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    assert_equal fixture["store_wide"], json[:store_wide]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_get_promotion_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}'),
+      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}'),
     }
     model = SellApp::SdkGetPromotionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -259,6 +278,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[{"discount_type":"percentage","discount_value":1}]'),
     }
     model = SellApp::SdkReplacePromotionRequestApplicationJson.new(fixture.to_json)
@@ -301,6 +325,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
@@ -313,12 +342,14 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["name"], json[:name]
     assert_equal fixture["priority"], json[:priority]
     assert_equal fixture["is_stackable"], json[:is_stackable]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    assert_equal fixture["store_wide"], json[:store_wide]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_replace_promotion_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}'),
+      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}'),
     }
     model = SellApp::SdkReplacePromotionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -349,6 +380,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[{"discount_type":"percentage","discount_value":1}]'),
     }
     model = SellApp::SdkUpdatePromotionRequestApplicationJson.new(fixture.to_json)
@@ -391,6 +427,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
@@ -403,12 +444,14 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["name"], json[:name]
     assert_equal fixture["priority"], json[:priority]
     assert_equal fixture["is_stackable"], json[:is_stackable]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    assert_equal fixture["store_wide"], json[:store_wide]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_update_promotion_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}'),
+      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}'),
     }
     model = SellApp::SdkUpdatePromotionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -450,6 +493,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
@@ -462,12 +510,14 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["name"], json[:name]
     assert_equal fixture["priority"], json[:priority]
     assert_equal fixture["is_stackable"], json[:is_stackable]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    assert_equal fixture["store_wide"], json[:store_wide]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_delete_promotion_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}'),
+      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}'),
     }
     model = SellApp::SdkDeletePromotionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -498,6 +548,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[{"discount_type":"percentage","discount_value":1}]'),
     }
     model = SellApp::SdkRestorePromotionRequestApplicationJson.new(fixture.to_json)
@@ -543,6 +598,11 @@ class PromotionsModelRoundTripTest < Minitest::Test
       "priority" => 0,
       "is_stackable" => true,
       "max_redemptions" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
       "phases" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
       "updated_at" => '2024-01-01T00:00:00Z',
@@ -555,12 +615,14 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_equal fixture["name"], json[:name]
     assert_equal fixture["priority"], json[:priority]
     assert_equal fixture["is_stackable"], json[:is_stackable]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    assert_equal fixture["store_wide"], json[:store_wide]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_restore_promotion_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"phases":[]}'),
+      "data" => JSON.parse('{"id":1,"name":"stub","status":"active","priority":0,"is_stackable":true,"applies_to":"one_time","subscription_payments":1,"store_wide":true,"products":[],"product_variants":[],"phases":[]}'),
     }
     model = SellApp::SdkRestorePromotionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h

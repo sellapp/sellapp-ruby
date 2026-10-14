@@ -5,28 +5,36 @@
 module SellApp
   class SdkSearchSubscriptionsRequestApplicationJson < SellApp::Types::BaseModel
     HASH_ATTRS = {
+      filters: :filters,
+      sort: :sort,
       search: :search,
-      status: :status
+      includes: :includes
     }.freeze
 
     SCHEMA = {
-      search: {required: false, schema: {kind: :string}},
-      status: {required: false, schema: {kind: :string}}
+      filters: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem"}}},
+      sort: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem"}}},
+      search: {required: false, schema: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch"}},
+      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem"}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
     attr_accessor \
+      :filters,
+      :sort,
       :search,
-      :status
+      :includes
 
     def initialize(json)
       hash = self.class.normalize(json)
       self.class.validate_schema!(hash, SCHEMA, direction: :response, additional_properties: ADDITIONAL_PROPERTIES, constraints: MODEL_CONSTRAINTS)
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
-      @search = hash[:search]
-      @status = hash[:status]
+      @filters = hash[:filters] ? hash[:filters].map { |item| item ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem.new(item) : nil } : nil
+      @sort = hash[:sort] ? hash[:sort].map { |item| item ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem.new(item) : nil } : nil
+      @search = hash[:search] ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch.new(hash[:search]) : nil
+      @includes = hash[:includes] ? hash[:includes].map { |item| item ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem.new(item) : nil } : nil
     end
   end
 end

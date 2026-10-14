@@ -19,7 +19,7 @@ module SellApp
       id: {required: true, schema: {kind: :string, format: "uuid"}},
       event_id: {required: true, schema: {kind: :string, pattern: "^evt_"}},
       event_type: {required: true, schema: {kind: :string}},
-      status: {required: true, schema: {kind: :enum, values: ["pending", "delivering", "succeeded", "failed"]}},
+      status: {required: true, schema: {kind: :enum, values: ["pending", "delivering", "retrying", "succeeded", "failed", "disabled"]}},
       destination_origin: {required: true, schema: {kind: :string, format: "uri"}},
       attempts: {required: true, schema: {kind: :integer}},
       response_status: {required: false, schema: {kind: :nullable, inner: {kind: :integer}}},

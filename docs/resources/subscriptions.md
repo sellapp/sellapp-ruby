@@ -65,6 +65,180 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## list_subscriptions
+
+List subscriptions
+
+[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
+
+```ruby
+def list_subscriptions(
+      limit: 15,
+      page: 1,
+      pagination: true,
+      status: nil,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| limit | `Object` | No |
+| page | `Object` | No |
+| pagination | `Object` | No |
+| status | `Object` | No |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.subscriptions.list_subscriptions
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## search_subscriptions
+
+Search subscriptions
+
+[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
+
+```ruby
+def search_subscriptions(
+      filters: nil,
+      sort: nil,
+      search: nil,
+      includes: nil,
+      limit: 15,
+      page: 1,
+      pagination: true,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| filters | `Object` | No |
+| sort | `Object` | No |
+| search | `Object` | No |
+| includes | `Object` | No |
+| limit | `Object` | No |
+| page | `Object` | No |
+| pagination | `Object` | No |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.subscriptions.search_subscriptions(
+  filters: [{ field: "status", operator: "=", value: "ACTIVE" }],
+  search: { value: "maya.chen@example.com" }
+)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## get_subscription
+
+Retrieve a subscription
+
+[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
+
+```ruby
+def get_subscription(
+      product_subscription:,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| product_subscription | `Object` | Yes |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.subscriptions.get_subscription(product_subscription: 123)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
 ## get_capabilities
 
 View subscription capabilities
@@ -236,6 +410,59 @@ Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API r
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## keep
+
+Keep a subscription
+
+[API reference](https://sell.app/docs/api/subscriptions/keep-a-subscription) · Effect: **consequential**
+
+```ruby
+def keep(
+      product_subscription:,
+      idempotency_key: SellApp::OMIT,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| product_subscription | `Object` | Yes |
+| idempotency_key | `Object` | No |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.subscriptions.keep(product_subscription: 55)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
 ## pause
 
 Pause a subscription
@@ -360,6 +587,7 @@ Update a subscription payment method
 def update_payment_method(
       product_subscription:,
       idempotency_key: SellApp::OMIT,
+      return_url: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -368,6 +596,7 @@ def update_payment_method(
 | --- | --- | --- |
 | product_subscription | `Object` | Yes |
 | idempotency_key | `Object` | No |
+| return_url | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -377,7 +606,10 @@ require "sellapp"
 
 client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
 
-result = client.subscriptions.update_payment_method(product_subscription: 1)
+result = client.subscriptions.update_payment_method(
+  product_subscription: 55,
+  return_url: "https://store.example.com/billing/updated"
+)
 puts result.inspect
 ```
 
@@ -399,7 +631,7 @@ Supported credential alternatives (each object is one alternative):
 ]
 ```
 
-Documented HTTP responses: 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
@@ -465,7 +697,7 @@ Supported credential alternatives (each object is one alternative):
 ]
 ```
 
-Documented HTTP responses: 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
@@ -507,7 +739,7 @@ require "sellapp"
 client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
 
 result = client.subscriptions.confirm_plan_change(
-  product_subscription: 1,
+  product_subscription: 55,
   target_variant_id: 4321,
   preview_token: "subprev_9c4b2f"
 )
@@ -532,7 +764,7 @@ Supported credential alternatives (each object is one alternative):
 ]
 ```
 
-Documented HTTP responses: 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
@@ -662,160 +894,6 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
-
-[Response access, transport controls, pagination, and typed errors](../usage.md)
-
-## list_subscriptions
-
-List subscriptions
-
-[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
-
-```ruby
-def list_subscriptions(request_options: {})
-```
-
-| Argument | Native type | Required |
-| --- | --- | --- |
-| request_options | `Object` | No |
-
-Returns: `Object`.
-
-```rb
-require "sellapp"
-
-client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
-
-result = client.subscriptions.list_subscriptions
-puts result.inspect
-```
-
-### Authentication and errors
-
-Supported credential alternatives (each object is one alternative):
-
-```json
-[
-  {
-    "bearerAuth": []
-  },
-  {
-    "oauthAccessToken": [
-      "admin"
-    ],
-    "storeAuth": []
-  }
-]
-```
-
-Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
-
-[Response access, transport controls, pagination, and typed errors](../usage.md)
-
-## search_subscriptions
-
-Search subscriptions
-
-[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
-
-```ruby
-def search_subscriptions(
-      search: nil,
-      status: nil,
-      request_options: {}
-    )
-```
-
-| Argument | Native type | Required |
-| --- | --- | --- |
-| search | `Object` | No |
-| status | `Object` | No |
-| request_options | `Object` | No |
-
-Returns: `Object`.
-
-```rb
-require "sellapp"
-
-client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
-
-result = client.subscriptions.search_subscriptions(
-  search: "maya.chen@example.com",
-  status: "active"
-)
-puts result.inspect
-```
-
-### Authentication and errors
-
-Supported credential alternatives (each object is one alternative):
-
-```json
-[
-  {
-    "bearerAuth": []
-  },
-  {
-    "oauthAccessToken": [
-      "admin"
-    ],
-    "storeAuth": []
-  }
-]
-```
-
-Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
-
-[Response access, transport controls, pagination, and typed errors](../usage.md)
-
-## get_subscription
-
-Retrieve a subscription
-
-[API reference](https://sell.app/docs/api/subscriptions/read-subscriptions) · Effect: **read**
-
-```ruby
-def get_subscription(
-      product_subscription:,
-      request_options: {}
-    )
-```
-
-| Argument | Native type | Required |
-| --- | --- | --- |
-| product_subscription | `Object` | Yes |
-| request_options | `Object` | No |
-
-Returns: `Object`.
-
-```rb
-require "sellapp"
-
-client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
-
-result = client.subscriptions.get_subscription(product_subscription: 991)
-puts result.inspect
-```
-
-### Authentication and errors
-
-Supported credential alternatives (each object is one alternative):
-
-```json
-[
-  {
-    "bearerAuth": []
-  },
-  {
-    "oauthAccessToken": [
-      "admin"
-    ],
-    "storeAuth": []
-  }
-]
-```
-
-Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

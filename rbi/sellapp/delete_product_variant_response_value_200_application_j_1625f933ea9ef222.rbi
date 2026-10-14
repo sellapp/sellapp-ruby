@@ -33,6 +33,12 @@ module SellApp
     sig { params(value: SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice).returns(SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice) }
     def price=(value); end
 
+    sig { returns(T.nilable(SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial)) }
+    def trial; end
+
+    sig { params(value: T.nilable(SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial)).returns(T.nilable(SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial)) }
+    def trial=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

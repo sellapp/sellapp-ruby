@@ -7,9 +7,11 @@ module SellApp
     class GetWebhookDeliveryResponseValue200ApplicationJsonPropertyDataStatus
       PENDING = 'pending'
       DELIVERING = 'delivering'
+      RETRYING = 'retrying'
       SUCCEEDED = 'succeeded'
       FAILED = 'failed'
-      ALL = [PENDING, DELIVERING, SUCCEEDED, FAILED].freeze
+      DISABLED = 'disabled'
+      ALL = [PENDING, DELIVERING, RETRYING, SUCCEEDED, FAILED, DISABLED].freeze
     end
   end
 end

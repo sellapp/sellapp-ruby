@@ -13,8 +13,10 @@ module SellApp
       maximum_purchase_quantity: :maximum_purchase_quantity,
       bulk_discount: :bulk_discount,
       payment_methods: :payment_methods,
+      custom_payment_method_ids: :custom_payment_method_ids,
       other_settings: :other_settings,
-      expected_updated_at: :expected_updated_at
+      expected_updated_at: :expected_updated_at,
+      stock: :stock
     }.freeze
 
     SCHEMA = {
@@ -26,8 +28,10 @@ module SellApp
       maximum_purchase_quantity: {required: false, schema: {kind: :nullable, inner: {kind: :integer}}},
       bulk_discount: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyBulkDiscountItem"}}},
       payment_methods: {required: false, schema: {kind: :array, items: {kind: :enum, values: ["AUTHNET", "BTCPAY", "CASHAPP", "COINBASE", "PADDLE", "PAYDASH", "PAYPAL", "PAYSTACK", "SQUARE", "STRIPE", "VENMO", "NMI", "MERCADO_PAGO", "MOLLIE", "RAZORPAY", "CUSTOM_PAYMENT_METHOD", "LIFI", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI", "BNB_USDT", "BNB_USDC", "TRX_USDT", "TRX_USDC", "SOL_USDT", "SOL_USDC"]}, min: 1}},
+      custom_payment_method_ids: {required: false, schema: {kind: :array, items: {kind: :string, pattern: "^[0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{26}$"}}},
       other_settings: {required: false, schema: {kind: :model, name: "SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyOtherSettings"}},
-      expected_updated_at: {required: false, schema: {kind: :string, format: "date-time"}}
+      expected_updated_at: {required: false, schema: {kind: :string, format: "date-time"}},
+      stock: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0, maximum: 2147483647}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -41,8 +45,10 @@ module SellApp
       :maximum_purchase_quantity,
       :bulk_discount,
       :payment_methods,
+      :custom_payment_method_ids,
       :other_settings,
-      :expected_updated_at
+      :expected_updated_at,
+      :stock
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -57,8 +63,10 @@ module SellApp
       @maximum_purchase_quantity = hash[:maximum_purchase_quantity]
       @bulk_discount = hash[:bulk_discount] ? hash[:bulk_discount].map { |item| item ? SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyBulkDiscountItem.new(item) : nil } : nil
       @payment_methods = hash[:payment_methods]
+      @custom_payment_method_ids = hash[:custom_payment_method_ids]
       @other_settings = hash[:other_settings] ? SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyOtherSettings.new(hash[:other_settings]) : nil
       @expected_updated_at = hash[:expected_updated_at]
+      @stock = hash[:stock]
     end
   end
 end

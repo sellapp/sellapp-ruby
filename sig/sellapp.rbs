@@ -40,6 +40,41 @@ module SellApp
       def each: (?max_items: Integer, ?max_pages: Integer) { (Item) -> void } -> void
     end
   end
+  class SubscriptionPlanChangePreviewPayload
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor provider: String?
+    attr_accessor payment_required: bool?
+    attr_accessor renewal_date: String??
+    attr_accessor amount_due: Integer?
+    attr_accessor discount_warning: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class CustomerPortalSubscriptionPlan
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor product_id: Integer
+    attr_accessor product_variant_id: Integer
+    attr_accessor product_title: String?
+    attr_accessor variant_title: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class CustomerPortalSubscription
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer
+    attr_accessor status: String | Integer
+    attr_accessor cancel_at_period_end: bool
+    attr_accessor current_period_start: String?
+    attr_accessor current_period_end: String?
+    attr_accessor trial_ends_at: String?
+    attr_accessor paused_at: String?
+    attr_accessor pause_resumes_at: String?
+    attr_accessor plan: SellApp::CustomerPortalSubscriptionPlan?
+    attr_accessor created_at: String?
+    attr_accessor updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class CustomerPortalOrderLineItem
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
@@ -254,6 +289,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -288,6 +325,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -306,6 +345,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -332,6 +373,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -354,6 +397,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -372,6 +417,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -394,6 +441,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -412,6 +461,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -438,6 +489,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -1079,7 +1132,7 @@ module SellApp
   class ListInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::ListInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -1316,7 +1369,7 @@ module SellApp
   class CreateInvoiceResponseValue201ApplicationJsonPropertyDataPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::CreateInvoiceResponseValue201ApplicationJsonPropertyDataPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -1502,7 +1555,7 @@ module SellApp
   class SearchInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::SearchInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -1700,7 +1753,7 @@ module SellApp
   class GetInvoiceResponseValue200ApplicationJsonPropertyDataPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::GetInvoiceResponseValue200ApplicationJsonPropertyDataPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -1886,7 +1939,7 @@ module SellApp
   class CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -1952,6 +2005,14 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor set_at: String
+    attr_accessor status: String
+    attr_accessor updated_at: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor set_at: String
@@ -1962,7 +2023,7 @@ module SellApp
   end
   class CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatus
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor history: Array[String]
+    attr_accessor history: Array[SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem]
     attr_accessor status: SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -2066,7 +2127,7 @@ module SellApp
   class CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -2132,6 +2193,14 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor set_at: String
+    attr_accessor status: String
+    attr_accessor updated_at: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor set_at: String
@@ -2142,7 +2211,7 @@ module SellApp
   end
   class CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatus
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor history: Array[String]
+    attr_accessor history: Array[SellApp::CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem]
     attr_accessor status: SellApp::CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -2274,7 +2343,7 @@ module SellApp
   class MarkPendingInvoiceCompletedResponseValue200ApplicationJsonPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::MarkPendingInvoiceCompletedResponseValue200ApplicationJsonPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -2460,7 +2529,7 @@ module SellApp
   class MarkPendingInvoiceVoidedResponseValue200ApplicationJsonPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::MarkPendingInvoiceVoidedResponseValue200ApplicationJsonPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -2651,7 +2720,7 @@ module SellApp
   class IssueReplacementForCompletedInvoiceResponseValue200ApplicationJsonPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::IssueReplacementForCompletedInvoiceResponseValue200ApplicationJsonPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -3221,6 +3290,7 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::CreateProductRequestApplicationJsonPropertyVariantsItemPropertyOtherSettings?
     attr_accessor expected_updated_at: String?
     def to_h: () -> Hash[Symbol, untyped]
@@ -3728,12 +3798,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::ListProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -3906,6 +3999,7 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::CreateProductVariantRequestApplicationJsonPropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::CreateProductVariantRequestApplicationJsonPropertyOtherSettings?
     attr_accessor expected_updated_at: String?
     def to_h: () -> Hash[Symbol, untyped]
@@ -3942,12 +4036,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::CreateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4038,12 +4155,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::GetProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4204,8 +4344,10 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]?
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyOtherSettings?
     attr_accessor expected_updated_at: String?
+    attr_accessor stock: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4240,12 +4382,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4406,8 +4571,10 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::UpdateProductVariantRequestApplicationJsonPropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]?
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::UpdateProductVariantRequestApplicationJsonPropertyOtherSettings?
     attr_accessor expected_updated_at: String?
+    attr_accessor stock: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4442,12 +4609,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::UpdateProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4507,6 +4697,12 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class SdkDeleteProductVariantRequestApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor expected_updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyDeliverablePropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor remove_duplicate: bool
@@ -4538,12 +4734,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -4612,21 +4831,43 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer
+    attr_accessor email: String
+    attr_accessor external_id: String?
+    attr_accessor name: String?
+    attr_accessor locale: String?
+    attr_accessor metadata: Hash[String, SellApp::ScalarMetadataValue]
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class CancelSubscriptionResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
     attr_accessor invoice_id: Integer?
-    attr_accessor provider: String
-    attr_accessor subscription_id: String
-    attr_accessor customer_id: String
-    attr_accessor customer_email: String
-    attr_accessor status: String
-    attr_accessor current_period_start: String
-    attr_accessor current_period_end: String
+    attr_accessor provider: String?
+    attr_accessor subscription_id: String?
+    attr_accessor customer_id: String?
+    attr_accessor provider_subscription_id: String?
+    attr_accessor provider_customer_id: String?
+    attr_accessor customer: SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer?
+    attr_accessor customer_email: String?
+    attr_accessor status: String | Integer
+    attr_accessor current_period_start: String?
+    attr_accessor current_period_end: String?
+    attr_accessor trial_ends_at: String??
     attr_accessor cancel_at_period_end: bool
     attr_accessor cancellation_in_progress: bool
-    attr_accessor store_id: Integer
-    attr_accessor product_variant_id: Integer
+    attr_accessor store_id: Integer?
+    attr_accessor product_variant_id: Integer?
+    attr_accessor current_plan_variant_id: Integer??
+    attr_accessor auto_renew: bool?
+    attr_accessor paused_at: String??
+    attr_accessor pause_resumes_at: String??
+    attr_accessor canceled_immediately_at: String??
+    attr_accessor payment_method_updated_at: String??
+    attr_accessor last_customer_action_at: String??
     attr_accessor created_at: String
     attr_accessor updated_at: String
     def to_h: () -> Hash[Symbol, untyped]
@@ -5499,12 +5740,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -5743,6 +6007,28 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: Integer
+    attr_accessor currency: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyLength
+    attr_accessor price: SellApp::ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyPrice??
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class ReplaceProductVariantPricingRequestApplicationJsonPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor type: String | Integer
@@ -5750,6 +6036,7 @@ module SellApp
     attr_accessor compare_at_price: SellApp::ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyCompareAtPrice??
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency?
+    attr_accessor trial: SellApp::ReplaceProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -5801,12 +6088,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -5887,6 +6197,28 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: Integer
+    attr_accessor currency: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyLength
+    attr_accessor price: SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrialValuePropertyPrice??
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class UpdateProductVariantPricingRequestApplicationJsonPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor type: String | Integer?
@@ -5894,6 +6226,7 @@ module SellApp
     attr_accessor compare_at_price: SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyCompareAtPrice??
     attr_accessor humble: bool?
     attr_accessor frequency: SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyFrequency?
+    attr_accessor trial: SellApp::UpdateProductVariantPricingRequestApplicationJsonPropertyPricingPropertyTrial??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -5945,12 +6278,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -6543,12 +6899,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::GetBundleItemResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -6639,12 +7018,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::ListBundleItemsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7009,6 +7411,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -7043,6 +7447,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7067,6 +7473,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -7093,6 +7501,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -7115,6 +7525,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7144,6 +7556,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -7176,6 +7590,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -7683,6 +8099,7 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::BatchCreateProductVariantsRequestApplicationJsonPropertyResourcesItemPropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::BatchCreateProductVariantsRequestApplicationJsonPropertyResourcesItemPropertyOtherSettings?
     attr_accessor expected_updated_at: String?
     def to_h: () -> Hash[Symbol, untyped]
@@ -7725,12 +8142,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7821,12 +8261,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7987,8 +8450,10 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::BatchUpdateProductVariantsRequestApplicationJsonPropertyResourcesMapValuePropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]?
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::BatchUpdateProductVariantsRequestApplicationJsonPropertyResourcesMapValuePropertyOtherSettings?
     attr_accessor expected_updated_at: String?
+    attr_accessor stock: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8034,12 +8499,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8130,12 +8618,35 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: Integer
+    attr_accessor interval: String | Integer
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor price: String
+    attr_accessor currency: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor kind: String | Integer
+    attr_accessor length: SellApp::BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength
+    attr_accessor price: SellApp::BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor humble: bool
     attr_accessor frequency: SellApp::BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency
     attr_accessor type: String
     attr_accessor price: SellApp::BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice
+    attr_accessor trial: SellApp::BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8195,6 +8706,108 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class SdkListSubscriptionsResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchSubscriptionsRequestApplicationJsonPropertyFiltersItemPropertyNestedItem
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor field: String?
+    attr_accessor operator: String?
+    attr_accessor value: untyped?
+    attr_accessor type: String | Integer?
+    attr_accessor nested: Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItemPropertyNestedItem]?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchSubscriptionsRequestApplicationJsonPropertySortItem
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor field: String
+    attr_accessor direction: String | Integer?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchSubscriptionsRequestApplicationJsonPropertySearch
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor value: String??
+    attr_accessor case_sensitive: bool?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor relation: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkSearchSubscriptionsRequestApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor filters: Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem]?
+    attr_accessor sort: Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem]?
+    attr_accessor search: SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch?
+    attr_accessor includes: Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem]?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkSearchSubscriptionsResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer
+    attr_accessor email: String
+    attr_accessor external_id: String?
+    attr_accessor name: String?
+    attr_accessor locale: String?
+    attr_accessor metadata: Hash[String, SellApp::ScalarMetadataValue]
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetSubscriptionResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer
+    attr_accessor invoice_id: Integer?
+    attr_accessor provider: String?
+    attr_accessor subscription_id: String?
+    attr_accessor customer_id: String?
+    attr_accessor provider_subscription_id: String?
+    attr_accessor provider_customer_id: String?
+    attr_accessor customer: SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer?
+    attr_accessor customer_email: String?
+    attr_accessor status: String | Integer
+    attr_accessor current_period_start: String?
+    attr_accessor current_period_end: String?
+    attr_accessor trial_ends_at: String??
+    attr_accessor cancel_at_period_end: bool
+    attr_accessor cancellation_in_progress: bool
+    attr_accessor store_id: Integer?
+    attr_accessor product_variant_id: Integer?
+    attr_accessor current_plan_variant_id: Integer??
+    attr_accessor auto_renew: bool?
+    attr_accessor paused_at: String??
+    attr_accessor pause_resumes_at: String??
+    attr_accessor canceled_immediately_at: String??
+    attr_accessor payment_method_updated_at: String??
+    attr_accessor last_customer_action_at: String??
+    attr_accessor created_at: String
+    attr_accessor updated_at: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkGetSubscriptionResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyData
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class GetSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValue
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor status: String | Integer?
@@ -8237,6 +8850,8 @@ module SellApp
     attr_accessor action: String | Integer?
     attr_accessor status: String | Integer?
     attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
     attr_accessor customer_message: String??
     attr_accessor confirmed_at: String??
     attr_accessor failed_at: String??
@@ -8269,6 +8884,8 @@ module SellApp
     attr_accessor action: String | Integer?
     attr_accessor status: String | Integer?
     attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
     attr_accessor customer_message: String??
     attr_accessor confirmed_at: String??
     attr_accessor failed_at: String??
@@ -8280,6 +8897,37 @@ module SellApp
   class SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::CancelSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyData
+    attr_accessor message: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkKeepSubscriptionRequestApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor idempotency_key: String??
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class KeepSubscriptionResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer?
+    attr_accessor product_subscription_id: Integer?
+    attr_accessor subscription_id: String??
+    attr_accessor action: String | Integer?
+    attr_accessor status: String | Integer?
+    attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
+    attr_accessor customer_message: String??
+    attr_accessor confirmed_at: String??
+    attr_accessor failed_at: String??
+    attr_accessor created_at: String?
+    attr_accessor updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkKeepSubscriptionResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::KeepSubscriptionResponseValue200ApplicationJsonPropertyData
     attr_accessor message: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -8300,6 +8948,8 @@ module SellApp
     attr_accessor action: String | Integer?
     attr_accessor status: String | Integer?
     attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
     attr_accessor customer_message: String??
     attr_accessor confirmed_at: String??
     attr_accessor failed_at: String??
@@ -8329,6 +8979,8 @@ module SellApp
     attr_accessor action: String | Integer?
     attr_accessor status: String | Integer?
     attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
     attr_accessor customer_message: String??
     attr_accessor confirmed_at: String??
     attr_accessor failed_at: String??
@@ -8347,6 +8999,33 @@ module SellApp
   class SdkUpdateSubscriptionPaymentMethodRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor idempotency_key: String??
+    attr_accessor return_url: String??
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class UpdateSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer?
+    attr_accessor product_subscription_id: Integer?
+    attr_accessor subscription_id: String??
+    attr_accessor action: String | Integer?
+    attr_accessor status: String | Integer?
+    attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
+    attr_accessor customer_message: String??
+    attr_accessor confirmed_at: String??
+    attr_accessor failed_at: String??
+    attr_accessor created_at: String?
+    attr_accessor updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::UpdateSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyData
+    attr_accessor message: String
+    attr_accessor redirect_url: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8365,6 +9044,29 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class PreviewSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyRequestPayload
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class PreviewSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor preview_token: String??
+    attr_accessor expires_at: String??
+    attr_accessor preview_payload: SellApp::SubscriptionPlanChangePreviewPayload?
+    attr_accessor request_payload: SellApp::PreviewSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyRequestPayload?
+    attr_accessor customer_message: String??
+    attr_accessor seller_message: String??
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::PreviewSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData
+    attr_accessor message: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class ConfirmSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata
     def initialize: (String | Hash[Symbol, untyped]) -> void
     def to_h: () -> Hash[Symbol, untyped]
@@ -8378,6 +9080,32 @@ module SellApp
     attr_accessor effective_timing: String | Integer?
     attr_accessor proration_behavior: String | Integer?
     attr_accessor metadata: SellApp::ConfirmSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class ConfirmSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer?
+    attr_accessor product_subscription_id: Integer?
+    attr_accessor subscription_id: String??
+    attr_accessor action: String | Integer?
+    attr_accessor status: String | Integer?
+    attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
+    attr_accessor customer_message: String??
+    attr_accessor confirmed_at: String??
+    attr_accessor failed_at: String??
+    attr_accessor created_at: String?
+    attr_accessor updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::ConfirmSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData
+    attr_accessor message: String
+    attr_accessor approval_url: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8446,6 +9174,8 @@ module SellApp
     attr_accessor action: String | Integer?
     attr_accessor status: String | Integer?
     attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
     attr_accessor customer_message: String??
     attr_accessor confirmed_at: String??
     attr_accessor failed_at: String??
@@ -8457,6 +9187,67 @@ module SellApp
   class SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::ConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyData
+    attr_accessor message: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkListSubscriptionActionsResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class GetSubscriptionActionResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer?
+    attr_accessor product_subscription_id: Integer?
+    attr_accessor subscription_id: String??
+    attr_accessor action: String | Integer?
+    attr_accessor status: String | Integer?
+    attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
+    attr_accessor customer_message: String??
+    attr_accessor confirmed_at: String??
+    attr_accessor failed_at: String??
+    attr_accessor created_at: String?
+    attr_accessor updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkGetSubscriptionActionResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::GetSubscriptionActionResponseValue200ApplicationJsonPropertyData
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkDismissSubscriptionActionRequestApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor idempotency_key: String??
+    attr_accessor note: String
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class DismissSubscriptionActionResponseValue200ApplicationJsonPropertyData
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor id: Integer?
+    attr_accessor product_subscription_id: Integer?
+    attr_accessor subscription_id: String??
+    attr_accessor action: String | Integer?
+    attr_accessor status: String | Integer?
+    attr_accessor provider: String?
+    attr_accessor proration_order_id: Integer??
+    attr_accessor error: String??
+    attr_accessor customer_message: String??
+    attr_accessor confirmed_at: String??
+    attr_accessor failed_at: String??
+    attr_accessor created_at: String?
+    attr_accessor updated_at: String?
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
+  class SdkDismissSubscriptionActionResponseValue200ApplicationJson
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    attr_accessor data: SellApp::DismissSubscriptionActionResponseValue200ApplicationJsonPropertyData
     attr_accessor message: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -8757,6 +9548,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
+    attr_accessor store_wide: bool?
+    attr_accessor products: Array[Integer]?
+    attr_accessor product_variants: Array[Integer]?
     attr_accessor phases: Array[SellApp::CreatePromotionRequestApplicationJsonPropertyPhasesItem]
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -8787,6 +9583,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
+    attr_accessor store_wide: bool
+    attr_accessor products: Array[Integer]
+    attr_accessor product_variants: Array[Integer]
     attr_accessor phases: Array[SellApp::CreatePromotionResponseValue201ApplicationJsonPropertyDataPropertyPhasesItem]
     attr_accessor created_at: String??
     attr_accessor updated_at: String??
@@ -8875,6 +9676,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
+    attr_accessor store_wide: bool
+    attr_accessor products: Array[Integer]
+    attr_accessor product_variants: Array[Integer]
     attr_accessor phases: Array[SellApp::GetPromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem]
     attr_accessor created_at: String??
     attr_accessor updated_at: String??
@@ -8907,6 +9713,11 @@ module SellApp
     attr_accessor priority: Integer?
     attr_accessor is_stackable: bool?
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
+    attr_accessor store_wide: bool?
+    attr_accessor products: Array[Integer]?
+    attr_accessor product_variants: Array[Integer]?
     attr_accessor phases: Array[SellApp::ReplacePromotionRequestApplicationJsonPropertyPhasesItem]?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -8937,6 +9748,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
+    attr_accessor store_wide: bool
+    attr_accessor products: Array[Integer]
+    attr_accessor product_variants: Array[Integer]
     attr_accessor phases: Array[SellApp::ReplacePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem]
     attr_accessor created_at: String??
     attr_accessor updated_at: String??
@@ -8969,6 +9785,11 @@ module SellApp
     attr_accessor priority: Integer?
     attr_accessor is_stackable: bool?
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
+    attr_accessor store_wide: bool?
+    attr_accessor products: Array[Integer]?
+    attr_accessor product_variants: Array[Integer]?
     attr_accessor phases: Array[SellApp::UpdatePromotionRequestApplicationJsonPropertyPhasesItem]?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -8999,6 +9820,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
+    attr_accessor store_wide: bool
+    attr_accessor products: Array[Integer]
+    attr_accessor product_variants: Array[Integer]
     attr_accessor phases: Array[SellApp::UpdatePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem]
     attr_accessor created_at: String??
     attr_accessor updated_at: String??
@@ -9038,6 +9864,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
+    attr_accessor store_wide: bool
+    attr_accessor products: Array[Integer]
+    attr_accessor product_variants: Array[Integer]
     attr_accessor phases: Array[SellApp::DeletePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem]
     attr_accessor created_at: String??
     attr_accessor updated_at: String??
@@ -9070,6 +9901,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
+    attr_accessor store_wide: bool?
+    attr_accessor products: Array[Integer]?
+    attr_accessor product_variants: Array[Integer]?
     attr_accessor phases: Array[SellApp::RestorePromotionRequestApplicationJsonPropertyPhasesItem]
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -9100,6 +9936,11 @@ module SellApp
     attr_accessor priority: Integer
     attr_accessor is_stackable: bool
     attr_accessor max_redemptions: Integer??
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
+    attr_accessor store_wide: bool
+    attr_accessor products: Array[Integer]
+    attr_accessor product_variants: Array[Integer]
     attr_accessor phases: Array[SellApp::RestorePromotionResponseValue200ApplicationJsonPropertyDataPropertyPhasesItem]
     attr_accessor created_at: String??
     attr_accessor updated_at: String??
@@ -9333,6 +10174,7 @@ module SellApp
     attr_accessor maximum_purchase_quantity: Integer??
     attr_accessor bulk_discount: Array[SellApp::CreateAddOnDraftRequestApplicationJsonPropertyVariantPropertyBulkDiscountItem]?
     attr_accessor payment_methods: Array[String | Integer]
+    attr_accessor custom_payment_method_ids: Array[String]?
     attr_accessor other_settings: SellApp::CreateAddOnDraftRequestApplicationJsonPropertyVariantPropertyOtherSettings?
     attr_accessor expected_updated_at: String?
     def to_h: () -> Hash[Symbol, untyped]
@@ -12056,7 +12898,7 @@ module SellApp
   class UpdateInvoiceStatusResponseValue200ApplicationJsonPropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::UpdateInvoiceStatusResponseValue200ApplicationJsonPropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -12242,7 +13084,7 @@ module SellApp
   class CreateInvoiceRefundResponseValue200ApplicationJsonPropertyDataPropertyInvoicePropertyPaymentPropertyGateway
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor data: SellApp::CreateInvoiceRefundResponseValue200ApplicationJsonPropertyDataPropertyInvoicePropertyPaymentPropertyGatewayPropertyData
-    attr_accessor type: String
+    attr_accessor type: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19187,6 +20029,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19221,6 +20065,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19239,6 +20085,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19309,6 +20157,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19347,6 +20197,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19369,6 +20221,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19387,6 +20241,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19409,6 +20265,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19427,6 +20285,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19453,6 +20313,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19475,6 +20337,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19499,6 +20363,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19525,6 +20391,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19547,6 +20415,8 @@ module SellApp
     attr_accessor limit: Integer??
     attr_accessor expires_at: String??
     attr_accessor minimum_amount: Float | String??
+    attr_accessor applies_to: String | Integer?
+    attr_accessor subscription_payments: Integer??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19576,6 +20446,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -19608,6 +20480,8 @@ module SellApp
     attr_accessor store_id: Integer
     attr_accessor deleted_at: String?
     attr_accessor maximum_discount_amount: String?
+    attr_accessor applies_to: String | Integer
+    attr_accessor subscription_payments: Integer?
     attr_accessor products: Array[Integer]
     attr_accessor product_variants: Array[Integer]
     def to_h: () -> Hash[Symbol, untyped]
@@ -21331,122 +22205,6 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
-  class ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer
-    attr_accessor product_variant_id: Integer?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SdkListSubscriptionsResponseValue200ApplicationJson
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor data: Array[SellApp::ListSubscriptionsResponseValue200ApplicationJsonPropertyDataItem]
-    attr_accessor links: SellApp::PaginationLinks
-    attr_accessor meta: SellApp::PaginationMeta
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SdkSearchSubscriptionsRequestApplicationJson
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor search: String?
-    attr_accessor status: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer
-    attr_accessor product_variant_id: Integer?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SdkSearchSubscriptionsResponseValue200ApplicationJson
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor data: Array[SellApp::SearchSubscriptionsResponseValue200ApplicationJsonPropertyDataItem]
-    attr_accessor links: SellApp::PaginationLinks
-    attr_accessor meta: SellApp::PaginationMeta
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class GetSubscriptionResponseValue200ApplicationJsonPropertyData
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class SdkGetSubscriptionResponseValue200ApplicationJson
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor data: SellApp::GetSubscriptionResponseValue200ApplicationJsonPropertyData
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
   class CreateCustomerSessionRequestApplicationJsonOneOfValue1
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor customer_id: Integer
@@ -21557,80 +22315,25 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
-  class ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomerPropertyMetadata
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItem
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItemPropertyCustomer
-    attr_accessor product_variant_id: Integer?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
   class SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor data: Array[SellApp::ListCustomerPortalSubscriptionsResponseValue200ApplicationJsonPropertyDataItem]
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyData
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor data: Array[SellApp::CustomerPortalSubscription]
+    attr_accessor links: SellApp::PaginationLinks
+    attr_accessor meta: SellApp::PaginationMeta
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class SdkGetCustomerPortalSubscriptionResponseValue200ApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor data: SellApp::GetCustomerPortalSubscriptionResponseValue200ApplicationJsonPropertyData
+    attr_accessor data: SellApp::CustomerPortalSubscription
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValue
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor available: bool
-    attr_accessor reason: String?
+    attr_accessor status: String | Integer
+    attr_accessor customer_reason: String?
+    attr_accessor seller_reason: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21641,7 +22344,7 @@ module SellApp
   end
   class GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor subscription_id: Integer
+    attr_accessor id: Integer
     attr_accessor capabilities: SellApp::GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilities
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
@@ -21678,40 +22381,19 @@ module SellApp
   end
   class SdkCancelCustomerSubscriptionAtPeriodEndRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor reason: String??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21723,40 +22405,19 @@ module SellApp
   end
   class SdkCancelCustomerSubscriptionImmediatelyRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class CancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class CancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::CancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor reason: String??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class CancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::CancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21768,40 +22429,20 @@ module SellApp
   end
   class SdkPauseCustomerSubscriptionRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class PauseCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class PauseCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::PauseCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor resume_at: String??
+    attr_accessor reason: String??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class PauseCustomerSubscriptionResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::PauseCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21811,42 +22452,15 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
-  class SdkResumeCustomerSubscriptionRequestApplicationJson
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ResumeCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ResumeCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::ResumeCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
   class ResumeCustomerSubscriptionResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::ResumeCustomerSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21858,40 +22472,19 @@ module SellApp
   end
   class SdkUpdateCustomerSubscriptionPaymentMethodRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor return_url: String??
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::UpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21901,42 +22494,26 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class PreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class PreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::PreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor target_variant_id: Integer
+    attr_accessor effective_timing: String | Integer?
+    attr_accessor proration_behavior: String | Integer?
+    attr_accessor metadata: SellApp::PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class PreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::PreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor preview_token: String?
+    attr_accessor expires_at: String?
+    attr_accessor preview: SellApp::SubscriptionPlanChangePreviewPayload
+    attr_accessor customer_message: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21946,42 +22523,30 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor target_variant_id: Integer
+    attr_accessor preview_token: String
+    attr_accessor effective_timing: String | Integer?
+    attr_accessor proration_behavior: String | Integer?
+    attr_accessor metadata: SellApp::ConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::ConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -21991,42 +22556,30 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class SdkPreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
+    attr_accessor renewal_date: String
+    attr_accessor reason: String??
+    attr_accessor metadata: SellApp::PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
-  class PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+  class PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyPreview
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor preview_token: String?
+    attr_accessor expires_at: String?
+    attr_accessor preview: SellApp::PreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyPreview
+    attr_accessor customer_message: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -22036,42 +22589,29 @@ module SellApp
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
+  class ConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata
+    def initialize: (String | Hash[Symbol, untyped]) -> void
+    def to_h: () -> Hash[Symbol, untyped]
+    def to_json: (*untyped) -> String
+  end
   class SdkConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJson
     def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor preview_id: String?
-    attr_accessor product_variant_id: Integer?
-    attr_accessor renewal_date: String?
-    attr_accessor return_url: String?
-    attr_accessor reason: String?
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    def to_h: () -> Hash[Symbol, untyped]
-    def to_json: (*untyped) -> String
-  end
-  class ConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    def initialize: (String | Hash[Symbol, untyped]) -> void
-    attr_accessor id: Integer
-    attr_accessor email: String
-    attr_accessor external_id: String?
-    attr_accessor name: String?
-    attr_accessor locale: String?
-    attr_accessor metadata: SellApp::ConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomerPropertyMetadata
+    attr_accessor renewal_date: String
+    attr_accessor preview_token: String??
+    attr_accessor reason: String??
+    attr_accessor metadata: SellApp::ConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
   class ConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyData
     def initialize: (String | Hash[Symbol, untyped]) -> void
     attr_accessor id: Integer
-    attr_accessor status: String
-    attr_accessor subscription_id: String??
-    attr_accessor customer_id: String??
-    attr_accessor provider_subscription_id: String?
-    attr_accessor provider_customer_id: String?
-    attr_accessor customer: SellApp::ConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataPropertyCustomer
-    attr_accessor product_variant_id: Integer?
+    attr_accessor subscription_id: Integer
+    attr_accessor action: String | Integer
+    attr_accessor status: String | Integer
+    attr_accessor customer_message: String?
+    attr_accessor redirect_url: String?
+    attr_accessor created_at: String?
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -23579,19 +24119,26 @@ module SellApp
   class Subscriptions
     def initialize: (BaseClient) -> void
     def cancel: (*untyped, **untyped) -> (SellApp::SdkCancelSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkCancelSubscriptionResponseValue200ApplicationJson])
-    def get_capabilities: (*untyped, **untyped) -> (SellApp::SdkGetSubscriptionCapabilitiesResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetSubscriptionCapabilitiesResponseValue200ApplicationJson])
-    def cancel_at_period_end: (*untyped, **untyped) -> (SellApp::SdkCancelSubscriptionAtPeriodEndResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkCancelSubscriptionAtPeriodEndResponseValue200ApplicationJson])
-    def cancel_immediately: (*untyped, **untyped) -> (SellApp::SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson])
-    def pause: (*untyped, **untyped) -> (SellApp::SdkPauseSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkPauseSubscriptionResponseValue200ApplicationJson])
-    def resume: (*untyped, **untyped) -> (SellApp::SdkResumeSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkResumeSubscriptionResponseValue200ApplicationJson])
-    def update_payment_method: (*untyped, **untyped) -> (String | SellApp::Types::Response[String])
-    def preview_plan_change: (*untyped, **untyped) -> (String | SellApp::Types::Response[String])
-    def confirm_plan_change: (*untyped, **untyped) -> (String | SellApp::Types::Response[String])
-    def preview_renewal_date: (*untyped, **untyped) -> (SellApp::SdkPreviewSubscriptionRenewalDateChangeResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkPreviewSubscriptionRenewalDateChangeResponseValue200ApplicationJson])
-    def confirm_renewal_date: (*untyped, **untyped) -> (SellApp::SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson])
     def list_subscriptions: (*untyped, **untyped) -> (SellApp::Types::ListStruct[untyped] | SellApp::Types::Response[SellApp::Types::ListStruct[untyped]])
     def search_subscriptions: (*untyped, **untyped) -> (SellApp::Types::ListStruct[untyped] | SellApp::Types::Response[SellApp::Types::ListStruct[untyped]])
     def get_subscription: (*untyped, **untyped) -> (SellApp::SdkGetSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetSubscriptionResponseValue200ApplicationJson])
+    def get_capabilities: (*untyped, **untyped) -> (SellApp::SdkGetSubscriptionCapabilitiesResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetSubscriptionCapabilitiesResponseValue200ApplicationJson])
+    def cancel_at_period_end: (*untyped, **untyped) -> (SellApp::SdkCancelSubscriptionAtPeriodEndResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkCancelSubscriptionAtPeriodEndResponseValue200ApplicationJson])
+    def cancel_immediately: (*untyped, **untyped) -> (SellApp::SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkCancelSubscriptionImmediatelyResponseValue200ApplicationJson])
+    def keep: (*untyped, **untyped) -> (SellApp::SdkKeepSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkKeepSubscriptionResponseValue200ApplicationJson])
+    def pause: (*untyped, **untyped) -> (SellApp::SdkPauseSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkPauseSubscriptionResponseValue200ApplicationJson])
+    def resume: (*untyped, **untyped) -> (SellApp::SdkResumeSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkResumeSubscriptionResponseValue200ApplicationJson])
+    def update_payment_method: (*untyped, **untyped) -> (SellApp::SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson])
+    def preview_plan_change: (*untyped, **untyped) -> (SellApp::SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson])
+    def confirm_plan_change: (*untyped, **untyped) -> (SellApp::SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson])
+    def preview_renewal_date: (*untyped, **untyped) -> (SellApp::SdkPreviewSubscriptionRenewalDateChangeResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkPreviewSubscriptionRenewalDateChangeResponseValue200ApplicationJson])
+    def confirm_renewal_date: (*untyped, **untyped) -> (SellApp::SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson])
+  end
+  class SubscriptionsActions
+    def initialize: (BaseClient) -> void
+    def list: (*untyped, **untyped) -> (SellApp::Types::ListStruct[untyped] | SellApp::Types::Response[SellApp::Types::ListStruct[untyped]])
+    def get: (*untyped, **untyped) -> (SellApp::SdkGetSubscriptionActionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetSubscriptionActionResponseValue200ApplicationJson])
+    def dismiss: (*untyped, **untyped) -> (SellApp::SdkDismissSubscriptionActionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkDismissSubscriptionActionResponseValue200ApplicationJson])
   end
   class Bookings
     def initialize: (BaseClient) -> void
@@ -23990,7 +24537,7 @@ module SellApp
     def update_customer_portal_profile: (*untyped, **untyped) -> (SellApp::SdkUpdateCustomerPortalProfileResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkUpdateCustomerPortalProfileResponseValue200ApplicationJson])
     def list_customer_portal_orders: (*untyped, **untyped) -> (SellApp::Types::ListStruct[untyped] | SellApp::Types::Response[SellApp::Types::ListStruct[untyped]])
     def get_customer_portal_order: (*untyped, **untyped) -> (SellApp::SdkGetCustomerPortalOrderResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetCustomerPortalOrderResponseValue200ApplicationJson])
-    def list_customer_portal_subscriptions: (*untyped, **untyped) -> (SellApp::SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkListCustomerPortalSubscriptionsResponseValue200ApplicationJson])
+    def list_customer_portal_subscriptions: (*untyped, **untyped) -> (SellApp::Types::ListStruct[untyped] | SellApp::Types::Response[SellApp::Types::ListStruct[untyped]])
     def get_customer_portal_subscription: (*untyped, **untyped) -> (SellApp::SdkGetCustomerPortalSubscriptionResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetCustomerPortalSubscriptionResponseValue200ApplicationJson])
     def get_customer_portal_subscription_capabilities: (*untyped, **untyped) -> (SellApp::SdkGetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkGetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJson])
     def list_customer_portal_entitlements: (*untyped, **untyped) -> (SellApp::SdkListCustomerPortalEntitlementsResponseValue200ApplicationJson | SellApp::Types::Response[SellApp::SdkListCustomerPortalEntitlementsResponseValue200ApplicationJson])

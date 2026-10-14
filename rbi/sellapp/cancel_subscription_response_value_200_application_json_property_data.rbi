@@ -21,28 +21,46 @@ module SellApp
     sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def invoice_id=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def provider; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def provider=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def subscription_id; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def subscription_id=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def customer_id; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def customer_id=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
+    def provider_subscription_id; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def provider_subscription_id=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def provider_customer_id; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def provider_customer_id=(value); end
+
+    sig { returns(T.nilable(SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer)) }
+    def customer; end
+
+    sig { params(value: T.nilable(SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer)).returns(T.nilable(SellApp::CancelSubscriptionResponseValue200ApplicationJsonPropertyDataPropertyCustomer)) }
+    def customer=(value); end
+
+    sig { returns(T.nilable(String)) }
     def customer_email; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def customer_email=(value); end
 
     sig { returns(String) }
@@ -51,17 +69,23 @@ module SellApp
     sig { params(value: String).returns(String) }
     def status=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def current_period_start; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def current_period_start=(value); end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def current_period_end; end
 
-    sig { params(value: String).returns(String) }
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def current_period_end=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def trial_ends_at; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def trial_ends_at=(value); end
 
     sig { returns(T::Boolean) }
     def cancel_at_period_end; end
@@ -75,17 +99,59 @@ module SellApp
     sig { params(value: T::Boolean).returns(T::Boolean) }
     def cancellation_in_progress=(value); end
 
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def store_id; end
 
-    sig { params(value: Integer).returns(Integer) }
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def store_id=(value); end
 
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def product_variant_id; end
 
-    sig { params(value: Integer).returns(Integer) }
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def product_variant_id=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def current_plan_variant_id; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def current_plan_variant_id=(value); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def auto_renew; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def auto_renew=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def paused_at; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def paused_at=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def pause_resumes_at; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def pause_resumes_at=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def canceled_immediately_at; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def canceled_immediately_at=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def payment_method_updated_at; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def payment_method_updated_at=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def last_customer_action_at; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def last_customer_action_at=(value); end
 
     sig { returns(String) }
     def created_at; end

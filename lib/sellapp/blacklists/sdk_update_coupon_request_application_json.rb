@@ -13,7 +13,9 @@ module SellApp
       product_variants: :product_variants,
       limit: :limit,
       expires_at: :expires_at,
-      minimum_amount: :minimum_amount
+      minimum_amount: :minimum_amount,
+      applies_to: :applies_to,
+      subscription_payments: :subscription_payments
     }.freeze
 
     SCHEMA = {
@@ -25,7 +27,9 @@ module SellApp
       product_variants: {required: false, schema: {kind: :array, items: {kind: :integer}}},
       limit: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1}}},
       expires_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
-      minimum_amount: {required: false, schema: {kind: :nullable, inner: {kind: :union, variants: [{kind: :number, minimum: 1, max: 255}, {kind: :string, minimum: 1, max: 255}]}}}
+      minimum_amount: {required: false, schema: {kind: :nullable, inner: {kind: :union, variants: [{kind: :number, minimum: 1, max: 255}, {kind: :string, minimum: 1, max: 255}]}}},
+      applies_to: {required: false, schema: {kind: :enum, values: ["one_time", "subscriptions"]}},
+      subscription_payments: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1, maximum: 36}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -39,7 +43,9 @@ module SellApp
       :product_variants,
       :limit,
       :expires_at,
-      :minimum_amount
+      :minimum_amount,
+      :applies_to,
+      :subscription_payments
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -55,6 +61,8 @@ module SellApp
       @limit = hash[:limit]
       @expires_at = hash[:expires_at]
       @minimum_amount = hash[:minimum_amount]
+      @applies_to = hash[:applies_to]
+      @subscription_payments = hash[:subscription_payments]
     end
   end
 end

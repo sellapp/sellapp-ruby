@@ -9,17 +9,29 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem])) }
+    def filters; end
+
+    sig { params(value: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem])).returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem])) }
+    def filters=(value); end
+
+    sig { returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem])) }
+    def sort; end
+
+    sig { params(value: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem])).returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem])) }
+    def sort=(value); end
+
+    sig { returns(T.nilable(SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch)) }
     def search; end
 
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    sig { params(value: T.nilable(SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch)).returns(T.nilable(SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch)) }
     def search=(value); end
 
-    sig { returns(T.nilable(String)) }
-    def status; end
+    sig { returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem])) }
+    def includes; end
 
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def status=(value); end
+    sig { params(value: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem])).returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem])) }
+    def includes=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end

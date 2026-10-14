@@ -197,29 +197,16 @@ module SellApp
 
     # Cancel at period end
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
     # @param reason [String, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJson]
     def cancel_customer_subscription_at_period_end(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      reason: SellApp::OMIT,
       request_options: {}
     )
-      body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
-      }.compact
+      body = {}
+      body['reason'] = reason unless reason.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCancelCustomerSubscriptionAtPeriodEndRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'cancelCustomerSubscriptionAtPeriodEnd', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
@@ -240,29 +227,16 @@ module SellApp
 
     # Cancel immediately
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
     # @param reason [String, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJson]
     def cancel_customer_subscription_immediately(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      reason: SellApp::OMIT,
       request_options: {}
     )
-      body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
-      }.compact
+      body = {}
+      body['reason'] = reason unless reason.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCancelCustomerSubscriptionImmediatelyRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'cancelCustomerSubscriptionImmediately', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
@@ -283,29 +257,19 @@ module SellApp
 
     # Pause a subscription
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
+    # @param resume_at [String, nil]
     # @param reason [String, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkPauseCustomerSubscriptionResponseValue200ApplicationJson]
     def pause_customer_subscription(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      resume_at: SellApp::OMIT,
+      reason: SellApp::OMIT,
       request_options: {}
     )
-      body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
-      }.compact
+      body = {}
+      body['resume_at'] = resume_at unless resume_at.equal?(SellApp::OMIT)
+      body['reason'] = reason unless reason.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkPauseCustomerSubscriptionRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'pauseCustomerSubscription', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
@@ -326,37 +290,18 @@ module SellApp
 
     # Resume a subscription
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
-    # @param reason [String, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkResumeCustomerSubscriptionResponseValue200ApplicationJson]
     def resume_customer_subscription(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
       request_options: {}
     )
-      body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
-      }.compact
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
-      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkResumeCustomerSubscriptionRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'resumeCustomerSubscription', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
       response = @client.request(
         method: :post,
         path: "/v2/customer-portal/subscriptions/#{SellApp::Util.encode_path(product_subscription)}/actions/resume",
         auth: true,
-        body: body,
         request_options: request_options
       )
       value = begin
@@ -369,29 +314,16 @@ module SellApp
 
     # Update payment method
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
     # @param return_url [String, nil]
-    # @param reason [String, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkUpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJson]
     def update_customer_subscription_payment_method(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      return_url: SellApp::OMIT,
       request_options: {}
     )
-      body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
-      }.compact
+      body = {}
+      body['return_url'] = return_url unless return_url.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateCustomerSubscriptionPaymentMethodRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'updateCustomerSubscriptionPaymentMethod', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
@@ -412,32 +344,29 @@ module SellApp
 
     # Preview a plan change
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
-    # @param reason [String, nil]
+    # @param target_variant_id [Integer]
+    # @param effective_timing [SellApp::Types::SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming, nil]
+    # @param proration_behavior [SellApp::Types::SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior, nil]
+    # @param metadata [SellApp::PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkPreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJson]
     def preview_customer_subscription_plan_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      target_variant_id:,
+      effective_timing: nil,
+      proration_behavior: nil,
+      metadata: nil,
       request_options: {}
     )
       body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
+        'target_variant_id' => target_variant_id,
+        'effective_timing' => effective_timing,
+        'proration_behavior' => proration_behavior,
+        'metadata' => metadata
       }.compact
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJson"}, "$request.body")
-      request_options = request_options.merge(operation_id: 'previewCustomerSubscriptionPlanChange', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
+      request_options = request_options.merge(operation_id: 'previewCustomerSubscriptionPlanChange', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: "/v2/customer-portal/subscriptions/#{SellApp::Util.encode_path(product_subscription)}/actions/change-plan/preview",
@@ -455,28 +384,28 @@ module SellApp
 
     # Confirm a plan change
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
-    # @param reason [String, nil]
+    # @param target_variant_id [Integer]
+    # @param preview_token [String]
+    # @param effective_timing [SellApp::Types::SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming, nil]
+    # @param proration_behavior [SellApp::Types::SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior, nil]
+    # @param metadata [SellApp::ConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJson]
     def confirm_customer_subscription_plan_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      target_variant_id:,
+      preview_token:,
+      effective_timing: nil,
+      proration_behavior: nil,
+      metadata: nil,
       request_options: {}
     )
       body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
-        'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
+        'target_variant_id' => target_variant_id,
+        'preview_token' => preview_token,
+        'effective_timing' => effective_timing,
+        'proration_behavior' => proration_behavior,
+        'metadata' => metadata
       }.compact
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJson"}, "$request.body")
@@ -498,32 +427,26 @@ module SellApp
 
     # Preview a renewal-date change
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
+    # @param renewal_date [String]
     # @param reason [String, nil]
+    # @param metadata [SellApp::PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkPreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson]
     def preview_customer_subscription_renewal_date_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      renewal_date:,
+      reason: SellApp::OMIT,
+      metadata: nil,
       request_options: {}
     )
       body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
         'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
+        'metadata' => metadata
       }.compact
+      body['reason'] = reason unless reason.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkPreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJson"}, "$request.body")
-      request_options = request_options.merge(operation_id: 'previewCustomerSubscriptionRenewalDateChange', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)
+      request_options = request_options.merge(operation_id: 'previewCustomerSubscriptionRenewalDateChange', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: "/v2/customer-portal/subscriptions/#{SellApp::Util.encode_path(product_subscription)}/actions/change-renewal-date/preview",
@@ -541,29 +464,26 @@ module SellApp
 
     # Confirm a renewal-date change
     # @param product_subscription [Integer] The productSubscription identifier.
-    # @param preview_id [String, nil]
-    # @param product_variant_id [Integer, nil]
-    # @param renewal_date [String, nil]
-    # @param return_url [String, nil]
+    # @param renewal_date [String]
+    # @param preview_token [String, nil]
     # @param reason [String, nil]
+    # @param metadata [SellApp::ConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata, nil]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson]
     def confirm_customer_subscription_renewal_date_change(
       product_subscription:,
-      preview_id: nil,
-      product_variant_id: nil,
-      renewal_date: nil,
-      return_url: nil,
-      reason: nil,
+      renewal_date:,
+      preview_token: SellApp::OMIT,
+      reason: SellApp::OMIT,
+      metadata: nil,
       request_options: {}
     )
       body = {
-        'preview_id' => preview_id,
-        'product_variant_id' => product_variant_id,
         'renewal_date' => renewal_date,
-        'return_url' => return_url,
-        'reason' => reason
+        'metadata' => metadata
       }.compact
+      body['preview_token'] = preview_token unless preview_token.equal?(SellApp::OMIT)
+      body['reason'] = reason unless reason.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'confirmCustomerSubscriptionRenewalDateChange', credential_policy: {anonymous: false, apiKey: false, accessToken: false, customerSession: true, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: false}, retry_forbidden: false, idempotency_supported: true)

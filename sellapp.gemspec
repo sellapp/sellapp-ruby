@@ -4,7 +4,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "sellapp"
-  spec.version = "0.1.1"
+  spec.version = "0.2.0"
   spec.summary = "SellApp API client for Ruby"
   spec.description = "Build SellApp integrations with typed product, order, checkout, and customer APIs."
   spec.authors = ["SellApp"]

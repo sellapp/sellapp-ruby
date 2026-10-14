@@ -41,21 +41,21 @@ class CustomerPortalTest < Minitest::Test
 
   def test_list_customer_portal_subscriptions_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions(\?|\z)})
-      .to_return(body: '{"data":[]}', status: 200)
+      .to_return(body: '{"data":[],"links":{"first":"stub","last":"stub","prev":"stub","next":"stub"},"meta":{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1}}', status: 200)
     result = @client.customer_portal.list_customer_portal_subscriptions()
     refute_nil result
   end
 
   def test_get_customer_portal_subscription_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"ACTIVE","cancel_at_period_end":true,"current_period_start":"2024-01-01T00:00:00Z","current_period_end":"2024-01-01T00:00:00Z","trial_ends_at":"2024-01-01T00:00:00Z","paused_at":"2024-01-01T00:00:00Z","pause_resumes_at":"2024-01-01T00:00:00Z","plan":{"product_id":1,"product_variant_id":1,"product_title":"stub","variant_title":"stub"},"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.customer_portal.get_customer_portal_subscription(subscription: 1)
     refute_nil result
   end
 
   def test_get_customer_portal_subscription_capabilities_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/capabilities(\?|\z)})
-      .to_return(body: '{"data":{"subscription_id":1,"capabilities":{}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"capabilities":{}}}', status: 200)
     result = @client.customer_portal.get_customer_portal_subscription_capabilities(subscription: 1)
     refute_nil result
   end
@@ -69,64 +69,64 @@ class CustomerPortalTest < Minitest::Test
 
   def test_cancel_customer_subscription_at_period_end_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/cancel-period-end(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.customer_portal.cancel_customer_subscription_at_period_end(product_subscription: 1)
     refute_nil result
   end
 
   def test_cancel_customer_subscription_immediately_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/cancel-immediately(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.customer_portal.cancel_customer_subscription_immediately(product_subscription: 1)
     refute_nil result
   end
 
   def test_pause_customer_subscription_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/pause(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.customer_portal.pause_customer_subscription(product_subscription: 1)
     refute_nil result
   end
 
   def test_resume_customer_subscription_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/resume(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.customer_portal.resume_customer_subscription(product_subscription: 1)
     refute_nil result
   end
 
   def test_update_customer_subscription_payment_method_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/update-payment-method(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.customer_portal.update_customer_subscription_payment_method(product_subscription: 1)
     refute_nil result
   end
 
   def test_preview_customer_subscription_plan_change_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-plan/preview(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
-    result = @client.customer_portal.preview_customer_subscription_plan_change(product_subscription: 1)
+      .to_return(body: '{"data":{"preview_token":"stub","expires_at":"2024-01-01T00:00:00Z","preview":{},"customer_message":"stub"}}', status: 200)
+    result = @client.customer_portal.preview_customer_subscription_plan_change(product_subscription: 1, target_variant_id: 1)
     refute_nil result
   end
 
   def test_confirm_customer_subscription_plan_change_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-plan/confirm(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
-    result = @client.customer_portal.confirm_customer_subscription_plan_change(product_subscription: 1)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
+    result = @client.customer_portal.confirm_customer_subscription_plan_change(product_subscription: 1, target_variant_id: 1, preview_token: 'stub')
     refute_nil result
   end
 
   def test_preview_customer_subscription_renewal_date_change_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-renewal-date/preview(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
-    result = @client.customer_portal.preview_customer_subscription_renewal_date_change(product_subscription: 1)
+      .to_return(body: '{"data":{"preview_token":"stub","expires_at":"2024-01-01T00:00:00Z","preview":{},"customer_message":"stub"}}', status: 200)
+    result = @client.customer_portal.preview_customer_subscription_renewal_date_change(product_subscription: 1, renewal_date: '2024-01-01T00:00:00Z')
     refute_nil result
   end
 
   def test_confirm_customer_subscription_renewal_date_change_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-renewal-date/confirm(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"stub","provider_subscription_id":"stub","provider_customer_id":"stub","customer":{"id":1,"email":"sdk@example.com","external_id":"stub","name":"stub","locale":"en","metadata":{}}}}', status: 200)
-    result = @client.customer_portal.confirm_customer_subscription_renewal_date_change(product_subscription: 1)
+      .to_return(body: '{"data":{"id":1,"subscription_id":1,"action":"pause","status":"pending","customer_message":"stub","redirect_url":"https://example.com","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
+    result = @client.customer_portal.confirm_customer_subscription_renewal_date_change(product_subscription: 1, renewal_date: '2024-01-01T00:00:00Z')
     refute_nil result
   end
 
@@ -145,10 +145,10 @@ class CustomerPortalTest < Minitest::Test
     {name: :pause_customer_subscription, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/pause(\?|\z)}, args: {product_subscription: 1}},
     {name: :resume_customer_subscription, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/resume(\?|\z)}, args: {product_subscription: 1}},
     {name: :update_customer_subscription_payment_method, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/update-payment-method(\?|\z)}, args: {product_subscription: 1}},
-    {name: :preview_customer_subscription_plan_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-plan/preview(\?|\z)}, args: {product_subscription: 1}},
-    {name: :confirm_customer_subscription_plan_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-plan/confirm(\?|\z)}, args: {product_subscription: 1}},
-    {name: :preview_customer_subscription_renewal_date_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-renewal-date/preview(\?|\z)}, args: {product_subscription: 1}},
-    {name: :confirm_customer_subscription_renewal_date_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-renewal-date/confirm(\?|\z)}, args: {product_subscription: 1}},
+    {name: :preview_customer_subscription_plan_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-plan/preview(\?|\z)}, args: {product_subscription: 1, target_variant_id: 1}},
+    {name: :confirm_customer_subscription_plan_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-plan/confirm(\?|\z)}, args: {product_subscription: 1, target_variant_id: 1, preview_token: 'stub'}},
+    {name: :preview_customer_subscription_renewal_date_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-renewal-date/preview(\?|\z)}, args: {product_subscription: 1, renewal_date: '2024-01-01T00:00:00Z'}},
+    {name: :confirm_customer_subscription_renewal_date_change, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/customer-portal/subscriptions/1/actions/change-renewal-date/confirm(\?|\z)}, args: {product_subscription: 1, renewal_date: '2024-01-01T00:00:00Z'}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

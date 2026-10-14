@@ -5,28 +5,32 @@
 module SellApp
   class GetCustomerPortalSubscriptionCapabilitiesResponseValue200ApplicationJsonPropertyDataPropertyCapabilitiesMapValue < SellApp::Types::BaseModel
     HASH_ATTRS = {
-      available: :available,
-      reason: :reason
+      status: :status,
+      customer_reason: :customer_reason,
+      seller_reason: :seller_reason
     }.freeze
 
     SCHEMA = {
-      available: {required: true, schema: {kind: :boolean}},
-      reason: {required: false, schema: {kind: :string}}
+      status: {required: true, schema: {kind: :enum, values: ["available", "requires_redirect", "seller_only", "customer_only", "manual_proration", "unsupported"]}},
+      customer_reason: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      seller_reason: {required: true, schema: {kind: :nullable, inner: {kind: :string}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
     attr_accessor \
-      :available,
-      :reason
+      :status,
+      :customer_reason,
+      :seller_reason
 
     def initialize(json)
       hash = self.class.normalize(json)
       self.class.validate_schema!(hash, SCHEMA, direction: :response, additional_properties: ADDITIONAL_PROPERTIES, constraints: MODEL_CONSTRAINTS)
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
-      @available = hash[:available]
-      @reason = hash[:reason]
+      @status = hash[:status]
+      @customer_reason = hash[:customer_reason]
+      @seller_reason = hash[:seller_reason]
     end
   end
 end

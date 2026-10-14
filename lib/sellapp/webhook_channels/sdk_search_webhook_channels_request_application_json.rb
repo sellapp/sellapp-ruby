@@ -13,7 +13,7 @@ module SellApp
 
     SCHEMA = {
       search: {required: false, schema: {kind: :model, name: "SellApp::SearchWebhookChannelsRequestApplicationJsonPropertySearch"}},
-      event: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["booking.cancelled", "booking.rescheduled", "cash_app.payment_requires_attention", "charge.completed", "charge.created", "charge.disputed", "charge.partial_paid", "charge.review", "feedback.created", "order.completed", "order.created", "order.disputed", "order.manual_payment_completed", "order.paid", "order.partial_paid", "product.created", "product.trashed", "product.updated", "subscription.cancelled", "subscription.created", "subscription.renewed", "ticket_message.created", "variant.created", "variant.sold_out", "variant.updated"]}}},
+      event: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["booking.cancelled", "booking.rescheduled", "cash_app.payment_requires_attention", "charge.completed", "charge.created", "charge.disputed", "charge.partial_paid", "charge.review", "feedback.created", "order.completed", "order.created", "order.disputed", "order.manual_payment_completed", "order.paid", "order.partial_paid", "product.created", "product.trashed", "product.updated", "subscription.action", "subscription.cancelled", "subscription.created", "subscription.plan_change_needs_attention", "subscription.renewal_needs_attention", "subscription.renewed", "subscription.signup_needs_attention", "ticket_message.created", "variant.created", "variant.sold_out", "variant.updated"]}}},
       page: {required: false, schema: {kind: :integer, minimum: 1}},
       limit: {required: false, schema: {kind: :integer, minimum: 1, maximum: 100}}
     }.freeze

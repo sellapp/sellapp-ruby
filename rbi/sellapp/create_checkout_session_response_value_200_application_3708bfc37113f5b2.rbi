@@ -9,10 +9,10 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(T::Array[String]) }
+    sig { returns(T::Array[SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem]) }
     def history; end
 
-    sig { params(value: T::Array[String]).returns(T::Array[String]) }
+    sig { params(value: T::Array[SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem]).returns(T::Array[SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem]) }
     def history=(value); end
 
     sig { returns(SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyStatus) }

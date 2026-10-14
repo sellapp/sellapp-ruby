@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    CancelSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyDataAction = CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction
+    CancelSubscriptionImmediatelyResponseValue200ApplicationJsonPropertyDataAction = CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction
   end
 end

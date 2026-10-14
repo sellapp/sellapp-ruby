@@ -57,6 +57,12 @@ module SellApp
     sig { params(value: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def payment_methods=(value); end
 
+    sig { returns(T.nilable(T::Array[String])) }
+    def custom_payment_method_ids; end
+
+    sig { params(value: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+    def custom_payment_method_ids=(value); end
+
     sig { returns(T.nilable(SellApp::ReplaceProductVariantWithPutRequestApplicationJsonPropertyOtherSettings)) }
     def other_settings; end
 
@@ -68,6 +74,12 @@ module SellApp
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def expected_updated_at=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def stock; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def stock=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end

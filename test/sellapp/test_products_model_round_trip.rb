@@ -340,6 +340,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "maximum_purchase_quantity" => 1,
       "bulk_discount" => JSON.parse('[]'),
       "payment_methods" => JSON.parse('["AUTHNET"]'),
+      "custom_payment_method_ids" => JSON.parse('[]'),
       "other_settings" => JSON.parse('{}'),
       "expected_updated_at" => '2024-01-01T00:00:00Z',
     }

@@ -23,6 +23,39 @@ module SellApp
 
     sig do
       params(
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
+        pagination: T.nilable(T::Boolean),
+        status: T.nilable(T::Array[String]),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkListSubscriptionsResponseValue200ApplicationJson)
+    end
+    def list_subscriptions(limit:, page:, pagination:, status:, request_options:); end
+
+    sig do
+      params(
+        filters: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem]),
+        sort: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem]),
+        search: T.nilable(SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch),
+        includes: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem]),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
+        pagination: T.nilable(T::Boolean),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson)
+    end
+    def search_subscriptions(filters:, sort:, search:, includes:, limit:, page:, pagination:, request_options:); end
+
+    sig do
+      params(
+        product_subscription: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetSubscriptionResponseValue200ApplicationJson)
+    end
+    def get_subscription(product_subscription:, request_options:); end
+
+    sig do
+      params(
         product_subscription: Integer,
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkGetSubscriptionCapabilitiesResponseValue200ApplicationJson)
@@ -55,6 +88,15 @@ module SellApp
       params(
         product_subscription: Integer,
         idempotency_key: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkKeepSubscriptionResponseValue200ApplicationJson)
+    end
+    def keep(product_subscription:, idempotency_key:, request_options:); end
+
+    sig do
+      params(
+        product_subscription: Integer,
+        idempotency_key: T.nilable(String),
         resume_at: T.nilable(String),
         reason: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
@@ -75,10 +117,11 @@ module SellApp
       params(
         product_subscription: Integer,
         idempotency_key: T.nilable(String),
+        return_url: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
-      ).returns(String)
+      ).returns(SellApp::SdkUpdateSubscriptionPaymentMethodResponseValue200ApplicationJson)
     end
-    def update_payment_method(product_subscription:, idempotency_key:, request_options:); end
+    def update_payment_method(product_subscription:, idempotency_key:, return_url:, request_options:); end
 
     sig do
       params(
@@ -89,7 +132,7 @@ module SellApp
         proration_behavior: T.nilable(String),
         metadata: T.nilable(SellApp::PreviewSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata),
         request_options: T::Hash[Symbol, T.untyped]
-      ).returns(String)
+      ).returns(SellApp::SdkPreviewSubscriptionPlanChangeResponseValue200ApplicationJson)
     end
     def preview_plan_change(product_subscription:, target_variant_id:, idempotency_key:, effective_timing:, proration_behavior:, metadata:, request_options:); end
 
@@ -103,7 +146,7 @@ module SellApp
         proration_behavior: T.nilable(String),
         metadata: T.nilable(SellApp::ConfirmSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata),
         request_options: T::Hash[Symbol, T.untyped]
-      ).returns(String)
+      ).returns(SellApp::SdkConfirmSubscriptionPlanChangeResponseValue200ApplicationJson)
     end
     def confirm_plan_change(product_subscription:, target_variant_id:, preview_token:, idempotency_key:, effective_timing:, proration_behavior:, metadata:, request_options:); end
 
@@ -131,30 +174,6 @@ module SellApp
       ).returns(SellApp::SdkConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJson)
     end
     def confirm_renewal_date(product_subscription:, renewal_date:, idempotency_key:, preview_token:, reason:, metadata:, request_options:); end
-
-    sig do
-      params(
-        request_options: T::Hash[Symbol, T.untyped]
-      ).returns(SellApp::SdkListSubscriptionsResponseValue200ApplicationJson)
-    end
-    def list_subscriptions(request_options:); end
-
-    sig do
-      params(
-        search: T.nilable(String),
-        status: T.nilable(String),
-        request_options: T::Hash[Symbol, T.untyped]
-      ).returns(SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson)
-    end
-    def search_subscriptions(search:, status:, request_options:); end
-
-    sig do
-      params(
-        product_subscription: Integer,
-        request_options: T::Hash[Symbol, T.untyped]
-      ).returns(SellApp::SdkGetSubscriptionResponseValue200ApplicationJson)
-    end
-    def get_subscription(product_subscription:, request_options:); end
 
   end
 end

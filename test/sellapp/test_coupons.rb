@@ -20,35 +20,35 @@ class CouponsTest < Minitest::Test
 
   def test_create_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v1/coupons(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.create(code: 'stub', type: 'PERCENTAGE', discount: 1, store_wide: true)
     refute_nil result
   end
 
   def test_get_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v1/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.get(coupon: 1)
     refute_nil result
   end
 
   def test_replace_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v1/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.replace(coupon: 1)
     refute_nil result
   end
 
   def test_update_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v1/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.update(coupon: 1)
     refute_nil result
   end
 
   def test_delete_returns_expected_result
     stub_request(:delete, %r{\Ahttps://sell\.app/api/v1/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.delete(coupon: 1)
     refute_nil result
   end
@@ -90,7 +90,7 @@ class CouponsTest < Minitest::Test
 
   def test_v2_create_coupon_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/coupons(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.v2_create_coupon(code: 'stub', type: 'PERCENTAGE', discount: 1, store_wide: true)
     refute_nil result
   end
@@ -104,28 +104,28 @@ class CouponsTest < Minitest::Test
 
   def test_v2_get_coupon_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.v2_get_coupon(coupon: 1)
     refute_nil result
   end
 
   def test_v2_replace_coupon_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v2/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.v2_replace_coupon(coupon: 1)
     refute_nil result
   end
 
   def test_v2_update_coupon_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.v2_update_coupon(coupon: 1)
     refute_nil result
   end
 
   def test_v2_delete_coupon_returns_expected_result
     stub_request(:delete, %r{\Ahttps://sell\.app/api/v2/coupons/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}', status: 200)
     result = @client.coupons.v2_delete_coupon(coupon: 1)
     refute_nil result
   end

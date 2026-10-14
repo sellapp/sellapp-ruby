@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    SdkPreviewSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming = SdkConfirmSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming
+    SdkPreviewSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming = SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming
   end
 end

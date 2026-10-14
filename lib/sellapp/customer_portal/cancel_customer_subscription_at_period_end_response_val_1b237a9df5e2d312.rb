@@ -6,58 +6,34 @@ module SellApp
   class CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyData < SellApp::Types::BaseModel
     HASH_ATTRS = {
       id: :id,
-      status: :status,
       subscription_id: :subscription_id,
-      customer_id: :customer_id,
-      provider_subscription_id: :provider_subscription_id,
-      provider_customer_id: :provider_customer_id,
-      customer: :customer,
-      product_variant_id: :product_variant_id
+      action: :action,
+      status: :status,
+      customer_message: :customer_message,
+      redirect_url: :redirect_url,
+      created_at: :created_at
     }.freeze
 
     SCHEMA = {
       id: {required: true, schema: {kind: :integer}},
-      status: {required: true, schema: {kind: :string}},
-      subscription_id: {required: false, schema: {kind: :nullable, inner: {kind: :string}}},
-      customer_id: {required: false, schema: {kind: :nullable, inner: {kind: :string}}},
-      provider_subscription_id: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
-      provider_customer_id: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
-      customer: {required: true, schema: {kind: :model, name: "SellApp::CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataPropertyCustomer"}},
-      product_variant_id: {required: false, schema: {kind: :integer}}
+      subscription_id: {required: true, schema: {kind: :integer}},
+      action: {required: true, schema: {kind: :enum, values: ["pause", "resume", "cancel_at_period_end", "cancel_immediately", "keep_subscription", "update_payment_method", "change_plan", "shift_billing_date", "set_auto_renew"]}},
+      status: {required: true, schema: {kind: :enum, values: ["pending", "confirmed", "failed", "expired", "dismissed"]}},
+      customer_message: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      redirect_url: {required: true, schema: {kind: :nullable, inner: {kind: :string, format: "uri"}}},
+      created_at: {required: true, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
-    # @!attribute subscription_id
-    #   @deprecated
-    # @!attribute customer_id
-    #   @deprecated
-
     attr_accessor \
       :id,
+      :subscription_id,
+      :action,
       :status,
-      :provider_subscription_id,
-      :provider_customer_id,
-      :customer,
-      :product_variant_id
-
-    def subscription_id
-      warn "[DEPRECATION] \`subscription_id\` is deprecated and will be removed in a future version.", uplevel: 1
-      @subscription_id
-    end
-
-    def subscription_id=(value)
-      @subscription_id = value
-    end
-
-    def customer_id
-      warn "[DEPRECATION] \`customer_id\` is deprecated and will be removed in a future version.", uplevel: 1
-      @customer_id
-    end
-
-    def customer_id=(value)
-      @customer_id = value
-    end
+      :customer_message,
+      :redirect_url,
+      :created_at
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -65,13 +41,12 @@ module SellApp
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
       @id = hash[:id]
-      @status = hash[:status]
       @subscription_id = hash[:subscription_id]
-      @customer_id = hash[:customer_id]
-      @provider_subscription_id = hash[:provider_subscription_id]
-      @provider_customer_id = hash[:provider_customer_id]
-      @customer = hash[:customer] ? SellApp::CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataPropertyCustomer.new(hash[:customer]) : nil
-      @product_variant_id = hash[:product_variant_id]
+      @action = hash[:action]
+      @status = hash[:status]
+      @customer_message = hash[:customer_message]
+      @redirect_url = hash[:redirect_url]
+      @created_at = hash[:created_at]
     end
   end
 end

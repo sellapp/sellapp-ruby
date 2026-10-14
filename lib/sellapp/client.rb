@@ -52,6 +52,10 @@ module SellApp
       @subscriptions ||= SellApp::Subscriptions.new(self)
     end
 
+    def subscriptions_actions
+      @subscriptions_actions ||= SellApp::SubscriptionsActions.new(self)
+    end
+
     def bookings
       @bookings ||= SellApp::Bookings.new(self)
     end

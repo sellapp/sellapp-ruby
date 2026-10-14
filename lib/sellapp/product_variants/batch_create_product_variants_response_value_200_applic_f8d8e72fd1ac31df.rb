@@ -8,14 +8,16 @@ module SellApp
       humble: :humble,
       frequency: :frequency,
       type: :type,
-      price: :price
+      price: :price,
+      trial: :trial
     }.freeze
 
     SCHEMA = {
       humble: {required: true, schema: {kind: :boolean}},
       frequency: {required: true, schema: {kind: :model, name: "SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency"}},
       type: {required: true, schema: {kind: :string}},
-      price: {required: true, schema: {kind: :model, name: "SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice"}}
+      price: {required: true, schema: {kind: :model, name: "SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice"}},
+      trial: {required: false, schema: {kind: :model, name: "SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial"}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -24,7 +26,8 @@ module SellApp
       :humble,
       :frequency,
       :type,
-      :price
+      :price,
+      :trial
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -35,6 +38,7 @@ module SellApp
       @frequency = hash[:frequency] ? SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency.new(hash[:frequency]) : nil
       @type = hash[:type]
       @price = hash[:price] ? SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice.new(hash[:price]) : nil
+      @trial = hash[:trial] ? SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial.new(hash[:trial]) : nil
     end
   end
 end

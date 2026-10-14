@@ -1512,6 +1512,21 @@ class InvoicesModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_create_checkout_session_response_value_200_application_84da4d86bf3fba9a_round_trip
+    fixture = {
+      "setAt" => '2024-01-01T00:00:00Z',
+      "status" => 'stub',
+      "updatedAt" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyStatusPropertyHistoryItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["setAt"], json[:setAt]
+    assert_equal fixture["status"], json[:status]
+    assert_equal fixture["updatedAt"], json[:updatedAt]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_create_checkout_session_response_value_200_application_8492037e31dd7910_round_trip
     fixture = {
       "setAt" => '2024-01-01T00:00:00Z',

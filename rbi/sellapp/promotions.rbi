@@ -29,10 +29,15 @@ module SellApp
         starts_at: T.nilable(String),
         ends_at: T.nilable(String),
         max_redemptions: T.nilable(Integer),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
+        store_wide: T.nilable(T::Boolean),
+        products: T.nilable(T::Array[Integer]),
+        product_variants: T.nilable(T::Array[Integer]),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCreatePromotionResponseValue201ApplicationJson)
     end
-    def create(name:, status:, priority:, is_stackable:, phases:, starts_at:, ends_at:, max_redemptions:, request_options:); end
+    def create(name:, status:, priority:, is_stackable:, phases:, starts_at:, ends_at:, max_redemptions:, applies_to:, subscription_payments:, store_wide:, products:, product_variants:, request_options:); end
 
     sig do
       params(
@@ -66,11 +71,16 @@ module SellApp
         priority: T.nilable(Integer),
         is_stackable: T.nilable(T::Boolean),
         max_redemptions: T.nilable(Integer),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
+        store_wide: T.nilable(T::Boolean),
+        products: T.nilable(T::Array[Integer]),
+        product_variants: T.nilable(T::Array[Integer]),
         phases: T.nilable(T::Array[SellApp::ReplacePromotionRequestApplicationJsonPropertyPhasesItem]),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkReplacePromotionResponseValue200ApplicationJson)
     end
-    def replace(promotion:, name:, status:, starts_at:, ends_at:, priority:, is_stackable:, max_redemptions:, phases:, request_options:); end
+    def replace(promotion:, name:, status:, starts_at:, ends_at:, priority:, is_stackable:, max_redemptions:, applies_to:, subscription_payments:, store_wide:, products:, product_variants:, phases:, request_options:); end
 
     sig do
       params(
@@ -82,11 +92,16 @@ module SellApp
         priority: T.nilable(Integer),
         is_stackable: T.nilable(T::Boolean),
         max_redemptions: T.nilable(Integer),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
+        store_wide: T.nilable(T::Boolean),
+        products: T.nilable(T::Array[Integer]),
+        product_variants: T.nilable(T::Array[Integer]),
         phases: T.nilable(T::Array[SellApp::UpdatePromotionRequestApplicationJsonPropertyPhasesItem]),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdatePromotionResponseValue200ApplicationJson)
     end
-    def update(promotion:, name:, status:, starts_at:, ends_at:, priority:, is_stackable:, max_redemptions:, phases:, request_options:); end
+    def update(promotion:, name:, status:, starts_at:, ends_at:, priority:, is_stackable:, max_redemptions:, applies_to:, subscription_payments:, store_wide:, products:, product_variants:, phases:, request_options:); end
 
     sig do
       params(
@@ -107,10 +122,15 @@ module SellApp
         starts_at: T.nilable(String),
         ends_at: T.nilable(String),
         max_redemptions: T.nilable(Integer),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
+        store_wide: T.nilable(T::Boolean),
+        products: T.nilable(T::Array[Integer]),
+        product_variants: T.nilable(T::Array[Integer]),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkRestorePromotionResponseValue200ApplicationJson)
     end
-    def restore(promotion:, name:, status:, priority:, is_stackable:, phases:, starts_at:, ends_at:, max_redemptions:, request_options:); end
+    def restore(promotion:, name:, status:, priority:, is_stackable:, phases:, starts_at:, ends_at:, max_redemptions:, applies_to:, subscription_payments:, store_wide:, products:, product_variants:, request_options:); end
 
   end
 end

@@ -9,17 +9,23 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(T::Boolean) }
-    def available; end
+    sig { returns(String) }
+    def status; end
 
-    sig { params(value: T::Boolean).returns(T::Boolean) }
-    def available=(value); end
+    sig { params(value: String).returns(String) }
+    def status=(value); end
 
     sig { returns(T.nilable(String)) }
-    def reason; end
+    def customer_reason; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def reason=(value); end
+    def customer_reason=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def seller_reason; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def seller_reason=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end

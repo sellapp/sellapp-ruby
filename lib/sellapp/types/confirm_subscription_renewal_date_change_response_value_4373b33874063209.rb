@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    ConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataAction = CancelSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction
+    ConfirmSubscriptionRenewalDateChangeResponseValue200ApplicationJsonPropertyDataAction = CancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJsonPropertyDataAction
   end
 end

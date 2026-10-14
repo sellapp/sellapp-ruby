@@ -87,6 +87,18 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def maximum_discount_amount=(value); end
 
+    sig { returns(String) }
+    def applies_to; end
+
+    sig { params(value: String).returns(String) }
+    def applies_to=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def subscription_payments; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def subscription_payments=(value); end
+
     sig { returns(T::Array[Integer]) }
     def products; end
 

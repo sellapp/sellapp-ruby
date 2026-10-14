@@ -90,6 +90,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -108,6 +110,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -146,6 +149,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::SdkCreateCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -170,6 +175,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -188,12 +195,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_create_coupon_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkCreateCouponResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -216,6 +224,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -234,12 +244,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_get_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkGetCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -258,6 +269,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::SdkReplaceCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -280,6 +293,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -298,12 +313,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_replace_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkReplaceCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -322,6 +338,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::SdkUpdateCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -344,6 +362,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -362,12 +382,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_update_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkUpdateCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -390,6 +411,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -408,12 +431,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_delete_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkDeleteCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1994,6 +2018,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2012,6 +2038,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2050,6 +2077,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::BatchCreateCouponsRequestApplicationJsonPropertyResourcesItem.new(fixture.to_json)
     json = model.to_h
@@ -2084,6 +2113,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2102,6 +2133,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2126,6 +2158,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::BatchUpdateCouponsRequestApplicationJsonPropertyResourcesMapValue.new(fixture.to_json)
     json = model.to_h
@@ -2164,6 +2198,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2182,6 +2218,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2210,6 +2247,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2228,6 +2267,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2659,6 +2699,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2677,6 +2719,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2715,6 +2758,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::SdkV2CreateCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2739,6 +2784,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2757,12 +2804,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_v_2_create_coupon_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkV2CreateCouponResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2852,6 +2900,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2870,6 +2920,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2912,6 +2963,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2930,12 +2983,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_v_2_get_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkV2GetCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2954,6 +3008,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::SdkV2ReplaceCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2976,6 +3032,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -2994,12 +3052,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_v_2_replace_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkV2ReplaceCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3018,6 +3077,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::SdkV2UpdateCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3040,6 +3101,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -3058,12 +3121,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_v_2_update_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkV2UpdateCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3086,6 +3150,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -3104,12 +3170,13 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_v_2_delete_coupon_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","products":[],"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
     }
     model = SellApp::SdkV2DeleteCouponResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3128,6 +3195,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::V2BatchCreateCouponsRequestApplicationJsonPropertyResourcesItem.new(fixture.to_json)
     json = model.to_h
@@ -3162,6 +3231,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -3180,6 +3251,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -3204,6 +3276,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
     }
     model = SellApp::V2BatchUpdateCouponsRequestApplicationJsonPropertyResourcesMapValue.new(fixture.to_json)
     json = model.to_h
@@ -3242,6 +3316,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -3260,6 +3336,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -3298,6 +3375,8 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "store_id" => 1,
       "deleted_at" => '2024-01-01T00:00:00Z',
       "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
       "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
     }
@@ -3316,6 +3395,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     assert_equal fixture["store_id"], json[:store_id]
     assert_equal fixture["deleted_at"], json[:deleted_at]
     assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 

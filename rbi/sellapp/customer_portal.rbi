@@ -75,119 +75,95 @@ module SellApp
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
         reason: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCancelCustomerSubscriptionAtPeriodEndResponseValue200ApplicationJson)
     end
-    def cancel_customer_subscription_at_period_end(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def cancel_customer_subscription_at_period_end(product_subscription:, reason:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
         reason: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCancelCustomerSubscriptionImmediatelyResponseValue200ApplicationJson)
     end
-    def cancel_customer_subscription_immediately(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def cancel_customer_subscription_immediately(product_subscription:, reason:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
+        resume_at: T.nilable(String),
         reason: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkPauseCustomerSubscriptionResponseValue200ApplicationJson)
     end
-    def pause_customer_subscription(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def pause_customer_subscription(product_subscription:, resume_at:, reason:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
-        reason: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkResumeCustomerSubscriptionResponseValue200ApplicationJson)
     end
-    def resume_customer_subscription(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def resume_customer_subscription(product_subscription:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
         return_url: T.nilable(String),
-        reason: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdateCustomerSubscriptionPaymentMethodResponseValue200ApplicationJson)
     end
-    def update_customer_subscription_payment_method(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def update_customer_subscription_payment_method(product_subscription:, return_url:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
-        reason: T.nilable(String),
+        target_variant_id: Integer,
+        effective_timing: T.nilable(String),
+        proration_behavior: T.nilable(String),
+        metadata: T.nilable(SellApp::PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkPreviewCustomerSubscriptionPlanChangeResponseValue200ApplicationJson)
     end
-    def preview_customer_subscription_plan_change(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def preview_customer_subscription_plan_change(product_subscription:, target_variant_id:, effective_timing:, proration_behavior:, metadata:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
-        reason: T.nilable(String),
+        target_variant_id: Integer,
+        preview_token: String,
+        effective_timing: T.nilable(String),
+        proration_behavior: T.nilable(String),
+        metadata: T.nilable(SellApp::ConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkConfirmCustomerSubscriptionPlanChangeResponseValue200ApplicationJson)
     end
-    def confirm_customer_subscription_plan_change(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def confirm_customer_subscription_plan_change(product_subscription:, target_variant_id:, preview_token:, effective_timing:, proration_behavior:, metadata:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
+        renewal_date: String,
         reason: T.nilable(String),
+        metadata: T.nilable(SellApp::PreviewCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkPreviewCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson)
     end
-    def preview_customer_subscription_renewal_date_change(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def preview_customer_subscription_renewal_date_change(product_subscription:, renewal_date:, reason:, metadata:, request_options:); end
 
     sig do
       params(
         product_subscription: Integer,
-        preview_id: T.nilable(String),
-        product_variant_id: T.nilable(Integer),
-        renewal_date: T.nilable(String),
-        return_url: T.nilable(String),
+        renewal_date: String,
+        preview_token: T.nilable(String),
         reason: T.nilable(String),
+        metadata: T.nilable(SellApp::ConfirmCustomerSubscriptionRenewalDateChangeRequestApplicationJsonPropertyMetadata),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkConfirmCustomerSubscriptionRenewalDateChangeResponseValue200ApplicationJson)
     end
-    def confirm_customer_subscription_renewal_date_change(product_subscription:, preview_id:, product_variant_id:, renewal_date:, return_url:, reason:, request_options:); end
+    def confirm_customer_subscription_renewal_date_change(product_subscription:, renewal_date:, preview_token:, reason:, metadata:, request_options:); end
 
   end
 end

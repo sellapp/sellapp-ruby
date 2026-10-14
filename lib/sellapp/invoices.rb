@@ -25,8 +25,8 @@ module SellApp
     # @param crypto_txid [String, nil] Filter by crypto TXID.
     # @param crypto_address [String, nil] Filter by crypto payment address.
     # @param coupon_code [String, nil] Filter by coupon code.
-    # @param status [Array<SellApp::Types::InvoicesStatus>, nil] Filter by one or more invoice statuses.
-    # @param payment_methods [Array<SellApp::Types::InvoicesPaymentMethods>, nil] Filter by one or more payment methods.
+    # @param status [Array<SellApp::Types::InvoicesStatus>, nil] Filter by one or more invoice statuses. Repeat the parameter to select several.
+    # @param payment_methods [Array<SellApp::Types::InvoicesPaymentMethods>, nil] Filter by one or more payment methods. Repeat the parameter to select several.
     # @param sort [SellApp::Types::InvoicesSort, nil] Sort order for the result set.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListInvoicesResponseValue200ApplicationJson]
@@ -65,8 +65,8 @@ module SellApp
         'crypto_txid' => crypto_txid,
         'crypto_address' => crypto_address,
         'coupon_code' => coupon_code,
-        'status' => status,
-        'payment_methods' => payment_methods,
+        'status[]' => status,
+        'payment_methods[]' => payment_methods,
         'sort' => sort
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
@@ -83,8 +83,8 @@ module SellApp
       SellApp::Types::BaseModel.validate_value!(crypto_txid, {kind: :string}, "$request.crypto_txid") unless crypto_txid.nil?
       SellApp::Types::BaseModel.validate_value!(crypto_address, {kind: :string}, "$request.crypto_address") unless crypto_address.nil?
       SellApp::Types::BaseModel.validate_value!(coupon_code, {kind: :string}, "$request.coupon_code") unless coupon_code.nil?
-      SellApp::Types::BaseModel.validate_value!(status, {kind: :array, items: {kind: :enum, values: ["PENDING", "REVERSED", "PARTIAL", "VOIDED", "REFUNDED", "PAID", "COMPLETED", "DISPUTING", "REVIEW", "FAILED"]}}, "$request.status") unless status.nil?
-      SellApp::Types::BaseModel.validate_value!(payment_methods, {kind: :array, items: {kind: :enum, values: ["AUTHNET", "BTCPAY", "CASHAPP", "COINBASE", "PADDLE", "PAYDASH", "PAYPAL", "PAYSTACK", "SQUARE", "STRIPE", "VENMO", "NMI", "MERCADO_PAGO", "MOLLIE", "RAZORPAY", "CUSTOM_PAYMENT_METHOD", "LIFI", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI", "BNB_USDT", "BNB_USDC", "TRX_USDT", "TRX_USDC", "SOL_USDT", "SOL_USDC"]}}, "$request.payment_methods") unless payment_methods.nil?
+      SellApp::Types::BaseModel.validate_value!(status, {kind: :array, items: {kind: :enum, values: ["PENDING", "REVERSED", "PARTIAL", "VOIDED", "REFUNDED", "PAID", "COMPLETED", "DISPUTING", "REVIEW", "FAILED"]}}, "$request.status[]") unless status.nil?
+      SellApp::Types::BaseModel.validate_value!(payment_methods, {kind: :array, items: {kind: :enum, values: ["AUTHNET", "BTCPAY", "CASHAPP", "COINBASE", "PADDLE", "PAYDASH", "PAYPAL", "PAYSTACK", "SQUARE", "STRIPE", "VENMO", "NMI", "MERCADO_PAGO", "MOLLIE", "RAZORPAY", "CUSTOM_PAYMENT_METHOD", "LIFI", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI", "BNB_USDT", "BNB_USDC", "TRX_USDT", "TRX_USDC", "SOL_USDT", "SOL_USDC"]}}, "$request.payment_methods[]") unless payment_methods.nil?
       SellApp::Types::BaseModel.validate_value!(sort, {kind: :enum, values: ["created_at", "-created_at"]}, "$request.sort") unless sort.nil?
       request_options = request_options.merge(operation_id: 'listInvoices', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
@@ -104,7 +104,7 @@ module SellApp
 
     # Create an invoice
     # @param customer_email [String]
-    # @param customer_ip [String, nil]
+    # @param customer_ip [String, nil] The IP address the customer is buying from. Send it when you sell a plan with a trial: a trial of the same product taken from this address in the last 30 days counts as the customer's. Without it, only `customer_email` is checked, so a customer could take another trial with a new email address.
     # @param payment_method [SellApp::Types::SdkCreateInvoiceRequestApplicationJsonPaymentMethod]
     # @param coupon [String, nil]
     # @param vat_id [String, nil]

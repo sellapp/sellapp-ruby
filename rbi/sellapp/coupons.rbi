@@ -31,10 +31,12 @@ module SellApp
         limit: T.nilable(Integer),
         expires_at: T.nilable(String),
         minimum_amount: T.nilable(T.any(Float, String)),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCreateCouponResponseValue201ApplicationJson)
     end
-    def create(code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, request_options:); end
+    def create(code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, request_options:); end
 
     sig do
       params(
@@ -58,12 +60,14 @@ module SellApp
         limit: T.nilable(Integer),
         expires_at: T.nilable(String),
         minimum_amount: T.nilable(T.any(Float, String)),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkReplaceCouponResponseValue200ApplicationJson)
     end
-    def replace(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, with_trashed:, only_trashed:, request_options:); end
+    def replace(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(
@@ -77,12 +81,14 @@ module SellApp
         limit: T.nilable(Integer),
         expires_at: T.nilable(String),
         minimum_amount: T.nilable(T.any(Float, String)),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdateCouponResponseValue200ApplicationJson)
     end
-    def update(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, with_trashed:, only_trashed:, request_options:); end
+    def update(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(
@@ -157,10 +163,12 @@ module SellApp
         limit: T.nilable(Integer),
         expires_at: T.nilable(String),
         minimum_amount: T.nilable(T.any(Float, String)),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2CreateCouponResponseValue201ApplicationJson)
     end
-    def v2_create_coupon(code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, request_options:); end
+    def v2_create_coupon(code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, request_options:); end
 
     sig do
       params(
@@ -197,12 +205,14 @@ module SellApp
         limit: T.nilable(Integer),
         expires_at: T.nilable(String),
         minimum_amount: T.nilable(T.any(Float, String)),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2ReplaceCouponResponseValue200ApplicationJson)
     end
-    def v2_replace_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, with_trashed:, only_trashed:, request_options:); end
+    def v2_replace_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(
@@ -216,12 +226,14 @@ module SellApp
         limit: T.nilable(Integer),
         expires_at: T.nilable(String),
         minimum_amount: T.nilable(T.any(Float, String)),
+        applies_to: T.nilable(String),
+        subscription_payments: T.nilable(Integer),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2UpdateCouponResponseValue200ApplicationJson)
     end
-    def v2_update_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, with_trashed:, only_trashed:, request_options:); end
+    def v2_update_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(

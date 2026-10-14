@@ -63,6 +63,18 @@ module SellApp
     sig { params(value: T.nilable(T.any(Float, String))).returns(T.nilable(T.any(Float, String))) }
     def minimum_amount=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def applies_to; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def applies_to=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def subscription_payments; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def subscription_payments=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

@@ -71,6 +71,8 @@ def create(
       limit: SellApp::OMIT,
       expires_at: SellApp::OMIT,
       minimum_amount: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -86,6 +88,8 @@ def create(
 | limit | `Object` | No |
 | expires_at | `Object` | No |
 | minimum_amount | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -191,6 +195,8 @@ def replace(
       limit: SellApp::OMIT,
       expires_at: SellApp::OMIT,
       minimum_amount: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -209,6 +215,8 @@ def replace(
 | limit | `Object` | No |
 | expires_at | `Object` | No |
 | minimum_amount | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |
@@ -264,6 +272,8 @@ def update(
       limit: SellApp::OMIT,
       expires_at: SellApp::OMIT,
       minimum_amount: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -282,6 +292,8 @@ def update(
 | limit | `Object` | No |
 | expires_at | `Object` | No |
 | minimum_amount | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |
@@ -663,6 +675,8 @@ def v2_create_coupon(
       limit: SellApp::OMIT,
       expires_at: SellApp::OMIT,
       minimum_amount: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -678,6 +692,8 @@ def v2_create_coupon(
 | limit | `Object` | No |
 | expires_at | `Object` | No |
 | minimum_amount | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -857,6 +873,8 @@ def v2_replace_coupon(
       limit: SellApp::OMIT,
       expires_at: SellApp::OMIT,
       minimum_amount: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -875,6 +893,8 @@ def v2_replace_coupon(
 | limit | `Object` | No |
 | expires_at | `Object` | No |
 | minimum_amount | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |
@@ -935,6 +955,8 @@ def v2_update_coupon(
       limit: SellApp::OMIT,
       expires_at: SellApp::OMIT,
       minimum_amount: SellApp::OMIT,
+      applies_to: nil,
+      subscription_payments: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -953,6 +975,8 @@ def v2_update_coupon(
 | limit | `Object` | No |
 | expires_at | `Object` | No |
 | minimum_amount | `Object` | No |
+| applies_to | `Object` | No |
+| subscription_payments | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |

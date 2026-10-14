@@ -9,35 +9,29 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(T.nilable(String)) }
-    def preview_id; end
+    sig { returns(Integer) }
+    def target_variant_id; end
 
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def preview_id=(value); end
-
-    sig { returns(T.nilable(Integer)) }
-    def product_variant_id; end
-
-    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
-    def product_variant_id=(value); end
+    sig { params(value: Integer).returns(Integer) }
+    def target_variant_id=(value); end
 
     sig { returns(T.nilable(String)) }
-    def renewal_date; end
+    def effective_timing; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def renewal_date=(value); end
+    def effective_timing=(value); end
 
     sig { returns(T.nilable(String)) }
-    def return_url; end
+    def proration_behavior; end
 
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def return_url=(value); end
+    def proration_behavior=(value); end
 
-    sig { returns(T.nilable(String)) }
-    def reason; end
+    sig { returns(T.nilable(SellApp::PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata)) }
+    def metadata; end
 
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
-    def reason=(value); end
+    sig { params(value: T.nilable(SellApp::PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata)).returns(T.nilable(SellApp::PreviewCustomerSubscriptionPlanChangeRequestApplicationJsonPropertyMetadata)) }
+    def metadata=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end

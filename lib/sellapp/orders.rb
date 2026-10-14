@@ -44,7 +44,7 @@ module SellApp
 
     # Create an order
     # @param customer_email [String]
-    # @param customer_ip [String, nil]
+    # @param customer_ip [String, nil] The IP address the customer is buying from. Send it when you sell a plan with a trial: a trial of the same product taken from this address in the last 30 days counts as the customer's. Without it, only `customer_email` is checked, so a customer could take another trial with a new email address.
     # @param payment_method [SellApp::Types::SdkCreateOrderRequestApplicationJsonPaymentMethod]
     # @param coupon [String, nil]
     # @param vat_id [String, nil]
@@ -400,7 +400,7 @@ module SellApp
 
     # Create and pay an order from a wallet
     # @param customer_email [String]
-    # @param customer_ip [String, nil]
+    # @param customer_ip [String, nil] The IP address the customer is buying from. Send it when you sell a plan with a trial: a trial of the same product taken from this address in the last 30 days counts as the customer's. Without it, only `customer_email` is checked, so a customer could take another trial with a new email address.
     # @param coupon [String, nil]
     # @param vat_id [String, nil]
     # @param country [String, nil]

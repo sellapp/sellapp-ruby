@@ -11,6 +11,8 @@ module SellApp
       action: :action,
       status: :status,
       provider: :provider,
+      proration_order_id: :proration_order_id,
+      error: :error,
       customer_message: :customer_message,
       confirmed_at: :confirmed_at,
       failed_at: :failed_at,
@@ -22,9 +24,11 @@ module SellApp
       id: {required: false, schema: {kind: :integer}},
       product_subscription_id: {required: false, schema: {kind: :integer}},
       subscription_id: {required: false, schema: {kind: :nullable, inner: {kind: :string}}},
-      action: {required: false, schema: {kind: :enum, values: ["pause", "resume", "cancel_at_period_end", "cancel_immediately", "update_payment_method", "change_plan", "shift_billing_date"]}},
+      action: {required: false, schema: {kind: :enum, values: ["pause", "resume", "cancel_at_period_end", "cancel_immediately", "keep_subscription", "update_payment_method", "change_plan", "shift_billing_date", "set_auto_renew"]}},
       status: {required: false, schema: {kind: :enum, values: ["pending", "confirmed", "failed", "expired", "dismissed", "force_resolved"]}},
       provider: {required: false, schema: {kind: :string}},
+      proration_order_id: {required: false, schema: {kind: :nullable, inner: {kind: :integer}}},
+      error: {required: false, schema: {kind: :nullable, inner: {kind: :string}}},
       customer_message: {required: false, schema: {kind: :nullable, inner: {kind: :string}}},
       confirmed_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
       failed_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
@@ -41,6 +45,8 @@ module SellApp
       :action,
       :status,
       :provider,
+      :proration_order_id,
+      :error,
       :customer_message,
       :confirmed_at,
       :failed_at,
@@ -58,6 +64,8 @@ module SellApp
       @action = hash[:action]
       @status = hash[:status]
       @provider = hash[:provider]
+      @proration_order_id = hash[:proration_order_id]
+      @error = hash[:error]
       @customer_message = hash[:customer_message]
       @confirmed_at = hash[:confirmed_at]
       @failed_at = hash[:failed_at]
