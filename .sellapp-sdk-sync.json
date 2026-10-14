@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ruby",
   "repository": "sellapp/sellapp-ruby",
-  "sourceSha": "2a8fd1a82c3091e60f332257fe4460785b0c6e9a",
-  "specSha256": "aea767326d7193deffe5004a5751f7e8f59e40b037636c8fc29b936699dfff2e",
+  "sourceSha": "5bfb944881c821f7c8b0af0e254d6f9bd16c0806",
+  "specSha256": "22a0f17c1c7099fa036382e9f037daa5b7e273d57605163d22042e03f964f1c8",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "61b23af567e4d4a5e8fe582a5db9e465a81e43f60515b6e81a5ddc59380d0965",
-  "contentDigest": "b997e73b64d64e7d4400271b73677e755d3d7423868484f07f3626cf1cfd5814",
+  "treeDigest": "f68ce0cacba2979d99a2e03143b5eb992494927517cbd6ab020d87a954f169b4",
+  "contentDigest": "15d6599cf0433c9c2ef50a826109e8119fa6a7d4c02e11931a5772753ebc1420",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -67,7 +67,7 @@
     {
       "path": "README.md",
       "mode": "100644",
-      "sha256": "e408d8dcde1b100e0545892be8339b3724e95c5a6e59edc0de1e6358e91f57f1"
+      "sha256": "0d2d8d87084eec8a7f7fb7b2ddb1b999f1e09f5f857aea2ee702b4c58f87d0db"
     },
     {
       "path": "Rakefile",
@@ -82,7 +82,7 @@
     {
       "path": "docs/migration.md",
       "mode": "100644",
-      "sha256": "d2152af699fb26ebea01160423ee170c0d2516d1100b8188a4e583956b20528d"
+      "sha256": "fc66a4951d15ce6a3455cd4aac9a310b3f8db00af0c07ef4567bdb83c3f54bea"
     },
     {
       "path": "docs/operation-examples.json",
@@ -512,7 +512,7 @@
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "ef6222b8784b1c6fe091d532ee3604a746b4cdd235adbb2644b77138978332eb"
+      "sha256": "89232a178ceb79dc0f711a96c70cec6a2c0ea8dcdeb9abeafc17d456f6929c20"
     },
     {
       "path": "lib/sellapp.rb",
@@ -12567,7 +12567,7 @@
     {
       "path": "lib/sellapp/subscriptions/sdk_dismiss_subscription_action_request_application_json.rb",
       "mode": "100644",
-      "sha256": "827f83a86f583ecbe89eadeb7533f58dab78edb4646b3bc843893c8439edacf8"
+      "sha256": "5729de0c49844136ebadb996284a5247f2ddd8f5b3ea5def3af775b15c8cf936"
     },
     {
       "path": "lib/sellapp/subscriptions/sdk_dismiss_subscription_action_response_value_200_application_json.rb",
@@ -12707,7 +12707,7 @@
     {
       "path": "lib/sellapp/subscriptions_actions.rb",
       "mode": "100644",
-      "sha256": "1b70f2eb6d67120f15162c617e3c95a5221412235a50c86fce7de50f6401e162"
+      "sha256": "44eec4105a0e1a624cc34e4d1d58fa65ff5797409a00d2e4ac540c9438952433"
     },
     {
       "path": "lib/sellapp/tickets.rb",
@@ -16802,7 +16802,7 @@
     {
       "path": "lib/sellapp/version.rb",
       "mode": "100644",
-      "sha256": "f9bbf51f3a0988fded3fe55a6779d91c8424844ab3e4ec09a1aac4465e062eac"
+      "sha256": "e74073b42aa65e015cae3cdeba5444eee200ac77aae297947ca6c9ef4c7904d0"
     },
     {
       "path": "lib/sellapp/wallet.rb",
@@ -30277,7 +30277,7 @@
     {
       "path": "sellapp.gemspec",
       "mode": "100644",
-      "sha256": "dab0dd36f09f8a876946cc5ed1c70ad4cadbbc86ab868359b9478c3b5e7cd058"
+      "sha256": "2c8c2dc30371a400731bcf4e4e1872b599b196b5595d5c43c2d4f0bf93e82c6d"
     },
     {
       "path": "sig/sellapp.rbs",

@@ -16,9 +16,19 @@ module SellApp
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
-    attr_accessor \
-      :idempotency_key,
-      :note
+    # @!attribute idempotency_key
+    #   @deprecated Accepted for compatibility but ignored by this operation. Retrieve the action after an uncertain response; repeating a completed dismissal returns 422.
+
+    attr_accessor :note
+
+    def idempotency_key
+      warn "[DEPRECATION] \`idempotency_key\` is deprecated and will be removed in a future version.", uplevel: 1
+      @idempotency_key
+    end
+
+    def idempotency_key=(value)
+      @idempotency_key = value
+    end
 
     def initialize(json)
       hash = self.class.normalize(json)

@@ -15,14 +15,14 @@ You need **Ruby 3.1 or newer** and Bundler. Add the gem to your application's Ge
 
 ```ruby
 source "https://rubygems.org"
-gem "sellapp", "~> 0.2.0"
+gem "sellapp", "~> 0.2.1"
 ```
 
 Run `bundle install` from the application directory. Bundler downloads the gem
 and records the selected versions in `Gemfile.lock`. For a new application,
 create a directory and save those two lines as `Gemfile` first.
 
-You can also install the gem directly with `gem install sellapp -v 0.2.0`.
+You can also install the gem directly with `gem install sellapp -v 0.2.1`.
 Browse the [RubyGems package](https://rubygems.org/gems/sellapp) or
 the [source repository](https://github.com/sellapp/sellapp-ruby).
 

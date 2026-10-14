@@ -79,7 +79,7 @@ module SellApp
     # Dismiss a subscription action
     # @param product_subscription [Integer] The productSubscription path parameter.
     # @param action [Integer] The action path parameter.
-    # @param idempotency_key [String, nil] Optional idempotency key. You may also send this as the Idempotency-Key header.
+    # @param idempotency_key [String, nil] (deprecated) Accepted for compatibility but ignored by this operation. Retrieve the action after an uncertain response; repeating a completed dismissal returns 422.
     # @param note [String] Why the action is being dismissed. The note is kept on the dismissed action as its error.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkDismissSubscriptionActionResponseValue200ApplicationJson]
@@ -97,7 +97,7 @@ module SellApp
       SellApp::Types::BaseModel.validate_value!(product_subscription, {kind: :integer}, "$request.productSubscription")
       SellApp::Types::BaseModel.validate_value!(action, {kind: :integer}, "$request.action")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkDismissSubscriptionActionRequestApplicationJson"}, "$request.body")
-      request_options = request_options.merge(operation_id: 'dismissSubscriptionAction', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
+      request_options = request_options.merge(operation_id: 'dismissSubscriptionAction', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: "/v2/subscriptions/#{SellApp::Util.encode_path(product_subscription)}/actions/#{SellApp::Util.encode_path(action)}/dismiss",
