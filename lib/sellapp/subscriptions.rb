@@ -57,6 +57,14 @@ module SellApp
     # @param page [Integer, nil] Page number to return.
     # @param pagination [Boolean, nil] Set to false to return at most 100 matching items in one data array without pagination links or metadata.
     # @param status [Array<SellApp::Types::SubscriptionsStatus>, nil] Filter by one or more subscription statuses. Repeat the parameter to select several; a single `status=ACTIVE` works too. A status outside the list is rejected with a validation error.
+    # @param order_id [Integer, nil] Keep subscriptions sold by this order.
+    # @param product_id [Integer, nil] Keep subscriptions whose plan is a variant of this product, including subscriptions moved to that plan after signup.
+    # @param renews_after [String, nil] Keep subscriptions that renew on or after this moment. Only `ACTIVE` and `TRIALING` subscriptions with a renewal date that are neither paused nor scheduled to cancel match a renewal filter. A date such as `2026-11-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.
+    # @param renews_before [String, nil] Keep subscriptions that renew on or before this moment, with the same rules as `renews_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `renews_after`.
+    # @param cancelled_after [String, nil] Keep `CANCELED` subscriptions cancelled on or after this moment. The cancellation time is when an immediate cancellation happened; for a subscription that ran out at its period end it is approximate, the last time the subscription record changed. Dates are read like `renews_after`. Inclusive.
+    # @param cancelled_before [String, nil] Keep `CANCELED` subscriptions cancelled on or before this moment, with the same rules as `cancelled_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `cancelled_after`.
+    # @param scheduled_to_cancel [Boolean, nil] `true` keeps `ACTIVE` and `TRIALING` subscriptions set to cancel at the end of their period; `false` keeps subscriptions that are not set to.
+    # @param paused [Boolean, nil] `true` keeps paused subscriptions; `false` keeps subscriptions that are not paused.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListSubscriptionsResponseValue200ApplicationJson]
     def list_subscriptions(
@@ -64,18 +72,42 @@ module SellApp
       page: 1,
       pagination: true,
       status: nil,
+      order_id: nil,
+      product_id: nil,
+      renews_after: nil,
+      renews_before: nil,
+      cancelled_after: nil,
+      cancelled_before: nil,
+      scheduled_to_cancel: nil,
+      paused: nil,
       request_options: {}
     )
       params = {
         'limit' => limit,
         'page' => page,
         'pagination' => pagination,
-        'status[]' => status
+        'status[]' => status,
+        'order_id' => order_id,
+        'product_id' => product_id,
+        'renews_after' => renews_after,
+        'renews_before' => renews_before,
+        'cancelled_after' => cancelled_after,
+        'cancelled_before' => cancelled_before,
+        'scheduled_to_cancel' => scheduled_to_cancel,
+        'paused' => paused
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(pagination, {kind: :boolean}, "$request.pagination") unless pagination.nil?
       SellApp::Types::BaseModel.validate_value!(status, {kind: :array, items: {kind: :enum, values: ["ACTIVE", "PAST_DUE", "UNPAID", "CANCELED", "INCOMPLETE", "INCOMPLETE_EXPIRED", "TRIALING"]}}, "$request.status[]") unless status.nil?
+      SellApp::Types::BaseModel.validate_value!(order_id, {kind: :integer, minimum: 1}, "$request.order_id") unless order_id.nil?
+      SellApp::Types::BaseModel.validate_value!(product_id, {kind: :integer, minimum: 1}, "$request.product_id") unless product_id.nil?
+      SellApp::Types::BaseModel.validate_value!(renews_after, {kind: :string, max: 64}, "$request.renews_after") unless renews_after.nil?
+      SellApp::Types::BaseModel.validate_value!(renews_before, {kind: :string, max: 64}, "$request.renews_before") unless renews_before.nil?
+      SellApp::Types::BaseModel.validate_value!(cancelled_after, {kind: :string, max: 64}, "$request.cancelled_after") unless cancelled_after.nil?
+      SellApp::Types::BaseModel.validate_value!(cancelled_before, {kind: :string, max: 64}, "$request.cancelled_before") unless cancelled_before.nil?
+      SellApp::Types::BaseModel.validate_value!(scheduled_to_cancel, {kind: :boolean}, "$request.scheduled_to_cancel") unless scheduled_to_cancel.nil?
+      SellApp::Types::BaseModel.validate_value!(paused, {kind: :boolean}, "$request.paused") unless paused.nil?
       request_options = request_options.merge(operation_id: 'listSubscriptions', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
@@ -97,6 +129,14 @@ module SellApp
     # @param sort [Array<SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param order_id [Integer, nil] Keep subscriptions sold by this order.
+    # @param product_id [Integer, nil] Keep subscriptions whose plan is a variant of this product, including subscriptions moved to that plan after signup.
+    # @param renews_after [String, nil] Keep subscriptions that renew on or after this moment. Only `ACTIVE` and `TRIALING` subscriptions with a renewal date that are neither paused nor scheduled to cancel match a renewal filter. A date such as `2026-11-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.
+    # @param renews_before [String, nil] Keep subscriptions that renew on or before this moment, with the same rules as `renews_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `renews_after`.
+    # @param cancelled_after [String, nil] Keep `CANCELED` subscriptions cancelled on or after this moment. The cancellation time is when an immediate cancellation happened; for a subscription that ran out at its period end it is approximate, the last time the subscription record changed. Dates are read like `renews_after`. Inclusive.
+    # @param cancelled_before [String, nil] Keep `CANCELED` subscriptions cancelled on or before this moment, with the same rules as `cancelled_after`. A date runs to the last second of that day in the store's time zone. Inclusive. Must not be earlier than `cancelled_after`.
+    # @param scheduled_to_cancel [Boolean, nil] `true` keeps `ACTIVE` and `TRIALING` subscriptions set to cancel at the end of their period; `false` keeps subscriptions that are not set to.
+    # @param paused [Boolean, nil] `true` keeps paused subscriptions; `false` keeps subscriptions that are not paused.
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
     # @param pagination [Boolean, nil] Set to false to return at most 100 matching items in one data array without pagination links or metadata.
@@ -107,6 +147,14 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      order_id: SellApp::OMIT,
+      product_id: SellApp::OMIT,
+      renews_after: SellApp::OMIT,
+      renews_before: SellApp::OMIT,
+      cancelled_after: SellApp::OMIT,
+      cancelled_before: SellApp::OMIT,
+      scheduled_to_cancel: SellApp::OMIT,
+      paused: SellApp::OMIT,
       limit: 15,
       page: 1,
       pagination: true,
@@ -123,6 +171,14 @@ module SellApp
         'search' => search,
         'includes' => includes
       }.compact
+      body['order_id'] = order_id unless order_id.equal?(SellApp::OMIT)
+      body['product_id'] = product_id unless product_id.equal?(SellApp::OMIT)
+      body['renews_after'] = renews_after unless renews_after.equal?(SellApp::OMIT)
+      body['renews_before'] = renews_before unless renews_before.equal?(SellApp::OMIT)
+      body['cancelled_after'] = cancelled_after unless cancelled_after.equal?(SellApp::OMIT)
+      body['cancelled_before'] = cancelled_before unless cancelled_before.equal?(SellApp::OMIT)
+      body['scheduled_to_cancel'] = scheduled_to_cancel unless scheduled_to_cancel.equal?(SellApp::OMIT)
+      body['paused'] = paused unless paused.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(pagination, {kind: :boolean}, "$request.pagination") unless pagination.nil?

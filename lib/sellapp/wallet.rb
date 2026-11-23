@@ -68,9 +68,10 @@ module SellApp
 
     # Adjust a customer wallet
     # @param customer [Integer] The customer path parameter.
-    # @param amount_cents [Integer] The signed adjustment amount in cents. Must not be zero.
-    # @param idempotency_key [String] Required body key, at most 128 characters. Keep the customer, amount, staff actor and trimmed note unchanged when retrying this intended adjustment.
-    # @param note [String]
+    # @param amount_cents [Integer] The signed change in integer USD cents: positive adds money, negative takes it away. Must not be zero.
+    # @param idempotency_key [String] Your key for this one adjustment, in printable ASCII characters and unique across all stores. Reuse it only to retry the same customer, amount, and note as the same staff member.
+    # @param note [String] Why the balance changed, with at least one character that is not a space. Leading and trailing spaces are removed. Saved on the entry and shown in the wallet history.
+    # @param expected_balance_cents [Integer, nil] Optional. The wallet balance in integer USD cents that you read before deciding on this change. If the balance is different now, nothing is written and the request returns `422` on `expected_balance_cents`. Use `0` for a customer who has no wallet yet.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkAdjustCustomerWalletResponseValue200ApplicationJson]
     def adjust(
@@ -78,13 +79,15 @@ module SellApp
       amount_cents:,
       idempotency_key:,
       note:,
+      expected_balance_cents: nil,
       request_options: {}
     )
       body = {
         'amount_cents' => amount_cents,
         'idempotency_key' => idempotency_key,
-        'note' => note
-      }
+        'note' => note,
+        'expected_balance_cents' => expected_balance_cents
+      }.compact
       SellApp::Types::BaseModel.validate_value!(customer, {kind: :integer}, "$request.customer")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkAdjustCustomerWalletRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'adjustCustomerWallet', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)

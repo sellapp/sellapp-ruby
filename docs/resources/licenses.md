@@ -121,6 +121,11 @@ List all license keys
 def list(
       limit: 15,
       page: 1,
+      key: nil,
+      customer_email: nil,
+      product_id: nil,
+      order_id: nil,
+      validity: nil,
       request_options: {}
     )
 ```
@@ -129,6 +134,11 @@ def list(
 | --- | --- | --- |
 | limit | `Object` | No |
 | page | `Object` | No |
+| key | `Object` | No |
+| customer_email | `Object` | No |
+| product_id | `Object` | No |
+| order_id | `Object` | No |
+| validity | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

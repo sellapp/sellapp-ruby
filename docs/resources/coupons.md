@@ -677,6 +677,7 @@ def v2_create_coupon(
       minimum_amount: SellApp::OMIT,
       applies_to: nil,
       subscription_payments: SellApp::OMIT,
+      maximum_discount_amount: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -694,6 +695,7 @@ def v2_create_coupon(
 | minimum_amount | `Object` | No |
 | applies_to | `Object` | No |
 | subscription_payments | `Object` | No |
+| maximum_discount_amount | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -748,6 +750,8 @@ def v2_search_coupons(
       sort: nil,
       search: nil,
       includes: nil,
+      limit: 15,
+      page: 1,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -760,6 +764,8 @@ def v2_search_coupons(
 | sort | `Object` | No |
 | search | `Object` | No |
 | includes | `Object` | No |
+| limit | `Object` | No |
+| page | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |
@@ -875,6 +881,7 @@ def v2_replace_coupon(
       minimum_amount: SellApp::OMIT,
       applies_to: nil,
       subscription_payments: SellApp::OMIT,
+      maximum_discount_amount: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -895,6 +902,7 @@ def v2_replace_coupon(
 | minimum_amount | `Object` | No |
 | applies_to | `Object` | No |
 | subscription_payments | `Object` | No |
+| maximum_discount_amount | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |
@@ -957,6 +965,7 @@ def v2_update_coupon(
       minimum_amount: SellApp::OMIT,
       applies_to: nil,
       subscription_payments: SellApp::OMIT,
+      maximum_discount_amount: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -977,6 +986,7 @@ def v2_update_coupon(
 | minimum_amount | `Object` | No |
 | applies_to | `Object` | No |
 | subscription_payments | `Object` | No |
+| maximum_discount_amount | `Object` | No |
 | with_trashed | `Object` | No |
 | only_trashed | `Object` | No |
 | request_options | `Object` | No |
@@ -1247,6 +1257,57 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## v2_get_coupon_usage
+
+Retrieve coupon usage
+
+[API reference](https://sell.app/docs/api/coupons/retrieve-coupon-usage) · Effect: **read**
+
+```ruby
+def v2_get_coupon_usage(
+      coupon:,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| coupon | `Object` | Yes |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.coupons.v2_get_coupon_usage(coupon: 1)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

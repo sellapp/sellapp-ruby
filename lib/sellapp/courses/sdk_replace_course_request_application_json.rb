@@ -19,7 +19,10 @@ module SellApp
       enrollment_limit: :enrollment_limit,
       delivery_text: :delivery_text,
       visibility: :visibility,
-      expected_updated_at: :expected_updated_at
+      expected_updated_at: :expected_updated_at,
+      title: :title,
+      slug: :slug,
+      description: :description
     }.freeze
 
     SCHEMA = {
@@ -37,7 +40,10 @@ module SellApp
       enrollment_limit: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1}}},
       delivery_text: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 65535}}},
       visibility: {required: false, schema: {kind: :enum, values: ["PUBLIC", "ON_HOLD", "HIDDEN", "PRIVATE"]}},
-      expected_updated_at: {required: false, schema: {kind: :string, format: "date-time"}}
+      expected_updated_at: {required: false, schema: {kind: :string, format: "date-time"}},
+      title: {required: false, schema: {kind: :string, min: 1, max: 255}},
+      slug: {required: false, schema: {kind: :string, max: 255, pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"}},
+      description: {required: false, schema: {kind: :nullable, inner: {kind: :string, min: 5}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -57,7 +63,10 @@ module SellApp
       :enrollment_limit,
       :delivery_text,
       :visibility,
-      :expected_updated_at
+      :expected_updated_at,
+      :title,
+      :slug,
+      :description
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -79,6 +88,9 @@ module SellApp
       @delivery_text = hash[:delivery_text]
       @visibility = hash[:visibility]
       @expected_updated_at = hash[:expected_updated_at]
+      @title = hash[:title]
+      @slug = hash[:slug]
+      @description = hash[:description]
     end
   end
 end

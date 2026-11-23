@@ -39,10 +39,10 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def locale=(value); end
 
-    sig { returns(T::Hash[String, SellApp::ScalarMetadataValue]) }
+    sig { returns(T::Hash[String, T.nilable(T.any(String, Float, T::Boolean))]) }
     def metadata; end
 
-    sig { params(value: T::Hash[String, SellApp::ScalarMetadataValue]).returns(T::Hash[String, SellApp::ScalarMetadataValue]) }
+    sig { params(value: T::Hash[String, T.nilable(T.any(String, Float, T::Boolean))]).returns(T::Hash[String, T.nilable(T.any(String, Float, T::Boolean))]) }
     def metadata=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

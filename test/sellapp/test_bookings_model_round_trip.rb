@@ -717,4 +717,185 @@ class BookingsModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_create_booking_product_request_application_json_propert_fe394035d2ac137c_round_trip
+    fixture = {
+      "day" => 1,
+      "enabled" => true,
+      "start" => 'stub',
+      "end" => 'stub',
+    }
+    model = SellApp::CreateBookingProductRequestApplicationJsonPropertyAvailabilityItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["day"], json[:day]
+    assert_equal fixture["enabled"], json[:enabled]
+    assert_equal fixture["start"], json[:start]
+    assert_equal fixture["end"], json[:end]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_create_booking_product_request_application_json_round_trip
+    fixture = {
+      "title" => 'stub',
+      "description" => 'stubx',
+      "visibility" => 'PUBLIC',
+      "variant_title" => 'stub',
+      "variant_description" => 'stubx',
+      "price_cents" => 0,
+      "compare_at_price_cents" => 1,
+      "currency" => 'AUD',
+      "payment_methods" => JSON.parse('[]'),
+      "timezone" => 'stub',
+      "duration_minutes" => 30,
+      "min_notice_minutes" => 0,
+      "max_advance_days" => 1,
+      "buffer_before_minutes" => 0,
+      "buffer_after_minutes" => 0,
+      "provider_connection_ids" => JSON.parse('[]'),
+      "video_provider" => 'none',
+      "video_provider_connection_id" => 1,
+      "reminders_enabled" => true,
+      "reminder_offset_value" => 1,
+      "reminder_offset_unit" => 'minutes',
+      "availability" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkCreateBookingProductRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["price_cents"], json[:price_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_booking_product_response_value_201_application_j_0d5e17e115595397_round_trip
+    fixture = {
+      "size" => 1,
+      "filename" => 'stub',
+      "extension" => 'stub',
+      "mime_type" => 'stub',
+    }
+    model = SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyImagesItemPropertyMetadata.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["size"], json[:size]
+    assert_equal fixture["filename"], json[:filename]
+    assert_equal fixture["extension"], json[:extension]
+    assert_equal fixture["mime_type"], json[:mime_type]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_booking_product_response_value_201_application_j_53d0ca4a8789b614_round_trip
+    fixture = {
+      "path" => 'stub',
+      "metadata" => JSON.parse('{"size":1,"filename":"stub","extension":"stub","mime_type":"stub"}'),
+    }
+    model = SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyImagesItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["path"], json[:path]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_booking_product_response_value_201_application_j_ad75f4ea2ba2098a_round_trip
+    fixture = {
+      "required" => true,
+      "key" => 'stub',
+      "type" => 'stub',
+      "label" => 'stub',
+    }
+    model = SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyAdditionalInformationItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["key"], json[:key]
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["label"], json[:label]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_booking_product_response_value_201_application_j_f3b954365ece4a74_round_trip
+    fixture = {
+      "faq" => JSON.parse('[]'),
+      "video_url" => 'stub',
+      "redirect_url" => 'stub',
+      "product_title" => 'stub',
+      "product_description" => 'stub',
+    }
+    model = SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyOtherSettings.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["video_url"], json[:video_url]
+    assert_equal fixture["redirect_url"], json[:redirect_url]
+    assert_equal fixture["product_title"], json[:product_title]
+    assert_equal fixture["product_description"], json[:product_description]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_booking_product_response_value_201_application_j_5566594ea0270205_round_trip
+    fixture = {
+      "id" => 1,
+      "title" => 'stub',
+    }
+    model = SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyVariantsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["title"], json[:title]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_booking_product_response_value_201_application_json_property_data_round_trip
+    fixture = {
+      "id" => 1,
+      "title" => 'stub',
+      "slug" => 'stub',
+      "description" => 'stub',
+      "images" => JSON.parse('[]'),
+      "order" => 1,
+      "visibility" => 'stub',
+      "delivery_text" => 'stub',
+      "additional_information" => JSON.parse('[]'),
+      "other_settings" => JSON.parse('{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"}'),
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "store_id" => 1,
+      "section_id" => 1,
+      "section_order" => 1,
+      "is_discoverable" => true,
+      "variants" => JSON.parse('[]'),
+      "url" => 'stub',
+      "type" => 'stub',
+    }
+    model = SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["slug"], json[:slug]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["order"], json[:order]
+    assert_equal fixture["visibility"], json[:visibility]
+    assert_equal fixture["delivery_text"], json[:delivery_text]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["store_id"], json[:store_id]
+    assert_equal fixture["section_id"], json[:section_id]
+    assert_equal fixture["section_order"], json[:section_order]
+    assert_equal fixture["is_discoverable"], json[:is_discoverable]
+    assert_equal fixture["url"], json[:url]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_create_booking_product_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+    }
+    model = SellApp::SdkCreateBookingProductResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

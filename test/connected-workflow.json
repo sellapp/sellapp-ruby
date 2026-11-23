@@ -67,7 +67,8 @@
       "deleted_at": "2024-01-01T00:00:00Z",
       "product": {
         "additional_information": []
-      }
+      },
+      "is_draft": true
     }
   },
   "order": {
@@ -98,7 +99,9 @@
         "total_exclusive_cents": 0,
         "total_cents": 0,
         "total_exclusive_usd_cents": 0,
-        "total_usd_cents": 0
+        "total_usd_cents": 0,
+        "refund_currency": "stub",
+        "refunded_total_cents": 0
       },
       "coupon_id": 1,
       "line_items": [],

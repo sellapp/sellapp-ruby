@@ -7,13 +7,15 @@ module SellApp
     HASH_ATTRS = {
       amount_cents: :amount_cents,
       idempotency_key: :idempotency_key,
-      note: :note
+      note: :note,
+      expected_balance_cents: :expected_balance_cents
     }.freeze
 
     SCHEMA = {
       amount_cents: {required: true, schema: {kind: :integer, minimum: -999999999999, maximum: 999999999999}},
       idempotency_key: {required: true, schema: {kind: :string, max: 128}},
-      note: {required: true, schema: {kind: :string, min: 1, max: 255, pattern: "\\S"}}
+      note: {required: true, schema: {kind: :string, min: 1, max: 255, pattern: "\\S"}},
+      expected_balance_cents: {required: false, schema: {kind: :integer, minimum: 0, maximum: 999999999999}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -21,7 +23,8 @@ module SellApp
     attr_accessor \
       :amount_cents,
       :idempotency_key,
-      :note
+      :note,
+      :expected_balance_cents
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -31,6 +34,7 @@ module SellApp
       @amount_cents = hash[:amount_cents]
       @idempotency_key = hash[:idempotency_key]
       @note = hash[:note]
+      @expected_balance_cents = hash[:expected_balance_cents]
     end
   end
 end

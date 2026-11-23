@@ -60,5 +60,20 @@ module SellApp
     end
     def disconnect(platform:, request_options:); end
 
+    sig do
+      params(
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson)
+    end
+    def list_failed_grant_reasons(request_options:); end
+
+    sig do
+      params(
+        server_id: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkSyncDiscordRolesResponseValue200ApplicationJson)
+    end
+    def sync_discord_roles(server_id:, request_options:); end
+
   end
 end

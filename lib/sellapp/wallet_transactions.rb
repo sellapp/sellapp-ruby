@@ -10,6 +10,43 @@ module SellApp
       @client = client
     end
 
+    # Reverse a wallet transaction
+    # @param customer [Integer] The customer ID whose wallet holds the entry.
+    # @param transaction [Integer] The ID of the wallet entry to reverse, as listed by `GET /v2/wallets/{customer}/transactions` or `GET /v2/wallet/transactions`.
+    # @param note [String] Why the entry is reversed. It must contain more than spaces and is saved on the reversal entry.
+    # @param expected_balance_cents [Integer, nil] Optional. The wallet balance in integer USD cents that you read before deciding. If the balance is different now, nothing changes and the request returns `422` on `expected_balance_cents`.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReverseWalletTransactionResponseValue201ApplicationJson]
+    def reverse(
+      customer:,
+      transaction:,
+      note:,
+      expected_balance_cents: nil,
+      request_options: {}
+    )
+      body = {
+        'note' => note,
+        'expected_balance_cents' => expected_balance_cents
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(customer, {kind: :integer}, "$request.customer")
+      SellApp::Types::BaseModel.validate_value!(transaction, {kind: :integer}, "$request.transaction")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReverseWalletTransactionRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'reverseWalletTransaction', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
+      response = @client.request(
+        method: :post,
+        path: "/v2/wallets/#{SellApp::Util.encode_path(customer)}/transactions/#{SellApp::Util.encode_path(transaction)}/reverse",
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReverseWalletTransactionResponseValue201ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
     # List wallet transactions
     # @param customer [Integer]
     # @param page [Integer, nil]

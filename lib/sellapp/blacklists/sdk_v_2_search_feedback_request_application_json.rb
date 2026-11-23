@@ -8,14 +8,16 @@ module SellApp
       filters: :filters,
       sort: :sort,
       search: :search,
-      includes: :includes
+      includes: :includes,
+      reply_state: :reply_state
     }.freeze
 
     SCHEMA = {
       filters: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchFeedbackRequestApplicationJsonPropertyFiltersItem"}}},
       sort: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchFeedbackRequestApplicationJsonPropertySortItem"}}},
       search: {required: false, schema: {kind: :model, name: "SellApp::V2SearchFeedbackRequestApplicationJsonPropertySearch"}},
-      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem"}}}
+      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem"}}},
+      reply_state: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["all", "replied", "unreplied", "null"]}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -24,7 +26,8 @@ module SellApp
       :filters,
       :sort,
       :search,
-      :includes
+      :includes,
+      :reply_state
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -35,6 +38,7 @@ module SellApp
       @sort = hash[:sort] ? hash[:sort].map { |item| item ? SellApp::V2SearchFeedbackRequestApplicationJsonPropertySortItem.new(item) : nil } : nil
       @search = hash[:search] ? SellApp::V2SearchFeedbackRequestApplicationJsonPropertySearch.new(hash[:search]) : nil
       @includes = hash[:includes] ? hash[:includes].map { |item| item ? SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem.new(item) : nil } : nil
+      @reply_state = hash[:reply_state]
     end
   end
 end

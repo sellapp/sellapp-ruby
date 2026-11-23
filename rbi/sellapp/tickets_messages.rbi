@@ -75,10 +75,12 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::V2SearchTicketMessagesRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::V2SearchTicketMessagesRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::V2SearchTicketMessagesRequestApplicationJsonPropertyIncludesItem]),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2SearchTicketMessagesResponseValue200ApplicationJson)
     end
-    def v2_search_ticket_messages(ticket:, filters:, sort:, search:, includes:, request_options:); end
+    def v2_search_ticket_messages(ticket:, filters:, sort:, search:, includes:, limit:, page:, request_options:); end
 
     sig do
       params(

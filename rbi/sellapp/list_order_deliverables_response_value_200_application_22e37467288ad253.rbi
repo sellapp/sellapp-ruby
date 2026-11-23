@@ -34,6 +34,12 @@ module SellApp
     def status=(value); end
 
     sig { returns(T.nilable(Integer)) }
+    def delivered_product_id; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def delivered_product_id=(value); end
+
+    sig { returns(T.nilable(Integer)) }
     def product_variant_id; end
 
     sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }

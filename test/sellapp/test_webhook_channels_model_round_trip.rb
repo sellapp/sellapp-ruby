@@ -5,6 +5,36 @@
 require 'test_helper'
 
 class WebhookChannelsModelRoundTripTest < Minitest::Test
+  def test_list_webhook_channels_response_value_200_application_js_241087e80127c463_round_trip
+    fixture = {
+      "state" => 'active',
+      "last_success_at" => '2024-01-01T00:00:00Z',
+      "last_failure_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["last_success_at"], json[:last_success_at]
+    assert_equal fixture["last_failure_at"], json[:last_failure_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_webhook_channels_response_value_200_application_js_6cac3da6ca70cc6b_round_trip
+    fixture = {
+      "id" => '00000000-0000-4000-8000-000000000000',
+      "event_type" => 'stub',
+      "status" => 'pending',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["event_type"], json[:event_type]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_list_webhook_channels_response_value_200_application_js_a1eb6b96a856726b_round_trip
     fixture = {
       "id" => '00000000-0000-4000-8000-000000000000',
@@ -12,6 +42,8 @@ class WebhookChannelsModelRoundTripTest < Minitest::Test
       "url" => 'https://example.com',
       "allowed_notifications" => JSON.parse('[]'),
       "signing_secret_configured" => true,
+      "health" => JSON.parse('{"state":"active","last_success_at":"2024-01-01T00:00:00Z","last_failure_at":"2024-01-01T00:00:00Z"}'),
+      "last_delivery" => JSON.parse('{"id":"00000000-0000-4000-8000-000000000000","event_type":"stub","status":"pending","created_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -99,6 +131,36 @@ class WebhookChannelsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_search_webhook_channels_response_value_200_application_dd5d51fceb07fd3a_round_trip
+    fixture = {
+      "state" => 'active',
+      "last_success_at" => '2024-01-01T00:00:00Z',
+      "last_failure_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::SearchWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["last_success_at"], json[:last_success_at]
+    assert_equal fixture["last_failure_at"], json[:last_failure_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_search_webhook_channels_response_value_200_application_ab99d81ae972f724_round_trip
+    fixture = {
+      "id" => '00000000-0000-4000-8000-000000000000',
+      "event_type" => 'stub',
+      "status" => 'pending',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::SearchWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["event_type"], json[:event_type]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_search_webhook_channels_response_value_200_application_8b0363862f2da308_round_trip
     fixture = {
       "id" => '00000000-0000-4000-8000-000000000000',
@@ -106,6 +168,8 @@ class WebhookChannelsModelRoundTripTest < Minitest::Test
       "url" => 'https://example.com',
       "allowed_notifications" => JSON.parse('[]'),
       "signing_secret_configured" => true,
+      "health" => JSON.parse('{"state":"active","last_success_at":"2024-01-01T00:00:00Z","last_failure_at":"2024-01-01T00:00:00Z"}'),
+      "last_delivery" => JSON.parse('{"id":"00000000-0000-4000-8000-000000000000","event_type":"stub","status":"pending","created_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SearchWebhookChannelsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h

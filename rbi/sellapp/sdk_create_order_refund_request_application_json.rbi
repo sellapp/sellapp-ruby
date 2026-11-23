@@ -15,6 +15,12 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def amount=(value); end
 
+    sig { returns(T.nilable(Integer)) }
+    def expected_refunded_total_cents; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def expected_refunded_total_cents=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

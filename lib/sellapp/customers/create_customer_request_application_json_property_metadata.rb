@@ -7,7 +7,7 @@ module SellApp
     HASH_ATTRS = {}.freeze
 
     SCHEMA = {}.freeze
-    ADDITIONAL_PROPERTIES = {kind: :model, name: "SellApp::CreateCustomerRequestApplicationJsonPropertyMetadataMapValue"}
+    ADDITIONAL_PROPERTIES = {kind: :union, variants: [{kind: :string, max: 500}, {kind: :number}, {kind: :boolean}], composition: :oneOf}
     MODEL_CONSTRAINTS = {max: 50}.freeze
 
     def initialize(json)

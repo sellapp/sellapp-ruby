@@ -57,10 +57,14 @@ module SellApp
 
     sig do
       params(
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
+        search: T.nilable(String),
+        type: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::BlacklistListResponse)
     end
-    def v2_list_blacklists(request_options:); end
+    def v2_list_blacklists(limit:, page:, search:, type:, request_options:); end
 
     sig do
       params(

@@ -75,19 +75,39 @@ module SellApp
     # List all license keys
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
+    # @param key [String, nil] Keep keys that contain this text: letters, digits, and hyphens, up to 100 characters. A full key as the customer sees it, including the store's key prefix, also finds its key.
+    # @param customer_email [String, nil] Keep keys of the store customer with exactly this email address.
+    # @param product_id [Integer, nil] Keep keys issued for this product.
+    # @param order_id [Integer, nil] Keep keys issued by this order.
+    # @param validity [SellApp::Types::LicensesValidity, nil] Keep keys by whether they validate now, decided the way license validation decides it: `active` keys are switched on and not past their expiry, `inactive` keys are switched off but not expired, and `expired` keys are past `expires_at`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListLicenseKeysResponseValue200ApplicationJson]
     def list(
       limit: 15,
       page: 1,
+      key: nil,
+      customer_email: nil,
+      product_id: nil,
+      order_id: nil,
+      validity: nil,
       request_options: {}
     )
       params = {
         'limit' => limit,
-        'page' => page
+        'page' => page,
+        'key' => key,
+        'customer_email' => customer_email,
+        'product_id' => product_id,
+        'order_id' => order_id,
+        'validity' => validity
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(key, {kind: :string, pattern: "^[A-Za-z0-9-]{1,100}$"}, "$request.key") unless key.nil?
+      SellApp::Types::BaseModel.validate_value!(customer_email, {kind: :string, max: 255}, "$request.customer_email") unless customer_email.nil?
+      SellApp::Types::BaseModel.validate_value!(product_id, {kind: :integer, minimum: 1}, "$request.product_id") unless product_id.nil?
+      SellApp::Types::BaseModel.validate_value!(order_id, {kind: :integer, minimum: 1}, "$request.order_id") unless order_id.nil?
+      SellApp::Types::BaseModel.validate_value!(validity, {kind: :enum, values: ["active", "inactive", "expired"]}, "$request.validity") unless validity.nil?
       request_options = request_options.merge(operation_id: 'listLicenseKeys', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,

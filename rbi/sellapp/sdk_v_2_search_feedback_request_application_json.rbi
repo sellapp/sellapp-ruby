@@ -33,6 +33,12 @@ module SellApp
     sig { params(value: T.nilable(T::Array[SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem])).returns(T.nilable(T::Array[SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem])) }
     def includes=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def reply_state; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def reply_state=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

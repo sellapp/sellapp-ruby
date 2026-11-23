@@ -6,19 +6,22 @@ module SellApp
   class SdkUpdateOrderStatusRequestApplicationJson < SellApp::Types::BaseModel
     HASH_ATTRS = {
       status: :status,
-      expected_status: :expected_status
+      expected_status: :expected_status,
+      payment_received: :payment_received
     }.freeze
 
     SCHEMA = {
       status: {required: true, schema: {kind: :enum, values: ["COMPLETED", "VOIDED", "REVIEW", "DISPUTING"]}},
-      expected_status: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["PENDING", "REVERSED", "PARTIAL", "VOIDED", "REFUNDED", "PAID", "COMPLETED", "DISPUTING", "REVIEW", "FAILED", "null"]}}}
+      expected_status: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["PENDING", "REVERSED", "PARTIAL", "VOIDED", "REFUNDED", "PAID", "COMPLETED", "DISPUTING", "REVIEW", "FAILED", "null"]}}},
+      payment_received: {required: false, schema: {kind: :boolean}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
     attr_accessor \
       :status,
-      :expected_status
+      :expected_status,
+      :payment_received
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -27,6 +30,7 @@ module SellApp
       @present_fields = hash.keys.map(&:to_s)
       @status = hash[:status]
       @expected_status = hash[:expected_status]
+      @payment_received = hash[:payment_received]
     end
   end
 end

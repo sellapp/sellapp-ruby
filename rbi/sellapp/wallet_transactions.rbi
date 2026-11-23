@@ -12,6 +12,17 @@ module SellApp
     sig do
       params(
         customer: Integer,
+        transaction: Integer,
+        note: String,
+        expected_balance_cents: T.nilable(Integer),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReverseWalletTransactionResponseValue201ApplicationJson)
+    end
+    def reverse(customer:, transaction:, note:, expected_balance_cents:, request_options:); end
+
+    sig do
+      params(
+        customer: Integer,
         page: T.nilable(Integer),
         limit: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]

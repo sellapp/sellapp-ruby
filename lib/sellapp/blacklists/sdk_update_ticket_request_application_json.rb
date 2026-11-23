@@ -6,19 +6,22 @@ module SellApp
   class SdkUpdateTicketRequestApplicationJson < SellApp::Types::BaseModel
     HASH_ATTRS = {
       status: :status,
-      archived: :archived
+      archived: :archived,
+      outcome: :outcome
     }.freeze
 
     SCHEMA = {
       status: {required: false, schema: {kind: :enum, values: ["OPEN", "CLOSED"]}},
-      archived: {required: false, schema: {kind: :boolean}}
+      archived: {required: false, schema: {kind: :boolean}},
+      outcome: {required: false, schema: {kind: :enum, values: ["refunded", "refunded_partial", "delivered", "no_action", "duplicate", "other"]}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
     attr_accessor \
       :status,
-      :archived
+      :archived,
+      :outcome
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -27,6 +30,7 @@ module SellApp
       @present_fields = hash.keys.map(&:to_s)
       @status = hash[:status]
       @archived = hash[:archived]
+      @outcome = hash[:outcome]
     end
   end
 end

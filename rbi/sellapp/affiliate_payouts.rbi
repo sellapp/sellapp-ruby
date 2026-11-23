@@ -13,12 +13,14 @@ module SellApp
       params(
         affiliate_id: T.nilable(Integer),
         status: T.nilable(String),
+        payout_method: T.nilable(String),
+        search: T.nilable(String),
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListAffiliatePayoutsResponseValue200ApplicationJson)
     end
-    def list(affiliate_id:, status:, limit:, page:, request_options:); end
+    def list(affiliate_id:, status:, payout_method:, search:, limit:, page:, request_options:); end
 
     sig do
       params(
@@ -44,6 +46,15 @@ module SellApp
       ).returns(SellApp::SdkUpdateAffiliatePayoutStatusResponseValue200ApplicationJson)
     end
     def update(payout:, status:, request_options:); end
+
+    sig do
+      params(
+        payout_ids: T::Array[Integer],
+        expected_total_usd_cents: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson)
+    end
+    def mark_paid(payout_ids:, expected_total_usd_cents:, request_options:); end
 
   end
 end

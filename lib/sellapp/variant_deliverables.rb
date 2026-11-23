@@ -10,6 +10,60 @@ module SellApp
       @client = client
     end
 
+    # Preview variant buyer notification
+    # @param product [Integer] The product path parameter.
+    # @param variant [Integer] The variant path parameter.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson]
+    def preview(
+      product:,
+      variant:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
+      request_options = request_options.merge(operation_id: 'previewVariantBuyerNotification', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/#{SellApp::Util.encode_path(variant)}/deliverable/buyer-notification",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Notify variant buyers
+    # @param product [Integer] The product path parameter.
+    # @param variant [Integer] The variant path parameter.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkNotifyVariantBuyersResponseValue202ApplicationJson]
+    def notify(
+      product:,
+      variant:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
+      request_options = request_options.merge(operation_id: 'notifyVariantBuyers', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
+      response = @client.request(
+        method: :post,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/#{SellApp::Util.encode_path(variant)}/deliverable/buyer-notification",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkNotifyVariantBuyersResponseValue202ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
     # Retrieve variant deliverable configuration
     # @param product [String] The product identifier or slug. The product must belong to the authenticated store.
     # @param variant [Integer] The product variant identifier.

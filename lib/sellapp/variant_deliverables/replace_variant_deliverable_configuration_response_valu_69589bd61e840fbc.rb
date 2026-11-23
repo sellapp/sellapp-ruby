@@ -13,7 +13,7 @@ module SellApp
 
     SCHEMA = {
       types: {required: true, schema: {kind: :array, items: {kind: :enum, values: ["DOWNLOADABLE", "TEXT", "DYNAMIC", "MANUAL", "LICENSE_KEY", "BUNDLE", "BOOKING", "CREDITS"]}}},
-      data: {required: true, schema: {kind: :model, name: "SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData"}},
+      data: {required: true, schema: {kind: :union, variants: [{kind: :model, name: "SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1"}, {kind: :array, items: {kind: :any}, max: 0}], composition: :anyOf}},
       webhook_configured: {required: true, schema: {kind: :boolean}},
       updated_at: {required: true, schema: {kind: :string, format: "date-time"}}
     }.freeze
@@ -32,7 +32,7 @@ module SellApp
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
       @types = hash[:types]
-      @data = hash[:data] ? SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData.new(hash[:data]) : nil
+      @data = hash[:data].is_a?(Hash) ? (begin SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1.new(hash[:data]); rescue SellApp::ValidationError; hash[:data]; end) : hash[:data]
       @webhook_configured = hash[:webhook_configured]
       @updated_at = hash[:updated_at]
     end

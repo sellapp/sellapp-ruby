@@ -11,14 +11,23 @@ module SellApp
     end
 
     # List exports
+    # @param page [Integer, nil] Page number, starting at 1.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListExportsResponseValue200ApplicationJson]
-    def list_exports(request_options: {})
+    def list_exports(
+      page: 1,
+      request_options: {}
+    )
+      params = {
+        'page' => page
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       request_options = request_options.merge(operation_id: 'listExports', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
         path: '/v2/exports',
         auth: true,
+        params: params,
         request_options: request_options
       )
       value = begin

@@ -67,5 +67,14 @@ module SellApp
     end
     def restore(cashback_rule:, request_options:); end
 
+    sig do
+      params(
+        product_id: T.nilable(Integer),
+        purchase_cents: T.nilable(Integer),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkQuoteCashbackRuleResponseValue200ApplicationJson)
+    end
+    def quote(product_id:, purchase_cents:, request_options:); end
+
   end
 end

@@ -181,6 +181,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::ListProductVariantsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -195,6 +196,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -561,6 +563,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::CreateProductVariantResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -575,12 +578,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_create_product_variant_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkCreateProductVariantResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -765,6 +769,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::GetProductVariantResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -779,12 +784,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_get_product_variant_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkGetProductVariantResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1130,6 +1136,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::ReplaceProductVariantWithPutResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -1144,12 +1151,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_replace_product_variant_with_put_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkReplaceProductVariantWithPutResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1495,6 +1503,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::UpdateProductVariantResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -1509,12 +1518,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_update_product_variant_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkUpdateProductVariantResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1709,6 +1719,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::DeleteProductVariantResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -1723,12 +1734,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_delete_product_variant_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkDeleteProductVariantResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1979,6 +1991,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::SearchProductVariantsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -1993,6 +2006,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2312,6 +2326,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -2326,12 +2341,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_replace_product_variant_pricing_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkReplaceProductVariantPricingResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2628,6 +2644,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::UpdateProductVariantPricingResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -2642,12 +2659,13 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_update_product_variant_pricing_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}'),
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
     }
     model = SellApp::SdkUpdateProductVariantPricingResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3113,6 +3131,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::BatchCreateProductVariantsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -3127,6 +3146,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -3494,6 +3514,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::BatchUpdateProductVariantsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -3508,6 +3529,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -3698,6 +3720,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::BatchDeleteProductVariantsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -3712,6 +3735,7 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -3720,6 +3744,1187 @@ class ProductVariantsModelRoundTripTest < Minitest::Test
       "data" => JSON.parse('[]'),
     }
     model = SellApp::SdkBatchDeleteProductVariantsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_31e950b36a2a3e44_round_trip
+    fixture = {
+      "removeDuplicate" => true,
+      "parsingMode" => 'stub',
+      "stock" => 1,
+      "comment" => 'stub',
+      "serials" => JSON.parse('[]'),
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyDeliverablePropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["removeDuplicate"], json[:removeDuplicate]
+    assert_equal fixture["parsingMode"], json[:parsingMode]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_b5e939193f5c71e4_round_trip
+    fixture = {
+      "data" => JSON.parse('{"removeDuplicate":true,"parsingMode":"stub"}'),
+      "types" => JSON.parse('[]'),
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyDeliverable.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_5fa8d3b676a63fcd_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'stub',
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    assert_equal fixture["interval"], json[:interval]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_531bb594495079a2_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_163a0aea4544d921_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'DAY',
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_86d0aeeb041bd284_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_3580509b0484ce4f_round_trip
+    fixture = {
+      "kind" => 'free',
+      "length" => JSON.parse('{"value":1,"interval":"DAY"}'),
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_04cdc7742f585e54_round_trip
+    fixture = {
+      "humble" => true,
+      "frequency" => JSON.parse('{"value":1,"interval":"stub"}'),
+      "type" => 'stub',
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+      "trial" => JSON.parse('{"kind":"free","length":{"value":1,"interval":"DAY"}}'),
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyPricing.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["humble"], json[:humble]
+    assert_equal fixture["type"], json[:type]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_bc431dab05f4fc1c_round_trip
+    fixture = {
+      "discount_percentage" => 1,
+      "minimum_purchase_amount" => 1,
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyBulkDiscountItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["discount_percentage"], json[:discount_percentage]
+    assert_equal fixture["minimum_purchase_amount"], json[:minimum_purchase_amount]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_8d8217822d749303_round_trip
+    fixture = {
+      "quantity_increments" => 1,
+      "discord_data_required" => true,
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyOtherSettings.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["quantity_increments"], json[:quantity_increments]
+    assert_equal fixture["discord_data_required"], json[:discord_data_required]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_e57a0bde3f5a26b8_round_trip
+    fixture = {
+      "required" => true,
+      "key" => 'stub',
+      "type" => 'stub',
+      "label" => 'stub',
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyProductPropertyAdditionalInformationItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["key"], json[:key]
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["label"], json[:label]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_a7a8b68867a07874_round_trip
+    fixture = {
+      "additional_information" => JSON.parse('[]'),
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyDataPropertyProduct.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_publish_product_variant_response_value_200_application_18bd3baef2e197b9_round_trip
+    fixture = {
+      "id" => 1,
+      "product_id" => 1,
+      "title" => 'stub',
+      "description" => 'stub',
+      "deliverable" => JSON.parse('{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]}'),
+      "pricing" => JSON.parse('{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}}'),
+      "minimum_purchase_quantity" => 1,
+      "maximum_purchase_quantity" => 1,
+      "bulk_discount" => JSON.parse('[]'),
+      "payment_methods" => JSON.parse('[]'),
+      "other_settings" => JSON.parse('{"quantity_increments":1,"discord_data_required":true}'),
+      "order" => 1,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
+    }
+    model = SellApp::PublishProductVariantResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["minimum_purchase_quantity"], json[:minimum_purchase_quantity]
+    assert_equal fixture["maximum_purchase_quantity"], json[:maximum_purchase_quantity]
+    assert_equal fixture["order"], json[:order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_publish_product_variant_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
+    }
+    model = SellApp::SdkPublishProductVariantResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_fabe29afa123ff70_round_trip
+    fixture = {
+      "removeDuplicate" => true,
+      "parsingMode" => 'stub',
+      "stock" => 1,
+      "comment" => 'stub',
+      "serials" => JSON.parse('[]'),
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyDeliverablePropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["removeDuplicate"], json[:removeDuplicate]
+    assert_equal fixture["parsingMode"], json[:parsingMode]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_d2b99d6f503f28a8_round_trip
+    fixture = {
+      "data" => JSON.parse('{"removeDuplicate":true,"parsingMode":"stub"}'),
+      "types" => JSON.parse('[]'),
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyDeliverable.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_7655977e2ad46d6e_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'stub',
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyFrequency.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    assert_equal fixture["interval"], json[:interval]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_b223efcb0550a173_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_656230a0284425c0_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'DAY',
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_fa26969770114ff4_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_4883889d1068ad75_round_trip
+    fixture = {
+      "kind" => 'free',
+      "length" => JSON.parse('{"value":1,"interval":"DAY"}'),
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricingPropertyTrial.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_3d246f4f38965611_round_trip
+    fixture = {
+      "humble" => true,
+      "frequency" => JSON.parse('{"value":1,"interval":"stub"}'),
+      "type" => 'stub',
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+      "trial" => JSON.parse('{"kind":"free","length":{"value":1,"interval":"DAY"}}'),
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyPricing.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["humble"], json[:humble]
+    assert_equal fixture["type"], json[:type]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_91c32828c2482050_round_trip
+    fixture = {
+      "discount_percentage" => 1,
+      "minimum_purchase_amount" => 1,
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyBulkDiscountItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["discount_percentage"], json[:discount_percentage]
+    assert_equal fixture["minimum_purchase_amount"], json[:minimum_purchase_amount]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_88c537f784effc29_round_trip
+    fixture = {
+      "quantity_increments" => 1,
+      "discord_data_required" => true,
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyOtherSettings.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["quantity_increments"], json[:quantity_increments]
+    assert_equal fixture["discord_data_required"], json[:discord_data_required]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_586f77bbb4b5ae58_round_trip
+    fixture = {
+      "required" => true,
+      "key" => 'stub',
+      "type" => 'stub',
+      "label" => 'stub',
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyProductPropertyAdditionalInformationItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["key"], json[:key]
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["label"], json[:label]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_0f4e379cf78efcc4_round_trip
+    fixture = {
+      "additional_information" => JSON.parse('[]'),
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyDataPropertyProduct.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_duplicate_product_variant_response_value_201_applicatio_e2328d34c42516c1_round_trip
+    fixture = {
+      "id" => 1,
+      "product_id" => 1,
+      "title" => 'stub',
+      "description" => 'stub',
+      "deliverable" => JSON.parse('{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]}'),
+      "pricing" => JSON.parse('{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}}'),
+      "minimum_purchase_quantity" => 1,
+      "maximum_purchase_quantity" => 1,
+      "bulk_discount" => JSON.parse('[]'),
+      "payment_methods" => JSON.parse('[]'),
+      "other_settings" => JSON.parse('{"quantity_increments":1,"discord_data_required":true}'),
+      "order" => 1,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
+    }
+    model = SellApp::DuplicateProductVariantResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["minimum_purchase_quantity"], json[:minimum_purchase_quantity]
+    assert_equal fixture["maximum_purchase_quantity"], json[:maximum_purchase_quantity]
+    assert_equal fixture["order"], json[:order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_duplicate_product_variant_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
+    }
+    model = SellApp::SdkDuplicateProductVariantResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_reorder_product_variants_request_application_json_round_trip
+    fixture = {
+      "variant_ids" => JSON.parse('[1]'),
+    }
+    model = SellApp::SdkReorderProductVariantsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_5716192e05a51c86_round_trip
+    fixture = {
+      "removeDuplicate" => true,
+      "parsingMode" => 'stub',
+      "stock" => 1,
+      "comment" => 'stub',
+      "serials" => JSON.parse('[]'),
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["removeDuplicate"], json[:removeDuplicate]
+    assert_equal fixture["parsingMode"], json[:parsingMode]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_094bf197ebfd050d_round_trip
+    fixture = {
+      "data" => JSON.parse('{"removeDuplicate":true,"parsingMode":"stub"}'),
+      "types" => JSON.parse('[]'),
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverable.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_2d5b4b12ec2ba558_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'stub',
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyFrequency.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    assert_equal fixture["interval"], json[:interval]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_e569760ca741605c_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_5e3452897d570b45_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'DAY',
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyLength.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_6022cbc3a52ae14c_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrialPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_644734143333d997_round_trip
+    fixture = {
+      "kind" => 'free',
+      "length" => JSON.parse('{"value":1,"interval":"DAY"}'),
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricingPropertyTrial.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_e7284c7d0a98a4cf_round_trip
+    fixture = {
+      "humble" => true,
+      "frequency" => JSON.parse('{"value":1,"interval":"stub"}'),
+      "type" => 'stub',
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+      "trial" => JSON.parse('{"kind":"free","length":{"value":1,"interval":"DAY"}}'),
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyPricing.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["humble"], json[:humble]
+    assert_equal fixture["type"], json[:type]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_e6513772f33dbf41_round_trip
+    fixture = {
+      "discount_percentage" => 1,
+      "minimum_purchase_amount" => 1,
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyBulkDiscountItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["discount_percentage"], json[:discount_percentage]
+    assert_equal fixture["minimum_purchase_amount"], json[:minimum_purchase_amount]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_a99d35e6cfcd9c71_round_trip
+    fixture = {
+      "quantity_increments" => 1,
+      "discord_data_required" => true,
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyOtherSettings.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["quantity_increments"], json[:quantity_increments]
+    assert_equal fixture["discord_data_required"], json[:discord_data_required]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_5d842979ce231aed_round_trip
+    fixture = {
+      "required" => true,
+      "key" => 'stub',
+      "type" => 'stub',
+      "label" => 'stub',
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyProductPropertyAdditionalInformationItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["key"], json[:key]
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["label"], json[:label]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_627429754ea39ac9_round_trip
+    fixture = {
+      "additional_information" => JSON.parse('[]'),
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItemPropertyProduct.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reorder_product_variants_response_value_200_application_8d80cffdecf31b9b_round_trip
+    fixture = {
+      "id" => 1,
+      "product_id" => 1,
+      "title" => 'stub',
+      "description" => 'stub',
+      "deliverable" => JSON.parse('{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]}'),
+      "pricing" => JSON.parse('{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}}'),
+      "minimum_purchase_quantity" => 1,
+      "maximum_purchase_quantity" => 1,
+      "bulk_discount" => JSON.parse('[]'),
+      "payment_methods" => JSON.parse('[]'),
+      "other_settings" => JSON.parse('{"quantity_increments":1,"discord_data_required":true}'),
+      "order" => 1,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
+    }
+    model = SellApp::ReorderProductVariantsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["minimum_purchase_quantity"], json[:minimum_purchase_quantity]
+    assert_equal fixture["maximum_purchase_quantity"], json[:maximum_purchase_quantity]
+    assert_equal fixture["order"], json[:order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_reorder_product_variants_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkReorderProductVariantsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_variant_subscription_settings_response_value_200_ap_3fe03fe602cb936d_round_trip
+    fixture = {
+      "max_pause_days" => 0,
+      "min_active_days_between_pauses" => 0,
+      "max_pauses_per_period" => 0,
+      "requires_resume_date" => true,
+    }
+    model = SellApp::GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyPausePolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["max_pause_days"], json[:max_pause_days]
+    assert_equal fixture["min_active_days_between_pauses"], json[:min_active_days_between_pauses]
+    assert_equal fixture["max_pauses_per_period"], json[:max_pauses_per_period]
+    assert_equal fixture["requires_resume_date"], json[:requires_resume_date]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_variant_subscription_settings_response_value_200_ap_6084dba6ec238656_round_trip
+    fixture = {
+      "max_shift_days" => 0,
+      "max_changes_per_period" => 0,
+      "allowed_day_min" => 1,
+      "allowed_day_max" => 1,
+      "preview_required" => true,
+    }
+    model = SellApp::GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyBillingDatePolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["max_shift_days"], json[:max_shift_days]
+    assert_equal fixture["max_changes_per_period"], json[:max_changes_per_period]
+    assert_equal fixture["allowed_day_min"], json[:allowed_day_min]
+    assert_equal fixture["allowed_day_max"], json[:allowed_day_max]
+    assert_equal fixture["preview_required"], json[:preview_required]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_variant_subscription_settings_response_value_200_ap_4316c2aee6835906_round_trip
+    fixture = {
+      "redeliver_on_renewal" => true,
+    }
+    model = SellApp::GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyRenewalPolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["redeliver_on_renewal"], json[:redeliver_on_renewal]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_variant_subscription_settings_response_value_200_ap_7b3228faa25f08b2_round_trip
+    fixture = {
+      "target_variant_id" => 1,
+      "target_title" => 'stub',
+      "effective_timing" => 'immediate',
+      "proration_behavior" => 'invoice_now',
+      "customer_label" => 'stub',
+      "is_active" => true,
+    }
+    model = SellApp::GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyChangePathsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["target_variant_id"], json[:target_variant_id]
+    assert_equal fixture["target_title"], json[:target_title]
+    assert_equal fixture["customer_label"], json[:customer_label]
+    assert_equal fixture["is_active"], json[:is_active]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_variant_subscription_settings_response_value_200_ap_22d6a7e111dc7e7f_round_trip
+    fixture = {
+      "product_id" => 1,
+      "variant_id" => 1,
+      "pause_policy" => JSON.parse('{"max_pause_days":0,"min_active_days_between_pauses":0,"max_pauses_per_period":0,"requires_resume_date":true}'),
+      "billing_date_policy" => JSON.parse('{"max_shift_days":0,"max_changes_per_period":0,"allowed_day_min":1,"allowed_day_max":1,"preview_required":true}'),
+      "renewal_policy" => JSON.parse('{"redeliver_on_renewal":true}'),
+      "change_paths" => JSON.parse('[]'),
+      "state" => 'stubxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    }
+    model = SellApp::GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["state"], json[:state]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_variant_subscription_settings_response_value_20_4f4b19098638fddd_round_trip
+    fixture = {
+      "data" => JSON.parse('{"product_id":1,"variant_id":1,"pause_policy":{"max_pause_days":0,"min_active_days_between_pauses":0,"max_pauses_per_period":0,"requires_resume_date":true},"billing_date_policy":{"max_shift_days":0,"max_changes_per_period":0,"allowed_day_min":1,"allowed_day_max":1,"preview_required":true},"renewal_policy":{"redeliver_on_renewal":true},"change_paths":[],"state":"stubxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'),
+    }
+    model = SellApp::SdkGetVariantSubscriptionSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_request_applicatio_055dfebc7054e56d_round_trip
+    fixture = {
+      "max_pause_days" => 0,
+      "min_active_days_between_pauses" => 0,
+      "max_pauses_per_period" => 0,
+      "requires_resume_date" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsRequestApplicationJsonPropertyPausePolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_request_applicatio_60491b3667f98056_round_trip
+    fixture = {
+      "max_shift_days" => 0,
+      "max_changes_per_period" => 0,
+      "allowed_day_min" => 1,
+      "allowed_day_max" => 1,
+      "preview_required" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsRequestApplicationJsonPropertyBillingDatePolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_request_applicatio_c076ff08b879f869_round_trip
+    fixture = {
+      "redeliver_on_renewal" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsRequestApplicationJsonPropertyRenewalPolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_variant_subscription_settings_request_application_json_round_trip
+    fixture = {
+      "pause_policy" => JSON.parse('{}'),
+      "billing_date_policy" => JSON.parse('{}'),
+      "renewal_policy" => JSON.parse('{}'),
+      "expected_state" => 'stubxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    }
+    model = SellApp::SdkUpdateVariantSubscriptionSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_response_value_200_9efae1da63a13aab_round_trip
+    fixture = {
+      "max_pause_days" => 0,
+      "min_active_days_between_pauses" => 0,
+      "max_pauses_per_period" => 0,
+      "requires_resume_date" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyPausePolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["max_pause_days"], json[:max_pause_days]
+    assert_equal fixture["min_active_days_between_pauses"], json[:min_active_days_between_pauses]
+    assert_equal fixture["max_pauses_per_period"], json[:max_pauses_per_period]
+    assert_equal fixture["requires_resume_date"], json[:requires_resume_date]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_response_value_200_6390b4689260682e_round_trip
+    fixture = {
+      "max_shift_days" => 0,
+      "max_changes_per_period" => 0,
+      "allowed_day_min" => 1,
+      "allowed_day_max" => 1,
+      "preview_required" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyBillingDatePolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["max_shift_days"], json[:max_shift_days]
+    assert_equal fixture["max_changes_per_period"], json[:max_changes_per_period]
+    assert_equal fixture["allowed_day_min"], json[:allowed_day_min]
+    assert_equal fixture["allowed_day_max"], json[:allowed_day_max]
+    assert_equal fixture["preview_required"], json[:preview_required]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_response_value_200_1f79a430fe99fc7e_round_trip
+    fixture = {
+      "redeliver_on_renewal" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyRenewalPolicy.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["redeliver_on_renewal"], json[:redeliver_on_renewal]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_response_value_200_d06aebad30450527_round_trip
+    fixture = {
+      "target_variant_id" => 1,
+      "target_title" => 'stub',
+      "effective_timing" => 'immediate',
+      "proration_behavior" => 'invoice_now',
+      "customer_label" => 'stub',
+      "is_active" => true,
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyChangePathsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["target_variant_id"], json[:target_variant_id]
+    assert_equal fixture["target_title"], json[:target_title]
+    assert_equal fixture["customer_label"], json[:customer_label]
+    assert_equal fixture["is_active"], json[:is_active]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_variant_subscription_settings_response_value_200_31471cf5f5007207_round_trip
+    fixture = {
+      "product_id" => 1,
+      "variant_id" => 1,
+      "pause_policy" => JSON.parse('{"max_pause_days":0,"min_active_days_between_pauses":0,"max_pauses_per_period":0,"requires_resume_date":true}'),
+      "billing_date_policy" => JSON.parse('{"max_shift_days":0,"max_changes_per_period":0,"allowed_day_min":1,"allowed_day_max":1,"preview_required":true}'),
+      "renewal_policy" => JSON.parse('{"redeliver_on_renewal":true}'),
+      "change_paths" => JSON.parse('[]'),
+      "state" => 'stubxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    }
+    model = SellApp::UpdateVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["state"], json[:state]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_variant_subscription_settings_response_value_34b2fef6d90cc8d1_round_trip
+    fixture = {
+      "data" => JSON.parse('{"product_id":1,"variant_id":1,"pause_policy":{"max_pause_days":0,"min_active_days_between_pauses":0,"max_pauses_per_period":0,"requires_resume_date":true},"billing_date_policy":{"max_shift_days":0,"max_changes_per_period":0,"allowed_day_min":1,"allowed_day_max":1,"preview_required":true},"renewal_policy":{"redeliver_on_renewal":true},"change_paths":[],"state":"stubxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'),
+    }
+    model = SellApp::SdkUpdateVariantSubscriptionSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_request_application_js_ffe5ee412be3eb75_round_trip
+    fixture = {
+      "platform" => 'discord',
+      "server_id" => 'stub',
+      "role_ids" => JSON.parse('[]'),
+      "required" => true,
+      "remove_on_expire" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessRequestApplicationJsonPropertyCommunity.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["server_id"], json[:server_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_variant_community_access_request_application_json_round_trip
+    fixture = {
+      "community" => JSON.parse('{"platform":"discord","server_id":"stub"}'),
+      "expected_updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::SdkReplaceVariantCommunityAccessRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_c58568d50be38d9e_round_trip
+    fixture = {
+      "removeDuplicate" => true,
+      "parsingMode" => 'stub',
+      "stock" => 1,
+      "comment" => 'stub',
+      "serials" => JSON.parse('[]'),
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyDeliverablePropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["removeDuplicate"], json[:removeDuplicate]
+    assert_equal fixture["parsingMode"], json[:parsingMode]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_d39d65af3272c5ed_round_trip
+    fixture = {
+      "data" => JSON.parse('{"removeDuplicate":true,"parsingMode":"stub"}'),
+      "types" => JSON.parse('[]'),
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyDeliverable.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_37310aceef026426_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'stub',
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyFrequency.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    assert_equal fixture["interval"], json[:interval]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_bb9cf14e23932f84_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_df0e08783adf4541_round_trip
+    fixture = {
+      "value" => 1,
+      "interval" => 'DAY',
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyLength.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["value"], json[:value]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_b4ec10ab55c547bf_round_trip
+    fixture = {
+      "price" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrialPropertyPrice.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["price"], json[:price]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_9936a628b1c11ad2_round_trip
+    fixture = {
+      "kind" => 'free',
+      "length" => JSON.parse('{"value":1,"interval":"DAY"}'),
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyPricingPropertyTrial.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_df21b7a8f8dc750f_round_trip
+    fixture = {
+      "humble" => true,
+      "frequency" => JSON.parse('{"value":1,"interval":"stub"}'),
+      "type" => 'stub',
+      "price" => JSON.parse('{"price":"stub","currency":"stub"}'),
+      "trial" => JSON.parse('{"kind":"free","length":{"value":1,"interval":"DAY"}}'),
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyPricing.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["humble"], json[:humble]
+    assert_equal fixture["type"], json[:type]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_93705a2966ab6ec8_round_trip
+    fixture = {
+      "discount_percentage" => 1,
+      "minimum_purchase_amount" => 1,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyBulkDiscountItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["discount_percentage"], json[:discount_percentage]
+    assert_equal fixture["minimum_purchase_amount"], json[:minimum_purchase_amount]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_32d0a9741e4fb394_round_trip
+    fixture = {
+      "server_id" => 'stub',
+      "roles" => JSON.parse('[]'),
+      "required" => true,
+      "remove_on_expire" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyOtherSettingsPropertyCommunityServersPropertyDiscord.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["server_id"], json[:server_id]
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["remove_on_expire"], json[:remove_on_expire]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_9f26a29370a65a6c_round_trip
+    fixture = {
+      "server_id" => 'stub',
+      "roles" => JSON.parse('[]'),
+      "required" => true,
+      "remove_on_expire" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyOtherSettingsPropertyCommunityServersPropertyTelegram.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["server_id"], json[:server_id]
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["remove_on_expire"], json[:remove_on_expire]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_8dfabc870c4b572e_round_trip
+    fixture = {
+      "server_id" => 'stub',
+      "roles" => JSON.parse('[]'),
+      "required" => true,
+      "remove_on_expire" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyOtherSettingsPropertyCommunityServersPropertySlack.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["server_id"], json[:server_id]
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["remove_on_expire"], json[:remove_on_expire]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_84dd2fc09c8a4548_round_trip
+    fixture = {
+      "server_id" => 'stub',
+      "roles" => JSON.parse('[]'),
+      "required" => true,
+      "remove_on_expire" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyOtherSettingsPropertyCommunityServersPropertyWhatsapp.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["server_id"], json[:server_id]
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["remove_on_expire"], json[:remove_on_expire]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_7c657a342b78f844_round_trip
+    fixture = {
+      "discord" => JSON.parse('{"server_id":"stub","roles":[],"required":true,"remove_on_expire":true}'),
+      "telegram" => JSON.parse('{"server_id":"stub","roles":[],"required":true,"remove_on_expire":true}'),
+      "slack" => JSON.parse('{"server_id":"stub","roles":[],"required":true,"remove_on_expire":true}'),
+      "whatsapp" => JSON.parse('{"server_id":"stub","roles":[],"required":true,"remove_on_expire":true}'),
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyOtherSettingsPropertyCommunityServers.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_deba6ef24bdb9e5b_round_trip
+    fixture = {
+      "quantity_increments" => 1,
+      "discord_data_required" => true,
+      "community_servers" => JSON.parse('{}'),
+      "discord_server" => 'stub',
+      "discord_roles" => JSON.parse('[]'),
+      "discord_kick_on_expire" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyOtherSettings.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["quantity_increments"], json[:quantity_increments]
+    assert_equal fixture["discord_data_required"], json[:discord_data_required]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_b27c9c030280f02a_round_trip
+    fixture = {
+      "required" => true,
+      "key" => 'stub',
+      "type" => 'stub',
+      "label" => 'stub',
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyProductPropertyAdditionalInformationItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["required"], json[:required]
+    assert_equal fixture["key"], json[:key]
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["label"], json[:label]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_3861b53bce04d48a_round_trip
+    fixture = {
+      "additional_information" => JSON.parse('[]'),
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyDataPropertyProduct.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_variant_community_access_response_value_200_app_e55689d253f908bd_round_trip
+    fixture = {
+      "id" => 1,
+      "product_id" => 1,
+      "title" => 'stub',
+      "description" => 'stub',
+      "deliverable" => JSON.parse('{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]}'),
+      "pricing" => JSON.parse('{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}}'),
+      "minimum_purchase_quantity" => 1,
+      "maximum_purchase_quantity" => 1,
+      "bulk_discount" => JSON.parse('[]'),
+      "payment_methods" => JSON.parse('[]'),
+      "other_settings" => JSON.parse('{"quantity_increments":1,"discord_data_required":true}'),
+      "order" => 1,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
+    }
+    model = SellApp::ReplaceVariantCommunityAccessResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["minimum_purchase_quantity"], json[:minimum_purchase_quantity]
+    assert_equal fixture["maximum_purchase_quantity"], json[:maximum_purchase_quantity]
+    assert_equal fixture["order"], json[:order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_variant_community_access_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}'),
+    }
+    model = SellApp::SdkReplaceVariantCommunityAccessResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }

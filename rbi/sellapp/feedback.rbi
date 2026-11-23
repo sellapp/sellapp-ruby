@@ -50,10 +50,11 @@ module SellApp
       params(
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
+        reply_state: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2ListFeedbackResponseValue200ApplicationJson)
     end
-    def v2_list_feedback(limit:, page:, request_options:); end
+    def v2_list_feedback(limit:, page:, reply_state:, request_options:); end
 
     sig do
       params(
@@ -61,10 +62,13 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::V2SearchFeedbackRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::V2SearchFeedbackRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem]),
+        reply_state: T.nilable(String),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2SearchFeedbackResponseValue200ApplicationJson)
     end
-    def v2_search_feedback(filters:, sort:, search:, includes:, request_options:); end
+    def v2_search_feedback(filters:, sort:, search:, includes:, reply_state:, limit:, page:, request_options:); end
 
     sig do
       params(

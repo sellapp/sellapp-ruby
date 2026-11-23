@@ -18,10 +18,14 @@ module SellApp
 
     sig do
       params(
+        page: T.nilable(Integer),
+        limit: T.nilable(Integer),
+        event_type: T.nilable(String),
+        status: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListWebhookDeliveriesResponseValue200ApplicationJson)
     end
-    def list_webhook_deliveries(request_options:); end
+    def list_webhook_deliveries(page:, limit:, event_type:, status:, request_options:); end
 
     sig do
       params(

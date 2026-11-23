@@ -27,10 +27,18 @@ module SellApp
         page: T.nilable(Integer),
         pagination: T.nilable(T::Boolean),
         status: T.nilable(T::Array[String]),
+        order_id: T.nilable(Integer),
+        product_id: T.nilable(Integer),
+        renews_after: T.nilable(String),
+        renews_before: T.nilable(String),
+        cancelled_after: T.nilable(String),
+        cancelled_before: T.nilable(String),
+        scheduled_to_cancel: T.nilable(T::Boolean),
+        paused: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListSubscriptionsResponseValue200ApplicationJson)
     end
-    def list_subscriptions(limit:, page:, pagination:, status:, request_options:); end
+    def list_subscriptions(limit:, page:, pagination:, status:, order_id:, product_id:, renews_after:, renews_before:, cancelled_after:, cancelled_before:, scheduled_to_cancel:, paused:, request_options:); end
 
     sig do
       params(
@@ -38,13 +46,21 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem]),
+        order_id: T.nilable(Integer),
+        product_id: T.nilable(Integer),
+        renews_after: T.nilable(String),
+        renews_before: T.nilable(String),
+        cancelled_after: T.nilable(String),
+        cancelled_before: T.nilable(String),
+        scheduled_to_cancel: T.nilable(T::Boolean),
+        paused: T.nilable(T::Boolean),
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
         pagination: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkSearchSubscriptionsResponseValue200ApplicationJson)
     end
-    def search_subscriptions(filters:, sort:, search:, includes:, limit:, page:, pagination:, request_options:); end
+    def search_subscriptions(filters:, sort:, search:, includes:, order_id:, product_id:, renews_after:, renews_before:, cancelled_after:, cancelled_before:, scheduled_to_cancel:, paused:, limit:, page:, pagination:, request_options:); end
 
     sig do
       params(

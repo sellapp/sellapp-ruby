@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior = SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior
+    SdkPreviewCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior = GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyChangePathsItemProrationBehavior
   end
 end

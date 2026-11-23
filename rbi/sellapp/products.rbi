@@ -15,10 +15,15 @@ module SellApp
         page: T.nilable(Integer),
         with_drafts: T.nilable(T::Boolean),
         only_drafts: T.nilable(T::Boolean),
+        min_price: T.nilable(Integer),
+        max_price: T.nilable(Integer),
+        stock: T.nilable(String),
+        visibility: T.nilable(T::Array[String]),
+        has_sales: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListProductsResponseValue200ApplicationJson)
     end
-    def list(limit:, page:, with_drafts:, only_drafts:, request_options:); end
+    def list(limit:, page:, with_drafts:, only_drafts:, min_price:, max_price:, stock:, visibility:, has_sales:, request_options:); end
 
     sig do
       params(
@@ -94,12 +99,19 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::SearchProductsRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::SearchProductsRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem]),
+        min_price: T.nilable(Integer),
+        max_price: T.nilable(Integer),
+        stock: T.nilable(String),
+        visibility: T.nilable(T::Array[String]),
+        has_sales: T.nilable(T::Boolean),
+        with_drafts: T.nilable(T::Boolean),
+        only_drafts: T.nilable(T::Boolean),
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkSearchProductsResponseValue200ApplicationJson)
     end
-    def search(filters:, sort:, search:, includes:, limit:, page:, request_options:); end
+    def search(filters:, sort:, search:, includes:, min_price:, max_price:, stock:, visibility:, has_sales:, with_drafts:, only_drafts:, limit:, page:, request_options:); end
 
     sig do
       params(
@@ -124,6 +136,34 @@ module SellApp
       ).returns(SellApp::SdkBatchDeleteProductsResponseValue200ApplicationJson)
     end
     def batch_delete(resources:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        visibility: T.nilable(String),
+        variant_ids: T.nilable(T::Array[Integer]),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkPublishProductResponseValue200ApplicationJson)
+    end
+    def publish(product:, visibility:, variant_ids:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkDuplicateProductResponseValue201ApplicationJson)
+    end
+    def duplicate(product:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        position: Integer,
+        expected_position: T.nilable(Integer),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkMoveProductResponseValue200ApplicationJson)
+    end
+    def move(product:, position:, expected_position:, request_options:); end
 
   end
 end

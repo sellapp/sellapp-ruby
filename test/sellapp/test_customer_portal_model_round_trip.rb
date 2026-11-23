@@ -134,12 +134,6 @@ class CustomerPortalModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_update_customer_portal_profile_request_application_json_b85c03d02098d545_round_trip
-    model = SellApp::UpdateCustomerPortalProfileRequestApplicationJsonPropertyMetadataMapValue.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
   def test_update_customer_portal_profile_request_application_json_64ffb4ccea159997_round_trip
     model = SellApp::UpdateCustomerPortalProfileRequestApplicationJsonPropertyMetadata.new('{}')
     json = model.to_h

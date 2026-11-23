@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    SdkUpdateCourseRequestApplicationJsonLevel = GetCourseResponseValue200ApplicationJsonPropertyDataLevel
+    SdkUpdateCourseRequestApplicationJsonLevel = CreateCourseResponseValue201ApplicationJsonPropertyDataLevel
   end
 end

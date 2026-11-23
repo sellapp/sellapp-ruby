@@ -11,6 +11,13 @@ class WalletTransactionsTest < Minitest::Test
     @client = SellApp::Client.new(api_key: "sk_test_123", store: "store_test_123", customer_session: "test_customer_session", browser_session: "session=test_browser")
   end
 
+  def test_reverse_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/wallets/1/transactions/1/reverse(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"wallet_id":1,"type":"TOP_UP","amount_cents":-999999999999,"balance_after_cents":0}}', status: 200)
+    result = @client.wallet_transactions.reverse(customer: 1, transaction: 1, note: 'stub')
+    refute_nil result
+  end
+
   def test_list_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/wallets/1/transactions(\?|\z)})
       .to_return(body: '{"data":[],"links":{"first":"stub","last":"stub","prev":"stub","next":"stub"},"meta":{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1}}', status: 200)
@@ -20,6 +27,7 @@ class WalletTransactionsTest < Minitest::Test
 
   # Parameterized authentication error tests (one per endpoint).
   [
+    {name: :reverse, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/wallets/1/transactions/1/reverse(\?|\z)}, args: {customer: 1, transaction: 1, note: 'stub'}},
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/wallets/1/transactions(\?|\z)}, args: {customer: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do

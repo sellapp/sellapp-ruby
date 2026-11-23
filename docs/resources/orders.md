@@ -160,7 +160,10 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_ke
 
 result = client.orders.search(
   filters: [
-    { field: "transaction_id", operator: "contains", value: "pi_3Example" },
+    { field: "created_at", operator: "gte", value: "2026-07-01T00:00:00Z" },
+    { field: "created_at", operator: "lte", value: "2026-07-31T23:59:59Z" },
+    { field: "total", operator: "gte", value: 1000 },
+    { field: "currency", operator: "eq", value: "USD" },
     { field: "status", operator: "in", value: ["COMPLETED"] }
   ],
   sort: [{ field: "created_at", direction: "desc" }],
@@ -253,6 +256,7 @@ def update_status(
       order:,
       status:,
       expected_status: SellApp::OMIT,
+      payment_received: nil,
       request_options: {}
     )
 ```
@@ -262,6 +266,7 @@ def update_status(
 | order | `Object` | Yes |
 | status | `Object` | Yes |
 | expected_status | `Object` | No |
+| payment_received | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -425,6 +430,7 @@ Refund an order
 def create_refund(
       order:,
       amount: SellApp::OMIT,
+      expected_refunded_total_cents: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -433,6 +439,7 @@ def create_refund(
 | --- | --- | --- |
 | order | `Object` | Yes |
 | amount | `Object` | No |
+| expected_refunded_total_cents | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -445,6 +452,7 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_ke
 result = client.orders.create_refund(
   order: 9001,
   amount: "5.00",
+  expected_refunded_total_cents: 0,
   request_options: { idempotency_key: "example-mutation-001" }
 )
 puts result.inspect
@@ -643,6 +651,63 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## regenerate_telegram_invite
+
+Create a Telegram invite link
+
+[API reference](https://sell.app/docs/api/orders/create-a-telegram-invite-link) · Effect: **consequential**
+
+```ruby
+def regenerate_telegram_invite(
+      order:,
+      variant_id: SellApp::OMIT,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| order | `Object` | Yes |
+| variant_id | `Object` | No |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.orders.regenerate_telegram_invite(
+  order: 9001,
+  variant_id: 4321,
+  request_options: { idempotency_key: "example-mutation-001" }
+)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 201, 400, 401, 403, 404, 409, 410, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

@@ -11,7 +11,7 @@ module SellApp
 
     SCHEMA = {
       types: {required: true, schema: {kind: :array, items: {kind: :string}}},
-      data: {required: true, schema: {kind: :model, name: "SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData"}}
+      data: {required: true, schema: {kind: :union, variants: [{kind: :model, name: "SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1"}, {kind: :array, items: {kind: :any}, max: 0}], composition: :anyOf}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -26,7 +26,7 @@ module SellApp
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
       @types = hash[:types]
-      @data = hash[:data] ? SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData.new(hash[:data]) : nil
+      @data = hash[:data].is_a?(Hash) ? (begin SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1.new(hash[:data]); rescue SellApp::ValidationError; hash[:data]; end) : hash[:data]
     end
   end
 end

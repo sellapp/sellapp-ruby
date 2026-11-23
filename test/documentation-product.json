@@ -60,5 +60,9 @@
       "title": "Design kit"
     }
   ],
-  "url": "https://launch-lab.sell.app/product/design-kit"
+  "url": "https://launch-lab.sell.app/product/design-kit",
+  "price_range": "$19.99",
+  "stock": null,
+  "sales": 0,
+  "sold_out": false
 }

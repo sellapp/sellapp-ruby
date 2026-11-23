@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    SdkUpdateCourseRequestApplicationJsonAccessType = GetCourseResponseValue200ApplicationJsonPropertyDataAccessType
+    SdkUpdateCourseRequestApplicationJsonAccessType = CreateCourseResponseValue201ApplicationJsonPropertyDataAccessType
   end
 end

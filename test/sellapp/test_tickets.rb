@@ -60,6 +60,20 @@ class TicketsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_batch_update_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/tickets/batch(\?|\z)})
+      .to_return(body: '{"data":[]}', status: 200)
+    result = @client.tickets.batch_update(action: 'close', resources: JSON.parse('[1]'))
+    refute_nil result
+  end
+
+  def test_get_context_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/tickets/1/context(\?|\z)})
+      .to_return(body: '{"data":{"ticket_id":1,"resolution":{"outcome":"refunded","resolved_at":"2024-01-01T00:00:00Z","resolved_by_rule_id":1},"customer":{"email":"sdk@example.com","completed_orders":0,"lifetime_spend_usd_cents":0,"first_order_at":"2024-01-01T00:00:00Z"},"linked_order":{"id":1,"product_title":"stub","created_at":"2024-01-01T00:00:00Z"},"refund_options":[],"activity":[]}}', status: 200)
+    result = @client.tickets.get_context(ticket: 1)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v1/tickets(\?|\z)}},
@@ -69,6 +83,8 @@ class TicketsTest < Minitest::Test
     {name: :v2_search_tickets, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/tickets/search(\?|\z)}},
     {name: :v2_get_ticket, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/tickets/1(\?|\z)}, args: {ticket: 1}},
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/tickets/1(\?|\z)}, args: {ticket: 1}},
+    {name: :batch_update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/tickets/batch(\?|\z)}, args: {action: 'close', resources: JSON.parse('[1]')}},
+    {name: :get_context, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/tickets/1/context(\?|\z)}, args: {ticket: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

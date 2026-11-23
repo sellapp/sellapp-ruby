@@ -12,6 +12,9 @@ List affiliates
 def list(
       status: nil,
       search: nil,
+      custom_rates_only: nil,
+      payout_method: nil,
+      sort: nil,
       limit: 15,
       page: 1,
       request_options: {}
@@ -22,6 +25,9 @@ def list(
 | --- | --- | --- |
 | status | `Object` | No |
 | search | `Object` | No |
+| custom_rates_only | `Object` | No |
+| payout_method | `Object` | No |
+| sort | `Object` | No |
 | limit | `Object` | No |
 | page | `Object` | No |
 | request_options | `Object` | No |

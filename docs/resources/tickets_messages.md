@@ -336,6 +336,8 @@ def v2_search_ticket_messages(
       sort: nil,
       search: nil,
       includes: nil,
+      limit: 15,
+      page: 1,
       request_options: {}
     )
 ```
@@ -347,6 +349,8 @@ def v2_search_ticket_messages(
 | sort | `Object` | No |
 | search | `Object` | No |
 | includes | `Object` | No |
+| limit | `Object` | No |
+| page | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

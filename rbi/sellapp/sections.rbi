@@ -148,10 +148,12 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::V2SearchSectionsRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::V2SearchSectionsRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::V2SearchSectionsRequestApplicationJsonPropertyIncludesItem]),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2SearchSectionsResponseValue200ApplicationJson)
     end
-    def v2_search_sections(filters:, sort:, search:, includes:, request_options:); end
+    def v2_search_sections(filters:, sort:, search:, includes:, limit:, page:, request_options:); end
 
     sig do
       params(

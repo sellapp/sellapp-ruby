@@ -152,4 +152,65 @@ class AffiliatePayoutsModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_sdk_mark_affiliate_payouts_paid_request_application_json_round_trip
+    fixture = {
+      "payout_ids" => JSON.parse('[1]'),
+      "expected_total_usd_cents" => 1,
+    }
+    model = SellApp::SdkMarkAffiliatePayoutsPaidRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["expected_total_usd_cents"], json[:expected_total_usd_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_mark_affiliate_payouts_paid_response_value_200_applicat_692f2791f6be1d6e_round_trip
+    fixture = {
+      "id" => 1,
+      "affiliate_id" => 1,
+      "affiliate_email" => 'sdk@example.com',
+      "amount_usd_cents" => 0,
+      "status" => 'due',
+      "payout_method" => 'stub',
+      "payout_account" => 'stub',
+      "referrals_count" => 0,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::MarkAffiliatePayoutsPaidResponseValue200ApplicationJsonPropertyDataItemPropertyPayout.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["affiliate_id"], json[:affiliate_id]
+    assert_equal fixture["amount_usd_cents"], json[:amount_usd_cents]
+    assert_equal fixture["payout_account"], json[:payout_account]
+    assert_equal fixture["referrals_count"], json[:referrals_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_mark_affiliate_payouts_paid_response_value_200_applicat_99e187bd38e79fa6_round_trip
+    fixture = {
+      "payout_id" => 1,
+      "outcome" => 'paid',
+      "message" => 'stub',
+      "payout" => JSON.parse('{"id":1,"affiliate_id":1,"amount_usd_cents":0,"status":"due","payout_account":"stub","referrals_count":0}'),
+    }
+    model = SellApp::MarkAffiliatePayoutsPaidResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["payout_id"], json[:payout_id]
+    assert_equal fixture["message"], json[:message]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_mark_affiliate_payouts_paid_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

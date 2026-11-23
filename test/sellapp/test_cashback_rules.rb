@@ -53,6 +53,13 @@ class CashbackRulesTest < Minitest::Test
     refute_nil result
   end
 
+  def test_quote_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/cashback-rules/quote(\?|\z)})
+      .to_return(body: '{"data":{"product_id":1,"purchase_cents":1,"eligible":true,"cashback_cents":0,"reason":"stub","matching_rule":{"id":1,"percent_basis":1,"maximum_cashback_cents":1,"is_active":true,"product_ids":[]}}}', status: 200)
+    result = @client.cashback_rules.quote()
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/cashback-rules(\?|\z)}},
@@ -61,6 +68,7 @@ class CashbackRulesTest < Minitest::Test
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/cashback-rules/1(\?|\z)}, args: {cashback_rule: 1}},
     {name: :archive, verb: :delete, url: %r{\Ahttps://sell\.app/api/v2/cashback-rules/1(\?|\z)}, args: {cashback_rule: 1}},
     {name: :restore, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/cashback-rules/1/restore(\?|\z)}, args: {cashback_rule: 1}},
+    {name: :quote, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/cashback-rules/quote(\?|\z)}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

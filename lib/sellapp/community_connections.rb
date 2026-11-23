@@ -172,5 +172,51 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # List community failed grant reasons
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson]
+    def list_failed_grant_reasons(request_options: {})
+      request_options = request_options.merge(operation_id: 'listCommunityFailedGrantReasons', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/community-connections/failed-grant-reasons',
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Sync Discord roles
+    # @param server_id [String, nil] The Discord server to sync. Leave out or send `null` to sync every connected server.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkSyncDiscordRolesResponseValue200ApplicationJson]
+    def sync_discord_roles(
+      server_id: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {}
+      body['server_id'] = server_id unless server_id.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkSyncDiscordRolesRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'syncDiscordRoles', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: '/v2/community-connections/discord/sync-roles',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkSyncDiscordRolesResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

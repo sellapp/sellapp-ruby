@@ -11,6 +11,290 @@ class CoursesModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
   end
 
+  def test_sdk_create_course_request_application_json_round_trip
+    fixture = {
+      "category" => 'development',
+      "level" => 'all_levels',
+      "language" => 'stub',
+      "subtitle" => 'stub',
+      "author" => 'stub',
+      "subcategory" => 'stub',
+      "what_you_learn" => JSON.parse('[]'),
+      "requirements" => JSON.parse('[]'),
+      "certificate_enabled" => true,
+      "access_type" => 'lifetime',
+      "access_duration_days" => 1,
+      "enrollment_limit" => 1,
+      "delivery_text" => 'stub',
+      "title" => 'stub',
+      "slug" => 'stub',
+      "description" => 'stubx',
+      "visibility" => 'PUBLIC',
+    }
+    model = SellApp::SdkCreateCourseRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["title"], json[:title]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_3c9d5efe57a3c54f_round_trip
+    fixture = {
+      "mux_playback_id" => 'stub',
+      "mux_status" => 'stub',
+      "duration_seconds" => 0,
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertyPromoVideo.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["mux_playback_id"], json[:mux_playback_id]
+    assert_equal fixture["mux_status"], json[:mux_status]
+    assert_equal fixture["duration_seconds"], json[:duration_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_8a82f9167cad9396_round_trip
+    fixture = {
+      "source" => 'mux',
+      "external_url" => 'https://example.com',
+      "mux_playback_id" => 'stub',
+      "mux_status" => 'stub',
+      "duration_seconds" => 0,
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyVideo.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["external_url"], json[:external_url]
+    assert_equal fixture["mux_playback_id"], json[:mux_playback_id]
+    assert_equal fixture["mux_status"], json[:mux_status]
+    assert_equal fixture["duration_seconds"], json[:duration_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_0597ec7398989975_round_trip
+    fixture = {
+      "id" => 1,
+      "title" => 'stub',
+      "mime_type" => 'stub',
+      "size_bytes" => 0,
+      "sort_order" => 1,
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyAttachmentsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["mime_type"], json[:mime_type]
+    assert_equal fixture["size_bytes"], json[:size_bytes]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_52a424090b275134_round_trip
+    fixture = {
+      "id" => 1,
+      "answer" => 'stub',
+      "is_correct" => true,
+      "sort_order" => 1,
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyAssignmentValuePropertyQuestionsItemPropertyAnswersItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["answer"], json[:answer]
+    assert_equal fixture["is_correct"], json[:is_correct]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_ffe89d27de5e7842_round_trip
+    fixture = {
+      "id" => 1,
+      "prompt" => 'stub',
+      "question_type" => 'text',
+      "solution" => 'stub',
+      "sort_order" => 1,
+      "answers" => JSON.parse('[]'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyAssignmentValuePropertyQuestionsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["prompt"], json[:prompt]
+    assert_equal fixture["solution"], json[:solution]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_16f11b915f5266b5_round_trip
+    fixture = {
+      "estimated_duration_minutes" => 1,
+      "instructions" => 'stub',
+      "questions" => JSON.parse('[]'),
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyAssignment.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["estimated_duration_minutes"], json[:estimated_duration_minutes]
+    assert_equal fixture["instructions"], json[:instructions]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_9bb308f97b664fe8_round_trip
+    fixture = {
+      "id" => 1,
+      "answer" => 'stub',
+      "is_correct" => true,
+      "sort_order" => 1,
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyQuestionsItemPropertyAnswersItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["answer"], json[:answer]
+    assert_equal fixture["is_correct"], json[:is_correct]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_e80805d29a330003_round_trip
+    fixture = {
+      "id" => 1,
+      "prompt" => 'stub',
+      "question_type" => 'text',
+      "solution" => 'stub',
+      "sort_order" => 1,
+      "answers" => JSON.parse('[]'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItemPropertyQuestionsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["prompt"], json[:prompt]
+    assert_equal fixture["solution"], json[:solution]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_4180e446c097847c_round_trip
+    fixture = {
+      "id" => 1,
+      "section_id" => 1,
+      "title" => 'stub',
+      "content" => 'stub',
+      "type" => 'lecture',
+      "is_preview" => true,
+      "is_published" => true,
+      "sort_order" => 1,
+      "video" => JSON.parse('{"source":"mux","external_url":"https://example.com","mux_playback_id":"stub","mux_status":"stub","duration_seconds":0}'),
+      "attachments" => JSON.parse('[]'),
+      "assignment" => JSON.parse('{"estimated_duration_minutes":1,"instructions":"stub","questions":[]}'),
+      "questions" => JSON.parse('[]'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItemPropertyLessonsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["section_id"], json[:section_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["content"], json[:content]
+    assert_equal fixture["is_preview"], json[:is_preview]
+    assert_equal fixture["is_published"], json[:is_published]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_prope_dc51a8c136bae96e_round_trip
+    fixture = {
+      "id" => 1,
+      "title" => 'stub',
+      "description" => 'stub',
+      "sort_order" => 1,
+      "lessons" => JSON.parse('[]'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyDataPropertySectionsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["sort_order"], json[:sort_order]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_create_course_response_value_201_application_json_property_data_round_trip
+    fixture = {
+      "id" => 1,
+      "title" => 'stub',
+      "slug" => 'stub',
+      "description" => 'stub',
+      "visibility" => 'PUBLIC',
+      "is_draft" => true,
+      "delivery_text" => 'stub',
+      "category" => 'development',
+      "level" => 'all_levels',
+      "language" => 'stub',
+      "subtitle" => 'stub',
+      "author" => 'stub',
+      "subcategory" => 'stub',
+      "what_you_learn" => JSON.parse('[]'),
+      "requirements" => JSON.parse('[]'),
+      "certificate_enabled" => true,
+      "access_type" => 'lifetime',
+      "access_duration_days" => 1,
+      "enrollment_limit" => 1,
+      "promo_video" => JSON.parse('{"mux_playback_id":"stub","mux_status":"stub","duration_seconds":0}'),
+      "sections" => JSON.parse('[]'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::CreateCourseResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["slug"], json[:slug]
+    assert_equal fixture["description"], json[:description]
+    assert_equal fixture["is_draft"], json[:is_draft]
+    assert_equal fixture["delivery_text"], json[:delivery_text]
+    assert_equal fixture["language"], json[:language]
+    assert_equal fixture["subtitle"], json[:subtitle]
+    assert_equal fixture["author"], json[:author]
+    assert_equal fixture["subcategory"], json[:subcategory]
+    assert_equal fixture["certificate_enabled"], json[:certificate_enabled]
+    assert_equal fixture["access_duration_days"], json[:access_duration_days]
+    assert_equal fixture["enrollment_limit"], json[:enrollment_limit]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_create_course_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","visibility":"PUBLIC","is_draft":true,"delivery_text":"stub","category":"development","level":"all_levels","language":"stub","subtitle":"stub","author":"stub","subcategory":"stub","what_you_learn":[],"requirements":[],"certificate_enabled":true,"access_type":"lifetime","access_duration_days":1,"enrollment_limit":1,"promo_video":{"mux_playback_id":"stub","mux_status":"stub","duration_seconds":0},"sections":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkCreateCourseResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_sdk_search_courses_response_value_200_application_json_round_trip
     model = SellApp::SdkSearchCoursesResponseValue200ApplicationJson.new('{}')
     json = model.to_h
@@ -291,6 +575,9 @@ class CoursesModelRoundTripTest < Minitest::Test
       "delivery_text" => 'stub',
       "visibility" => 'PUBLIC',
       "expected_updated_at" => '2024-01-01T00:00:00Z',
+      "title" => 'stub',
+      "slug" => 'stub',
+      "description" => 'stubx',
     }
     model = SellApp::SdkReplaceCourseRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -572,6 +859,9 @@ class CoursesModelRoundTripTest < Minitest::Test
       "delivery_text" => 'stub',
       "visibility" => 'PUBLIC',
       "expected_updated_at" => '2024-01-01T00:00:00Z',
+      "title" => 'stub',
+      "slug" => 'stub',
+      "description" => 'stubx',
     }
     model = SellApp::SdkUpdateCourseRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -831,6 +1121,127 @@ class CoursesModelRoundTripTest < Minitest::Test
       "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","visibility":"PUBLIC","is_draft":true,"delivery_text":"stub","category":"development","level":"all_levels","language":"stub","subtitle":"stub","author":"stub","subcategory":"stub","what_you_learn":[],"requirements":[],"certificate_enabled":true,"access_type":"lifetime","access_duration_days":1,"enrollment_limit":1,"promo_video":{"mux_playback_id":"stub","mux_status":"stub","duration_seconds":0},"sections":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkUpdateCourseResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_course_student_summary_response_value_200_applicati_4fa41fe7b5d87586_round_trip
+    fixture = {
+      "start_date" => '2024-01-01',
+      "end_date" => '2024-01-01',
+      "timezone" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::GetCourseStudentSummaryResponseValue200ApplicationJsonPropertyDataPropertyPeriod.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["start_date"], json[:start_date]
+    assert_equal fixture["end_date"], json[:end_date]
+    assert_equal fixture["timezone"], json[:timezone]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_course_student_summary_response_value_200_applicati_7157ab62d7a65a74_round_trip
+    fixture = {
+      "students_count" => 0,
+      "multi_course_students_count" => 0,
+      "course_purchases_count" => 0,
+      "course_units_count" => 0,
+      "course_orders_count" => 0,
+      "courses_sold_count" => 0,
+    }
+    model = SellApp::GetCourseStudentSummaryResponseValue200ApplicationJsonPropertyDataPropertySummary.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["students_count"], json[:students_count]
+    assert_equal fixture["multi_course_students_count"], json[:multi_course_students_count]
+    assert_equal fixture["course_purchases_count"], json[:course_purchases_count]
+    assert_equal fixture["course_units_count"], json[:course_units_count]
+    assert_equal fixture["course_orders_count"], json[:course_orders_count]
+    assert_equal fixture["courses_sold_count"], json[:courses_sold_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_course_student_summary_response_value_200_applicati_7fe681f61df0d8ce_round_trip
+    fixture = {
+      "course_id" => 1,
+      "title" => 'stub',
+      "purchases_count" => 1,
+    }
+    model = SellApp::GetCourseStudentSummaryResponseValue200ApplicationJsonPropertyDataPropertyStudentsItemPropertyCoursesItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["course_id"], json[:course_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["purchases_count"], json[:purchases_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_course_student_summary_response_value_200_applicati_b36ceac3a24e3584_round_trip
+    fixture = {
+      "customer_id" => 1,
+      "email" => 'stub',
+      "courses_count" => 0,
+      "course_purchases_count" => 0,
+      "course_units_count" => 0,
+      "orders_count" => 0,
+      "latest_purchase_at" => '2024-01-01T00:00:00Z',
+      "courses" => JSON.parse('[]'),
+    }
+    model = SellApp::GetCourseStudentSummaryResponseValue200ApplicationJsonPropertyDataPropertyStudentsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["courses_count"], json[:courses_count]
+    assert_equal fixture["course_purchases_count"], json[:course_purchases_count]
+    assert_equal fixture["course_units_count"], json[:course_units_count]
+    assert_equal fixture["orders_count"], json[:orders_count]
+    assert_equal fixture["latest_purchase_at"], json[:latest_purchase_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_course_student_summary_response_value_200_applicati_c339be5778c7f686_round_trip
+    fixture = {
+      "course_id" => 1,
+      "title" => 'stub',
+      "students_count" => 0,
+      "course_purchases_count" => 0,
+      "course_units_count" => 0,
+      "orders_count" => 0,
+    }
+    model = SellApp::GetCourseStudentSummaryResponseValue200ApplicationJsonPropertyDataPropertyCoursesItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["course_id"], json[:course_id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["students_count"], json[:students_count]
+    assert_equal fixture["course_purchases_count"], json[:course_purchases_count]
+    assert_equal fixture["course_units_count"], json[:course_units_count]
+    assert_equal fixture["orders_count"], json[:orders_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_course_student_summary_response_value_200_applicati_1b23208e124bce8e_round_trip
+    fixture = {
+      "period" => JSON.parse('{"start_date":"2024-01-01","end_date":"2024-01-01","timezone":"stub","currency":"stub"}'),
+      "summary" => JSON.parse('{"students_count":0,"multi_course_students_count":0,"course_purchases_count":0,"course_units_count":0,"course_orders_count":0,"courses_sold_count":0}'),
+      "students" => JSON.parse('[]'),
+      "courses" => JSON.parse('[]'),
+    }
+    model = SellApp::GetCourseStudentSummaryResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_course_student_summary_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"period":{"start_date":"2024-01-01","end_date":"2024-01-01","timezone":"stub","currency":"stub"},"summary":{"students_count":0,"multi_course_students_count":0,"course_purchases_count":0,"course_units_count":0,"course_orders_count":0,"courses_sold_count":0},"students":[],"courses":[]}'),
+    }
+    model = SellApp::SdkGetCourseStudentSummaryResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }

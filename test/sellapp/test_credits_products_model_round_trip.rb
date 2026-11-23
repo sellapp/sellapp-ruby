@@ -15,7 +15,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::CreateCreditsProductRequestApplicationJsonPropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -55,7 +55,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::CreateCreditsProductResponseValue201ApplicationJsonPropertyDataPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -212,7 +212,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::GetCreditsProductResponseValue200ApplicationJsonPropertyDataPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -302,7 +302,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::ReplaceCreditsProductRequestApplicationJsonPropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -341,7 +341,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::ReplaceCreditsProductResponseValue200ApplicationJsonPropertyDataPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -431,7 +431,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::UpdateCreditsProductRequestApplicationJsonPropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -470,7 +470,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::UpdateCreditsProductResponseValue200ApplicationJsonPropertyDataPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -570,7 +570,7 @@ class CreditsProductsModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::DeleteCreditsProductResponseValue200ApplicationJsonPropertyDataPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h

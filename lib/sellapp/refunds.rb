@@ -11,14 +11,47 @@ module SellApp
     end
 
     # List refunds
+    # @param page [Integer, nil] Page number, starting at 1.
+    # @param limit [Integer, nil] Refunds per page, from 1 to 100.
+    # @param status [SellApp::Types::RefundsStatus, nil] Keep refunds in this state: `pending`, `effective`, `failed`, or `cancelled`.
+    # @param provider [SellApp::Types::RefundsProvider, nil] Keep refunds made through this payment provider: `manual`, `mercado_pago`, `nmi`, `mollie`, `paypal`, `razorpay`, `square`, or `stripe`.
+    # @param source [SellApp::Types::RefundsSource, nil] Keep refunds by how they were recorded: `manual`, `provider_webhook`, `provider_api`, or `system`. For example, `provider_api` is a refund SellApp requested from the provider and `provider_webhook` one the provider reported.
+    # @param refundable_type [SellApp::Types::RefundsRefundableType, nil] Keep refunds of orders (`order`) or of standalone charges (`charge`).
+    # @param refundable_id [Integer, nil] Keep refunds of the order or charge with this ID. Send `refundable_type` with it, because an order and a charge can share an ID.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListRefundsResponseValue200ApplicationJson]
-    def list_refunds(request_options: {})
+    def list_refunds(
+      page: 1,
+      limit: 15,
+      status: nil,
+      provider: nil,
+      source: nil,
+      refundable_type: nil,
+      refundable_id: nil,
+      request_options: {}
+    )
+      params = {
+        'page' => page,
+        'limit' => limit,
+        'status' => status,
+        'provider' => provider,
+        'source' => source,
+        'refundable_type' => refundable_type,
+        'refundable_id' => refundable_id
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["pending", "effective", "failed", "cancelled"]}, "$request.status") unless status.nil?
+      SellApp::Types::BaseModel.validate_value!(provider, {kind: :enum, values: ["manual", "mercado_pago", "nmi", "mollie", "paypal", "razorpay", "square", "stripe"]}, "$request.provider") unless provider.nil?
+      SellApp::Types::BaseModel.validate_value!(source, {kind: :enum, values: ["manual", "provider_webhook", "provider_api", "system"]}, "$request.source") unless source.nil?
+      SellApp::Types::BaseModel.validate_value!(refundable_type, {kind: :enum, values: ["order", "charge"]}, "$request.refundable_type") unless refundable_type.nil?
+      SellApp::Types::BaseModel.validate_value!(refundable_id, {kind: :integer, minimum: 1}, "$request.refundable_id") unless refundable_id.nil?
       request_options = request_options.merge(operation_id: 'listRefunds', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
         path: '/v2/refunds',
         auth: true,
+        params: params,
         request_options: request_options
       )
       value = begin

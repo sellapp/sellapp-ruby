@@ -31,10 +31,15 @@ module SellApp
       params(
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
+        key: T.nilable(String),
+        customer_email: T.nilable(String),
+        product_id: T.nilable(Integer),
+        order_id: T.nilable(Integer),
+        validity: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListLicenseKeysResponseValue200ApplicationJson)
     end
-    def list(limit:, page:, request_options:); end
+    def list(limit:, page:, key:, customer_email:, product_id:, order_id:, validity:, request_options:); end
 
     sig do
       params(

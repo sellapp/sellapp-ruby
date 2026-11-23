@@ -32,10 +32,11 @@ module SellApp
         amount_cents: Integer,
         idempotency_key: String,
         note: String,
+        expected_balance_cents: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkAdjustCustomerWalletResponseValue200ApplicationJson)
     end
-    def adjust(customer:, amount_cents:, idempotency_key:, note:, request_options:); end
+    def adjust(customer:, amount_cents:, idempotency_key:, note:, expected_balance_cents:, request_options:); end
 
     sig do
       params(

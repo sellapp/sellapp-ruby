@@ -30,14 +30,35 @@ module SellApp
     end
 
     # List webhook deliveries
+    # @param page [Integer, nil] Page number, starting at 1.
+    # @param limit [Integer, nil] Deliveries per page. Values below 1 are read as 1 and values above 100 as 100.
+    # @param event_type [String, nil] Keep deliveries of this event type, as listed by `GET /v2/webhook-event-types`.
+    # @param status [SellApp::Types::WebhookPlatformStatus, nil] Keep deliveries in this state: `pending`, `retrying`, `succeeded`, `failed`, or `disabled`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListWebhookDeliveriesResponseValue200ApplicationJson]
-    def list_webhook_deliveries(request_options: {})
+    def list_webhook_deliveries(
+      page: 1,
+      limit: 25,
+      event_type: nil,
+      status: nil,
+      request_options: {}
+    )
+      params = {
+        'page' => page,
+        'limit' => limit,
+        'event_type' => event_type,
+        'status' => status
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(event_type, {kind: :string}, "$request.event_type") unless event_type.nil?
+      SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["pending", "retrying", "succeeded", "failed", "disabled"]}, "$request.status") unless status.nil?
       request_options = request_options.merge(operation_id: 'listWebhookDeliveries', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
         path: '/v2/webhook-deliveries',
         auth: true,
+        params: params,
         request_options: request_options
       )
       value = begin

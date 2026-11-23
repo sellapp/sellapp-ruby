@@ -11,14 +11,39 @@ module SellApp
     end
 
     # List disputes
+    # @param page [Integer, nil] Page number, starting at 1.
+    # @param status [SellApp::Types::DisputesStatus, nil] Keep disputes in this state: `open`, `under_review`, `won`, `lost`, or `closed`.
+    # @param provider [String, nil] Keep disputes raised through this payment provider, such as `stripe`. Any letter case works.
+    # @param opened_after [String, nil] Keep disputes opened on or after this moment. A date such as `2026-08-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.
+    # @param opened_before [String, nil] Keep disputes opened on or before this moment. A date such as `2026-08-31` runs to the last second of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListDisputesResponseValue200ApplicationJson]
-    def list_disputes(request_options: {})
+    def list_disputes(
+      page: 1,
+      status: nil,
+      provider: nil,
+      opened_after: nil,
+      opened_before: nil,
+      request_options: {}
+    )
+      params = {
+        'page' => page,
+        'status' => status,
+        'provider' => provider,
+        'opened_after' => opened_after,
+        'opened_before' => opened_before
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["open", "under_review", "won", "lost", "closed"]}, "$request.status") unless status.nil?
+      SellApp::Types::BaseModel.validate_value!(provider, {kind: :string, max: 30}, "$request.provider") unless provider.nil?
+      SellApp::Types::BaseModel.validate_value!(opened_after, {kind: :string, max: 64}, "$request.opened_after") unless opened_after.nil?
+      SellApp::Types::BaseModel.validate_value!(opened_before, {kind: :string, max: 64}, "$request.opened_before") unless opened_before.nil?
       request_options = request_options.merge(operation_id: 'listDisputes', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
         path: '/v2/disputes',
         auth: true,
+        params: params,
         request_options: request_options
       )
       value = begin

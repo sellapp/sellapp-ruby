@@ -11,10 +11,15 @@ module SellApp
 
     sig do
       params(
+        page: T.nilable(Integer),
+        status: T.nilable(String),
+        provider: T.nilable(String),
+        opened_after: T.nilable(String),
+        opened_before: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListDisputesResponseValue200ApplicationJson)
     end
-    def list_disputes(request_options:); end
+    def list_disputes(page:, status:, provider:, opened_after:, opened_before:, request_options:); end
 
     sig do
       params(

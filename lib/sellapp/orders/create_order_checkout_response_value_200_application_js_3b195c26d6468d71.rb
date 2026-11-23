@@ -10,7 +10,9 @@ module SellApp
       total_exclusive_cents: :total_exclusive_cents,
       total_cents: :total_cents,
       total_exclusive_usd_cents: :total_exclusive_usd_cents,
-      total_usd_cents: :total_usd_cents
+      total_usd_cents: :total_usd_cents,
+      refund_currency: :refund_currency,
+      refunded_total_cents: :refunded_total_cents
     }.freeze
 
     SCHEMA = {
@@ -19,7 +21,9 @@ module SellApp
       total_exclusive_cents: {required: true, schema: {kind: :integer, minimum: 0}},
       total_cents: {required: true, schema: {kind: :integer, minimum: 0}},
       total_exclusive_usd_cents: {required: true, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0}}},
-      total_usd_cents: {required: true, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0}}}
+      total_usd_cents: {required: true, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0}}},
+      refund_currency: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      refunded_total_cents: {required: true, schema: {kind: :integer, minimum: 0}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -30,7 +34,9 @@ module SellApp
       :total_exclusive_cents,
       :total_cents,
       :total_exclusive_usd_cents,
-      :total_usd_cents
+      :total_usd_cents,
+      :refund_currency,
+      :refunded_total_cents
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -43,6 +49,8 @@ module SellApp
       @total_cents = hash[:total_cents]
       @total_exclusive_usd_cents = hash[:total_exclusive_usd_cents]
       @total_usd_cents = hash[:total_usd_cents]
+      @refund_currency = hash[:refund_currency]
+      @refunded_total_cents = hash[:refunded_total_cents]
     end
   end
 end

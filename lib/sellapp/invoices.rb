@@ -358,7 +358,7 @@ module SellApp
 
     # Issue replacement for completed invoice
     # @param invoice [Integer] The invoice path parameter.
-    # @param product_variants [SellApp::IssueReplacementForCompletedInvoiceRequestApplicationJsonPropertyProductVariants]
+    # @param product_variants [Integer, Array<Integer>]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkIssueReplacementForCompletedInvoiceResponseValue200ApplicationJson]
     def issue_replacement(
@@ -423,16 +423,19 @@ module SellApp
 
     # Create invoice refund
     # @param invoice [Integer] The invoice path parameter.
-    # @param amount [String, nil] Optional partial refund amount in major currency units. Omit for the full remaining refundable amount.
+    # @param amount [String, nil] Optional partial refund amount in major units of the invoice's `payment.refund_currency`. Omit for the full remaining refundable amount.
+    # @param expected_refunded_total_cents [Integer, nil] The refunded total you expect, in integer minor units of the invoice's `payment.refund_currency`, which can differ from the invoice currency: `500` means $5.00 in USD. Read it from `payment.refunded_total_cents` on the invoice and send it unchanged; it is `0` before the first refund. After a refund, `data.invoice.payment.refunded_total_cents` in the response is the value to send with the next one. With this field, the refund goes out only while the refunded total still equals it and no other refund on the order is pending. Omit it or send null to refund without the check.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCreateInvoiceRefundResponseValue200ApplicationJson]
     def create_refund(
       invoice:,
       amount: SellApp::OMIT,
+      expected_refunded_total_cents: SellApp::OMIT,
       request_options: {}
     )
       body = {}
       body['amount'] = amount unless amount.equal?(SellApp::OMIT)
+      body['expected_refunded_total_cents'] = expected_refunded_total_cents unless expected_refunded_total_cents.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(invoice, {kind: :integer}, "$request.invoice")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCreateInvoiceRefundRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'createInvoiceRefund', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)

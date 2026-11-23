@@ -9,10 +9,10 @@ module SellApp
     sig { params(json: T.any(String, T::Hash[Symbol, T.untyped])).void }
     def initialize(json); end
 
-    sig { returns(SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants) }
+    sig { returns(T.any(Integer, T::Array[Integer], SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3)) }
     def product_variants; end
 
-    sig { params(value: SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants).returns(SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants) }
+    sig { params(value: T.any(Integer, T::Array[Integer], SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3)).returns(T.any(Integer, T::Array[Integer], SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3)) }
     def product_variants=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

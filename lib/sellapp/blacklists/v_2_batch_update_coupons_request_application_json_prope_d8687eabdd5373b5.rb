@@ -15,7 +15,8 @@ module SellApp
       expires_at: :expires_at,
       minimum_amount: :minimum_amount,
       applies_to: :applies_to,
-      subscription_payments: :subscription_payments
+      subscription_payments: :subscription_payments,
+      maximum_discount_amount: :maximum_discount_amount
     }.freeze
 
     SCHEMA = {
@@ -23,13 +24,14 @@ module SellApp
       type: {required: false, schema: {kind: :enum, values: ["PERCENTAGE", "AMOUNT"]}},
       discount: {required: false, schema: {kind: :union, variants: [{kind: :number, minimum: 1, max: 255}, {kind: :string, minimum: 1, max: 255}]}},
       store_wide: {required: false, schema: {kind: :boolean}},
-      products: {required: false, schema: {kind: :array, items: {kind: :integer}, min: 1}},
+      products: {required: false, schema: {kind: :array, items: {kind: :integer}}},
       product_variants: {required: false, schema: {kind: :array, items: {kind: :integer}}},
       limit: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1}}},
       expires_at: {required: false, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
       minimum_amount: {required: false, schema: {kind: :nullable, inner: {kind: :union, variants: [{kind: :number, minimum: 1, max: 255}, {kind: :string, minimum: 1, max: 255}]}}},
       applies_to: {required: false, schema: {kind: :enum, values: ["one_time", "subscriptions"]}},
-      subscription_payments: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1, maximum: 36}}}
+      subscription_payments: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1, maximum: 36}}},
+      maximum_discount_amount: {required: false, schema: {kind: :nullable, inner: {kind: :union, variants: [{kind: :number, minimum: 1, max: 255}, {kind: :string, minimum: 1, max: 255}]}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -45,7 +47,8 @@ module SellApp
       :expires_at,
       :minimum_amount,
       :applies_to,
-      :subscription_payments
+      :subscription_payments,
+      :maximum_discount_amount
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -63,6 +66,7 @@ module SellApp
       @minimum_amount = hash[:minimum_amount]
       @applies_to = hash[:applies_to]
       @subscription_payments = hash[:subscription_payments]
+      @maximum_discount_amount = hash[:maximum_discount_amount]
     end
   end
 end

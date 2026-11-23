@@ -118,6 +118,7 @@ def adjust(
       amount_cents:,
       idempotency_key:,
       note:,
+      expected_balance_cents: nil,
       request_options: {}
     )
 ```
@@ -128,6 +129,7 @@ def adjust(
 | amount_cents | `Object` | Yes |
 | idempotency_key | `Object` | Yes |
 | note | `Object` | Yes |
+| expected_balance_cents | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -141,7 +143,8 @@ result = client.wallet.adjust(
   customer: 1,
   amount_cents: 2500,
   idempotency_key: "wallet-adjustment-01992a65",
-  note: "Launch-day account credit"
+  note: "Launch-day account credit",
+  expected_balance_cents: 0
 )
 puts result.inspect
 ```

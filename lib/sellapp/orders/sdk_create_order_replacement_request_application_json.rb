@@ -9,7 +9,7 @@ module SellApp
     }.freeze
 
     SCHEMA = {
-      product_variants: {required: true, schema: {kind: :model, name: "SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants"}}
+      product_variants: {required: true, schema: {kind: :union, variants: [{kind: :integer}, {kind: :array, items: {kind: :integer}}, {kind: :model, name: "SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3"}], composition: :anyOf}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -21,7 +21,7 @@ module SellApp
       self.class.validate_schema!(hash, SCHEMA, direction: :response, additional_properties: ADDITIONAL_PROPERTIES, constraints: MODEL_CONSTRAINTS)
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
-      @product_variants = hash[:product_variants] ? SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants.new(hash[:product_variants]) : nil
+      @product_variants = hash[:product_variants].is_a?(Hash) ? (begin SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3.new(hash[:product_variants]); rescue SellApp::ValidationError; hash[:product_variants]; end) : hash[:product_variants]
     end
   end
 end

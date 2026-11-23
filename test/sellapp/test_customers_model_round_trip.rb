@@ -11,12 +11,6 @@ class CustomersModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
   end
 
-  def test_create_customer_request_application_json_property_metadata_map_value_round_trip
-    model = SellApp::CreateCustomerRequestApplicationJsonPropertyMetadataMapValue.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
   def test_create_customer_request_application_json_property_metadata_round_trip
     model = SellApp::CreateCustomerRequestApplicationJsonPropertyMetadata.new('{}')
     json = model.to_h
@@ -263,12 +257,6 @@ class CustomersModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_update_customer_request_application_json_property_metadata_map_value_round_trip
-    model = SellApp::UpdateCustomerRequestApplicationJsonPropertyMetadataMapValue.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
   def test_update_customer_request_application_json_property_metadata_round_trip
     model = SellApp::UpdateCustomerRequestApplicationJsonPropertyMetadata.new('{}')
     json = model.to_h
@@ -370,12 +358,6 @@ class CustomersModelRoundTripTest < Minitest::Test
     json = model.to_h
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
-  end
-
-  def test_upsert_customer_request_application_json_property_metadata_map_value_round_trip
-    model = SellApp::UpsertCustomerRequestApplicationJsonPropertyMetadataMapValue.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
   end
 
   def test_upsert_customer_request_application_json_property_metadata_round_trip

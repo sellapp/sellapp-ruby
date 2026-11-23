@@ -628,6 +628,7 @@ Create invoice refund
 def create_refund(
       invoice:,
       amount: SellApp::OMIT,
+      expected_refunded_total_cents: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -636,6 +637,7 @@ def create_refund(
 | --- | --- | --- |
 | invoice | `Object` | Yes |
 | amount | `Object` | No |
+| expected_refunded_total_cents | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -647,7 +649,8 @@ client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_ke
 
 result = client.invoices.create_refund(
   invoice: 1,
-  amount: "12.50"
+  amount: "12.50",
+  expected_refunded_total_cents: 0
 )
 puts result.inspect
 ```

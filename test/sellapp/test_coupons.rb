@@ -151,6 +151,13 @@ class CouponsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_v2_get_coupon_usage_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/coupons/1/usage(\?|\z)})
+      .to_return(body: '{"data":{"coupon_id":1,"uses":0}}', status: 200)
+    result = @client.coupons.v2_get_coupon_usage(coupon: 1)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v1/coupons(\?|\z)}},
@@ -173,6 +180,7 @@ class CouponsTest < Minitest::Test
     {name: :v2_batch_create_coupons, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/coupons/batch(\?|\z)}, args: {resources: JSON.parse('[]')}},
     {name: :v2_batch_update_coupons, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/coupons/batch(\?|\z)}, args: {resources: JSON.parse('{}')}},
     {name: :v2_batch_delete_coupons, verb: :delete, url: %r{\Ahttps://sell\.app/api/v2/coupons/batch(\?|\z)}, args: {resources: JSON.parse('[]')}},
+    {name: :v2_get_coupon_usage, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/coupons/1/usage(\?|\z)}, args: {coupon: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

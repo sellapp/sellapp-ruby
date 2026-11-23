@@ -110,10 +110,14 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::SearchProductVariantsRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::SearchProductVariantsRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::SearchProductVariantsRequestApplicationJsonPropertyIncludesItem]),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
+        with_drafts: T.nilable(T::Boolean),
+        only_drafts: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkSearchProductVariantsResponseValue200ApplicationJson)
     end
-    def search(product:, filters:, sort:, search:, includes:, request_options:); end
+    def search(product:, filters:, sort:, search:, includes:, limit:, page:, with_drafts:, only_drafts:, request_options:); end
 
     sig do
       params(
@@ -141,6 +145,33 @@ module SellApp
       ).returns(SellApp::SdkBatchDeleteProductVariantsResponseValue200ApplicationJson)
     end
     def batch_delete(product:, resources:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        variant: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkPublishProductVariantResponseValue200ApplicationJson)
+    end
+    def publish(product:, variant:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        variant: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkDuplicateProductVariantResponseValue201ApplicationJson)
+    end
+    def duplicate(product:, variant:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        variant_ids: T::Array[Integer],
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReorderProductVariantsResponseValue200ApplicationJson)
+    end
+    def reorder(product:, variant_ids:, request_options:); end
 
   end
 end

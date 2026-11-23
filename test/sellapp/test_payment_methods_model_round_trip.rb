@@ -363,6 +363,80 @@ class PaymentMethodsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_get_payment_method_modifier_response_value_200_applicat_6fe40191d874134d_round_trip
+    fixture = {
+      "payment_method" => 'stub',
+      "kind" => 'discount',
+      "percentage" => '1.00',
+      "fixed_amount" => '1.00',
+      "condition" => 'above',
+      "threshold" => '1.00',
+    }
+    model = SellApp::GetPaymentMethodModifierResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["payment_method"], json[:payment_method]
+    assert_equal fixture["percentage"], json[:percentage]
+    assert_equal fixture["fixed_amount"], json[:fixed_amount]
+    assert_equal fixture["threshold"], json[:threshold]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_payment_method_modifier_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"payment_method":"stub","kind":"discount","percentage":"1.00","fixed_amount":"1.00","condition":"above","threshold":"1.00"}'),
+    }
+    model = SellApp::SdkGetPaymentMethodModifierResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_payment_method_modifier_request_application_json_round_trip
+    fixture = {
+      "kind" => 'discount',
+      "percentage" => '1.00',
+      "fixed_amount" => '1.00',
+      "condition" => 'above',
+      "threshold" => 0.01,
+    }
+    model = SellApp::SdkReplacePaymentMethodModifierRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["percentage"], json[:percentage]
+    assert_equal fixture["fixed_amount"], json[:fixed_amount]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_payment_method_modifier_response_value_200_appl_0e567aabd44312ff_round_trip
+    fixture = {
+      "payment_method" => 'stub',
+      "kind" => 'discount',
+      "percentage" => '1.00',
+      "fixed_amount" => '1.00',
+      "condition" => 'above',
+      "threshold" => '1.00',
+    }
+    model = SellApp::ReplacePaymentMethodModifierResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["payment_method"], json[:payment_method]
+    assert_equal fixture["percentage"], json[:percentage]
+    assert_equal fixture["fixed_amount"], json[:fixed_amount]
+    assert_equal fixture["threshold"], json[:threshold]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_payment_method_modifier_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"payment_method":"stub","kind":"discount","percentage":"1.00","fixed_amount":"1.00","condition":"above","threshold":"1.00"}'),
+    }
+    model = SellApp::SdkReplacePaymentMethodModifierResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_list_custom_payment_methods_response_value_200_applicat_ab12f8e6dfb3854f_round_trip
     fixture = {
       "percentage" => 'stub',

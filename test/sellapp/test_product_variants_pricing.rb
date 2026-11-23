@@ -13,14 +13,14 @@ class ProductVariantsPricingTest < Minitest::Test
 
   def test_replace_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/pricing(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants_pricing.replace(product: 1, variant: 1, pricing: JSON.parse('{"type":"SINGLE_PAYMENT","price":{"price":0,"currency":"AUD"},"humble":true}'), payment_methods: JSON.parse('[]'))
     refute_nil result
   end
 
   def test_update_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/pricing(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants_pricing.update(product: 1, variant: 1)
     refute_nil result
   end

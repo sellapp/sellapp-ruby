@@ -20,7 +20,7 @@ class OrdersTest < Minitest::Test
 
   def test_create_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.orders.create(customer_email: 'sdk@example.com', payment_method: 'AUTHNET', product_variants: JSON.parse('{}'))
     refute_nil result
   end
@@ -34,57 +34,64 @@ class OrdersTest < Minitest::Test
 
   def test_get_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/orders/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.orders.get(order: 1)
     refute_nil result
   end
 
   def test_update_status_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/orders/1/status(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.orders.update_status(order: 1, status: 'COMPLETED')
     refute_nil result
   end
 
   def test_create_checkout_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/checkout(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"message":"stub"}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"message":"stub"}', status: 200)
     result = @client.orders.create_checkout(order: 1)
     refute_nil result
   end
 
   def test_create_replacement_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/replacements(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
-    result = @client.orders.create_replacement(order: 1, product_variants: JSON.parse('{}'))
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+    result = @client.orders.create_replacement(order: 1, product_variants: 1)
     refute_nil result
   end
 
   def test_create_refund_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/refunds(\?|\z)})
-      .to_return(body: '{"data":{"order":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"refund":{"status":"pending","provider":"manual","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}}}', status: 200)
+      .to_return(body: '{"data":{"order":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"refund":{"status":"pending","provider":"manual","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}}}', status: 200)
     result = @client.orders.create_refund(order: 1)
     refute_nil result
   end
 
   def test_retry_fulfillment_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/fulfillment-retries(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"meta":{"effects_reset":0}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"meta":{"effects_reset":0}}', status: 200)
     result = @client.orders.retry_fulfillment(order: 1)
     refute_nil result
   end
 
   def test_retry_dynamic_delivery_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/dynamic-delivery-retries(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"meta":{"queued":true}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"meta":{"queued":true}}', status: 200)
     result = @client.orders.retry_dynamic_delivery(order: 1, delivered_product_id: 1)
     refute_nil result
   end
 
   def test_send_fulfillment_notifications_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/fulfillment-notifications(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"meta":{"notifications_sent":0}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"meta":{"notifications_sent":0}}', status: 200)
     result = @client.orders.send_fulfillment_notifications(order: 1)
+    refute_nil result
+  end
+
+  def test_regenerate_telegram_invite_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/telegram-invites(\?|\z)})
+      .to_return(body: '{"data":{"order_id":1,"variant_id":1,"invite_link":"https://example.com"}}', status: 200)
+    result = @client.orders.regenerate_telegram_invite(order: 1)
     refute_nil result
   end
 
@@ -97,14 +104,14 @@ class OrdersTest < Minitest::Test
 
   def test_create_from_wallet_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/wallet(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.orders.create_from_wallet(customer_email: 'sdk@example.com', product_variants: JSON.parse('{}'))
     refute_nil result
   end
 
   def test_pay_from_wallet_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/orders/1/wallet-payments(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
     result = @client.orders.pay_from_wallet(order: 1)
     refute_nil result
   end
@@ -117,11 +124,12 @@ class OrdersTest < Minitest::Test
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/orders/1(\?|\z)}, args: {order: 1}},
     {name: :update_status, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/orders/1/status(\?|\z)}, args: {order: 1, status: 'COMPLETED'}},
     {name: :create_checkout, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/checkout(\?|\z)}, args: {order: 1}},
-    {name: :create_replacement, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/replacements(\?|\z)}, args: {order: 1, product_variants: JSON.parse('{}')}},
+    {name: :create_replacement, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/replacements(\?|\z)}, args: {order: 1, product_variants: 1}},
     {name: :create_refund, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/refunds(\?|\z)}, args: {order: 1}},
     {name: :retry_fulfillment, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/fulfillment-retries(\?|\z)}, args: {order: 1}},
     {name: :retry_dynamic_delivery, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/dynamic-delivery-retries(\?|\z)}, args: {order: 1, delivered_product_id: 1}},
     {name: :send_fulfillment_notifications, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/fulfillment-notifications(\?|\z)}, args: {order: 1}},
+    {name: :regenerate_telegram_invite, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/telegram-invites(\?|\z)}, args: {order: 1}},
     {name: :list_deliverables, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/orders/1/deliverables(\?|\z)}, args: {order: 1}},
     {name: :create_from_wallet, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/wallet(\?|\z)}, args: {customer_email: 'sdk@example.com', product_variants: JSON.parse('{}')}},
     {name: :pay_from_wallet, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/orders/1/wallet-payments(\?|\z)}, args: {order: 1}},

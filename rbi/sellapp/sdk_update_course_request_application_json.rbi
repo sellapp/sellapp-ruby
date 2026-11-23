@@ -99,6 +99,24 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def expected_updated_at=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def title; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def title=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def slug; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def slug=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def description; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def description=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

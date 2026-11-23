@@ -186,5 +186,96 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # Create a booking product
+    # @param title [String] The product name customers see. The URL slug is made from it.
+    # @param description [String, nil] The product description as HTML, 5 to 5000 characters. Leave it out to start without one.
+    # @param visibility [SellApp::Types::CatalogVisibility, nil]
+    # @param variant_title [String, nil] The name of the bookable option.
+    # @param variant_description [String, nil] The option's description. Defaults to the product description, or to `Book an appointment for` and the title when there is none.
+    # @param price_cents [Integer] The price of one appointment in the smallest unit of `currency`: `2500` means $25.00 in USD, and `0` makes it free. A paid price outside the currency's limits, such as below 0.50 in USD, returns `422` on `price_cents`.
+    # @param compare_at_price_cents [Integer, nil] An optional crossed-out price shown next to the real one, in the same unit. It must be higher than `price_cents` and within the currency's limits; otherwise the request returns `422` on `compare_at_price_cents`.
+    # @param currency [SellApp::Types::SdkCreateBookingProductRequestApplicationJsonCurrency, nil] The currency of both prices.
+    # @param payment_methods [Array<SellApp::Types::SdkCreateBookingProductRequestApplicationJsonPaymentMethods>, nil] How customers can pay. Each must be enabled for the store, or the request returns `422` on `payment_methods`. Leave it out to use the store's default payment methods for the currency; a paid booking with none available returns `422` on `payment_methods`.
+    # @param timezone [String, nil] The IANA timezone the weekly availability is read in. Defaults to the store's timezone.
+    # @param duration_minutes [Integer, nil]
+    # @param min_notice_minutes [Integer, nil]
+    # @param max_advance_days [Integer, nil]
+    # @param buffer_before_minutes [Integer, nil]
+    # @param buffer_after_minutes [Integer, nil]
+    # @param provider_connection_ids [Array<Integer>, nil]
+    # @param video_provider [SellApp::Types::SdkCreateBookingProductRequestApplicationJsonVideoProvider, nil]
+    # @param video_provider_connection_id [Integer, nil]
+    # @param reminders_enabled [Boolean, nil]
+    # @param reminder_offset_value [Integer, nil]
+    # @param reminder_offset_unit [SellApp::Types::SdkCreateBookingProductRequestApplicationJsonReminderOffsetUnit, nil]
+    # @param availability [Array<SellApp::CreateBookingProductRequestApplicationJsonPropertyAvailabilityItem>, nil] Weekly opening hours, one entry per day from `1` to `7`, in 30-minute steps. Days you leave out are closed. Leave the whole list out to open days `1` to `5` from 09:00 to 17:00.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkCreateBookingProductResponseValue201ApplicationJson]
+    def create(
+      title:,
+      price_cents:,
+      description: SellApp::OMIT,
+      visibility: nil,
+      variant_title: nil,
+      variant_description: nil,
+      compare_at_price_cents: SellApp::OMIT,
+      currency: nil,
+      payment_methods: nil,
+      timezone: nil,
+      duration_minutes: nil,
+      min_notice_minutes: nil,
+      max_advance_days: nil,
+      buffer_before_minutes: nil,
+      buffer_after_minutes: nil,
+      provider_connection_ids: nil,
+      video_provider: nil,
+      video_provider_connection_id: SellApp::OMIT,
+      reminders_enabled: nil,
+      reminder_offset_value: nil,
+      reminder_offset_unit: nil,
+      availability: nil,
+      request_options: {}
+    )
+      body = {
+        'title' => title,
+        'visibility' => visibility,
+        'variant_title' => variant_title,
+        'variant_description' => variant_description,
+        'price_cents' => price_cents,
+        'currency' => currency,
+        'payment_methods' => payment_methods,
+        'timezone' => timezone,
+        'duration_minutes' => duration_minutes,
+        'min_notice_minutes' => min_notice_minutes,
+        'max_advance_days' => max_advance_days,
+        'buffer_before_minutes' => buffer_before_minutes,
+        'buffer_after_minutes' => buffer_after_minutes,
+        'provider_connection_ids' => provider_connection_ids,
+        'video_provider' => video_provider,
+        'reminders_enabled' => reminders_enabled,
+        'reminder_offset_value' => reminder_offset_value,
+        'reminder_offset_unit' => reminder_offset_unit,
+        'availability' => availability
+      }.compact
+      body['description'] = description unless description.equal?(SellApp::OMIT)
+      body['compare_at_price_cents'] = compare_at_price_cents unless compare_at_price_cents.equal?(SellApp::OMIT)
+      body['video_provider_connection_id'] = video_provider_connection_id unless video_provider_connection_id.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCreateBookingProductRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'createBookingProduct', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: '/v2/booking-products',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkCreateBookingProductResponseValue201ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

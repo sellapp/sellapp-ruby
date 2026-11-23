@@ -699,6 +699,1161 @@ class StoreSettingsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_get_checkout_settings_response_value_200_application_js_3ab97260d82c5767_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::GetCheckoutSettingsResponseValue200ApplicationJsonPropertyDataPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_checkout_settings_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::GetCheckoutSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["shopping_cart_enabled"], json[:shopping_cart_enabled]
+    assert_equal fixture["customer_email_required"], json[:customer_email_required]
+    assert_equal fixture["allow_vpn_purchases"], json[:allow_vpn_purchases]
+    assert_equal fixture["blacklist_on_dispute"], json[:blacklist_on_dispute]
+    assert_equal fixture["minimum_spend"], json[:minimum_spend]
+    assert_equal fixture["billing_descriptor"], json[:billing_descriptor]
+    assert_equal fixture["attempts_per_customer"], json[:attempts_per_customer]
+    assert_equal fixture["attempts_per_ip"], json[:attempts_per_ip]
+    assert_equal fixture["attempts_per_email"], json[:attempts_per_email]
+    assert_equal fixture["attempts_per_fingerprint"], json[:attempts_per_fingerprint]
+    assert_equal fixture["rate_limit_window_seconds"], json[:rate_limit_window_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_checkout_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}'),
+    }
+    model = SellApp::SdkGetCheckoutSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_checkout_settings_request_application_json_property_crypto_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::ReplaceCheckoutSettingsRequestApplicationJsonPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_checkout_settings_request_application_json_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::SdkReplaceCheckoutSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["shopping_cart_enabled"], json[:shopping_cart_enabled]
+    assert_equal fixture["customer_email_required"], json[:customer_email_required]
+    assert_equal fixture["allow_vpn_purchases"], json[:allow_vpn_purchases]
+    assert_equal fixture["blacklist_on_dispute"], json[:blacklist_on_dispute]
+    assert_equal fixture["minimum_spend"], json[:minimum_spend]
+    assert_equal fixture["billing_descriptor"], json[:billing_descriptor]
+    assert_equal fixture["attempts_per_customer"], json[:attempts_per_customer]
+    assert_equal fixture["attempts_per_ip"], json[:attempts_per_ip]
+    assert_equal fixture["attempts_per_email"], json[:attempts_per_email]
+    assert_equal fixture["attempts_per_fingerprint"], json[:attempts_per_fingerprint]
+    assert_equal fixture["rate_limit_window_seconds"], json[:rate_limit_window_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_checkout_settings_response_value_200_applicatio_28b8c760175ca56a_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::ReplaceCheckoutSettingsResponseValue200ApplicationJsonPropertyDataPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_checkout_settings_response_value_200_applicatio_660feac57657ac08_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::ReplaceCheckoutSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["shopping_cart_enabled"], json[:shopping_cart_enabled]
+    assert_equal fixture["customer_email_required"], json[:customer_email_required]
+    assert_equal fixture["allow_vpn_purchases"], json[:allow_vpn_purchases]
+    assert_equal fixture["blacklist_on_dispute"], json[:blacklist_on_dispute]
+    assert_equal fixture["minimum_spend"], json[:minimum_spend]
+    assert_equal fixture["billing_descriptor"], json[:billing_descriptor]
+    assert_equal fixture["attempts_per_customer"], json[:attempts_per_customer]
+    assert_equal fixture["attempts_per_ip"], json[:attempts_per_ip]
+    assert_equal fixture["attempts_per_email"], json[:attempts_per_email]
+    assert_equal fixture["attempts_per_fingerprint"], json[:attempts_per_fingerprint]
+    assert_equal fixture["rate_limit_window_seconds"], json[:rate_limit_window_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_checkout_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}'),
+    }
+    model = SellApp::SdkReplaceCheckoutSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_checkout_settings_request_application_json_property_crypto_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::UpdateCheckoutSettingsRequestApplicationJsonPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_checkout_settings_request_application_json_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::SdkUpdateCheckoutSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_checkout_settings_response_value_200_application_d4a2be6583286474_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::UpdateCheckoutSettingsResponseValue200ApplicationJsonPropertyDataPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_checkout_settings_response_value_200_application_b17b1d4756504e76_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::UpdateCheckoutSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["shopping_cart_enabled"], json[:shopping_cart_enabled]
+    assert_equal fixture["customer_email_required"], json[:customer_email_required]
+    assert_equal fixture["allow_vpn_purchases"], json[:allow_vpn_purchases]
+    assert_equal fixture["blacklist_on_dispute"], json[:blacklist_on_dispute]
+    assert_equal fixture["minimum_spend"], json[:minimum_spend]
+    assert_equal fixture["billing_descriptor"], json[:billing_descriptor]
+    assert_equal fixture["attempts_per_customer"], json[:attempts_per_customer]
+    assert_equal fixture["attempts_per_ip"], json[:attempts_per_ip]
+    assert_equal fixture["attempts_per_email"], json[:attempts_per_email]
+    assert_equal fixture["attempts_per_fingerprint"], json[:attempts_per_fingerprint]
+    assert_equal fixture["rate_limit_window_seconds"], json[:rate_limit_window_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_checkout_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}'),
+    }
+    model = SellApp::SdkUpdateCheckoutSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_tax_settings_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "vat_enabled" => true,
+      "vat_inclusive_pricing" => true,
+      "collect_billing_details" => true,
+    }
+    model = SellApp::GetTaxSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["vat_enabled"], json[:vat_enabled]
+    assert_equal fixture["vat_inclusive_pricing"], json[:vat_inclusive_pricing]
+    assert_equal fixture["collect_billing_details"], json[:collect_billing_details]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_tax_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"vat_enabled":true,"vat_inclusive_pricing":true,"collect_billing_details":true}'),
+    }
+    model = SellApp::SdkGetTaxSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_tax_settings_request_application_json_round_trip
+    fixture = {
+      "vat_enabled" => true,
+      "vat_inclusive_pricing" => true,
+      "collect_billing_details" => true,
+    }
+    model = SellApp::SdkReplaceTaxSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["vat_enabled"], json[:vat_enabled]
+    assert_equal fixture["vat_inclusive_pricing"], json[:vat_inclusive_pricing]
+    assert_equal fixture["collect_billing_details"], json[:collect_billing_details]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_tax_settings_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "vat_enabled" => true,
+      "vat_inclusive_pricing" => true,
+      "collect_billing_details" => true,
+    }
+    model = SellApp::ReplaceTaxSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["vat_enabled"], json[:vat_enabled]
+    assert_equal fixture["vat_inclusive_pricing"], json[:vat_inclusive_pricing]
+    assert_equal fixture["collect_billing_details"], json[:collect_billing_details]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_tax_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"vat_enabled":true,"vat_inclusive_pricing":true,"collect_billing_details":true}'),
+    }
+    model = SellApp::SdkReplaceTaxSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_tax_settings_request_application_json_round_trip
+    fixture = {
+      "vat_enabled" => true,
+      "vat_inclusive_pricing" => true,
+      "collect_billing_details" => true,
+    }
+    model = SellApp::SdkUpdateTaxSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_tax_settings_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "vat_enabled" => true,
+      "vat_inclusive_pricing" => true,
+      "collect_billing_details" => true,
+    }
+    model = SellApp::UpdateTaxSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["vat_enabled"], json[:vat_enabled]
+    assert_equal fixture["vat_inclusive_pricing"], json[:vat_inclusive_pricing]
+    assert_equal fixture["collect_billing_details"], json[:collect_billing_details]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_tax_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"vat_enabled":true,"vat_inclusive_pricing":true,"collect_billing_details":true}'),
+    }
+    model = SellApp::SdkUpdateTaxSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_customer_email_settings_response_value_200_applicat_3bef27f05bab16c9_round_trip
+    fixture = {
+      "send_delivery_email" => true,
+      "send_payment_failure_email" => true,
+    }
+    model = SellApp::GetCustomerEmailSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["send_delivery_email"], json[:send_delivery_email]
+    assert_equal fixture["send_payment_failure_email"], json[:send_payment_failure_email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_customer_email_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"send_delivery_email":true,"send_payment_failure_email":true}'),
+    }
+    model = SellApp::SdkGetCustomerEmailSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_customer_email_settings_request_application_json_round_trip
+    fixture = {
+      "send_delivery_email" => true,
+      "send_payment_failure_email" => true,
+    }
+    model = SellApp::SdkReplaceCustomerEmailSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["send_delivery_email"], json[:send_delivery_email]
+    assert_equal fixture["send_payment_failure_email"], json[:send_payment_failure_email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_customer_email_settings_response_value_200_appl_b6926f2d703ac03c_round_trip
+    fixture = {
+      "send_delivery_email" => true,
+      "send_payment_failure_email" => true,
+    }
+    model = SellApp::ReplaceCustomerEmailSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["send_delivery_email"], json[:send_delivery_email]
+    assert_equal fixture["send_payment_failure_email"], json[:send_payment_failure_email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_customer_email_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"send_delivery_email":true,"send_payment_failure_email":true}'),
+    }
+    model = SellApp::SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_customer_email_settings_request_application_json_round_trip
+    fixture = {
+      "send_delivery_email" => true,
+      "send_payment_failure_email" => true,
+    }
+    model = SellApp::SdkUpdateCustomerEmailSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_customer_email_settings_response_value_200_appli_4f0c706daa705afd_round_trip
+    fixture = {
+      "send_delivery_email" => true,
+      "send_payment_failure_email" => true,
+    }
+    model = SellApp::UpdateCustomerEmailSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["send_delivery_email"], json[:send_delivery_email]
+    assert_equal fixture["send_payment_failure_email"], json[:send_payment_failure_email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_customer_email_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"send_delivery_email":true,"send_payment_failure_email":true}'),
+    }
+    model = SellApp::SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_store_alert_settings_response_value_200_application_946bed4b75352821_round_trip
+    fixture = {
+      "sale_emails_enabled" => true,
+    }
+    model = SellApp::GetStoreAlertSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["sale_emails_enabled"], json[:sale_emails_enabled]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_store_alert_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"sale_emails_enabled":true}'),
+    }
+    model = SellApp::SdkGetStoreAlertSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_store_alert_settings_request_application_json_round_trip
+    fixture = {
+      "sale_emails_enabled" => true,
+    }
+    model = SellApp::SdkReplaceStoreAlertSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["sale_emails_enabled"], json[:sale_emails_enabled]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_store_alert_settings_response_value_200_applica_52b9508b1e733ede_round_trip
+    fixture = {
+      "sale_emails_enabled" => true,
+    }
+    model = SellApp::ReplaceStoreAlertSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["sale_emails_enabled"], json[:sale_emails_enabled]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_store_alert_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"sale_emails_enabled":true}'),
+    }
+    model = SellApp::SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_store_alert_settings_request_application_json_round_trip
+    fixture = {
+      "sale_emails_enabled" => true,
+    }
+    model = SellApp::SdkUpdateStoreAlertSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_store_alert_settings_response_value_200_applicat_ddb729b220e7bad1_round_trip
+    fixture = {
+      "sale_emails_enabled" => true,
+    }
+    model = SellApp::UpdateStoreAlertSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["sale_emails_enabled"], json[:sale_emails_enabled]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_store_alert_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"sale_emails_enabled":true}'),
+    }
+    model = SellApp::SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_personalization_settings_response_value_200_applica_b2ecca1a91c816cd_round_trip
+    fixture = {
+      "support_email" => 'sdk@example.com',
+      "trustpilot_email" => 'sdk@example.com',
+      "sender_name" => 'stub',
+      "sender_email" => 'sdk@example.com',
+      "store_address" => 'stub',
+      "store_city" => 'stub',
+      "store_state" => 'stub',
+      "store_zip" => 'stub',
+      "store_country" => 'stub',
+      "store_tax" => 'stub',
+      "back_link_label" => 'stub',
+      "back_link_url" => 'https://example.com',
+    }
+    model = SellApp::GetPersonalizationSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["support_email"], json[:support_email]
+    assert_equal fixture["trustpilot_email"], json[:trustpilot_email]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["sender_email"], json[:sender_email]
+    assert_equal fixture["store_address"], json[:store_address]
+    assert_equal fixture["store_city"], json[:store_city]
+    assert_equal fixture["store_state"], json[:store_state]
+    assert_equal fixture["store_zip"], json[:store_zip]
+    assert_equal fixture["store_country"], json[:store_country]
+    assert_equal fixture["store_tax"], json[:store_tax]
+    assert_equal fixture["back_link_label"], json[:back_link_label]
+    assert_equal fixture["back_link_url"], json[:back_link_url]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_personalization_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"support_email":"sdk@example.com","trustpilot_email":"sdk@example.com","sender_name":"stub","sender_email":"sdk@example.com","store_address":"stub","store_city":"stub","store_state":"stub","store_zip":"stub","store_country":"stub","store_tax":"stub","back_link_label":"stub","back_link_url":"https://example.com"}'),
+    }
+    model = SellApp::SdkGetPersonalizationSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_personalization_settings_request_application_json_round_trip
+    fixture = {
+      "support_email" => 'sdk@example.com',
+      "trustpilot_email" => 'sdk@example.com',
+      "sender_name" => 'stub',
+      "sender_email" => 'sdk@example.com',
+      "store_address" => 'stub',
+      "store_city" => 'stub',
+      "store_state" => 'stub',
+      "store_zip" => 'stub',
+      "store_country" => 'stub',
+      "store_tax" => 'stub',
+      "back_link_label" => 'stub',
+      "back_link_url" => 'https://example.com',
+    }
+    model = SellApp::SdkReplacePersonalizationSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["support_email"], json[:support_email]
+    assert_equal fixture["trustpilot_email"], json[:trustpilot_email]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["store_address"], json[:store_address]
+    assert_equal fixture["store_city"], json[:store_city]
+    assert_equal fixture["store_state"], json[:store_state]
+    assert_equal fixture["store_zip"], json[:store_zip]
+    assert_equal fixture["store_country"], json[:store_country]
+    assert_equal fixture["store_tax"], json[:store_tax]
+    assert_equal fixture["back_link_label"], json[:back_link_label]
+    assert_equal fixture["back_link_url"], json[:back_link_url]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_personalization_settings_response_value_200_app_8a1e31614f73fbed_round_trip
+    fixture = {
+      "support_email" => 'sdk@example.com',
+      "trustpilot_email" => 'sdk@example.com',
+      "sender_name" => 'stub',
+      "sender_email" => 'sdk@example.com',
+      "store_address" => 'stub',
+      "store_city" => 'stub',
+      "store_state" => 'stub',
+      "store_zip" => 'stub',
+      "store_country" => 'stub',
+      "store_tax" => 'stub',
+      "back_link_label" => 'stub',
+      "back_link_url" => 'https://example.com',
+    }
+    model = SellApp::ReplacePersonalizationSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["support_email"], json[:support_email]
+    assert_equal fixture["trustpilot_email"], json[:trustpilot_email]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["sender_email"], json[:sender_email]
+    assert_equal fixture["store_address"], json[:store_address]
+    assert_equal fixture["store_city"], json[:store_city]
+    assert_equal fixture["store_state"], json[:store_state]
+    assert_equal fixture["store_zip"], json[:store_zip]
+    assert_equal fixture["store_country"], json[:store_country]
+    assert_equal fixture["store_tax"], json[:store_tax]
+    assert_equal fixture["back_link_label"], json[:back_link_label]
+    assert_equal fixture["back_link_url"], json[:back_link_url]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_personalization_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"support_email":"sdk@example.com","trustpilot_email":"sdk@example.com","sender_name":"stub","sender_email":"sdk@example.com","store_address":"stub","store_city":"stub","store_state":"stub","store_zip":"stub","store_country":"stub","store_tax":"stub","back_link_label":"stub","back_link_url":"https://example.com"}'),
+    }
+    model = SellApp::SdkReplacePersonalizationSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_personalization_settings_request_application_json_round_trip
+    fixture = {
+      "support_email" => 'sdk@example.com',
+      "trustpilot_email" => 'sdk@example.com',
+      "sender_name" => 'stub',
+      "sender_email" => 'sdk@example.com',
+      "store_address" => 'stub',
+      "store_city" => 'stub',
+      "store_state" => 'stub',
+      "store_zip" => 'stub',
+      "store_country" => 'stub',
+      "store_tax" => 'stub',
+      "back_link_label" => 'stub',
+      "back_link_url" => 'https://example.com',
+    }
+    model = SellApp::SdkUpdatePersonalizationSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_personalization_settings_response_value_200_appl_acaf7af74fb55c1f_round_trip
+    fixture = {
+      "support_email" => 'sdk@example.com',
+      "trustpilot_email" => 'sdk@example.com',
+      "sender_name" => 'stub',
+      "sender_email" => 'sdk@example.com',
+      "store_address" => 'stub',
+      "store_city" => 'stub',
+      "store_state" => 'stub',
+      "store_zip" => 'stub',
+      "store_country" => 'stub',
+      "store_tax" => 'stub',
+      "back_link_label" => 'stub',
+      "back_link_url" => 'https://example.com',
+    }
+    model = SellApp::UpdatePersonalizationSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["support_email"], json[:support_email]
+    assert_equal fixture["trustpilot_email"], json[:trustpilot_email]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["sender_email"], json[:sender_email]
+    assert_equal fixture["store_address"], json[:store_address]
+    assert_equal fixture["store_city"], json[:store_city]
+    assert_equal fixture["store_state"], json[:store_state]
+    assert_equal fixture["store_zip"], json[:store_zip]
+    assert_equal fixture["store_country"], json[:store_country]
+    assert_equal fixture["store_tax"], json[:store_tax]
+    assert_equal fixture["back_link_label"], json[:back_link_label]
+    assert_equal fixture["back_link_url"], json[:back_link_url]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_personalization_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"support_email":"sdk@example.com","trustpilot_email":"sdk@example.com","sender_name":"stub","sender_email":"sdk@example.com","store_address":"stub","store_city":"stub","store_state":"stub","store_zip":"stub","store_country":"stub","store_tax":"stub","back_link_label":"stub","back_link_url":"https://example.com"}'),
+    }
+    model = SellApp::SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_crypto_checkout_settings_request_application_json_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::SdkReplaceCryptoCheckoutSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_crypto_checkout_settings_response_value_200_app_7e3019285ef78c1d_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::ReplaceCryptoCheckoutSettingsResponseValue200ApplicationJsonPropertyDataPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_crypto_checkout_settings_response_value_200_app_c5251fd7e09aa145_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::ReplaceCryptoCheckoutSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["shopping_cart_enabled"], json[:shopping_cart_enabled]
+    assert_equal fixture["customer_email_required"], json[:customer_email_required]
+    assert_equal fixture["allow_vpn_purchases"], json[:allow_vpn_purchases]
+    assert_equal fixture["blacklist_on_dispute"], json[:blacklist_on_dispute]
+    assert_equal fixture["minimum_spend"], json[:minimum_spend]
+    assert_equal fixture["billing_descriptor"], json[:billing_descriptor]
+    assert_equal fixture["attempts_per_customer"], json[:attempts_per_customer]
+    assert_equal fixture["attempts_per_ip"], json[:attempts_per_ip]
+    assert_equal fixture["attempts_per_email"], json[:attempts_per_email]
+    assert_equal fixture["attempts_per_fingerprint"], json[:attempts_per_fingerprint]
+    assert_equal fixture["rate_limit_window_seconds"], json[:rate_limit_window_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_crypto_checkout_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}'),
+    }
+    model = SellApp::SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_crypto_checkout_settings_request_application_json_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::SdkUpdateCryptoCheckoutSettingsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_crypto_checkout_settings_response_value_200_appl_99256e306ec944e6_round_trip
+    fixture = {
+      "underpaid_percentage" => 0,
+      "minimum_confirmations" => 1,
+    }
+    model = SellApp::UpdateCryptoCheckoutSettingsResponseValue200ApplicationJsonPropertyDataPropertyCrypto.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["underpaid_percentage"], json[:underpaid_percentage]
+    assert_equal fixture["minimum_confirmations"], json[:minimum_confirmations]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_crypto_checkout_settings_response_value_200_appl_707df2129db82ede_round_trip
+    fixture = {
+      "shopping_cart_enabled" => true,
+      "customer_email_required" => true,
+      "allow_vpn_purchases" => true,
+      "blacklist_on_dispute" => true,
+      "minimum_spend" => '1.00',
+      "billing_descriptor" => 'stub',
+      "attempts_per_customer" => 1,
+      "attempts_per_ip" => 1,
+      "attempts_per_email" => 1,
+      "attempts_per_fingerprint" => 1,
+      "rate_limit_window_seconds" => 60,
+      "crypto" => JSON.parse('{"underpaid_percentage":0,"minimum_confirmations":1}'),
+    }
+    model = SellApp::UpdateCryptoCheckoutSettingsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["shopping_cart_enabled"], json[:shopping_cart_enabled]
+    assert_equal fixture["customer_email_required"], json[:customer_email_required]
+    assert_equal fixture["allow_vpn_purchases"], json[:allow_vpn_purchases]
+    assert_equal fixture["blacklist_on_dispute"], json[:blacklist_on_dispute]
+    assert_equal fixture["minimum_spend"], json[:minimum_spend]
+    assert_equal fixture["billing_descriptor"], json[:billing_descriptor]
+    assert_equal fixture["attempts_per_customer"], json[:attempts_per_customer]
+    assert_equal fixture["attempts_per_ip"], json[:attempts_per_ip]
+    assert_equal fixture["attempts_per_email"], json[:attempts_per_email]
+    assert_equal fixture["attempts_per_fingerprint"], json[:attempts_per_fingerprint]
+    assert_equal fixture["rate_limit_window_seconds"], json[:rate_limit_window_seconds]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_crypto_checkout_settings_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}'),
+    }
+    model = SellApp::SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_sender_email_response_value_200_application_json_pr_3ae969e61d397528_round_trip
+    fixture = {
+      "email" => 'stub',
+      "verified" => true,
+      "problem" => 'stub',
+    }
+    model = SellApp::GetSenderEmailResponseValue200ApplicationJsonPropertyDataPropertyPending.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_sender_email_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+      "verified" => true,
+      "sender_name" => 'stub',
+      "default_from" => 'sdk@example.com',
+      "customer_emails_from" => 'sdk@example.com',
+      "pending" => JSON.parse('{"email":"stub","verified":true}'),
+    }
+    model = SellApp::GetSenderEmailResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["default_from"], json[:default_from]
+    assert_equal fixture["customer_emails_from"], json[:customer_emails_from]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_sender_email_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"email":"sdk@example.com","verified":true,"sender_name":"stub","default_from":"sdk@example.com","customer_emails_from":"sdk@example.com","pending":{"email":"stub","verified":true}}'),
+    }
+    model = SellApp::SdkGetSenderEmailResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_set_sender_email_request_application_json_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+    }
+    model = SellApp::SdkSetSenderEmailRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_set_sender_email_response_value_200_application_json_pr_b6c26f00d126b41e_round_trip
+    fixture = {
+      "email" => 'stub',
+      "verified" => true,
+      "problem" => 'stub',
+    }
+    model = SellApp::SetSenderEmailResponseValue200ApplicationJsonPropertyDataPropertyPending.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_set_sender_email_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+      "verified" => true,
+      "sender_name" => 'stub',
+      "default_from" => 'sdk@example.com',
+      "customer_emails_from" => 'sdk@example.com',
+      "pending" => JSON.parse('{"email":"stub","verified":true}'),
+    }
+    model = SellApp::SetSenderEmailResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["default_from"], json[:default_from]
+    assert_equal fixture["customer_emails_from"], json[:customer_emails_from]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_set_sender_email_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"email":"sdk@example.com","verified":true,"sender_name":"stub","default_from":"sdk@example.com","customer_emails_from":"sdk@example.com","pending":{"email":"stub","verified":true}}'),
+    }
+    model = SellApp::SdkSetSenderEmailResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_delete_sender_email_response_value_200_application_json_f81ae9a1a17daa3c_round_trip
+    fixture = {
+      "email" => 'stub',
+      "verified" => true,
+      "problem" => 'stub',
+    }
+    model = SellApp::DeleteSenderEmailResponseValue200ApplicationJsonPropertyDataPropertyPending.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_delete_sender_email_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+      "verified" => true,
+      "sender_name" => 'stub',
+      "default_from" => 'sdk@example.com',
+      "customer_emails_from" => 'sdk@example.com',
+      "pending" => JSON.parse('{"email":"stub","verified":true}'),
+    }
+    model = SellApp::DeleteSenderEmailResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["default_from"], json[:default_from]
+    assert_equal fixture["customer_emails_from"], json[:customer_emails_from]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_delete_sender_email_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"email":"sdk@example.com","verified":true,"sender_name":"stub","default_from":"sdk@example.com","customer_emails_from":"sdk@example.com","pending":{"email":"stub","verified":true}}'),
+    }
+    model = SellApp::SdkDeleteSenderEmailResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_send_sender_email_verification_request_application_json_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+    }
+    model = SellApp::SdkSendSenderEmailVerificationRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_send_sender_email_verification_response_value_200_appli_4c90324138d0604d_round_trip
+    fixture = {
+      "email" => 'stub',
+      "verified" => true,
+      "problem" => 'stub',
+    }
+    model = SellApp::SendSenderEmailVerificationResponseValue200ApplicationJsonPropertyDataPropertyPending.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["verified"], json[:verified]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_send_sender_email_verification_response_value_200_appli_c27ee01285901391_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+      "verified" => true,
+      "sender_name" => 'stub',
+      "default_from" => 'sdk@example.com',
+      "customer_emails_from" => 'sdk@example.com',
+      "pending" => JSON.parse('{"email":"stub","verified":true}'),
+    }
+    model = SellApp::SendSenderEmailVerificationResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["verified"], json[:verified]
+    assert_equal fixture["sender_name"], json[:sender_name]
+    assert_equal fixture["default_from"], json[:default_from]
+    assert_equal fixture["customer_emails_from"], json[:customer_emails_from]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_send_sender_email_verification_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"verified":true,"sender_name":"stub","default_from":"sdk@example.com","customer_emails_from":"sdk@example.com","pending":{"email":"stub","verified":true}}'),
+    }
+    model = SellApp::SdkSendSenderEmailVerificationResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_store_integrations_response_value_200_application_j_ff4bde9b0869eae8_round_trip
+    fixture = {
+      "connected" => true,
+      "available" => true,
+      "connection_id" => 1,
+      "account" => 'stub',
+      "calendar" => 'stub',
+      "health" => 'healthy',
+      "connected_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::GetStoreIntegrationsResponseValue200ApplicationJsonPropertyDataPropertyGoogleCalendar.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["connected"], json[:connected]
+    assert_equal fixture["available"], json[:available]
+    assert_equal fixture["connection_id"], json[:connection_id]
+    assert_equal fixture["account"], json[:account]
+    assert_equal fixture["calendar"], json[:calendar]
+    assert_equal fixture["connected_at"], json[:connected_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_store_integrations_response_value_200_application_j_c596de5ed55a1f8e_round_trip
+    fixture = {
+      "configured" => true,
+    }
+    model = SellApp::GetStoreIntegrationsResponseValue200ApplicationJsonPropertyDataPropertyCrisp.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["configured"], json[:configured]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_store_integrations_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "google_calendar" => JSON.parse('{"connected":true,"available":true,"connection_id":1,"account":"stub","calendar":"stub","health":"healthy","connected_at":"2024-01-01T00:00:00Z"}'),
+      "crisp" => JSON.parse('{"configured":true}'),
+    }
+    model = SellApp::GetStoreIntegrationsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_store_integrations_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"google_calendar":{"connected":true,"available":true,"connection_id":1,"account":"stub","calendar":"stub","health":"healthy","connected_at":"2024-01-01T00:00:00Z"},"crisp":{"configured":true}}'),
+    }
+    model = SellApp::SdkGetStoreIntegrationsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_disconnect_google_calendar_response_value_200_applicati_a7b649a3e114369d_round_trip
+    fixture = {
+      "connected" => true,
+      "available" => true,
+      "connection_id" => 1,
+      "account" => 'stub',
+      "calendar" => 'stub',
+      "health" => 'healthy',
+      "connected_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::DisconnectGoogleCalendarResponseValue200ApplicationJsonPropertyDataPropertyGoogleCalendar.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["connected"], json[:connected]
+    assert_equal fixture["available"], json[:available]
+    assert_equal fixture["connection_id"], json[:connection_id]
+    assert_equal fixture["account"], json[:account]
+    assert_equal fixture["calendar"], json[:calendar]
+    assert_equal fixture["connected_at"], json[:connected_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_disconnect_google_calendar_response_value_200_applicati_657631a63e0f8301_round_trip
+    fixture = {
+      "configured" => true,
+    }
+    model = SellApp::DisconnectGoogleCalendarResponseValue200ApplicationJsonPropertyDataPropertyCrisp.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["configured"], json[:configured]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_disconnect_google_calendar_response_value_200_applicati_3e1db773932fa158_round_trip
+    fixture = {
+      "google_calendar" => JSON.parse('{"connected":true,"available":true,"connection_id":1,"account":"stub","calendar":"stub","health":"healthy","connected_at":"2024-01-01T00:00:00Z"}'),
+      "crisp" => JSON.parse('{"configured":true}'),
+    }
+    model = SellApp::DisconnectGoogleCalendarResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_disconnect_google_calendar_response_value_200_applicati_f1f85631e88a11bd_round_trip
+    fixture = {
+      "products_without_video_link" => JSON.parse('[]'),
+    }
+    model = SellApp::DisconnectGoogleCalendarResponseValue200ApplicationJsonPropertyMeta.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_disconnect_google_calendar_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"google_calendar":{"connected":true,"available":true,"connection_id":1,"account":"stub","calendar":"stub","health":"healthy","connected_at":"2024-01-01T00:00:00Z"},"crisp":{"configured":true}}'),
+      "meta" => JSON.parse('{"products_without_video_link":[]}'),
+    }
+    model = SellApp::SdkDisconnectGoogleCalendarResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_list_notification_channels_response_value_200_applicati_c5260e8b9c918a09_round_trip
     fixture = {
       "id" => '00000000-0000-4000-8000-000000000000',

@@ -235,4 +235,55 @@ class CashbackRulesModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_quote_cashback_rule_response_value_200_application_json_f05b8fb0539681f1_round_trip
+    fixture = {
+      "id" => 1,
+      "percent_basis" => 1,
+      "maximum_cashback_cents" => 1,
+      "is_active" => true,
+      "product_ids" => JSON.parse('[]'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "deleted_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::QuoteCashbackRuleResponseValue200ApplicationJsonPropertyDataPropertyMatchingRule.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["percent_basis"], json[:percent_basis]
+    assert_equal fixture["maximum_cashback_cents"], json[:maximum_cashback_cents]
+    assert_equal fixture["is_active"], json[:is_active]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_quote_cashback_rule_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "product_id" => 1,
+      "purchase_cents" => 1,
+      "eligible" => true,
+      "cashback_cents" => 0,
+      "reason" => 'stub',
+      "matching_rule" => JSON.parse('{"id":1,"percent_basis":1,"maximum_cashback_cents":1,"is_active":true,"product_ids":[]}'),
+    }
+    model = SellApp::QuoteCashbackRuleResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["purchase_cents"], json[:purchase_cents]
+    assert_equal fixture["eligible"], json[:eligible]
+    assert_equal fixture["cashback_cents"], json[:cashback_cents]
+    assert_equal fixture["reason"], json[:reason]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_quote_cashback_rule_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"product_id":1,"purchase_cents":1,"eligible":true,"cashback_cents":0,"reason":"stub","matching_rule":{"id":1,"percent_basis":1,"maximum_cashback_cents":1,"is_active":true,"product_ids":[]}}'),
+    }
+    model = SellApp::SdkQuoteCashbackRuleResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

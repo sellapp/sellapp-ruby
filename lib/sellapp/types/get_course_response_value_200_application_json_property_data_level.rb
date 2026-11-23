@@ -4,12 +4,6 @@
 
 module SellApp
   module Types
-    class GetCourseResponseValue200ApplicationJsonPropertyDataLevel
-      ALL_LEVELS = 'all_levels'
-      BEGINNER = 'beginner'
-      INTERMEDIATE = 'intermediate'
-      ADVANCED = 'advanced'
-      ALL = [ALL_LEVELS, BEGINNER, INTERMEDIATE, ADVANCED].freeze
-    end
+    GetCourseResponseValue200ApplicationJsonPropertyDataLevel = CreateCourseResponseValue201ApplicationJsonPropertyDataLevel
   end
 end

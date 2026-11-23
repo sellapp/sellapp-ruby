@@ -2753,13 +2753,14 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "type" => 'PERCENTAGE',
       "discount" => 1,
       "store_wide" => true,
-      "products" => JSON.parse('[1]'),
+      "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
       "applies_to" => 'one_time',
       "subscription_payments" => 1,
+      "maximum_discount_amount" => 1,
     }
     model = SellApp::SdkV2CreateCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3003,13 +3004,14 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "type" => 'PERCENTAGE',
       "discount" => 1,
       "store_wide" => true,
-      "products" => JSON.parse('[1]'),
+      "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
       "applies_to" => 'one_time',
       "subscription_payments" => 1,
+      "maximum_discount_amount" => 1,
     }
     model = SellApp::SdkV2ReplaceCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3072,13 +3074,14 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "type" => 'PERCENTAGE',
       "discount" => 1,
       "store_wide" => true,
-      "products" => JSON.parse('[1]'),
+      "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
       "applies_to" => 'one_time',
       "subscription_payments" => 1,
+      "maximum_discount_amount" => 1,
     }
     model = SellApp::SdkV2UpdateCouponRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3190,13 +3193,14 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "type" => 'PERCENTAGE',
       "discount" => 1,
       "store_wide" => true,
-      "products" => JSON.parse('[1]'),
+      "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
       "applies_to" => 'one_time',
       "subscription_payments" => 1,
+      "maximum_discount_amount" => 1,
     }
     model = SellApp::V2BatchCreateCouponsRequestApplicationJsonPropertyResourcesItem.new(fixture.to_json)
     json = model.to_h
@@ -3271,13 +3275,14 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "type" => 'PERCENTAGE',
       "discount" => 1,
       "store_wide" => true,
-      "products" => JSON.parse('[1]'),
+      "products" => JSON.parse('[]'),
       "product_variants" => JSON.parse('[]'),
       "limit" => 1,
       "expires_at" => '2024-01-01T00:00:00Z',
       "minimum_amount" => 1,
       "applies_to" => 'one_time',
       "subscription_payments" => 1,
+      "maximum_discount_amount" => 1,
     }
     model = SellApp::V2BatchUpdateCouponsRequestApplicationJsonPropertyResourcesMapValue.new(fixture.to_json)
     json = model.to_h
@@ -4657,6 +4662,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "sort" => JSON.parse('[]'),
       "search" => JSON.parse('{}'),
       "includes" => JSON.parse('[]'),
+      "reply_state" => 'all',
     }
     model = SellApp::SdkV2SearchFeedbackRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -5072,6 +5078,9 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "sort" => JSON.parse('[]'),
       "search" => JSON.parse('{}'),
       "includes" => JSON.parse('[]'),
+      "waiting_on" => 'store',
+      "reason" => 'stub',
+      "customer_email" => 'stub',
     }
     model = SellApp::SdkV2SearchTicketsRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -5253,6 +5262,7 @@ class BlacklistsModelRoundTripTest < Minitest::Test
     fixture = {
       "status" => 'OPEN',
       "archived" => true,
+      "outcome" => 'refunded',
     }
     model = SellApp::SdkUpdateTicketRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -5571,6 +5581,617 @@ class BlacklistsModelRoundTripTest < Minitest::Test
       "data" => JSON.parse('{"id":1,"author":"stub","sender":"stub","content":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","ticket_id":1}'),
     }
     model = SellApp::SdkV2GetTicketMessageResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_coupon_usage_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "coupon_id" => 1,
+      "uses" => 0,
+    }
+    model = SellApp::V2GetCouponUsageResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["coupon_id"], json[:coupon_id]
+    assert_equal fixture["uses"], json[:uses]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_get_coupon_usage_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"coupon_id":1,"uses":0}'),
+    }
+    model = SellApp::SdkV2GetCouponUsageResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_batch_update_tickets_request_application_json_round_trip
+    fixture = {
+      "action" => 'close',
+      "outcome" => 'refunded',
+      "resources" => JSON.parse('[1]'),
+    }
+    model = SellApp::SdkBatchUpdateTicketsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_batch_update_tickets_response_value_200_application_jso_a2782dbd076ea9c2_round_trip
+    fixture = {
+      "id" => 1,
+      "email" => 'sdk@example.com',
+    }
+    model = SellApp::BatchUpdateTicketsResponseValue200ApplicationJsonPropertyDataItemPropertyTicketValuePropertyCustomer.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_batch_update_tickets_response_value_200_application_jso_1694ddb04609770b_round_trip
+    fixture = {
+      "type" => 'product',
+      "id" => 1,
+    }
+    model = SellApp::BatchUpdateTicketsResponseValue200ApplicationJsonPropertyDataItemPropertyTicketValuePropertyReference.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_batch_update_tickets_response_value_200_application_jso_ec4b6fe34186d619_round_trip
+    fixture = {
+      "customer" => true,
+      "store" => true,
+    }
+    model = SellApp::BatchUpdateTicketsResponseValue200ApplicationJsonPropertyDataItemPropertyTicketValuePropertyReadStatus.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["customer"], json[:customer]
+    assert_equal fixture["store"], json[:store]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_batch_update_tickets_response_value_200_application_jso_4fd663bd82052536_round_trip
+    fixture = {
+      "id" => 1,
+      "title" => 'stub',
+      "status" => 'stub',
+      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com"}'),
+      "reference" => JSON.parse('{"type":"product","id":1}'),
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "store_id" => 1,
+      "archived" => 1,
+      "read_status" => JSON.parse('{"customer":true,"store":true}'),
+      "order_id" => 1,
+      "reason" => 'stub',
+      "message_count" => 0,
+    }
+    model = SellApp::BatchUpdateTicketsResponseValue200ApplicationJsonPropertyDataItemPropertyTicket.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["title"], json[:title]
+    assert_equal fixture["status"], json[:status]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["store_id"], json[:store_id]
+    assert_equal fixture["archived"], json[:archived]
+    assert_equal fixture["order_id"], json[:order_id]
+    assert_equal fixture["reason"], json[:reason]
+    assert_equal fixture["message_count"], json[:message_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_batch_update_tickets_response_value_200_application_jso_d676e67d522d2c50_round_trip
+    fixture = {
+      "ticket_id" => 1,
+      "result" => 'changed',
+      "message" => 'stub',
+      "ticket" => JSON.parse('{"id":1,"title":"stub","status":"stub","customer":{"id":1,"email":"sdk@example.com"},"reference":{"type":"product","id":1},"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"archived":1,"read_status":{"customer":true,"store":true},"order_id":1,"reason":"stub","message_count":0}'),
+    }
+    model = SellApp::BatchUpdateTicketsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["ticket_id"], json[:ticket_id]
+    assert_equal fixture["message"], json[:message]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_batch_update_tickets_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkBatchUpdateTicketsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_2dde7ba9ad1a95a8_round_trip
+    fixture = {
+      "outcome" => 'refunded',
+      "resolved_at" => '2024-01-01T00:00:00Z',
+      "resolved_by_rule_id" => 1,
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyResolution.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["resolved_at"], json[:resolved_at]
+    assert_equal fixture["resolved_by_rule_id"], json[:resolved_by_rule_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_8530a9f654b6a2b3_round_trip
+    fixture = {
+      "email" => 'sdk@example.com',
+      "completed_orders" => 0,
+      "lifetime_spend_usd_cents" => 0,
+      "first_order_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyCustomer.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["completed_orders"], json[:completed_orders]
+    assert_equal fixture["lifetime_spend_usd_cents"], json[:lifetime_spend_usd_cents]
+    assert_equal fixture["first_order_at"], json[:first_order_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_dea775f1f418e638_round_trip
+    fixture = {
+      "id" => 1,
+      "product_title" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyLinkedOrder.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_title"], json[:product_title]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_604b3fe67aafacd7_round_trip
+    fixture = {
+      "invoice_id" => 1,
+      "order_id" => 1,
+      "product_id" => 1,
+      "product_title" => 'stub',
+      "currency" => 'USD',
+      "paid_cents" => 0,
+      "active_support_refunds_cents" => 0,
+      "refundable_cents" => 0,
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyRefundOptionsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["order_id"], json[:order_id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["product_title"], json[:product_title]
+    assert_equal fixture["paid_cents"], json[:paid_cents]
+    assert_equal fixture["active_support_refunds_cents"], json[:active_support_refunds_cents]
+    assert_equal fixture["refundable_cents"], json[:refundable_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_c68cc8ea3593603c_round_trip
+    fixture = {
+      "id" => 1,
+      "name" => 'stub',
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyActivityItemPropertyRule.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["name"], json[:name]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_18a0dff15c8d766c_round_trip
+    fixture = {
+      "id" => 1,
+      "amount_usd_cents" => 1,
+      "reversed" => true,
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyActivityItemPropertyWalletEntry.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["amount_usd_cents"], json[:amount_usd_cents]
+    assert_equal fixture["reversed"], json[:reversed]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_j_ed982be82ec86b50_round_trip
+    fixture = {
+      "id" => 1,
+      "event" => 'refund_issued',
+      "actor_type" => 'stub',
+      "rule" => JSON.parse('{"id":1,"name":"stub"}'),
+      "wallet_entry" => JSON.parse('{"id":1,"amount_usd_cents":1,"reversed":true}'),
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyDataPropertyActivityItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["actor_type"], json[:actor_type]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_get_ticket_context_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "ticket_id" => 1,
+      "resolution" => JSON.parse('{"outcome":"refunded","resolved_at":"2024-01-01T00:00:00Z","resolved_by_rule_id":1}'),
+      "customer" => JSON.parse('{"email":"sdk@example.com","completed_orders":0,"lifetime_spend_usd_cents":0,"first_order_at":"2024-01-01T00:00:00Z"}'),
+      "linked_order" => JSON.parse('{"id":1,"product_title":"stub","created_at":"2024-01-01T00:00:00Z"}'),
+      "refund_options" => JSON.parse('[]'),
+      "activity" => JSON.parse('[]'),
+    }
+    model = SellApp::V2GetTicketContextResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["ticket_id"], json[:ticket_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_get_ticket_context_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"ticket_id":1,"resolution":{"outcome":"refunded","resolved_at":"2024-01-01T00:00:00Z","resolved_by_rule_id":1},"customer":{"email":"sdk@example.com","completed_orders":0,"lifetime_spend_usd_cents":0,"first_order_at":"2024-01-01T00:00:00Z"},"linked_order":{"id":1,"product_title":"stub","created_at":"2024-01-01T00:00:00Z"},"refund_options":[],"activity":[]}'),
+    }
+    model = SellApp::SdkV2GetTicketContextResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_list_ticket_wallet_refund_options_response_value_20_3da8825169bbd6f0_round_trip
+    fixture = {
+      "invoice_id" => 1,
+      "order_id" => 1,
+      "product_id" => 1,
+      "product_title" => 'stub',
+      "currency" => 'USD',
+      "paid_cents" => 0,
+      "active_support_refunds_cents" => 0,
+      "refundable_cents" => 0,
+    }
+    model = SellApp::V2ListTicketWalletRefundOptionsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["order_id"], json[:order_id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["product_title"], json[:product_title]
+    assert_equal fixture["paid_cents"], json[:paid_cents]
+    assert_equal fixture["active_support_refunds_cents"], json[:active_support_refunds_cents]
+    assert_equal fixture["refundable_cents"], json[:refundable_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_list_ticket_wallet_refund_options_response_valu_9fdb74361e748a76_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkV2ListTicketWalletRefundOptionsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_list_ticket_wallet_refunds_response_value_200_appli_4db753a947a32da4_round_trip
+    fixture = {
+      "id" => 1,
+      "amount_cents" => 1,
+      "balance_after_cents" => 1,
+      "reason" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2ListTicketWalletRefundsResponseValue200ApplicationJsonPropertyDataItemPropertyReversal.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["reason"], json[:reason]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_list_ticket_wallet_refunds_response_value_200_appli_bfffb6abfdaee2bd_round_trip
+    fixture = {
+      "id" => 1,
+      "ticket_id" => 1,
+      "invoice_id" => 1,
+      "customer_id" => 1,
+      "amount_cents" => 1,
+      "currency" => 'USD',
+      "balance_after_cents" => 1,
+      "customer_note" => 'stub',
+      "automatic" => true,
+      "reversed" => true,
+      "reversal" => JSON.parse('{"id":1,"amount_cents":1,"balance_after_cents":1,"reason":"stub","created_at":"2024-01-01T00:00:00Z"}'),
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2ListTicketWalletRefundsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["ticket_id"], json[:ticket_id]
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["customer_note"], json[:customer_note]
+    assert_equal fixture["automatic"], json[:automatic]
+    assert_equal fixture["reversed"], json[:reversed]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_list_ticket_wallet_refunds_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkV2ListTicketWalletRefundsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_refund_ticket_to_wallet_request_application_json_round_trip
+    fixture = {
+      "invoice_id" => 1,
+      "amount_cents" => 1,
+      "expected_refundable_cents" => 0,
+      "customer_note" => 'stubxx',
+    }
+    model = SellApp::SdkV2RefundTicketToWalletRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["expected_refundable_cents"], json[:expected_refundable_cents]
+    assert_equal fixture["customer_note"], json[:customer_note]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_refund_ticket_to_wallet_response_value_201_applicat_f0a49887b854be30_round_trip
+    fixture = {
+      "id" => 1,
+      "amount_cents" => 1,
+      "balance_after_cents" => 1,
+      "reason" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2RefundTicketToWalletResponseValue201ApplicationJsonPropertyDataPropertyReversal.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["reason"], json[:reason]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_refund_ticket_to_wallet_response_value_201_applicat_b495e16ac355e6f4_round_trip
+    fixture = {
+      "id" => 1,
+      "ticket_id" => 1,
+      "invoice_id" => 1,
+      "customer_id" => 1,
+      "amount_cents" => 1,
+      "currency" => 'USD',
+      "balance_after_cents" => 1,
+      "customer_note" => 'stub',
+      "automatic" => true,
+      "reversed" => true,
+      "reversal" => JSON.parse('{"id":1,"amount_cents":1,"balance_after_cents":1,"reason":"stub","created_at":"2024-01-01T00:00:00Z"}'),
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2RefundTicketToWalletResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["ticket_id"], json[:ticket_id]
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["customer_note"], json[:customer_note]
+    assert_equal fixture["automatic"], json[:automatic]
+    assert_equal fixture["reversed"], json[:reversed]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_refund_ticket_to_wallet_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"ticket_id":1,"invoice_id":1,"customer_id":1,"amount_cents":1,"currency":"USD","balance_after_cents":1,"customer_note":"stub","automatic":true,"reversed":true,"reversal":{"id":1,"amount_cents":1,"balance_after_cents":1,"reason":"stub","created_at":"2024-01-01T00:00:00Z"},"created_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkV2RefundTicketToWalletResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_reverse_ticket_wallet_refund_request_application_json_round_trip
+    fixture = {
+      "reason" => 'stubxx',
+    }
+    model = SellApp::SdkV2ReverseTicketWalletRefundRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["reason"], json[:reason]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_reverse_ticket_wallet_refund_response_value_200_app_408a5fa533a2a87a_round_trip
+    fixture = {
+      "id" => 1,
+      "amount_cents" => 1,
+      "balance_after_cents" => 1,
+      "reason" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2ReverseTicketWalletRefundResponseValue200ApplicationJsonPropertyDataPropertyReversal.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["reason"], json[:reason]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_v_2_reverse_ticket_wallet_refund_response_value_200_app_ba9228bdda1c6bae_round_trip
+    fixture = {
+      "id" => 1,
+      "ticket_id" => 1,
+      "invoice_id" => 1,
+      "customer_id" => 1,
+      "amount_cents" => 1,
+      "currency" => 'USD',
+      "balance_after_cents" => 1,
+      "customer_note" => 'stub',
+      "automatic" => true,
+      "reversed" => true,
+      "reversal" => JSON.parse('{"id":1,"amount_cents":1,"balance_after_cents":1,"reason":"stub","created_at":"2024-01-01T00:00:00Z"}'),
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::V2ReverseTicketWalletRefundResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["ticket_id"], json[:ticket_id]
+    assert_equal fixture["invoice_id"], json[:invoice_id]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["customer_note"], json[:customer_note]
+    assert_equal fixture["automatic"], json[:automatic]
+    assert_equal fixture["reversed"], json[:reversed]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_v_2_reverse_ticket_wallet_refund_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"ticket_id":1,"invoice_id":1,"customer_id":1,"amount_cents":1,"currency":"USD","balance_after_cents":1,"customer_note":"stub","automatic":true,"reversed":true,"reversal":{"id":1,"amount_cents":1,"balance_after_cents":1,"reason":"stub","created_at":"2024-01-01T00:00:00Z"},"created_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkV2ReverseTicketWalletRefundResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_support_analytics_response_value_200_application_js_9aed32215996653b_round_trip
+    fixture = {
+      "tickets_received" => 0,
+      "tickets_resolved" => 0,
+      "auto_closures" => 0,
+      "manual_closures" => 0,
+      "support_wallet_credit_cents" => 0,
+      "auto_wallet_credit_cents" => 0,
+      "warning_count" => 0,
+    }
+    model = SellApp::GetSupportAnalyticsResponseValue200ApplicationJsonPropertyDataPropertySummary.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["tickets_received"], json[:tickets_received]
+    assert_equal fixture["tickets_resolved"], json[:tickets_resolved]
+    assert_equal fixture["auto_closures"], json[:auto_closures]
+    assert_equal fixture["manual_closures"], json[:manual_closures]
+    assert_equal fixture["support_wallet_credit_cents"], json[:support_wallet_credit_cents]
+    assert_equal fixture["auto_wallet_credit_cents"], json[:auto_wallet_credit_cents]
+    assert_equal fixture["warning_count"], json[:warning_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_support_analytics_response_value_200_application_js_2f3f714db92582dc_round_trip
+    fixture = {
+      "rule_id" => 1,
+      "rule_name" => 'stub',
+      "matches" => 0,
+      "closures" => 0,
+      "wallet_credit_cents" => 0,
+      "warning_count" => 0,
+    }
+    model = SellApp::GetSupportAnalyticsResponseValue200ApplicationJsonPropertyDataPropertyRulesItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["rule_id"], json[:rule_id]
+    assert_equal fixture["rule_name"], json[:rule_name]
+    assert_equal fixture["matches"], json[:matches]
+    assert_equal fixture["closures"], json[:closures]
+    assert_equal fixture["wallet_credit_cents"], json[:wallet_credit_cents]
+    assert_equal fixture["warning_count"], json[:warning_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_support_analytics_response_value_200_application_js_756fff4705330740_round_trip
+    fixture = {
+      "id" => 1,
+      "event" => 'stub',
+      "ticket_id" => 1,
+      "rule_id" => 1,
+      "actor_type" => 'stub',
+      "wallet_credit_cents" => 1,
+      "wallet_credit_reversed" => true,
+      "reason" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::GetSupportAnalyticsResponseValue200ApplicationJsonPropertyDataPropertyRecentActivityItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["event"], json[:event]
+    assert_equal fixture["ticket_id"], json[:ticket_id]
+    assert_equal fixture["rule_id"], json[:rule_id]
+    assert_equal fixture["actor_type"], json[:actor_type]
+    assert_equal fixture["wallet_credit_cents"], json[:wallet_credit_cents]
+    assert_equal fixture["wallet_credit_reversed"], json[:wallet_credit_reversed]
+    assert_equal fixture["reason"], json[:reason]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_support_analytics_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "range" => '7d',
+      "start_at" => '2024-01-01T00:00:00Z',
+      "end_at" => '2024-01-01T00:00:00Z',
+      "currency" => 'USD',
+      "summary" => JSON.parse('{"tickets_received":0,"tickets_resolved":0,"auto_closures":0,"manual_closures":0,"support_wallet_credit_cents":0,"auto_wallet_credit_cents":0,"warning_count":0}'),
+      "rules" => JSON.parse('[]'),
+      "recent_activity" => JSON.parse('[]'),
+    }
+    model = SellApp::GetSupportAnalyticsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["start_at"], json[:start_at]
+    assert_equal fixture["end_at"], json[:end_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_support_analytics_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"range":"7d","start_at":"2024-01-01T00:00:00Z","end_at":"2024-01-01T00:00:00Z","currency":"USD","summary":{"tickets_received":0,"tickets_resolved":0,"auto_closures":0,"manual_closures":0,"support_wallet_credit_cents":0,"auto_wallet_credit_cents":0,"warning_count":0},"rules":[],"recent_activity":[]}'),
+    }
+    model = SellApp::SdkGetSupportAnalyticsResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }

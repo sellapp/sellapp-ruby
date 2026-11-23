@@ -9,11 +9,15 @@ List exports
 [API reference](https://sell.app/docs/api/exports) · Effect: **read**
 
 ```ruby
-def list_exports(request_options: {})
+def list_exports(
+      page: 1,
+      request_options: {}
+    )
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| page | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

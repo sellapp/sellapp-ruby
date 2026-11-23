@@ -10,7 +10,9 @@ module SellApp
       subtotal: :subtotal,
       expires_at: :expires_at,
       full_price: :full_price,
-      original_amount: :original_amount
+      original_amount: :original_amount,
+      refund_currency: :refund_currency,
+      refunded_total_cents: :refunded_total_cents
     }.freeze
 
     SCHEMA = {
@@ -19,7 +21,9 @@ module SellApp
       subtotal: {required: true, schema: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertySubtotal"}},
       expires_at: {required: true, schema: {kind: :string, format: "date-time"}},
       full_price: {required: true, schema: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyFullPrice"}},
-      original_amount: {required: true, schema: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyOriginalAmount"}}
+      original_amount: {required: true, schema: {kind: :model, name: "SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyOriginalAmount"}},
+      refund_currency: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
+      refunded_total_cents: {required: true, schema: {kind: :integer, minimum: 0}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -30,7 +34,9 @@ module SellApp
       :subtotal,
       :expires_at,
       :full_price,
-      :original_amount
+      :original_amount,
+      :refund_currency,
+      :refunded_total_cents
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -43,6 +49,8 @@ module SellApp
       @expires_at = hash[:expires_at]
       @full_price = hash[:full_price] ? SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyFullPrice.new(hash[:full_price]) : nil
       @original_amount = hash[:original_amount] ? SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPaymentPropertyOriginalAmount.new(hash[:original_amount]) : nil
+      @refund_currency = hash[:refund_currency]
+      @refunded_total_cents = hash[:refunded_total_cents]
     end
   end
 end

@@ -21,6 +21,12 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def expected_status=(value); end
 
+    sig { returns(T.nilable(T::Boolean)) }
+    def payment_received; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def payment_received=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

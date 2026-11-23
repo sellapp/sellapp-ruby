@@ -8,14 +8,20 @@ module SellApp
       filters: :filters,
       sort: :sort,
       search: :search,
-      includes: :includes
+      includes: :includes,
+      waiting_on: :waiting_on,
+      reason: :reason,
+      customer_email: :customer_email
     }.freeze
 
     SCHEMA = {
       filters: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchTicketsRequestApplicationJsonPropertyFiltersItem"}}},
       sort: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchTicketsRequestApplicationJsonPropertySortItem"}}},
       search: {required: false, schema: {kind: :model, name: "SellApp::V2SearchTicketsRequestApplicationJsonPropertySearch"}},
-      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem"}}}
+      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem"}}},
+      waiting_on: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["store", "customer", "null"]}}},
+      reason: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 150}}},
+      customer_email: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 255}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -24,7 +30,10 @@ module SellApp
       :filters,
       :sort,
       :search,
-      :includes
+      :includes,
+      :waiting_on,
+      :reason,
+      :customer_email
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -35,6 +44,9 @@ module SellApp
       @sort = hash[:sort] ? hash[:sort].map { |item| item ? SellApp::V2SearchTicketsRequestApplicationJsonPropertySortItem.new(item) : nil } : nil
       @search = hash[:search] ? SellApp::V2SearchTicketsRequestApplicationJsonPropertySearch.new(hash[:search]) : nil
       @includes = hash[:includes] ? hash[:includes].map { |item| item ? SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem.new(item) : nil } : nil
+      @waiting_on = hash[:waiting_on]
+      @reason = hash[:reason]
+      @customer_email = hash[:customer_email]
     end
   end
 end

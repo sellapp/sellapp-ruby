@@ -53,6 +53,20 @@ class CommunityConnectionsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_list_failed_grant_reasons_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/community-connections/failed-grant-reasons(\?|\z)})
+      .to_return(body: '{"data":[]}', status: 200)
+    result = @client.community_connections.list_failed_grant_reasons()
+    refute_nil result
+  end
+
+  def test_sync_discord_roles_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/community-connections/discord/sync-roles(\?|\z)})
+      .to_return(body: '{"data":{"platform":"discord","synced_servers":[],"failed_count":0}}', status: 200)
+    result = @client.community_connections.sync_discord_roles()
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/community-connections(\?|\z)}},
@@ -61,6 +75,8 @@ class CommunityConnectionsTest < Minitest::Test
     {name: :complete, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/community-connections/discord/complete(\?|\z)}, args: {platform: 'discord', status_token: 'stub', server_id: 'stub'}},
     {name: :verify, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/community-connections/discord/verify(\?|\z)}, args: {platform: 'discord'}},
     {name: :disconnect, verb: :delete, url: %r{\Ahttps://sell\.app/api/v2/community-connections/discord(\?|\z)}, args: {platform: 'discord'}},
+    {name: :list_failed_grant_reasons, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/community-connections/failed-grant-reasons(\?|\z)}},
+    {name: :sync_discord_roles, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/community-connections/discord/sync-roles(\?|\z)}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

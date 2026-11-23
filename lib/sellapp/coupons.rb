@@ -521,13 +521,14 @@ module SellApp
     # @param type [SellApp::Types::SdkV2CreateCouponRequestApplicationJsonType]
     # @param discount [Float, String] A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.
     # @param store_wide [Boolean]
-    # @param products [Array<Integer>, nil] Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.
+    # @param products [Array<Integer>, nil] Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`. It may be an empty list when the same request sends `store_wide: true`, so a store-wide coupon you read can be sent back unchanged. Otherwise an empty list returns `422` on `products`.
     # @param product_variants [Array<Integer>, nil] Optional variant restrictions. Every variant must belong to a selected product. Products without listed variants remain eligible on all variants. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.
     # @param limit [Integer, nil]
     # @param expires_at [String, nil] A future date and time, or null for no expiry.
     # @param minimum_amount [Float, String, nil] A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.
     # @param applies_to [SellApp::Types::SdkV2CreateCouponRequestApplicationJsonAppliesTo, nil] What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.
     # @param subscription_payments [Integer, nil] How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.
+    # @param maximum_discount_amount [Float, String, nil] The most a percentage coupon takes off one order, as a decimal amount of at least 1 in the major unit of the order's currency, with at most two decimals: `15.50` caps the discount at 15.50. Send null to remove the cap. Only a `PERCENTAGE` coupon can have a cap: sending one for an `AMOUNT` coupon returns `422` on `maximum_discount_amount`, and changing a coupon to `AMOUNT` removes its cap.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkV2CreateCouponResponseValue201ApplicationJson]
     def v2_create_coupon(
@@ -542,6 +543,7 @@ module SellApp
       minimum_amount: SellApp::OMIT,
       applies_to: nil,
       subscription_payments: SellApp::OMIT,
+      maximum_discount_amount: SellApp::OMIT,
       request_options: {}
     )
       body = {
@@ -557,6 +559,7 @@ module SellApp
       body['expires_at'] = expires_at unless expires_at.equal?(SellApp::OMIT)
       body['minimum_amount'] = minimum_amount unless minimum_amount.equal?(SellApp::OMIT)
       body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
+      body['maximum_discount_amount'] = maximum_discount_amount unless maximum_discount_amount.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkV2CreateCouponRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'v2CreateCoupon', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
       response = @client.request(
@@ -579,6 +582,8 @@ module SellApp
     # @param sort [Array<SellApp::V2SearchCouponsRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::V2SearchCouponsRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::V2SearchCouponsRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
     # @param with_trashed [Boolean, nil] Include soft-deleted resources in the result.
     # @param only_trashed [Boolean, nil] Return only soft-deleted resources. Ignored when with_trashed is true.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -588,11 +593,15 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      limit: 15,
+      page: 1,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
     )
       params = {
+        'limit' => limit,
+        'page' => page,
         'with_trashed' => with_trashed,
         'only_trashed' => only_trashed
       }.compact
@@ -602,6 +611,8 @@ module SellApp
         'search' => search,
         'includes' => includes
       }.compact
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(with_trashed, {kind: :boolean}, "$request.with_trashed") unless with_trashed.nil?
       SellApp::Types::BaseModel.validate_value!(only_trashed, {kind: :boolean}, "$request.only_trashed") unless only_trashed.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkV2SearchCouponsRequestApplicationJson"}, "$request.body")
@@ -663,13 +674,14 @@ module SellApp
     # @param type [SellApp::Types::SdkV2ReplaceCouponRequestApplicationJsonType, nil]
     # @param discount [Float, String, nil] A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.
     # @param store_wide [Boolean, nil]
-    # @param products [Array<Integer>, nil] Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.
+    # @param products [Array<Integer>, nil] Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`. It may be an empty list when the same request sends `store_wide: true`, so a store-wide coupon you read can be sent back unchanged. Otherwise an empty list returns `422` on `products`.
     # @param product_variants [Array<Integer>, nil] Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.
     # @param limit [Integer, nil]
     # @param expires_at [String, nil] A future date and time, or null for no expiry.
     # @param minimum_amount [Float, String, nil] A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.
     # @param applies_to [SellApp::Types::SdkV2ReplaceCouponRequestApplicationJsonAppliesTo, nil] What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.
     # @param subscription_payments [Integer, nil] How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.
+    # @param maximum_discount_amount [Float, String, nil] The most a percentage coupon takes off one order, as a decimal amount of at least 1 in the major unit of the order's currency, with at most two decimals: `15.50` caps the discount at 15.50. Send null to remove the cap. Only a `PERCENTAGE` coupon can have a cap: sending one for an `AMOUNT` coupon returns `422` on `maximum_discount_amount`, and changing a coupon to `AMOUNT` removes its cap.
     # @param with_trashed [Boolean, nil] Include soft-deleted resources in the result.
     # @param only_trashed [Boolean, nil] Return only soft-deleted resources. Ignored when with_trashed is true.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -687,6 +699,7 @@ module SellApp
       minimum_amount: SellApp::OMIT,
       applies_to: nil,
       subscription_payments: SellApp::OMIT,
+      maximum_discount_amount: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -708,6 +721,7 @@ module SellApp
       body['expires_at'] = expires_at unless expires_at.equal?(SellApp::OMIT)
       body['minimum_amount'] = minimum_amount unless minimum_amount.equal?(SellApp::OMIT)
       body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
+      body['maximum_discount_amount'] = maximum_discount_amount unless maximum_discount_amount.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(coupon, {kind: :integer}, "$request.coupon")
       SellApp::Types::BaseModel.validate_value!(with_trashed, {kind: :boolean}, "$request.with_trashed") unless with_trashed.nil?
       SellApp::Types::BaseModel.validate_value!(only_trashed, {kind: :boolean}, "$request.only_trashed") unless only_trashed.nil?
@@ -735,13 +749,14 @@ module SellApp
     # @param type [SellApp::Types::SdkV2UpdateCouponRequestApplicationJsonType, nil]
     # @param discount [Float, String, nil] A decimal discount value of at least 1. Percentage discounts cannot exceed 100; amount discounts use the store currency's major unit. A `subscriptions` coupon cannot take 100% off: that returns `422` on `discount`, so offer a free trial instead.
     # @param store_wide [Boolean, nil]
-    # @param products [Array<Integer>, nil] Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`.
+    # @param products [Array<Integer>, nil] Product IDs the coupon applies to when store_wide is false. Each product you add must sell a variant of the coupon's kind: a subscription plan for a `subscriptions` coupon, or a one-time variant for a `one_time` one. Another product returns `422` on `products`. It may be an empty list when the same request sends `store_wide: true`, so a store-wide coupon you read can be sent back unchanged. Otherwise an empty list returns `422` on `products`.
     # @param product_variants [Array<Integer>, nil] Optional variant restrictions. Omit to preserve existing restrictions or send an empty array to allow every variant of the selected products. Each variant you add must be of the coupon's kind, a subscription plan or a one-time variant; another returns `422` on `product_variants`.
     # @param limit [Integer, nil]
     # @param expires_at [String, nil] A future date and time, or null for no expiry.
     # @param minimum_amount [Float, String, nil] A decimal minimum amount in the store currency's major unit that the order lines of the coupon's kind must reach, or null for no minimum.
     # @param applies_to [SellApp::Types::SdkV2UpdateCouponRequestApplicationJsonAppliesTo, nil] What the coupon discounts: `one_time` for one-time purchases, or `subscriptions` for the first payments of a subscription plan. A new coupon defaults to `one_time`, and an update that leaves this out keeps the current kind. The coupon only discounts order lines of its kind.
     # @param subscription_payments [Integer, nil] How many payments a `subscriptions` coupon discounts, counting the signup payment as the first, so `3` discounts the signup and the next two renewals. A `subscriptions` coupon needs one, and an update that leaves it out keeps the stored number. Missing on a `subscriptions` coupon, or outside 1 to 36, it returns `422` on `subscription_payments` with `The number of discounted payments must be between 1 and 36.` A `one_time` coupon always stores null here.
+    # @param maximum_discount_amount [Float, String, nil] The most a percentage coupon takes off one order, as a decimal amount of at least 1 in the major unit of the order's currency, with at most two decimals: `15.50` caps the discount at 15.50. Send null to remove the cap. Only a `PERCENTAGE` coupon can have a cap: sending one for an `AMOUNT` coupon returns `422` on `maximum_discount_amount`, and changing a coupon to `AMOUNT` removes its cap.
     # @param with_trashed [Boolean, nil] Include soft-deleted resources in the result.
     # @param only_trashed [Boolean, nil] Return only soft-deleted resources. Ignored when with_trashed is true.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -759,6 +774,7 @@ module SellApp
       minimum_amount: SellApp::OMIT,
       applies_to: nil,
       subscription_payments: SellApp::OMIT,
+      maximum_discount_amount: SellApp::OMIT,
       with_trashed: false,
       only_trashed: false,
       request_options: {}
@@ -780,6 +796,7 @@ module SellApp
       body['expires_at'] = expires_at unless expires_at.equal?(SellApp::OMIT)
       body['minimum_amount'] = minimum_amount unless minimum_amount.equal?(SellApp::OMIT)
       body['subscription_payments'] = subscription_payments unless subscription_payments.equal?(SellApp::OMIT)
+      body['maximum_discount_amount'] = maximum_discount_amount unless maximum_discount_amount.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(coupon, {kind: :integer}, "$request.coupon")
       SellApp::Types::BaseModel.validate_value!(with_trashed, {kind: :boolean}, "$request.with_trashed") unless with_trashed.nil?
       SellApp::Types::BaseModel.validate_value!(only_trashed, {kind: :boolean}, "$request.only_trashed") unless only_trashed.nil?
@@ -936,6 +953,30 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkV2BatchDeleteCouponsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve coupon usage
+    # @param coupon [Integer] The coupon ID.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkV2GetCouponUsageResponseValue200ApplicationJson]
+    def v2_get_coupon_usage(
+      coupon:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(coupon, {kind: :integer}, "$request.coupon")
+      request_options = request_options.merge(operation_id: 'v2GetCouponUsage', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: "/v2/coupons/#{SellApp::Util.encode_path(coupon)}/usage",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkV2GetCouponUsageResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

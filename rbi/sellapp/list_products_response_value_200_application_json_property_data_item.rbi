@@ -123,6 +123,30 @@ module SellApp
     sig { params(value: String).returns(String) }
     def url=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def price_range; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def price_range=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def stock; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def stock=(value); end
+
+    sig { returns(Integer) }
+    def sales; end
+
+    sig { params(value: Integer).returns(Integer) }
+    def sales=(value); end
+
+    sig { returns(T::Boolean) }
+    def sold_out; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def sold_out=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

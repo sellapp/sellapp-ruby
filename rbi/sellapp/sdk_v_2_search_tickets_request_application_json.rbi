@@ -33,6 +33,24 @@ module SellApp
     sig { params(value: T.nilable(T::Array[SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem])).returns(T.nilable(T::Array[SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem])) }
     def includes=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def waiting_on; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def waiting_on=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def reason; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def reason=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def customer_email; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def customer_email=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

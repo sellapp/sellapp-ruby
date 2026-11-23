@@ -155,11 +155,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::ListInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -287,7 +291,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_list_invoices_response_value_200_application_json_property_data_item_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -543,11 +547,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateInvoiceResponseValue201ApplicationJsonPropertyDataPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -646,7 +654,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_create_invoice_response_value_201_application_json_property_data_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -674,7 +682,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_invoice_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"checkout":"stub","customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"}}}'),
+      "data" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"checkout":"stub","customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"}}}'),
     }
     model = SellApp::SdkCreateInvoiceResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -856,11 +864,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::SearchInvoicesResponseValue200ApplicationJsonPropertyDataItemPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -988,7 +1000,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_search_invoices_response_value_200_application_json_property_data_item_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -1187,11 +1199,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::GetInvoiceResponseValue200ApplicationJsonPropertyDataPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1319,7 +1335,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_get_invoice_response_value_200_application_json_property_data_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -1346,7 +1362,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
 
   def test_sdk_get_invoice_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]}'),
+      "data" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]}'),
     }
     model = SellApp::SdkGetInvoiceResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1504,11 +1520,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateCheckoutSessionResponseValue200ApplicationJsonPropertyInvoicePropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1636,7 +1656,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_create_checkout_session_response_value_200_application_9e482e28a136dceb_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -1665,7 +1685,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
     fixture = {
       "message" => 'stub',
       "payment_url" => 'stub',
-      "invoice" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]}'),
+      "invoice" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]}'),
     }
     model = SellApp::SdkCreateCheckoutSessionResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1903,11 +1923,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::MarkPendingInvoiceCompletedResponseValue200ApplicationJsonPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2035,7 +2059,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_sdk_mark_pending_invoice_completed_response_value_200_application_json_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -2220,11 +2244,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::MarkPendingInvoiceVoidedResponseValue200ApplicationJsonPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2352,7 +2380,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_sdk_mark_pending_invoice_voided_response_value_200_application_json_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -2377,15 +2405,9 @@ class InvoicesModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_issue_replacement_for_completed_invoice_request_applica_78a286677b444234_round_trip
-    model = SellApp::IssueReplacementForCompletedInvoiceRequestApplicationJsonPropertyProductVariants.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
   def test_sdk_issue_replacement_for_completed_invoice_request_application_json_round_trip
     fixture = {
-      "product_variants" => JSON.parse('{}'),
+      "product_variants" => 1,
     }
     model = SellApp::SdkIssueReplacementForCompletedInvoiceRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2543,11 +2565,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::IssueReplacementForCompletedInvoiceResponseValue200ApplicationJsonPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2675,7 +2701,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_sdk_issue_replacement_for_completed_invoice_response_va_59dad8110215972f_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -2861,11 +2887,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::UpdateInvoiceStatusResponseValue200ApplicationJsonPropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2993,7 +3023,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_sdk_update_invoice_status_response_value_200_application_json_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -3020,7 +3050,8 @@ class InvoicesModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_invoice_refund_request_application_json_round_trip
     fixture = {
-      "amount" => '1',
+      "amount" => '1.00',
+      "expected_refunded_total_cents" => 0,
     }
     model = SellApp::SdkCreateInvoiceRefundRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -3178,11 +3209,15 @@ class InvoicesModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateInvoiceRefundResponseValue200ApplicationJsonPropertyDataPropertyInvoicePropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -3310,7 +3345,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
   def test_create_invoice_refund_response_value_200_application_js_eaf53eda5392eb57_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -3355,7 +3390,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
 
   def test_create_invoice_refund_response_value_200_application_json_property_data_round_trip
     fixture = {
-      "invoice" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]}'),
+      "invoice" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]}'),
       "refund" => JSON.parse('{"status":"pending","provider":"stub","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}'),
     }
     model = SellApp::CreateInvoiceRefundResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
@@ -3366,7 +3401,7 @@ class InvoicesModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_invoice_refund_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"invoice":{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]},"refund":{"status":"pending","provider":"stub","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}}'),
+      "data" => JSON.parse('{"invoice":{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"},"discord_data":{},"billing_details":{}},"product_variants":[]},"refund":{"status":"pending","provider":"stub","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}}'),
     }
     model = SellApp::SdkCreateInvoiceRefundResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h

@@ -33,6 +33,54 @@ module SellApp
     sig { params(value: T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem])).returns(T.nilable(T::Array[SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem])) }
     def includes=(value); end
 
+    sig { returns(T.nilable(Integer)) }
+    def order_id; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def order_id=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def product_id; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def product_id=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def renews_after; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def renews_after=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def renews_before; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def renews_before=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def cancelled_after; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def cancelled_after=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def cancelled_before; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def cancelled_before=(value); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def scheduled_to_cancel; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def scheduled_to_cancel=(value); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def paused; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def paused=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

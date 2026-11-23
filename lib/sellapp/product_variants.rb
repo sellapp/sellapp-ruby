@@ -326,6 +326,10 @@ module SellApp
     # @param sort [Array<SellApp::SearchProductVariantsRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::SearchProductVariantsRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::SearchProductVariantsRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
+    # @param with_drafts [Boolean, nil] Include draft variants alongside published variants.
+    # @param only_drafts [Boolean, nil] Return only draft variants.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkSearchProductVariantsResponseValue200ApplicationJson]
     def search(
@@ -334,8 +338,18 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      limit: 15,
+      page: 1,
+      with_drafts: nil,
+      only_drafts: nil,
       request_options: {}
     )
+      params = {
+        'limit' => limit,
+        'page' => page,
+        'with_drafts' => with_drafts,
+        'only_drafts' => only_drafts
+      }.compact
       body = {
         'filters' => filters,
         'sort' => sort,
@@ -343,12 +357,17 @@ module SellApp
         'includes' => includes
       }.compact
       SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(with_drafts, {kind: :boolean}, "$request.with_drafts") unless with_drafts.nil?
+      SellApp::Types::BaseModel.validate_value!(only_drafts, {kind: :boolean}, "$request.only_drafts") unless only_drafts.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkSearchProductVariantsRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'searchProductVariants', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/search",
         auth: true,
+        params: params,
         body: body,
         request_options: request_options
       )
@@ -447,6 +466,91 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkBatchDeleteProductVariantsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Publish a product variant
+    # @param product [Integer] The product path parameter.
+    # @param variant [Integer] The variant path parameter.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkPublishProductVariantResponseValue200ApplicationJson]
+    def publish(
+      product:,
+      variant:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
+      request_options = request_options.merge(operation_id: 'publishProductVariant', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/#{SellApp::Util.encode_path(variant)}/publish",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkPublishProductVariantResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Duplicate a product variant
+    # @param product [Integer] The product path parameter.
+    # @param variant [Integer] The variant path parameter.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkDuplicateProductVariantResponseValue201ApplicationJson]
+    def duplicate(
+      product:,
+      variant:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(variant, {kind: :integer}, "$request.variant")
+      request_options = request_options.merge(operation_id: 'duplicateProductVariant', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/#{SellApp::Util.encode_path(variant)}/duplicate",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkDuplicateProductVariantResponseValue201ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Reorder product variants
+    # @param product [Integer] The product path parameter.
+    # @param variant_ids [Array<Integer>] Every published variant ID of the product, first to last.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReorderProductVariantsResponseValue200ApplicationJson]
+    def reorder(
+      product:,
+      variant_ids:,
+      request_options: {}
+    )
+      body = {
+        'variant_ids' => variant_ids
+      }
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReorderProductVariantsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'reorderProductVariants', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/variants/order",
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReorderProductVariantsResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

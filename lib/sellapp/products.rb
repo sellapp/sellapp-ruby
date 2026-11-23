@@ -15,6 +15,11 @@ module SellApp
     # @param page [Integer, nil] Page number to return.
     # @param with_drafts [Boolean, nil] Include draft products alongside published products.
     # @param only_drafts [Boolean, nil] Return only draft products.
+    # @param min_price [Integer, nil] Only products whose every priced variant costs at least this much, in integer minor units of that variant's own currency: `999` means $9.99 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter. Must not be greater than `max_price`.
+    # @param max_price [Integer, nil] Only products whose every priced variant costs at most this much, in integer minor units of that variant's own currency: `2500` means $25.00 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter.
+    # @param stock [SellApp::Types::ProductsStock, nil] Filter by stock, draft variants included. `in_stock`: at least one variant can be bought (unlimited stock, or at least its minimum purchase quantity left). `sold_out`: no variant can be bought. `any_variant_sold_out`: at least one variant with a stock count is sold out. `limited`: at least one variant has a stock count. `unlimited`: no variant has a stock count.
+    # @param visibility [Array<SellApp::Types::ProductsVisibility>, nil] Only products with one of these visibilities. Repeat the parameter to select several. A single `visibility=HIDDEN` also works.
+    # @param has_sales [Boolean, nil] `true` for products with at least one completed sale, `false` for products without one. Only purchase line items with status `COMPLETED` count, so pending or refunded ones do not.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListProductsResponseValue200ApplicationJson]
     def list(
@@ -22,18 +27,33 @@ module SellApp
       page: 1,
       with_drafts: nil,
       only_drafts: nil,
+      min_price: nil,
+      max_price: nil,
+      stock: nil,
+      visibility: nil,
+      has_sales: nil,
       request_options: {}
     )
       params = {
         'limit' => limit,
         'page' => page,
         'with_drafts' => with_drafts,
-        'only_drafts' => only_drafts
+        'only_drafts' => only_drafts,
+        'min_price' => min_price,
+        'max_price' => max_price,
+        'stock' => stock,
+        'visibility[]' => visibility,
+        'has_sales' => has_sales
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(with_drafts, {kind: :boolean}, "$request.with_drafts") unless with_drafts.nil?
       SellApp::Types::BaseModel.validate_value!(only_drafts, {kind: :boolean}, "$request.only_drafts") unless only_drafts.nil?
+      SellApp::Types::BaseModel.validate_value!(min_price, {kind: :integer, minimum: 0}, "$request.min_price") unless min_price.nil?
+      SellApp::Types::BaseModel.validate_value!(max_price, {kind: :integer, minimum: 0}, "$request.max_price") unless max_price.nil?
+      SellApp::Types::BaseModel.validate_value!(stock, {kind: :enum, values: ["in_stock", "sold_out", "any_variant_sold_out", "limited", "unlimited"]}, "$request.stock") unless stock.nil?
+      SellApp::Types::BaseModel.validate_value!(visibility, {kind: :array, items: {kind: :enum, values: ["PUBLIC", "ON_HOLD", "HIDDEN", "PRIVATE"]}}, "$request.visibility[]") unless visibility.nil?
+      SellApp::Types::BaseModel.validate_value!(has_sales, {kind: :boolean}, "$request.has_sales") unless has_sales.nil?
       request_options = request_options.merge(operation_id: 'listProducts', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
@@ -276,10 +296,17 @@ module SellApp
     end
 
     # Search products
-    # @param filters [Array<SellApp::SearchProductsRequestApplicationJsonPropertyFiltersItem>, nil]
-    # @param sort [Array<SellApp::SearchProductsRequestApplicationJsonPropertySortItem>, nil]
+    # @param filters [Array<SellApp::SearchProductsRequestApplicationJsonPropertyFiltersItem>, nil] Not supported for products: no field can be filtered this way, so any entry returns `422` on `filters`. Use the price, stock, visibility, and sales fields instead.
+    # @param sort [Array<SellApp::SearchProductsRequestApplicationJsonPropertySortItem>, nil] Not supported for products: any entry returns `422` on `sort`.
     # @param search [SellApp::SearchProductsRequestApplicationJsonPropertySearch, nil]
-    # @param includes [Array<SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param includes [Array<SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem>, nil] Only `variants` is accepted, and variants are always included.
+    # @param min_price [Integer, nil] Only products whose every priced variant costs at least this much, in integer minor units of that variant's own currency: `999` means $9.99 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter. Must not be greater than `max_price`.
+    # @param max_price [Integer, nil] Only products whose every priced variant costs at most this much, in integer minor units of that variant's own currency: `2500` means $25.00 for a USD variant. Draft variants count. A product without a priced variant never matches a price filter.
+    # @param stock [SellApp::Types::Stock, nil] Filter by stock, draft variants included. `in_stock`: at least one variant can be bought (unlimited stock, or at least its minimum purchase quantity left). `sold_out`: no variant can be bought. `any_variant_sold_out`: at least one variant with a stock count is sold out. `limited`: at least one variant has a stock count. `unlimited`: no variant has a stock count.
+    # @param visibility [Array<SellApp::Types::SdkSearchProductsRequestApplicationJsonVisibility>, nil] Only products with one of these visibilities. A single string such as `"HIDDEN"` is also accepted.
+    # @param has_sales [Boolean, nil] `true` for products with at least one completed sale, `false` for products without one. Only purchase line items with status `COMPLETED` count, so pending or refunded ones do not.
+    # @param with_drafts [Boolean, nil] Include draft products alongside published products.
+    # @param only_drafts [Boolean, nil] Return only draft products.
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -289,6 +316,13 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      min_price: SellApp::OMIT,
+      max_price: SellApp::OMIT,
+      stock: SellApp::OMIT,
+      visibility: nil,
+      has_sales: SellApp::OMIT,
+      with_drafts: nil,
+      only_drafts: nil,
       limit: 15,
       page: 1,
       request_options: {}
@@ -301,8 +335,15 @@ module SellApp
         'filters' => filters,
         'sort' => sort,
         'search' => search,
-        'includes' => includes
+        'includes' => includes,
+        'visibility' => visibility,
+        'with_drafts' => with_drafts,
+        'only_drafts' => only_drafts
       }.compact
+      body['min_price'] = min_price unless min_price.equal?(SellApp::OMIT)
+      body['max_price'] = max_price unless max_price.equal?(SellApp::OMIT)
+      body['stock'] = stock unless stock.equal?(SellApp::OMIT)
+      body['has_sales'] = has_sales unless has_sales.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkSearchProductsRequestApplicationJson"}, "$request.body")
@@ -401,6 +442,98 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkBatchDeleteProductsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Publish a product
+    # @param product [Integer] The product path parameter.
+    # @param visibility [SellApp::Types::CatalogVisibility, nil]
+    # @param variant_ids [Array<Integer>, nil] Normal products only. IDs of this product's draft variants to publish with it. Needed when the product has several variants and none is published yet; a single variant is published anyway. Draft variants you leave out stay drafts.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkPublishProductResponseValue200ApplicationJson]
+    def publish(
+      product:,
+      visibility: nil,
+      variant_ids: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {
+        'visibility' => visibility
+      }.compact
+      body['variant_ids'] = variant_ids unless variant_ids.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkPublishProductRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'publishProduct', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/publish",
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkPublishProductResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Duplicate a product
+    # @param product [Integer] The product path parameter.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkDuplicateProductResponseValue201ApplicationJson]
+    def duplicate(
+      product:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      request_options = request_options.merge(operation_id: 'duplicateProduct', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/duplicate",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkDuplicateProductResponseValue201ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Move a product
+    # @param product [Integer] The product path parameter.
+    # @param position [Integer] The new position, where `1` is first. At most the number of normal products in the store, drafts included.
+    # @param expected_position [Integer, nil] The position you last read for this product (its `order`). The move is refused when the product is no longer there.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkMoveProductResponseValue200ApplicationJson]
+    def move(
+      product:,
+      position:,
+      expected_position: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {
+        'position' => position
+      }
+      body['expected_position'] = expected_position unless expected_position.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(product, {kind: :integer}, "$request.product")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkMoveProductRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'moveProduct', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: "/v2/products/#{SellApp::Util.encode_path(product)}/position",
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkMoveProductResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

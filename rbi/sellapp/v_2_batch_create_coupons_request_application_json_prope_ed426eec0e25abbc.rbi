@@ -75,6 +75,12 @@ module SellApp
     sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def subscription_payments=(value); end
 
+    sig { returns(T.nilable(T.any(Float, String))) }
+    def maximum_discount_amount; end
+
+    sig { params(value: T.nilable(T.any(Float, String))).returns(T.nilable(T.any(Float, String))) }
+    def maximum_discount_amount=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

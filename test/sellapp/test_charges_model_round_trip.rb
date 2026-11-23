@@ -190,6 +190,101 @@ class ChargesModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_get_charge_summary_response_value_200_application_json_521230346dd771f1_round_trip
+    fixture = {
+      "preset" => 'stub',
+      "start_date" => '2024-01-01',
+      "end_date" => '2024-01-01',
+      "timezone" => 'stub',
+      "currency" => 'stub',
+    }
+    model = SellApp::GetChargeSummaryResponseValue200ApplicationJsonPropertyDataPropertyPeriod.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["preset"], json[:preset]
+    assert_equal fixture["start_date"], json[:start_date]
+    assert_equal fixture["end_date"], json[:end_date]
+    assert_equal fixture["timezone"], json[:timezone]
+    assert_equal fixture["currency"], json[:currency]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_charge_summary_response_value_200_application_json_a0682362d7f7b915_round_trip
+    fixture = {
+      "start_date" => '2024-01-01',
+      "end_date" => '2024-01-01',
+    }
+    model = SellApp::GetChargeSummaryResponseValue200ApplicationJsonPropertyDataPropertyComparedWith.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["start_date"], json[:start_date]
+    assert_equal fixture["end_date"], json[:end_date]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_charge_summary_response_value_200_application_json_f622e8119eaecb82_round_trip
+    fixture = {
+      "currency" => 'stub',
+      "total_cents" => 1,
+      "previous_total_cents" => 1,
+      "formatted" => 'stub',
+      "previous_formatted" => 'stub',
+      "trend" => 'stub',
+      "trend_up" => true,
+    }
+    model = SellApp::GetChargeSummaryResponseValue200ApplicationJsonPropertyDataPropertyRevenue.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["currency"], json[:currency]
+    assert_equal fixture["total_cents"], json[:total_cents]
+    assert_equal fixture["previous_total_cents"], json[:previous_total_cents]
+    assert_equal fixture["formatted"], json[:formatted]
+    assert_equal fixture["previous_formatted"], json[:previous_formatted]
+    assert_equal fixture["trend"], json[:trend]
+    assert_equal fixture["trend_up"], json[:trend_up]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_charge_summary_response_value_200_application_json_77ae0210488a0cc1_round_trip
+    fixture = {
+      "count" => 1,
+      "previous_count" => 1,
+      "trend" => 'stub',
+      "trend_up" => true,
+    }
+    model = SellApp::GetChargeSummaryResponseValue200ApplicationJsonPropertyDataPropertyCompletedCharges.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["count"], json[:count]
+    assert_equal fixture["previous_count"], json[:previous_count]
+    assert_equal fixture["trend"], json[:trend]
+    assert_equal fixture["trend_up"], json[:trend_up]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_charge_summary_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "period" => JSON.parse('{"preset":"stub","start_date":"2024-01-01","end_date":"2024-01-01","timezone":"stub","currency":"stub"}'),
+      "compared_with" => JSON.parse('{"start_date":"2024-01-01","end_date":"2024-01-01"}'),
+      "revenue" => JSON.parse('{"currency":"stub","total_cents":1,"previous_total_cents":1,"formatted":"stub","previous_formatted":"stub","trend":"stub","trend_up":true}'),
+      "completed_charges" => JSON.parse('{"count":1,"previous_count":1,"trend":"stub","trend_up":true}'),
+    }
+    model = SellApp::GetChargeSummaryResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_charge_summary_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"period":{"preset":"stub","start_date":"2024-01-01","end_date":"2024-01-01","timezone":"stub","currency":"stub"},"compared_with":{"start_date":"2024-01-01","end_date":"2024-01-01"},"revenue":{"currency":"stub","total_cents":1,"previous_total_cents":1,"formatted":"stub","previous_formatted":"stub","trend":"stub","trend_up":true},"completed_charges":{"count":1,"previous_count":1,"trend":"stub","trend_up":true}}'),
+    }
+    model = SellApp::SdkGetChargeSummaryResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_pagination_meta_link_round_trip
     fixture = {
       "url" => 'stub',

@@ -46,6 +46,13 @@ class BookingsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_create_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/booking-products(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+    result = @client.bookings.create(title: 'stub', price_cents: 0)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/bookings(\?|\z)}},
@@ -53,6 +60,7 @@ class BookingsTest < Minitest::Test
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/bookings/stub(\?|\z)}, args: {booking: 'stub'}},
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/bookings/stub(\?|\z)}, args: {booking: 'stub', slot_start_at: '2024-01-01T00:00:00Z'}},
     {name: :cancel, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/bookings/stub/status(\?|\z)}, args: {booking: 'stub', status: 'cancelled'}},
+    {name: :create, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/booking-products(\?|\z)}, args: {title: 'stub', price_cents: 0}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

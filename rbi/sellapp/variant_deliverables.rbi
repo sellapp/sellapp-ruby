@@ -11,6 +11,24 @@ module SellApp
 
     sig do
       params(
+        product: Integer,
+        variant: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson)
+    end
+    def preview(product:, variant:, request_options:); end
+
+    sig do
+      params(
+        product: Integer,
+        variant: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkNotifyVariantBuyersResponseValue202ApplicationJson)
+    end
+    def notify(product:, variant:, request_options:); end
+
+    sig do
+      params(
         product: String,
         variant: Integer,
         request_options: T::Hash[Symbol, T.untyped]

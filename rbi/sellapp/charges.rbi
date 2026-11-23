@@ -13,10 +13,14 @@ module SellApp
       params(
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
+        status: T.nilable(String),
+        customer_email: T.nilable(String),
+        created_after: T.nilable(String),
+        created_before: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListChargesResponseValue200ApplicationJson)
     end
-    def list(limit:, page:, request_options:); end
+    def list(limit:, page:, status:, customer_email:, created_after:, created_before:, request_options:); end
 
     sig do
       params(
@@ -64,6 +68,16 @@ module SellApp
       ).returns(SellApp::SdkMarkPendingChargeVoidedResponseValue200ApplicationJson)
     end
     def mark_voided(charge_id:, request_options:); end
+
+    sig do
+      params(
+        preset: T.nilable(String),
+        start_date: T.nilable(String),
+        end_date: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetChargeSummaryResponseValue200ApplicationJson)
+    end
+    def get_summary(preset:, start_date:, end_date:, request_options:); end
 
   end
 end

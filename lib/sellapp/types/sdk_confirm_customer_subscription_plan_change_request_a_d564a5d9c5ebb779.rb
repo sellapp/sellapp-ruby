@@ -4,12 +4,6 @@
 
 module SellApp
   module Types
-    class SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior
-      INVOICE_NOW = 'invoice_now'
-      CREDIT_NEXT_INVOICE = 'credit_next_invoice'
-      NONE = 'none'
-      PROVIDER_DEFAULT = 'provider_default'
-      ALL = [INVOICE_NOW, CREDIT_NEXT_INVOICE, NONE, PROVIDER_DEFAULT].freeze
-    end
+    SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonProrationBehavior = GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyChangePathsItemProrationBehavior
   end
 end

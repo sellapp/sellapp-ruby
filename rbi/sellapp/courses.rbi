@@ -21,6 +21,30 @@ module SellApp
 
     sig do
       params(
+        title: String,
+        category: T.nilable(String),
+        level: T.nilable(String),
+        language: T.nilable(String),
+        subtitle: T.nilable(String),
+        author: T.nilable(String),
+        subcategory: T.nilable(String),
+        what_you_learn: T.nilable(T::Array[String]),
+        requirements: T.nilable(T::Array[String]),
+        certificate_enabled: T.nilable(T::Boolean),
+        access_type: T.nilable(String),
+        access_duration_days: T.nilable(Integer),
+        enrollment_limit: T.nilable(Integer),
+        delivery_text: T.nilable(String),
+        slug: T.nilable(String),
+        description: T.nilable(String),
+        visibility: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkCreateCourseResponseValue201ApplicationJson)
+    end
+    def create(title:, category:, level:, language:, subtitle:, author:, subcategory:, what_you_learn:, requirements:, certificate_enabled:, access_type:, access_duration_days:, enrollment_limit:, delivery_text:, slug:, description:, visibility:, request_options:); end
+
+    sig do
+      params(
         filters: T.nilable(T::Array[SellApp::SearchRewardRulesRequestApplicationJsonPropertyFiltersItem]),
         sort: T.nilable(T::Array[SellApp::SearchRewardRulesRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::SearchRewardRulesRequestApplicationJsonPropertySearch),
@@ -59,10 +83,13 @@ module SellApp
         delivery_text: T.nilable(String),
         visibility: T.nilable(String),
         expected_updated_at: T.nilable(String),
+        title: T.nilable(String),
+        slug: T.nilable(String),
+        description: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkReplaceCourseResponseValue200ApplicationJson)
     end
-    def replace(course:, category:, level:, language:, subtitle:, author:, subcategory:, what_you_learn:, requirements:, certificate_enabled:, access_type:, access_duration_days:, enrollment_limit:, delivery_text:, visibility:, expected_updated_at:, request_options:); end
+    def replace(course:, category:, level:, language:, subtitle:, author:, subcategory:, what_you_learn:, requirements:, certificate_enabled:, access_type:, access_duration_days:, enrollment_limit:, delivery_text:, visibility:, expected_updated_at:, title:, slug:, description:, request_options:); end
 
     sig do
       params(
@@ -82,10 +109,24 @@ module SellApp
         delivery_text: T.nilable(String),
         visibility: T.nilable(String),
         expected_updated_at: T.nilable(String),
+        title: T.nilable(String),
+        slug: T.nilable(String),
+        description: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdateCourseResponseValue200ApplicationJson)
     end
-    def update(course:, category:, level:, language:, subtitle:, author:, subcategory:, what_you_learn:, requirements:, certificate_enabled:, access_type:, access_duration_days:, enrollment_limit:, delivery_text:, visibility:, expected_updated_at:, request_options:); end
+    def update(course:, category:, level:, language:, subtitle:, author:, subcategory:, what_you_learn:, requirements:, certificate_enabled:, access_type:, access_duration_days:, enrollment_limit:, delivery_text:, visibility:, expected_updated_at:, title:, slug:, description:, request_options:); end
+
+    sig do
+      params(
+        start_date: String,
+        end_date: String,
+        course_id: T.nilable(Integer),
+        limit: T.nilable(Integer),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetCourseStudentSummaryResponseValue200ApplicationJson)
+    end
+    def get_student_summary(start_date:, end_date:, course_id:, limit:, request_options:); end
 
   end
 end

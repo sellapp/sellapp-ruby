@@ -19,12 +19,6 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_scalar_metadata_value_round_trip
-    model = SellApp::ScalarMetadataValue.new('{}')
-    json = model.to_h
-    assert_kind_of Hash, json
-  end
-
   def test_sdk_cancel_subscription_request_application_json_round_trip
     fixture = {
       "cancel_at_period_end" => true,
@@ -188,6 +182,14 @@ class SubscriptionsModelRoundTripTest < Minitest::Test
       "sort" => JSON.parse('[]'),
       "search" => JSON.parse('{}'),
       "includes" => JSON.parse('[]'),
+      "order_id" => 1,
+      "product_id" => 1,
+      "renews_after" => 'stub',
+      "renews_before" => 'stub',
+      "cancelled_after" => 'stub',
+      "cancelled_before" => 'stub',
+      "scheduled_to_cancel" => true,
+      "paused" => true,
     }
     model = SellApp::SdkSearchSubscriptionsRequestApplicationJson.new(fixture.to_json)
     json = model.to_h

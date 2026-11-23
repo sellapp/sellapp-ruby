@@ -9,7 +9,9 @@ module SellApp
       name: :name,
       url: :url,
       allowed_notifications: :allowed_notifications,
-      signing_secret_configured: :signing_secret_configured
+      signing_secret_configured: :signing_secret_configured,
+      health: :health,
+      last_delivery: :last_delivery
     }.freeze
 
     SCHEMA = {
@@ -17,7 +19,9 @@ module SellApp
       name: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
       url: {required: true, schema: {kind: :string, format: "uri"}},
       allowed_notifications: {required: true, schema: {kind: :array, items: {kind: :enum, values: ["booking.cancelled", "booking.rescheduled", "cash_app.payment_requires_attention", "charge.completed", "charge.created", "charge.disputed", "charge.partial_paid", "charge.review", "feedback.created", "order.completed", "order.created", "order.disputed", "order.manual_payment_completed", "order.paid", "order.partial_paid", "product.created", "product.trashed", "product.updated", "subscription.action", "subscription.cancelled", "subscription.created", "subscription.plan_change_needs_attention", "subscription.renewal_needs_attention", "subscription.renewed", "subscription.signup_needs_attention", "ticket_message.created", "variant.created", "variant.sold_out", "variant.updated"]}, unique: true}},
-      signing_secret_configured: {required: true, schema: {kind: :boolean}}
+      signing_secret_configured: {required: true, schema: {kind: :boolean}},
+      health: {required: true, schema: {kind: :model, name: "SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth"}},
+      last_delivery: {required: true, schema: {kind: :nullable, inner: {kind: :model, name: "SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery"}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -27,7 +31,9 @@ module SellApp
       :name,
       :url,
       :allowed_notifications,
-      :signing_secret_configured
+      :signing_secret_configured,
+      :health,
+      :last_delivery
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -39,6 +45,8 @@ module SellApp
       @url = hash[:url]
       @allowed_notifications = hash[:allowed_notifications]
       @signing_secret_configured = hash[:signing_secret_configured]
+      @health = hash[:health] ? SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth.new(hash[:health]) : nil
+      @last_delivery = hash[:last_delivery] ? SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery.new(hash[:last_delivery]) : nil
     end
   end
 end

@@ -106,19 +106,31 @@ module SellApp
     # List all tickets
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
+    # @param waiting_on [SellApp::Types::TicketsWaitingOn, nil] `store`: the latest message is from the customer, so the ticket waits on you. `customer`: the latest message is yours. A ticket without messages matches neither.
+    # @param reason [String, nil] A ticket reason by its label (as tickets show it in `reason`), its key such as `platform:refund_request`, or its code; case does not matter. A reason the store does not have returns `422` on `reason`, listing the store's reasons.
+    # @param customer_email [String, nil] Part of the customer's email, case-insensitive. `%` and `_` match those characters literally.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkV2ListTicketsResponseValue200ApplicationJson]
     def v2_list_tickets(
       limit: 15,
       page: 1,
+      waiting_on: nil,
+      reason: nil,
+      customer_email: nil,
       request_options: {}
     )
       params = {
         'limit' => limit,
-        'page' => page
+        'page' => page,
+        'waiting_on' => waiting_on,
+        'reason' => reason,
+        'customer_email' => customer_email
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(waiting_on, {kind: :enum, values: ["store", "customer"]}, "$request.waiting_on") unless waiting_on.nil?
+      SellApp::Types::BaseModel.validate_value!(reason, {kind: :string, max: 150}, "$request.reason") unless reason.nil?
+      SellApp::Types::BaseModel.validate_value!(customer_email, {kind: :string, max: 255}, "$request.customer_email") unless customer_email.nil?
       request_options = request_options.merge(operation_id: 'v2ListTickets', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
@@ -140,6 +152,11 @@ module SellApp
     # @param sort [Array<SellApp::V2SearchTicketsRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::V2SearchTicketsRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param waiting_on [SellApp::Types::WaitingOn, nil] `store`: the latest message is from the customer, so the ticket waits on you. `customer`: the latest message is yours. A ticket without messages matches neither.
+    # @param reason [String, nil] A ticket reason by its label (as tickets show it in `reason`), its key such as `platform:refund_request`, or its code; case does not matter. A reason the store does not have returns `422` on `reason`, listing the store's reasons.
+    # @param customer_email [String, nil] Part of the customer's email, case-insensitive. `%` and `_` match those characters literally.
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkV2SearchTicketsResponseValue200ApplicationJson]
     def v2_search_tickets(
@@ -147,20 +164,35 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      waiting_on: SellApp::OMIT,
+      reason: SellApp::OMIT,
+      customer_email: SellApp::OMIT,
+      limit: 15,
+      page: 1,
       request_options: {}
     )
+      params = {
+        'limit' => limit,
+        'page' => page
+      }.compact
       body = {
         'filters' => filters,
         'sort' => sort,
         'search' => search,
         'includes' => includes
       }.compact
+      body['waiting_on'] = waiting_on unless waiting_on.equal?(SellApp::OMIT)
+      body['reason'] = reason unless reason.equal?(SellApp::OMIT)
+      body['customer_email'] = customer_email unless customer_email.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkV2SearchTicketsRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'v2SearchTickets', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: '/v2/tickets/search',
         auth: true,
+        params: params,
         body: body,
         request_options: request_options
       )
@@ -200,17 +232,20 @@ module SellApp
     # @param ticket [Integer]
     # @param status [SellApp::Types::SdkUpdateTicketRequestApplicationJsonStatus, nil]
     # @param archived [Boolean, nil]
+    # @param outcome [SellApp::Types::SdkUpdateTicketRequestApplicationJsonOutcome, nil] Why the ticket was closed: `refunded`, `refunded_partial` (partly refunded), `delivered`, `no_action`, `duplicate` or `other`. Only with `status` `CLOSED`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkUpdateTicketResponseValue200ApplicationJson]
     def update(
       ticket:,
       status: nil,
       archived: nil,
+      outcome: nil,
       request_options: {}
     )
       body = {
         'status' => status,
-        'archived' => archived
+        'archived' => archived,
+        'outcome' => outcome
       }.compact
       SellApp::Types::BaseModel.validate_value!(ticket, {kind: :integer}, "$request.ticket")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateTicketRequestApplicationJson"}, "$request.body")
@@ -224,6 +259,64 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkUpdateTicketResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update several tickets
+    # @param action [SellApp::Types::SdkBatchUpdateTicketsRequestApplicationJsonAction] What to do with every listed ticket. `restore` takes a ticket out of the archive.
+    # @param outcome [SellApp::Types::SdkBatchUpdateTicketsRequestApplicationJsonOutcome, nil] Why the ticket was closed: `refunded`, `refunded_partial` (partly refunded), `delivered`, `no_action`, `duplicate` or `other`. Required for `close` and refused for every other action.
+    # @param resources [Array<Integer>] Between 1 and 50 different ticket IDs.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkBatchUpdateTicketsResponseValue200ApplicationJson]
+    def batch_update(
+      action:,
+      resources:,
+      outcome: nil,
+      request_options: {}
+    )
+      body = {
+        'action' => action,
+        'outcome' => outcome,
+        'resources' => resources
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkBatchUpdateTicketsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'batchUpdateTickets', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/tickets/batch',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkBatchUpdateTicketsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve a ticket's customer and refund context
+    # @param ticket [Integer] The ticket ID in the selected store.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkV2GetTicketContextResponseValue200ApplicationJson]
+    def get_context(
+      ticket:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(ticket, {kind: :integer}, "$request.ticket")
+      request_options = request_options.merge(operation_id: 'v2GetTicketContext', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: "/v2/tickets/#{SellApp::Util.encode_path(ticket)}/context",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkV2GetTicketContextResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

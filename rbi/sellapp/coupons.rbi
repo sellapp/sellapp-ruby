@@ -165,10 +165,11 @@ module SellApp
         minimum_amount: T.nilable(T.any(Float, String)),
         applies_to: T.nilable(String),
         subscription_payments: T.nilable(Integer),
+        maximum_discount_amount: T.nilable(T.any(Float, String)),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2CreateCouponResponseValue201ApplicationJson)
     end
-    def v2_create_coupon(code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, request_options:); end
+    def v2_create_coupon(code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, maximum_discount_amount:, request_options:); end
 
     sig do
       params(
@@ -176,12 +177,14 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::V2SearchCouponsRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::V2SearchCouponsRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::V2SearchCouponsRequestApplicationJsonPropertyIncludesItem]),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2SearchCouponsResponseValue200ApplicationJson)
     end
-    def v2_search_coupons(filters:, sort:, search:, includes:, with_trashed:, only_trashed:, request_options:); end
+    def v2_search_coupons(filters:, sort:, search:, includes:, limit:, page:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(
@@ -207,12 +210,13 @@ module SellApp
         minimum_amount: T.nilable(T.any(Float, String)),
         applies_to: T.nilable(String),
         subscription_payments: T.nilable(Integer),
+        maximum_discount_amount: T.nilable(T.any(Float, String)),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2ReplaceCouponResponseValue200ApplicationJson)
     end
-    def v2_replace_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, with_trashed:, only_trashed:, request_options:); end
+    def v2_replace_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, maximum_discount_amount:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(
@@ -228,12 +232,13 @@ module SellApp
         minimum_amount: T.nilable(T.any(Float, String)),
         applies_to: T.nilable(String),
         subscription_payments: T.nilable(Integer),
+        maximum_discount_amount: T.nilable(T.any(Float, String)),
         with_trashed: T.nilable(T::Boolean),
         only_trashed: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2UpdateCouponResponseValue200ApplicationJson)
     end
-    def v2_update_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, with_trashed:, only_trashed:, request_options:); end
+    def v2_update_coupon(coupon:, code:, type:, discount:, store_wide:, products:, product_variants:, limit:, expires_at:, minimum_amount:, applies_to:, subscription_payments:, maximum_discount_amount:, with_trashed:, only_trashed:, request_options:); end
 
     sig do
       params(
@@ -272,6 +277,14 @@ module SellApp
       ).returns(SellApp::SdkV2BatchDeleteCouponsResponseValue200ApplicationJson)
     end
     def v2_batch_delete_coupons(resources:, with_trashed:, only_trashed:, request_options:); end
+
+    sig do
+      params(
+        coupon: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkV2GetCouponUsageResponseValue200ApplicationJson)
+    end
+    def v2_get_coupon_usage(coupon:, request_options:); end
 
   end
 end

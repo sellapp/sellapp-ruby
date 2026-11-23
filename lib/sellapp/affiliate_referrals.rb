@@ -11,6 +11,7 @@ module SellApp
     end
 
     # List affiliate referrals
+    # @param search [String, nil] Text to look for in the affiliate's email address and the product and variant titles. A number also matches the referral ID or the order ID exactly. `%` and `_` match themselves.
     # @param affiliate_id [Integer, nil] Filter by store affiliate ID.
     # @param order_id [Integer, nil] Filter by attributed Order ID.
     # @param status [SellApp::Types::AffiliateReferralsStatus, nil] Filter by referral status.
@@ -19,6 +20,7 @@ module SellApp
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListAffiliateReferralsResponseValue200ApplicationJson]
     def list(
+      search: nil,
       affiliate_id: nil,
       order_id: nil,
       status: nil,
@@ -27,12 +29,14 @@ module SellApp
       request_options: {}
     )
       params = {
+        'search' => search,
         'affiliate_id' => affiliate_id,
         'order_id' => order_id,
         'status' => status,
         'limit' => limit,
         'page' => page
       }.compact
+      SellApp::Types::BaseModel.validate_value!(search, {kind: :string, max: 255}, "$request.search") unless search.nil?
       SellApp::Types::BaseModel.validate_value!(affiliate_id, {kind: :integer, minimum: 1}, "$request.affiliate_id") unless affiliate_id.nil?
       SellApp::Types::BaseModel.validate_value!(order_id, {kind: :integer, minimum: 1}, "$request.order_id") unless order_id.nil?
       SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["created", "accepted", "in_review", "pending", "paid", "rejected", "void", "expired"]}, "$request.status") unless status.nil?

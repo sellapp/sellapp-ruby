@@ -11,8 +11,8 @@ module SellApp
     }.freeze
 
     SCHEMA = {
-      field: {required: true, schema: {kind: :string}},
-      operator: {required: true, schema: {kind: :enum, values: ["eq", "contains", "in"]}},
+      field: {required: true, schema: {kind: :enum, values: ["id", "customer_email", "transaction_id", "serial_code", "additional_information", "line_item_title", "discord_user_id", "discord_username", "blockchain_txid", "crypto_address", "coupon_code", "status", "payment_method", "product_id", "currency", "created_at", "total"]}},
+      operator: {required: true, schema: {kind: :enum, values: ["eq", "contains", "in", "gte", "lte"]}},
       value: {required: true, schema: {kind: :any}}
     }.freeze
     ADDITIONAL_PROPERTIES = false

@@ -10,6 +10,7 @@ List affiliate referrals
 
 ```ruby
 def list(
+      search: nil,
       affiliate_id: nil,
       order_id: nil,
       status: nil,
@@ -21,6 +22,7 @@ def list(
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| search | `Object` | No |
 | affiliate_id | `Object` | No |
 | order_id | `Object` | No |
 | status | `Object` | No |

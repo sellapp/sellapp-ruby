@@ -39,12 +39,20 @@ class AffiliatePayoutsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_mark_paid_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/affiliate-payouts/mark-paid(\?|\z)})
+      .to_return(body: '{"data":[]}', status: 200)
+    result = @client.affiliate_payouts.mark_paid(payout_ids: JSON.parse('[1]'), expected_total_usd_cents: 1)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/affiliate-payouts(\?|\z)}},
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/affiliate-payouts/1(\?|\z)}, args: {payout: 1}},
     {name: :create, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/affiliates/1/payouts(\?|\z)}, args: {affiliate: 1}},
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/affiliate-payouts/1/status(\?|\z)}, args: {payout: 1, status: 'due'}},
+    {name: :mark_paid, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/affiliate-payouts/mark-paid(\?|\z)}, args: {payout_ids: JSON.parse('[1]'), expected_total_usd_cents: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

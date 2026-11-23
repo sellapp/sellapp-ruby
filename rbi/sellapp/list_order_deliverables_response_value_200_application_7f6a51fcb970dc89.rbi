@@ -15,10 +15,10 @@ module SellApp
     sig { params(value: T::Array[String]).returns(T::Array[String]) }
     def types=(value); end
 
-    sig { returns(SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData) }
+    sig { returns(T.any(SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1, T::Array[T.untyped])) }
     def data; end
 
-    sig { params(value: SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData).returns(SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData) }
+    sig { params(value: T.any(SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1, T::Array[T.untyped])).returns(T.any(SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1, T::Array[T.untyped])) }
     def data=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

@@ -57,6 +57,98 @@ Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API refere
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 
+## create
+
+Create a course
+
+[API reference](https://sell.app/docs/api/courses/create-a-course) · Effect: **write**
+
+```ruby
+def create(
+      title:,
+      category: SellApp::OMIT,
+      level: nil,
+      language: nil,
+      subtitle: SellApp::OMIT,
+      author: SellApp::OMIT,
+      subcategory: SellApp::OMIT,
+      what_you_learn: nil,
+      requirements: nil,
+      certificate_enabled: nil,
+      access_type: nil,
+      access_duration_days: SellApp::OMIT,
+      enrollment_limit: SellApp::OMIT,
+      delivery_text: SellApp::OMIT,
+      slug: nil,
+      description: SellApp::OMIT,
+      visibility: nil,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| title | `Object` | Yes |
+| category | `Object` | No |
+| level | `Object` | No |
+| language | `Object` | No |
+| subtitle | `Object` | No |
+| author | `Object` | No |
+| subcategory | `Object` | No |
+| what_you_learn | `Object` | No |
+| requirements | `Object` | No |
+| certificate_enabled | `Object` | No |
+| access_type | `Object` | No |
+| access_duration_days | `Object` | No |
+| enrollment_limit | `Object` | No |
+| delivery_text | `Object` | No |
+| slug | `Object` | No |
+| description | `Object` | No |
+| visibility | `Object` | No |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.courses.create(
+  category: "design",
+  level: "beginner",
+  language: "English",
+  what_you_learn: ["Sketch a logo concept.", "Choose a color palette."],
+  certificate_enabled: true,
+  delivery_text: "Open your course from the link in your receipt.",
+  title: "Brand identity basics",
+  description: "<p>Design a logo, color palette, and type system for your next project.</p>"
+)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 201, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
 ## search
 
 Search courses
@@ -198,6 +290,9 @@ def replace(
       delivery_text: SellApp::OMIT,
       visibility: nil,
       expected_updated_at: nil,
+      title: nil,
+      slug: nil,
+      description: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -220,6 +315,9 @@ def replace(
 | delivery_text | `Object` | No |
 | visibility | `Object` | No |
 | expected_updated_at | `Object` | No |
+| title | `Object` | No |
+| slug | `Object` | No |
+| description | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -283,6 +381,9 @@ def update(
       delivery_text: SellApp::OMIT,
       visibility: nil,
       expected_updated_at: nil,
+      title: nil,
+      slug: nil,
+      description: SellApp::OMIT,
       request_options: {}
     )
 ```
@@ -305,6 +406,9 @@ def update(
 | delivery_text | `Object` | No |
 | visibility | `Object` | No |
 | expected_updated_at | `Object` | No |
+| title | `Object` | No |
+| slug | `Object` | No |
+| description | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -341,6 +445,66 @@ Supported credential alternatives (each object is one alternative):
 ```
 
 Documented HTTP responses: 200, 400, 401, 403, 404, 422, 429, 500. See the API reference for field-level validation and consequences.
+
+[Response access, transport controls, pagination, and typed errors](../usage.md)
+
+## get_student_summary
+
+Retrieve a course student summary
+
+[API reference](https://sell.app/docs/api/courses/retrieve-course-student-summary) · Effect: **read**
+
+```ruby
+def get_student_summary(
+      start_date:,
+      end_date:,
+      course_id: nil,
+      limit: 10,
+      request_options: {}
+    )
+```
+
+| Argument | Native type | Required |
+| --- | --- | --- |
+| start_date | `Object` | Yes |
+| end_date | `Object` | Yes |
+| course_id | `Object` | No |
+| limit | `Object` | No |
+| request_options | `Object` | No |
+
+Returns: `Object`.
+
+```rb
+require "sellapp"
+
+client = SellApp::Client.new(base_url: ENV.fetch("SELLAPP_API_BASE_URL"), api_key: ENV.fetch("SELLAPP_API_KEY"), store: ENV.fetch("SELLAPP_STORE"))
+
+result = client.courses.get_student_summary(
+  start_date: "2026-08-01",
+  end_date: "2026-08-31"
+)
+puts result.inspect
+```
+
+### Authentication and errors
+
+Supported credential alternatives (each object is one alternative):
+
+```json
+[
+  {
+    "bearerAuth": []
+  },
+  {
+    "oauthAccessToken": [
+      "admin"
+    ],
+    "storeAuth": []
+  }
+]
+```
+
+Documented HTTP responses: 200, 400, 401, 403, 422, 429, 500. See the API reference for field-level validation and consequences.
 
 [Response access, transport controls, pagination, and typed errors](../usage.md)
 

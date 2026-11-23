@@ -111,5 +111,15 @@ module SellApp
     end
     def delete(upsell_offer:, request_options:); end
 
+    sig do
+      params(
+        upsell_offer: Integer,
+        with_trashed: T.nilable(T::Boolean),
+        only_trashed: T.nilable(T::Boolean),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson)
+    end
+    def get_performance(upsell_offer:, with_trashed:, only_trashed:, request_options:); end
+
   end
 end

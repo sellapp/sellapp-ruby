@@ -9,11 +9,23 @@ List disputes
 [API reference](https://sell.app/docs/api/disputes) · Effect: **read**
 
 ```ruby
-def list_disputes(request_options: {})
+def list_disputes(
+      page: 1,
+      status: nil,
+      provider: nil,
+      opened_after: nil,
+      opened_before: nil,
+      request_options: {}
+    )
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| page | `Object` | No |
+| status | `Object` | No |
+| provider | `Object` | No |
+| opened_after | `Object` | No |
+| opened_before | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

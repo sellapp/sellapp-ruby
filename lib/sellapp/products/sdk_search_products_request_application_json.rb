@@ -8,14 +8,28 @@ module SellApp
       filters: :filters,
       sort: :sort,
       search: :search,
-      includes: :includes
+      includes: :includes,
+      min_price: :min_price,
+      max_price: :max_price,
+      stock: :stock,
+      visibility: :visibility,
+      has_sales: :has_sales,
+      with_drafts: :with_drafts,
+      only_drafts: :only_drafts
     }.freeze
 
     SCHEMA = {
       filters: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchProductsRequestApplicationJsonPropertyFiltersItem"}}},
       sort: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchProductsRequestApplicationJsonPropertySortItem"}}},
       search: {required: false, schema: {kind: :model, name: "SellApp::SearchProductsRequestApplicationJsonPropertySearch"}},
-      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem"}}}
+      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem"}}},
+      min_price: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0}}},
+      max_price: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0}}},
+      stock: {required: false, schema: {kind: :nullable, inner: {kind: :enum, values: ["in_stock", "sold_out", "any_variant_sold_out", "limited", "unlimited", "null"]}}},
+      visibility: {required: false, schema: {kind: :array, items: {kind: :enum, values: ["PUBLIC", "ON_HOLD", "HIDDEN", "PRIVATE"]}, min: 1, unique: true}},
+      has_sales: {required: false, schema: {kind: :nullable, inner: {kind: :boolean}}},
+      with_drafts: {required: false, schema: {kind: :boolean}},
+      only_drafts: {required: false, schema: {kind: :boolean}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -24,7 +38,14 @@ module SellApp
       :filters,
       :sort,
       :search,
-      :includes
+      :includes,
+      :min_price,
+      :max_price,
+      :stock,
+      :visibility,
+      :has_sales,
+      :with_drafts,
+      :only_drafts
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -35,6 +56,13 @@ module SellApp
       @sort = hash[:sort] ? hash[:sort].map { |item| item ? SellApp::SearchProductsRequestApplicationJsonPropertySortItem.new(item) : nil } : nil
       @search = hash[:search] ? SellApp::SearchProductsRequestApplicationJsonPropertySearch.new(hash[:search]) : nil
       @includes = hash[:includes] ? hash[:includes].map { |item| item ? SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem.new(item) : nil } : nil
+      @min_price = hash[:min_price]
+      @max_price = hash[:max_price]
+      @stock = hash[:stock]
+      @visibility = hash[:visibility]
+      @has_sales = hash[:has_sales]
+      @with_drafts = hash[:with_drafts]
+      @only_drafts = hash[:only_drafts]
     end
   end
 end

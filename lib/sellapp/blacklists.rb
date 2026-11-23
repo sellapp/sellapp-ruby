@@ -162,14 +162,35 @@ module SellApp
     end
 
     # List blacklist rules
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
+    # @param search [String, nil] Text to look for in the blocked value or the description, matched literally and anywhere in the text, up to 255 characters.
+    # @param type [SellApp::Types::BlacklistsType, nil] Return only rules of this type.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::BlacklistListResponse]
-    def v2_list_blacklists(request_options: {})
+    def v2_list_blacklists(
+      limit: 15,
+      page: 1,
+      search: nil,
+      type: nil,
+      request_options: {}
+    )
+      params = {
+        'limit' => limit,
+        'page' => page,
+        'search' => search,
+        'type' => type
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(search, {kind: :string, max: 255}, "$request.search") unless search.nil?
+      SellApp::Types::BaseModel.validate_value!(type, {kind: :enum, values: ["ASN", "COUNTRY", "EMAIL", "IP", "WILDCARD_EMAIL"]}, "$request.type") unless type.nil?
       request_options = request_options.merge(operation_id: 'v2ListBlacklists', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
         path: '/v2/blacklists',
         auth: true,
+        params: params,
         request_options: request_options
       )
       value = begin

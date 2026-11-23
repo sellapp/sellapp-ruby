@@ -46,6 +46,13 @@ class ChargesTest < Minitest::Test
     refute_nil result
   end
 
+  def test_get_summary_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/charges/summary(\?|\z)})
+      .to_return(body: '{"data":{"period":{"preset":"stub","start_date":"2024-01-01","end_date":"2024-01-01","timezone":"stub","currency":"stub"},"compared_with":{"start_date":"2024-01-01","end_date":"2024-01-01"},"revenue":{"currency":"stub","total_cents":1,"previous_total_cents":1,"formatted":"stub","previous_formatted":"stub","trend":"stub","trend_up":true},"completed_charges":{"count":1,"previous_count":1,"trend":"stub","trend_up":true}}}', status: 200)
+    result = @client.charges.get_summary()
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/charges(\?|\z)}},
@@ -53,6 +60,7 @@ class ChargesTest < Minitest::Test
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/charges/1(\?|\z)}, args: {charge: 1}},
     {name: :mark_completed, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/charges/1/completed(\?|\z)}, args: {charge_id: 1}},
     {name: :mark_voided, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/charges/1/voided(\?|\z)}, args: {charge_id: 1}},
+    {name: :get_summary, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/charges/summary(\?|\z)}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

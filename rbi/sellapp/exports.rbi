@@ -11,10 +11,11 @@ module SellApp
 
     sig do
       params(
+        page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListExportsResponseValue200ApplicationJson)
     end
-    def list_exports(request_options:); end
+    def list_exports(page:, request_options:); end
 
     sig do
       params(

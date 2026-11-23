@@ -18,6 +18,13 @@ class CoursesTest < Minitest::Test
     refute_nil result
   end
 
+  def test_create_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/courses(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","visibility":"PUBLIC","is_draft":true,"delivery_text":"stub","category":"development","level":"all_levels","language":"stub","subtitle":"stub","author":"stub","subcategory":"stub","what_you_learn":[],"requirements":[],"certificate_enabled":true,"access_type":"lifetime","access_duration_days":1,"enrollment_limit":1,"promo_video":{"mux_playback_id":"stub","mux_status":"stub","duration_seconds":0},"sections":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
+    result = @client.courses.create(title: 'stub')
+    refute_nil result
+  end
+
   def test_search_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/courses/search(\?|\z)})
       .to_return(body: '{}', status: 200)
@@ -46,13 +53,22 @@ class CoursesTest < Minitest::Test
     refute_nil result
   end
 
+  def test_get_student_summary_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/course-students(\?|\z)})
+      .to_return(body: '{"data":{"period":{"start_date":"2024-01-01","end_date":"2024-01-01","timezone":"stub","currency":"stub"},"summary":{"students_count":0,"multi_course_students_count":0,"course_purchases_count":0,"course_units_count":0,"course_orders_count":0,"courses_sold_count":0},"students":[],"courses":[]}}', status: 200)
+    result = @client.courses.get_student_summary(start_date: '2024-01-01', end_date: '2024-01-01')
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/courses(\?|\z)}},
+    {name: :create, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/courses(\?|\z)}, args: {title: 'stub'}},
     {name: :search, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/courses/search(\?|\z)}},
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/courses/stub(\?|\z)}, args: {course: 'stub'}},
     {name: :replace, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/courses/stub(\?|\z)}, args: {course: 'stub'}},
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/courses/stub(\?|\z)}, args: {course: 'stub'}},
+    {name: :get_student_summary, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/course-students(\?|\z)}, args: {start_date: '2024-01-01', end_date: '2024-01-01'}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

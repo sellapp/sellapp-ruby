@@ -15,10 +15,10 @@ module SellApp
     sig { params(value: T::Array[String]).returns(T::Array[String]) }
     def types=(value); end
 
-    sig { returns(SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData) }
+    sig { returns(T.any(SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1, T::Array[T.untyped])) }
     def data; end
 
-    sig { params(value: SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData).returns(SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData) }
+    sig { params(value: T.any(SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1, T::Array[T.untyped])).returns(T.any(SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1, T::Array[T.untyped])) }
     def data=(value); end
 
     sig { returns(T::Boolean) }

@@ -13,6 +13,9 @@ module SellApp
     # List affiliates
     # @param status [SellApp::Types::AffiliatesStatus, nil] Filter by affiliate program status.
     # @param search [String, nil] Search affiliate email addresses and profile identifiers.
+    # @param custom_rates_only [Boolean, nil] Send `true` to list only affiliates with custom per-product commission rates (see `GET /v2/affiliates/{affiliate}/products`). `false` lists everyone. Accepts `true`, `false`, `1`, or `0`.
+    # @param payout_method [SellApp::Types::AffiliatesPayoutMethod, nil] List only affiliates who chose this payout method. Uppercase, as returned in `payout_method`.
+    # @param sort [String, nil] Send `-earnings` to list the affiliates who earned the most first: available, pending, and paid balances added together, largest first. Without it, or with any other value, the newest affiliates come first.
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -20,6 +23,9 @@ module SellApp
     def list(
       status: nil,
       search: nil,
+      custom_rates_only: nil,
+      payout_method: nil,
+      sort: nil,
       limit: 15,
       page: 1,
       request_options: {}
@@ -27,11 +33,17 @@ module SellApp
       params = {
         'status' => status,
         'search' => search,
+        'custom_rates_only' => custom_rates_only,
+        'payout_method' => payout_method,
+        'sort' => sort,
         'limit' => limit,
         'page' => page
       }.compact
       SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["pending", "active", "disabled", "rejected", "blocked"]}, "$request.status") unless status.nil?
       SellApp::Types::BaseModel.validate_value!(search, {kind: :string, max: 255}, "$request.search") unless search.nil?
+      SellApp::Types::BaseModel.validate_value!(custom_rates_only, {kind: :boolean}, "$request.custom_rates_only") unless custom_rates_only.nil?
+      SellApp::Types::BaseModel.validate_value!(payout_method, {kind: :enum, values: ["PAYPAL", "CASHAPP", "VENMO", "WISE", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI"]}, "$request.payout_method") unless payout_method.nil?
+      SellApp::Types::BaseModel.validate_value!(sort, {kind: :literal, value: "-earnings"}, "$request.sort") unless sort.nil?
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       request_options = request_options.merge(operation_id: 'listAffiliates', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)

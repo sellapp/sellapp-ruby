@@ -15,16 +15,16 @@ module SellApp
     sig { params(value: T::Array[SellApp::SearchProductsResponseValue200ApplicationJsonPropertyDataItem]).returns(T::Array[SellApp::SearchProductsResponseValue200ApplicationJsonPropertyDataItem]) }
     def data=(value); end
 
-    sig { returns(SellApp::SearchProductsResponseValue200ApplicationJsonPropertyLinks) }
+    sig { returns(SellApp::PaginationLinks) }
     def links; end
 
-    sig { params(value: SellApp::SearchProductsResponseValue200ApplicationJsonPropertyLinks).returns(SellApp::SearchProductsResponseValue200ApplicationJsonPropertyLinks) }
+    sig { params(value: SellApp::PaginationLinks).returns(SellApp::PaginationLinks) }
     def links=(value); end
 
-    sig { returns(SellApp::SearchProductsResponseValue200ApplicationJsonPropertyMeta) }
+    sig { returns(SellApp::PaginationMeta) }
     def meta; end
 
-    sig { params(value: SellApp::SearchProductsResponseValue200ApplicationJsonPropertyMeta).returns(SellApp::SearchProductsResponseValue200ApplicationJsonPropertyMeta) }
+    sig { params(value: SellApp::PaginationMeta).returns(SellApp::PaginationMeta) }
     def meta=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

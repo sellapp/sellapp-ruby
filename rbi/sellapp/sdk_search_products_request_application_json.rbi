@@ -33,6 +33,48 @@ module SellApp
     sig { params(value: T.nilable(T::Array[SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem])).returns(T.nilable(T::Array[SellApp::SearchProductsRequestApplicationJsonPropertyIncludesItem])) }
     def includes=(value); end
 
+    sig { returns(T.nilable(Integer)) }
+    def min_price; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def min_price=(value); end
+
+    sig { returns(T.nilable(Integer)) }
+    def max_price; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def max_price=(value); end
+
+    sig { returns(T.nilable(String)) }
+    def stock; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def stock=(value); end
+
+    sig { returns(T.nilable(T::Array[String])) }
+    def visibility; end
+
+    sig { params(value: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+    def visibility=(value); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def has_sales; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def has_sales=(value); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def with_drafts; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def with_drafts=(value); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def only_drafts; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def only_drafts=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

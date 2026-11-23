@@ -39,12 +39,20 @@ class AffiliateProgramTest < Minitest::Test
     refute_nil result
   end
 
+  def test_resend_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/affiliate-invitations/1/resend(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"email":"sdk@example.com","status":"pending","invited_at":"2024-01-01T00:00:00Z","application_submitted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z"}}', status: 200)
+    result = @client.affiliate_program.resend(invitation: 1)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/affiliate-program(\?|\z)}},
     {name: :replace, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/affiliate-program(\?|\z)}, args: {enabled: true, settings: JSON.parse('{"auto_approve_affiliates":true,"minimum_payout":"stub","commission":{"type":"percentage","amount":"stub"},"referrer_type":"first_referrer","tracking_length":1,"subscription_commission":true,"enabled_specific_products":true,"payout_methods":["PAYPAL"],"enable_hub":true}'), products: JSON.parse('[]')}},
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/affiliate-invitations(\?|\z)}},
     {name: :invite, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/affiliate-invitations(\?|\z)}, args: {email: 'sdk@example.com'}},
+    {name: :resend, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/affiliate-invitations/1/resend(\?|\z)}, args: {invitation: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

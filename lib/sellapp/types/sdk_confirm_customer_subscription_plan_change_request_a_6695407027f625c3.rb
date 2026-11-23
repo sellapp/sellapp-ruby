@@ -4,10 +4,6 @@
 
 module SellApp
   module Types
-    class SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming
-      IMMEDIATE = 'immediate'
-      NEXT_RENEWAL = 'next_renewal'
-      ALL = [IMMEDIATE, NEXT_RENEWAL].freeze
-    end
+    SdkConfirmCustomerSubscriptionPlanChangeRequestApplicationJsonEffectiveTiming = GetVariantSubscriptionSettingsResponseValue200ApplicationJsonPropertyDataPropertyChangePathsItemEffectiveTiming
   end
 end

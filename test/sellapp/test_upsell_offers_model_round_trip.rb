@@ -911,4 +911,33 @@ class UpsellOffersModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_get_upsell_offer_performance_response_value_200_applica_7acf813831bc7304_round_trip
+    fixture = {
+      "upsell_offer_id" => 1,
+      "impressions" => 0,
+      "checkout_starts" => 0,
+      "accepts" => 0,
+      "revenue_usd_cents" => 0,
+    }
+    model = SellApp::GetUpsellOfferPerformanceResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["upsell_offer_id"], json[:upsell_offer_id]
+    assert_equal fixture["impressions"], json[:impressions]
+    assert_equal fixture["checkout_starts"], json[:checkout_starts]
+    assert_equal fixture["accepts"], json[:accepts]
+    assert_equal fixture["revenue_usd_cents"], json[:revenue_usd_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_upsell_offer_performance_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"upsell_offer_id":1,"impressions":0,"checkout_starts":0,"accepts":0,"revenue_usd_cents":0}'),
+    }
+    model = SellApp::SdkGetUpsellOfferPerformanceResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

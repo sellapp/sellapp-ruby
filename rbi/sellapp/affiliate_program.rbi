@@ -43,5 +43,13 @@ module SellApp
     end
     def invite(email:, request_options:); end
 
+    sig do
+      params(
+        invitation: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkResendAffiliateInvitationResponseValue200ApplicationJson)
+    end
+    def resend(invitation:, request_options:); end
+
   end
 end

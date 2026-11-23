@@ -248,5 +248,591 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # Retrieve checkout settings
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetCheckoutSettingsResponseValue200ApplicationJson]
+    def get_checkout(request_options: {})
+      request_options = request_options.merge(operation_id: 'getCheckoutSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/store/settings/checkout',
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetCheckoutSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update checkout settings
+    # @param shopping_cart_enabled [Boolean] Whether customers can add several products to a cart and buy them in one checkout. `false` turns the storefront cart off.
+    # @param customer_email_required [Boolean] Whether checkout asks customers for an email address. With `false`, checkout does not ask, and delivery and payment emails cannot reach a customer who left none.
+    # @param allow_vpn_purchases [Boolean] Whether customers who use a VPN or a proxy can buy.
+    # @param blacklist_on_dispute [Boolean] Whether a customer's email address and IP address are added to your blacklist when they open a payment dispute.
+    # @param minimum_spend [String, nil] The smallest order total, VAT included, that customers can check out with, as a decimal string in the order's currency: `"12.50"` on a USD order means $12.50. At least `1`; digits with an optional decimal part, no sign or exponent. Send `null` or `"0"` to remove the minimum; it then reads `null`.
+    # @param billing_descriptor [String, nil] The purchase name customers see while they check out, up to 20 characters. `null` uses the default, `SellApp Order`.
+    # @param attempts_per_customer [Integer] How many checkout attempts one customer can make within the window, counted per IP address and email pair, or per checkout session fingerprint when checkout does not ask for an email. 1 to 100000; the default is `5`. This limit cannot be removed.
+    # @param attempts_per_ip [Integer, nil] How many checkout attempts can come from one IP address within the window. 1 to 100000; `null` turns this limit off.
+    # @param attempts_per_email [Integer, nil] How many checkout attempts can use one customer email address within the window. 1 to 100000; `null` turns this limit off.
+    # @param attempts_per_fingerprint [Integer, nil] How many checkout attempts can come from one checkout session fingerprint (a browser identifier) within the window. 1 to 100000; `null` turns this limit off.
+    # @param rate_limit_window_seconds [Integer] How long each checkout limit counts attempts before allowing them again, in seconds: 60 (one minute) to 604800 (seven days). The default is `3600` (one hour). Attempts are counted per store.
+    # @param crypto [SellApp::ReplaceCheckoutSettingsRequestApplicationJsonPropertyCrypto, nil]
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReplaceCheckoutSettingsResponseValue200ApplicationJson]
+    def replace_checkout(
+      shopping_cart_enabled:,
+      customer_email_required:,
+      allow_vpn_purchases:,
+      blacklist_on_dispute:,
+      minimum_spend:,
+      billing_descriptor:,
+      attempts_per_customer:,
+      attempts_per_ip:,
+      attempts_per_email:,
+      attempts_per_fingerprint:,
+      rate_limit_window_seconds:,
+      crypto: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {
+        'shopping_cart_enabled' => shopping_cart_enabled,
+        'customer_email_required' => customer_email_required,
+        'allow_vpn_purchases' => allow_vpn_purchases,
+        'blacklist_on_dispute' => blacklist_on_dispute,
+        'minimum_spend' => minimum_spend,
+        'billing_descriptor' => billing_descriptor,
+        'attempts_per_customer' => attempts_per_customer,
+        'attempts_per_ip' => attempts_per_ip,
+        'attempts_per_email' => attempts_per_email,
+        'attempts_per_fingerprint' => attempts_per_fingerprint,
+        'rate_limit_window_seconds' => rate_limit_window_seconds
+      }
+      body['crypto'] = crypto unless crypto.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceCheckoutSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'replaceCheckoutSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: '/v2/store/settings/checkout',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReplaceCheckoutSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update checkout settings
+    # @param shopping_cart_enabled [Boolean, nil] Whether customers can add several products to a cart and buy them in one checkout. `false` turns the storefront cart off.
+    # @param customer_email_required [Boolean, nil] Whether checkout asks customers for an email address. With `false`, checkout does not ask, and delivery and payment emails cannot reach a customer who left none.
+    # @param allow_vpn_purchases [Boolean, nil] Whether customers who use a VPN or a proxy can buy.
+    # @param blacklist_on_dispute [Boolean, nil] Whether a customer's email address and IP address are added to your blacklist when they open a payment dispute.
+    # @param minimum_spend [String, nil] The smallest order total, VAT included, that customers can check out with, as a decimal string in the order's currency: `"12.50"` on a USD order means $12.50. At least `1`; digits with an optional decimal part, no sign or exponent. Send `null` or `"0"` to remove the minimum; it then reads `null`.
+    # @param billing_descriptor [String, nil] The purchase name customers see while they check out, up to 20 characters. `null` uses the default, `SellApp Order`.
+    # @param attempts_per_customer [Integer, nil] How many checkout attempts one customer can make within the window, counted per IP address and email pair, or per checkout session fingerprint when checkout does not ask for an email. 1 to 100000; the default is `5`. This limit cannot be removed.
+    # @param attempts_per_ip [Integer, nil] How many checkout attempts can come from one IP address within the window. 1 to 100000; `null` turns this limit off.
+    # @param attempts_per_email [Integer, nil] How many checkout attempts can use one customer email address within the window. 1 to 100000; `null` turns this limit off.
+    # @param attempts_per_fingerprint [Integer, nil] How many checkout attempts can come from one checkout session fingerprint (a browser identifier) within the window. 1 to 100000; `null` turns this limit off.
+    # @param rate_limit_window_seconds [Integer, nil] How long each checkout limit counts attempts before allowing them again, in seconds: 60 (one minute) to 604800 (seven days). The default is `3600` (one hour). Attempts are counted per store.
+    # @param crypto [SellApp::UpdateCheckoutSettingsRequestApplicationJsonPropertyCrypto, nil]
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkUpdateCheckoutSettingsResponseValue200ApplicationJson]
+    def update_checkout(
+      shopping_cart_enabled: nil,
+      customer_email_required: nil,
+      allow_vpn_purchases: nil,
+      blacklist_on_dispute: nil,
+      minimum_spend: SellApp::OMIT,
+      billing_descriptor: SellApp::OMIT,
+      attempts_per_customer: nil,
+      attempts_per_ip: SellApp::OMIT,
+      attempts_per_email: SellApp::OMIT,
+      attempts_per_fingerprint: SellApp::OMIT,
+      rate_limit_window_seconds: nil,
+      crypto: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {
+        'shopping_cart_enabled' => shopping_cart_enabled,
+        'customer_email_required' => customer_email_required,
+        'allow_vpn_purchases' => allow_vpn_purchases,
+        'blacklist_on_dispute' => blacklist_on_dispute,
+        'attempts_per_customer' => attempts_per_customer,
+        'rate_limit_window_seconds' => rate_limit_window_seconds
+      }.compact
+      body['minimum_spend'] = minimum_spend unless minimum_spend.equal?(SellApp::OMIT)
+      body['billing_descriptor'] = billing_descriptor unless billing_descriptor.equal?(SellApp::OMIT)
+      body['attempts_per_ip'] = attempts_per_ip unless attempts_per_ip.equal?(SellApp::OMIT)
+      body['attempts_per_email'] = attempts_per_email unless attempts_per_email.equal?(SellApp::OMIT)
+      body['attempts_per_fingerprint'] = attempts_per_fingerprint unless attempts_per_fingerprint.equal?(SellApp::OMIT)
+      body['crypto'] = crypto unless crypto.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateCheckoutSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'updateCheckoutSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/store/settings/checkout',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkUpdateCheckoutSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve tax settings
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetTaxSettingsResponseValue200ApplicationJson]
+    def get_taxes(request_options: {})
+      request_options = request_options.merge(operation_id: 'getTaxSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/store/settings/taxes',
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetTaxSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update tax settings
+    # @param vat_enabled [Boolean] Whether checkout collects VAT from customers. VAT and Stripe Tax cannot both be on: turning VAT on while Stripe Tax is on returns `422` on `vat_enabled` with `Disable Stripe Tax before enabling Sell VAT.` and saves nothing. Turn Stripe Tax off in **Settings > Taxes** in the dashboard first. If Stripe Tax was turned on but Stripe is now turned off as a payment method, turning VAT on succeeds and turns Stripe Tax off as well.
+    # @param vat_inclusive_pricing [Boolean] Whether your product prices already include VAT instead of VAT being added on top. Always `false` while VAT is off, and turning `vat_enabled` off turns it off too. `true` while VAT stays off returns `422` on `vat_inclusive_pricing`: send `"vat_enabled": true` in the same request.
+    # @param collect_billing_details [Boolean] Whether checkout asks customers for their billing details.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReplaceTaxSettingsResponseValue200ApplicationJson]
+    def replace_taxes(
+      vat_enabled:,
+      vat_inclusive_pricing:,
+      collect_billing_details:,
+      request_options: {}
+    )
+      body = {
+        'vat_enabled' => vat_enabled,
+        'vat_inclusive_pricing' => vat_inclusive_pricing,
+        'collect_billing_details' => collect_billing_details
+      }
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceTaxSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'replaceTaxSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: '/v2/store/settings/taxes',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReplaceTaxSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update tax settings
+    # @param vat_enabled [Boolean, nil] Whether checkout collects VAT from customers. VAT and Stripe Tax cannot both be on: turning VAT on while Stripe Tax is on returns `422` on `vat_enabled` with `Disable Stripe Tax before enabling Sell VAT.` and saves nothing. Turn Stripe Tax off in **Settings > Taxes** in the dashboard first. If Stripe Tax was turned on but Stripe is now turned off as a payment method, turning VAT on succeeds and turns Stripe Tax off as well.
+    # @param vat_inclusive_pricing [Boolean, nil] Whether your product prices already include VAT instead of VAT being added on top. Always `false` while VAT is off, and turning `vat_enabled` off turns it off too. `true` while VAT stays off returns `422` on `vat_inclusive_pricing`: send `"vat_enabled": true` in the same request.
+    # @param collect_billing_details [Boolean, nil] Whether checkout asks customers for their billing details.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkUpdateTaxSettingsResponseValue200ApplicationJson]
+    def update_taxes(
+      vat_enabled: nil,
+      vat_inclusive_pricing: nil,
+      collect_billing_details: nil,
+      request_options: {}
+    )
+      body = {
+        'vat_enabled' => vat_enabled,
+        'vat_inclusive_pricing' => vat_inclusive_pricing,
+        'collect_billing_details' => collect_billing_details
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateTaxSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'updateTaxSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/store/settings/taxes',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkUpdateTaxSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve customer email settings
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetCustomerEmailSettingsResponseValue200ApplicationJson]
+    def get_customer_emails(request_options: {})
+      request_options = request_options.merge(operation_id: 'getCustomerEmailSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/store/settings/customer-emails',
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetCustomerEmailSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update customer email settings
+    # @param send_delivery_email [Boolean] Whether customers automatically get an email with what they bought after paying. Turn it off when you deliver to customers yourself.
+    # @param send_payment_failure_email [Boolean] Whether customers get an email with a way to pay when your payment processor cannot collect a subscription payment. Turn it off when your processor already emails them.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson]
+    def replace_customer_emails(
+      send_delivery_email:,
+      send_payment_failure_email:,
+      request_options: {}
+    )
+      body = {
+        'send_delivery_email' => send_delivery_email,
+        'send_payment_failure_email' => send_payment_failure_email
+      }
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceCustomerEmailSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'replaceCustomerEmailSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: '/v2/store/settings/customer-emails',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update customer email settings
+    # @param send_delivery_email [Boolean, nil] Whether customers automatically get an email with what they bought after paying. Turn it off when you deliver to customers yourself.
+    # @param send_payment_failure_email [Boolean, nil] Whether customers get an email with a way to pay when your payment processor cannot collect a subscription payment. Turn it off when your processor already emails them.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson]
+    def update_customer_emails(
+      send_delivery_email: nil,
+      send_payment_failure_email: nil,
+      request_options: {}
+    )
+      body = {
+        'send_delivery_email' => send_delivery_email,
+        'send_payment_failure_email' => send_payment_failure_email
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateCustomerEmailSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'updateCustomerEmailSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/store/settings/customer-emails',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve store alert settings
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetStoreAlertSettingsResponseValue200ApplicationJson]
+    def get_store_alerts(request_options: {})
+      request_options = request_options.merge(operation_id: 'getStoreAlertSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/store/settings/store-alerts',
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetStoreAlertSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update store alert settings
+    # @param sale_emails_enabled [Boolean] Whether the store owner gets an email for each sale.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson]
+    def replace_store_alerts(
+      sale_emails_enabled:,
+      request_options: {}
+    )
+      body = {
+        'sale_emails_enabled' => sale_emails_enabled
+      }
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceStoreAlertSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'replaceStoreAlertSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: '/v2/store/settings/store-alerts',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update store alert settings
+    # @param sale_emails_enabled [Boolean, nil] Whether the store owner gets an email for each sale.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson]
+    def update_store_alerts(
+      sale_emails_enabled: nil,
+      request_options: {}
+    )
+      body = {
+        'sale_emails_enabled' => sale_emails_enabled
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateStoreAlertSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'updateStoreAlertSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/store/settings/store-alerts',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve personalization settings
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetPersonalizationSettingsResponseValue200ApplicationJson]
+    def get_personalization(request_options: {})
+      request_options = request_options.merge(operation_id: 'getPersonalizationSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/store/settings/personalization',
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetPersonalizationSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update personalization settings
+    # @param support_email [String, nil] The address customers can write to for support.
+    # @param trustpilot_email [String, nil] Your Trustpilot invitation address. It receives a blind copy of every delivery email, including the link to what the customer bought, so Trustpilot can invite the customer to leave a review.
+    # @param sender_name [String, nil] The name customer emails are sent from: letters, digits, spaces and `. - _ +`, up to 75 characters. It is used only while the store sends from its own verified sender email. A store without a custom sender email cannot keep one: sent with other changes it is ignored, and sent alone it returns `422` on `sender_name`.
+    # @param sender_email [String, nil] The store's custom sender email, or `null` when it has none. Read-only here: send it back unchanged or leave it out. A different value returns `422` on `sender_email`; set it up or remove it with `/v2/store/settings/sender-email`.
+    # @param store_address [String, nil] Street address printed on invoices.
+    # @param store_city [String, nil] City printed on invoices.
+    # @param store_state [String, nil] State or region printed on invoices.
+    # @param store_zip [String, nil] Postal code printed on invoices.
+    # @param store_country [String, nil] Country printed on invoices, as text.
+    # @param store_tax [String, nil] Tax or VAT details printed on invoices, such as `VAT GB123456789`.
+    # @param back_link_label [String, nil] Text of the Back button on product and checkout pages. A return link needs both a label and a URL: a change that leaves one of them empty returns `422` on the empty one. Send `null` for both to remove the link; the Back button then goes to the store's home page.
+    # @param back_link_url [String, nil] Where the Back button on product and checkout pages goes, as a full URL. Needs `back_link_label`.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReplacePersonalizationSettingsResponseValue200ApplicationJson]
+    def replace_personalization(
+      support_email:,
+      trustpilot_email:,
+      sender_name:,
+      store_address:,
+      store_city:,
+      store_state:,
+      store_zip:,
+      store_country:,
+      store_tax:,
+      back_link_label:,
+      back_link_url:,
+      sender_email: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {
+        'support_email' => support_email,
+        'trustpilot_email' => trustpilot_email,
+        'sender_name' => sender_name,
+        'store_address' => store_address,
+        'store_city' => store_city,
+        'store_state' => store_state,
+        'store_zip' => store_zip,
+        'store_country' => store_country,
+        'store_tax' => store_tax,
+        'back_link_label' => back_link_label,
+        'back_link_url' => back_link_url
+      }
+      body['sender_email'] = sender_email unless sender_email.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplacePersonalizationSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'replacePersonalizationSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: '/v2/store/settings/personalization',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReplacePersonalizationSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update personalization settings
+    # @param support_email [String, nil] The address customers can write to for support.
+    # @param trustpilot_email [String, nil] Your Trustpilot invitation address. It receives a blind copy of every delivery email, including the link to what the customer bought, so Trustpilot can invite the customer to leave a review.
+    # @param sender_name [String, nil] The name customer emails are sent from: letters, digits, spaces and `. - _ +`, up to 75 characters. It is used only while the store sends from its own verified sender email. A store without a custom sender email cannot keep one: sent with other changes it is ignored, and sent alone it returns `422` on `sender_name`.
+    # @param sender_email [String, nil] The store's custom sender email, or `null` when it has none. Read-only here: send it back unchanged or leave it out. A different value returns `422` on `sender_email`; set it up or remove it with `/v2/store/settings/sender-email`.
+    # @param store_address [String, nil] Street address printed on invoices.
+    # @param store_city [String, nil] City printed on invoices.
+    # @param store_state [String, nil] State or region printed on invoices.
+    # @param store_zip [String, nil] Postal code printed on invoices.
+    # @param store_country [String, nil] Country printed on invoices, as text.
+    # @param store_tax [String, nil] Tax or VAT details printed on invoices, such as `VAT GB123456789`.
+    # @param back_link_label [String, nil] Text of the Back button on product and checkout pages. A return link needs both a label and a URL: a change that leaves one of them empty returns `422` on the empty one. Send `null` for both to remove the link; the Back button then goes to the store's home page.
+    # @param back_link_url [String, nil] Where the Back button on product and checkout pages goes, as a full URL. Needs `back_link_label`.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson]
+    def update_personalization(
+      support_email: SellApp::OMIT,
+      trustpilot_email: SellApp::OMIT,
+      sender_name: SellApp::OMIT,
+      sender_email: SellApp::OMIT,
+      store_address: SellApp::OMIT,
+      store_city: SellApp::OMIT,
+      store_state: SellApp::OMIT,
+      store_zip: SellApp::OMIT,
+      store_country: SellApp::OMIT,
+      store_tax: SellApp::OMIT,
+      back_link_label: SellApp::OMIT,
+      back_link_url: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {}
+      body['support_email'] = support_email unless support_email.equal?(SellApp::OMIT)
+      body['trustpilot_email'] = trustpilot_email unless trustpilot_email.equal?(SellApp::OMIT)
+      body['sender_name'] = sender_name unless sender_name.equal?(SellApp::OMIT)
+      body['sender_email'] = sender_email unless sender_email.equal?(SellApp::OMIT)
+      body['store_address'] = store_address unless store_address.equal?(SellApp::OMIT)
+      body['store_city'] = store_city unless store_city.equal?(SellApp::OMIT)
+      body['store_state'] = store_state unless store_state.equal?(SellApp::OMIT)
+      body['store_zip'] = store_zip unless store_zip.equal?(SellApp::OMIT)
+      body['store_country'] = store_country unless store_country.equal?(SellApp::OMIT)
+      body['store_tax'] = store_tax unless store_tax.equal?(SellApp::OMIT)
+      body['back_link_label'] = back_link_label unless back_link_label.equal?(SellApp::OMIT)
+      body['back_link_url'] = back_link_url unless back_link_url.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdatePersonalizationSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'updatePersonalizationSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/store/settings/personalization',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update crypto checkout settings
+    # @param underpaid_percentage [Integer] How far short of the amount due, in percent, a crypto payment can be and still count as paid: `2` accepts a payment up to 2% short. 0 to 100.
+    # @param minimum_confirmations [Integer] How many blockchain confirmations a crypto payment needs before the order is processed. 1 to 25.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson]
+    def replace_crypto_checkout(
+      underpaid_percentage:,
+      minimum_confirmations:,
+      request_options: {}
+    )
+      body = {
+        'underpaid_percentage' => underpaid_percentage,
+        'minimum_confirmations' => minimum_confirmations
+      }
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceCryptoCheckoutSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'replaceCryptoCheckoutSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :put,
+        path: '/v2/store/settings/checkout/crypto',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Update crypto checkout settings
+    # @param underpaid_percentage [Integer, nil] How far short of the amount due, in percent, a crypto payment can be and still count as paid: `2` accepts a payment up to 2% short. 0 to 100.
+    # @param minimum_confirmations [Integer, nil] How many blockchain confirmations a crypto payment needs before the order is processed. 1 to 25.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson]
+    def update_crypto_checkout(
+      underpaid_percentage: nil,
+      minimum_confirmations: nil,
+      request_options: {}
+    )
+      body = {
+        'underpaid_percentage' => underpaid_percentage,
+        'minimum_confirmations' => minimum_confirmations
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateCryptoCheckoutSettingsRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'updateCryptoCheckoutSettings', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :patch,
+        path: '/v2/store/settings/checkout/crypto',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

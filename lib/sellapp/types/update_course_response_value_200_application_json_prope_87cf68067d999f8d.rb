@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    UpdateCourseResponseValue200ApplicationJsonPropertyDataAccessType = GetCourseResponseValue200ApplicationJsonPropertyDataAccessType
+    UpdateCourseResponseValue200ApplicationJsonPropertyDataAccessType = CreateCourseResponseValue201ApplicationJsonPropertyDataAccessType
   end
 end

@@ -171,6 +171,8 @@ module SellApp
     # @param sort [Array<SellApp::SearchProductsWithinGroupRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::SearchProductsWithinGroupRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::SearchProductsWithinGroupRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkSearchProductsWithinGroupResponseValue200ApplicationJson]
     def search(
@@ -179,8 +181,14 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      limit: 15,
+      page: 1,
       request_options: {}
     )
+      params = {
+        'limit' => limit,
+        'page' => page
+      }.compact
       body = {
         'filters' => filters,
         'sort' => sort,
@@ -188,12 +196,15 @@ module SellApp
         'includes' => includes
       }.compact
       SellApp::Types::BaseModel.validate_value!(group, {kind: :integer}, "$request.group")
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkSearchProductsWithinGroupRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'searchProductsWithinGroup', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: "/v2/groups/#{SellApp::Util.encode_path(group)}/products/search",
         auth: true,
+        params: params,
         body: body,
         request_options: request_options
       )

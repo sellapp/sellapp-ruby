@@ -45,6 +45,18 @@ module SellApp
     sig { params(value: SellApp::CreateInvoiceResponseValue201ApplicationJsonPropertyDataPropertyPaymentPropertyOriginalAmount).returns(SellApp::CreateInvoiceResponseValue201ApplicationJsonPropertyDataPropertyPaymentPropertyOriginalAmount) }
     def original_amount=(value); end
 
+    sig { returns(T.nilable(String)) }
+    def refund_currency; end
+
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def refund_currency=(value); end
+
+    sig { returns(Integer) }
+    def refunded_total_cents; end
+
+    sig { params(value: Integer).returns(Integer) }
+    def refunded_total_cents=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

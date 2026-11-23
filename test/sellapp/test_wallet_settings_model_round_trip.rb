@@ -148,6 +148,7 @@ class WalletSettingsModelRoundTripTest < Minitest::Test
       "amount_cents" => -999999999999,
       "idempotency_key" => 'stub',
       "note" => 'stub',
+      "expected_balance_cents" => 0,
     }
     model = SellApp::SdkAdjustCustomerWalletRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -238,6 +239,391 @@ class WalletSettingsModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
+  def test_sdk_reverse_wallet_transaction_request_application_json_round_trip
+    fixture = {
+      "note" => 'stub',
+      "expected_balance_cents" => 0,
+    }
+    model = SellApp::SdkReverseWalletTransactionRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["note"], json[:note]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_reverse_wallet_transaction_response_value_201_applicati_2a3e1d84e4d4e95a_round_trip
+    fixture = {
+      "id" => 1,
+      "wallet_id" => 1,
+      "type" => 'TOP_UP',
+      "amount_cents" => -999999999999,
+      "currency_at_source" => 'stub',
+      "exchange_rate_to_usd" => 'stub',
+      "order_id" => 1,
+      "charge_id" => 1,
+      "reverses_entry_id" => 1,
+      "expired_at" => '2024-01-01T00:00:00Z',
+      "balance_after_cents" => 0,
+      "note" => 'stub',
+      "idempotency_key" => 'stub',
+      "expires_at" => '2024-01-01T00:00:00Z',
+      "created_by_user_id" => 1,
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::ReverseWalletTransactionResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["wallet_id"], json[:wallet_id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_reverse_wallet_transaction_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"wallet_id":1,"type":"TOP_UP","amount_cents":-999999999999,"balance_after_cents":0}'),
+    }
+    model = SellApp::SdkReverseWalletTransactionResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_750efcf50845c3f2_round_trip
+    fixture = {
+      "id" => 1,
+      "wallet_id" => 1,
+      "type" => 'TOP_UP',
+      "amount_cents" => -999999999999,
+      "currency_at_source" => 'stub',
+      "exchange_rate_to_usd" => 'stub',
+      "order_id" => 1,
+      "charge_id" => 1,
+      "reverses_entry_id" => 1,
+      "expired_at" => '2024-01-01T00:00:00Z',
+      "balance_after_cents" => 0,
+      "note" => 'stub',
+      "idempotency_key" => 'stub',
+      "expires_at" => '2024-01-01T00:00:00Z',
+      "created_by_user_id" => 1,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "customer_id" => 1,
+      "customer_email" => 'sdk@example.com',
+      "reversed_by_entry_id" => 1,
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["wallet_id"], json[:wallet_id]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["customer_email"], json[:customer_email]
+    assert_equal fixture["reversed_by_entry_id"], json[:reversed_by_entry_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_b8c5105f6e2c50b0_round_trip
+    fixture = {
+      "range" => '7d',
+      "label" => 'stub',
+      "start_at" => '2024-01-01T00:00:00Z',
+      "end_at" => '2024-01-01T00:00:00Z',
+      "currency" => 'USD',
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyMetaAllOfValue2PropertyPeriod.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["label"], json[:label]
+    assert_equal fixture["start_at"], json[:start_at]
+    assert_equal fixture["end_at"], json[:end_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_d64d3800c722ec94_round_trip
+    fixture = {
+      "id" => 1,
+      "email" => 'sdk@example.com',
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyMetaAllOfValue2PropertyFiltersPropertyCustomer.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["email"], json[:email]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_9b7bc997d6ced5ab_round_trip
+    fixture = {
+      "type" => 'TOP_UP',
+      "type_label" => 'stub',
+      "customer" => JSON.parse('{"id":1,"email":"sdk@example.com"}'),
+      "wallet_id" => 1,
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyMetaAllOfValue2PropertyFilters.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["type_label"], json[:type_label]
+    assert_equal fixture["wallet_id"], json[:wallet_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_ff06678e1d09accd_round_trip
+    fixture = {
+      "entries_count" => 0,
+      "net_amount_cents" => 1,
+      "credits_cents" => 0,
+      "debits_cents" => 0,
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyMetaAllOfValue2PropertySummary.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["entries_count"], json[:entries_count]
+    assert_equal fixture["net_amount_cents"], json[:net_amount_cents]
+    assert_equal fixture["credits_cents"], json[:credits_cents]
+    assert_equal fixture["debits_cents"], json[:debits_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_3f8b92ba11ce231b_round_trip
+    fixture = {
+      "current_page" => 1,
+      "from" => 1,
+      "last_page" => 1,
+      "links" => JSON.parse('[]'),
+      "path" => 'stub',
+      "per_page" => 1,
+      "to" => 1,
+      "total" => 1,
+      "period" => JSON.parse('{"range":"7d","label":"stub","start_at":"2024-01-01T00:00:00Z","end_at":"2024-01-01T00:00:00Z","currency":"USD"}'),
+      "filters" => JSON.parse('{"type":"TOP_UP","type_label":"stub","customer":{"id":1,"email":"sdk@example.com"},"wallet_id":1}'),
+      "summary" => JSON.parse('{"entries_count":0,"net_amount_cents":1,"credits_cents":0,"debits_cents":0}'),
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyMeta.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["current_page"], json[:current_page]
+    assert_equal fixture["from"], json[:from]
+    assert_equal fixture["last_page"], json[:last_page]
+    assert_equal fixture["path"], json[:path]
+    assert_equal fixture["per_page"], json[:per_page]
+    assert_equal fixture["to"], json[:to]
+    assert_equal fixture["total"], json[:total]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_list_store_wallet_transactions_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+      "links" => JSON.parse('{"first":"stub","last":"stub","prev":"stub","next":"stub"}'),
+      "meta" => JSON.parse('{"current_page":1,"from":1,"last_page":1,"links":[],"path":"stub","per_page":1,"to":1,"total":1,"period":{"range":"7d","label":"stub","start_at":"2024-01-01T00:00:00Z","end_at":"2024-01-01T00:00:00Z","currency":"USD"},"filters":{"type":"TOP_UP","type_label":"stub","customer":{"id":1,"email":"sdk@example.com"},"wallet_id":1},"summary":{"entries_count":0,"net_amount_cents":1,"credits_cents":0,"debits_cents":0}}'),
+    }
+    model = SellApp::SdkListStoreWalletTransactionsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_0c6d56b37f65d5c3_round_trip
+    fixture = {
+      "range" => '7d',
+      "label" => 'stub',
+      "start_at" => '2024-01-01T00:00:00Z',
+      "end_at" => '2024-01-01T00:00:00Z',
+      "currency" => 'USD',
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyPeriod.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["label"], json[:label]
+    assert_equal fixture["start_at"], json[:start_at]
+    assert_equal fixture["end_at"], json[:end_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_8ad1430d5f70628c_round_trip
+    fixture = {
+      "wallet_enabled" => true,
+      "expiration_days" => 1,
+      "min_topup_cents" => 1,
+      "max_topup_cents" => 1,
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertySettings.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["wallet_enabled"], json[:wallet_enabled]
+    assert_equal fixture["expiration_days"], json[:expiration_days]
+    assert_equal fixture["min_topup_cents"], json[:min_topup_cents]
+    assert_equal fixture["max_topup_cents"], json[:max_topup_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_c500038fd1fff691_round_trip
+    fixture = {
+      "liability_cents" => 0,
+      "available_cents" => 0,
+      "held_cents" => 0,
+      "held_count" => 0,
+      "wallets_with_balance" => 0,
+      "total_wallets" => 0,
+      "frozen_wallets" => 0,
+      "expiring_soon_cents" => 0,
+      "expiring_soon_days" => 1,
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyHealth.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["liability_cents"], json[:liability_cents]
+    assert_equal fixture["available_cents"], json[:available_cents]
+    assert_equal fixture["held_cents"], json[:held_cents]
+    assert_equal fixture["held_count"], json[:held_count]
+    assert_equal fixture["wallets_with_balance"], json[:wallets_with_balance]
+    assert_equal fixture["total_wallets"], json[:total_wallets]
+    assert_equal fixture["frozen_wallets"], json[:frozen_wallets]
+    assert_equal fixture["expiring_soon_cents"], json[:expiring_soon_cents]
+    assert_equal fixture["expiring_soon_days"], json[:expiring_soon_days]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_f9cac4b4d653f4d6_round_trip
+    fixture = {
+      "topups_cents" => 0,
+      "customer_spend_cents" => 0,
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyActivity.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["topups_cents"], json[:topups_cents]
+    assert_equal fixture["customer_spend_cents"], json[:customer_spend_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_be6d44531af27be3_round_trip
+    fixture = {
+      "period" => '7d',
+      "total_cents" => 1,
+      "bonus_cents" => 1,
+      "cashback_cents" => 1,
+      "reward_cents" => 1,
+      "recovered_cents" => 1,
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyIncentiveSpend.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["total_cents"], json[:total_cents]
+    assert_equal fixture["bonus_cents"], json[:bonus_cents]
+    assert_equal fixture["cashback_cents"], json[:cashback_cents]
+    assert_equal fixture["reward_cents"], json[:reward_cents]
+    assert_equal fixture["recovered_cents"], json[:recovered_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_668c5dd6a2a689ea_round_trip
+    fixture = {
+      "cashback_rules_count" => 0,
+      "bonus_tiers_count" => 0,
+      "wallet_credit_reward_rules_count" => 0,
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyActiveRules.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["cashback_rules_count"], json[:cashback_rules_count]
+    assert_equal fixture["bonus_tiers_count"], json[:bonus_tiers_count]
+    assert_equal fixture["wallet_credit_reward_rules_count"], json[:wallet_credit_reward_rules_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_b64e270746a5dfe2_round_trip
+    fixture = {
+      "id" => 1,
+      "customer_id" => 1,
+      "customer_email" => 'sdk@example.com',
+      "status" => 'active',
+      "balance_cents" => 0,
+      "available_cents" => 0,
+      "held_cents" => 0,
+      "last_activity_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyTopWalletsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["customer_email"], json[:customer_email]
+    assert_equal fixture["balance_cents"], json[:balance_cents]
+    assert_equal fixture["available_cents"], json[:available_cents]
+    assert_equal fixture["held_cents"], json[:held_cents]
+    assert_equal fixture["last_activity_at"], json[:last_activity_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_8945724a5d896af6_round_trip
+    fixture = {
+      "id" => 1,
+      "wallet_id" => 1,
+      "customer_id" => 1,
+      "customer_email" => 'sdk@example.com',
+      "type" => 'TOP_UP',
+      "type_label" => 'stub',
+      "amount_cents" => 1,
+      "balance_after_cents" => 0,
+      "currency_at_source" => 'stub',
+      "note" => 'stub',
+      "reverses_entry_id" => 1,
+      "reversed_by_entry_id" => 1,
+      "expires_at" => '2024-01-01T00:00:00Z',
+      "expired_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyDataPropertyRecentActivityItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["wallet_id"], json[:wallet_id]
+    assert_equal fixture["customer_id"], json[:customer_id]
+    assert_equal fixture["customer_email"], json[:customer_email]
+    assert_equal fixture["type_label"], json[:type_label]
+    assert_equal fixture["amount_cents"], json[:amount_cents]
+    assert_equal fixture["balance_after_cents"], json[:balance_after_cents]
+    assert_equal fixture["currency_at_source"], json[:currency_at_source]
+    assert_equal fixture["note"], json[:note]
+    assert_equal fixture["reverses_entry_id"], json[:reverses_entry_id]
+    assert_equal fixture["reversed_by_entry_id"], json[:reversed_by_entry_id]
+    assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["expired_at"], json[:expired_at]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_wallet_overview_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "period" => JSON.parse('{"range":"7d","label":"stub","start_at":"2024-01-01T00:00:00Z","end_at":"2024-01-01T00:00:00Z","currency":"USD"}'),
+      "settings" => JSON.parse('{"wallet_enabled":true,"expiration_days":1,"min_topup_cents":1,"max_topup_cents":1}'),
+      "health" => JSON.parse('{"liability_cents":0,"available_cents":0,"held_cents":0,"held_count":0,"wallets_with_balance":0,"total_wallets":0,"frozen_wallets":0,"expiring_soon_cents":0,"expiring_soon_days":1}'),
+      "activity" => JSON.parse('{"topups_cents":0,"customer_spend_cents":0}'),
+      "incentive_spend" => JSON.parse('{"period":"7d","total_cents":1,"bonus_cents":1,"cashback_cents":1,"reward_cents":1,"recovered_cents":1}'),
+      "active_rules" => JSON.parse('{"cashback_rules_count":0,"bonus_tiers_count":0,"wallet_credit_reward_rules_count":0}'),
+      "top_wallets" => JSON.parse('[]'),
+      "recent_activity" => JSON.parse('[]'),
+    }
+    model = SellApp::GetWalletOverviewResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_wallet_overview_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"period":{"range":"7d","label":"stub","start_at":"2024-01-01T00:00:00Z","end_at":"2024-01-01T00:00:00Z","currency":"USD"},"settings":{"wallet_enabled":true,"expiration_days":1,"min_topup_cents":1,"max_topup_cents":1},"health":{"liability_cents":0,"available_cents":0,"held_cents":0,"held_count":0,"wallets_with_balance":0,"total_wallets":0,"frozen_wallets":0,"expiring_soon_cents":0,"expiring_soon_days":1},"activity":{"topups_cents":0,"customer_spend_cents":0},"incentive_spend":{"period":"7d","total_cents":1,"bonus_cents":1,"cashback_cents":1,"reward_cents":1,"recovered_cents":1},"active_rules":{"cashback_rules_count":0,"bonus_tiers_count":0,"wallet_credit_reward_rules_count":0},"top_wallets":[],"recent_activity":[]}'),
+    }
+    model = SellApp::SdkGetWalletOverviewResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_list_wallet_transactions_response_value_200_application_6a2503c82e59bccd_round_trip
     fixture = {
       "id" => 1,
@@ -318,6 +704,21 @@ class WalletSettingsModelRoundTripTest < Minitest::Test
     model = SellApp::SdkCreateWalletTopUpResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_store_wallet_transactions_response_value_200_appli_a3714b8e37bd84f1_round_trip
+    fixture = {
+      "url" => 'stub',
+      "label" => 'stub',
+      "active" => true,
+    }
+    model = SellApp::ListStoreWalletTransactionsResponseValue200ApplicationJsonPropertyMetaLink.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["url"], json[:url]
+    assert_equal fixture["label"], json[:label]
+    assert_equal fixture["active"], json[:active]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 end

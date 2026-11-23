@@ -342,4 +342,34 @@ class AffiliateProgramModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_resend_affiliate_invitation_response_value_200_applicat_c5fe37eb37f4506b_round_trip
+    fixture = {
+      "id" => 1,
+      "email" => 'sdk@example.com',
+      "status" => 'pending',
+      "invited_at" => '2024-01-01T00:00:00Z',
+      "application_submitted_at" => '2024-01-01T00:00:00Z',
+      "created_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::ResendAffiliateInvitationResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["email"], json[:email]
+    assert_equal fixture["invited_at"], json[:invited_at]
+    assert_equal fixture["application_submitted_at"], json[:application_submitted_at]
+    assert_equal fixture["created_at"], json[:created_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_resend_affiliate_invitation_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":1,"email":"sdk@example.com","status":"pending","invited_at":"2024-01-01T00:00:00Z","application_submitted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkResendAffiliateInvitationResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

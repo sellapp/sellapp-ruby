@@ -20,35 +20,35 @@ class ProductVariantsTest < Minitest::Test
 
   def test_create_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products/1/variants(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants.create(product: 1, title: 'stub', description: 'stub', deliverable: JSON.parse('{"types":[],"data":{}}'), pricing: JSON.parse('{"humble":true,"price":{"price":1,"currency":"stub"}}'), payment_methods: JSON.parse('["AUTHNET"]'))
     refute_nil result
   end
 
   def test_get_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants.get(product: 1, variant: 1)
     refute_nil result
   end
 
   def test_replace_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants.replace(product: 1, variant: 1)
     refute_nil result
   end
 
   def test_update_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants.update(product: 1, variant: 1)
     refute_nil result
   end
 
   def test_delete_returns_expected_result
     stub_request(:delete, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]}}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
     result = @client.product_variants.delete(product: 1, variant: 1)
     refute_nil result
   end
@@ -81,6 +81,27 @@ class ProductVariantsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_publish_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/publish(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
+    result = @client.product_variants.publish(product: 1, variant: 1)
+    refute_nil result
+  end
+
+  def test_duplicate_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/duplicate(\?|\z)})
+      .to_return(body: '{"data":{"id":1,"product_id":1,"title":"stub","description":"stub","deliverable":{"data":{"removeDuplicate":true,"parsingMode":"stub"},"types":[]},"pricing":{"humble":true,"frequency":{"value":1,"interval":"stub"},"type":"stub","price":{"price":"stub","currency":"stub"}},"minimum_purchase_quantity":1,"maximum_purchase_quantity":1,"bulk_discount":[],"payment_methods":[],"other_settings":{"quantity_increments":1,"discord_data_required":true},"order":1,"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","deleted_at":"2024-01-01T00:00:00Z","product":{"additional_information":[]},"is_draft":true}}', status: 200)
+    result = @client.product_variants.duplicate(product: 1, variant: 1)
+    refute_nil result
+  end
+
+  def test_reorder_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/products/1/variants/order(\?|\z)})
+      .to_return(body: '{"data":[]}', status: 200)
+    result = @client.product_variants.reorder(product: 1, variant_ids: JSON.parse('[1]'))
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants(\?|\z)}, args: {product: 1}},
@@ -93,6 +114,9 @@ class ProductVariantsTest < Minitest::Test
     {name: :batch_create, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/batch(\?|\z)}, args: {product: 1, resources: JSON.parse('[]')}},
     {name: :batch_update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/batch(\?|\z)}, args: {product: 1, resources: JSON.parse('{}')}},
     {name: :batch_delete, verb: :delete, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/batch(\?|\z)}, args: {product: 1, resources: JSON.parse('[]')}},
+    {name: :publish, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/publish(\?|\z)}, args: {product: 1, variant: 1}},
+    {name: :duplicate, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/duplicate(\?|\z)}, args: {product: 1, variant: 1}},
+    {name: :reorder, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/order(\?|\z)}, args: {product: 1, variant_ids: JSON.parse('[1]')}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

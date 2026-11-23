@@ -15,12 +15,6 @@ module SellApp
     sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
     def value=(value); end
 
-    sig { returns(T.nilable(T::Boolean)) }
-    def case_sensitive; end
-
-    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-    def case_sensitive=(value); end
-
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

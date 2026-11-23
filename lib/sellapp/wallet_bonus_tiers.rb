@@ -220,5 +220,33 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # Quote a wallet bonus tier
+    # @param top_up_cents [Integer] The top-up amount to quote, in integer USD cents.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkQuoteWalletBonusTierResponseValue200ApplicationJson]
+    def quote(
+      top_up_cents:,
+      request_options: {}
+    )
+      params = {
+        'top_up_cents' => top_up_cents
+      }
+      SellApp::Types::BaseModel.validate_value!(top_up_cents, {kind: :integer, minimum: 1, maximum: 999999999999}, "$request.top_up_cents")
+      request_options = request_options.merge(operation_id: 'quoteWalletBonusTier', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/wallet-bonus-tiers/quote',
+        auth: true,
+        params: params,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkQuoteWalletBonusTierResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

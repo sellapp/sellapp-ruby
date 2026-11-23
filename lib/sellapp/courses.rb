@@ -46,6 +46,82 @@ module SellApp
       @client.wrap_response(value, response, request_options)
     end
 
+    # Create a course
+    # @param category [SellApp::Types::Category, nil]
+    # @param level [SellApp::Types::SdkCreateCourseRequestApplicationJsonLevel, nil]
+    # @param language [String, nil]
+    # @param subtitle [String, nil]
+    # @param author [String, nil]
+    # @param subcategory [String, nil]
+    # @param what_you_learn [Array<String>, nil]
+    # @param requirements [Array<String>, nil]
+    # @param certificate_enabled [Boolean, nil]
+    # @param access_type [SellApp::Types::SdkCreateCourseRequestApplicationJsonAccessType, nil]
+    # @param access_duration_days [Integer, nil] Required when access_type is limited; cleared otherwise.
+    # @param enrollment_limit [Integer, nil]
+    # @param delivery_text [String, nil]
+    # @param title [String] The course name customers see.
+    # @param slug [String, nil] The last part of the course's storefront URL: lowercase letters and numbers in words joined by single hyphens, such as `design-foundations`. It must be unused by every other product in the store, or the request returns `422` on `slug`. When you leave it out, SellApp makes one from the title.
+    # @param description [String, nil] The course description as HTML, at least 5 characters long and at most 2000 characters of visible text. Leave it out, or send null, to start without one; a course needs a description before it is published.
+    # @param visibility [SellApp::Types::CatalogVisibility, nil]
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkCreateCourseResponseValue201ApplicationJson]
+    def create(
+      title:,
+      category: SellApp::OMIT,
+      level: nil,
+      language: nil,
+      subtitle: SellApp::OMIT,
+      author: SellApp::OMIT,
+      subcategory: SellApp::OMIT,
+      what_you_learn: nil,
+      requirements: nil,
+      certificate_enabled: nil,
+      access_type: nil,
+      access_duration_days: SellApp::OMIT,
+      enrollment_limit: SellApp::OMIT,
+      delivery_text: SellApp::OMIT,
+      slug: nil,
+      description: SellApp::OMIT,
+      visibility: nil,
+      request_options: {}
+    )
+      body = {
+        'level' => level,
+        'language' => language,
+        'what_you_learn' => what_you_learn,
+        'requirements' => requirements,
+        'certificate_enabled' => certificate_enabled,
+        'access_type' => access_type,
+        'title' => title,
+        'slug' => slug,
+        'visibility' => visibility
+      }.compact
+      body['category'] = category unless category.equal?(SellApp::OMIT)
+      body['subtitle'] = subtitle unless subtitle.equal?(SellApp::OMIT)
+      body['author'] = author unless author.equal?(SellApp::OMIT)
+      body['subcategory'] = subcategory unless subcategory.equal?(SellApp::OMIT)
+      body['access_duration_days'] = access_duration_days unless access_duration_days.equal?(SellApp::OMIT)
+      body['enrollment_limit'] = enrollment_limit unless enrollment_limit.equal?(SellApp::OMIT)
+      body['delivery_text'] = delivery_text unless delivery_text.equal?(SellApp::OMIT)
+      body['description'] = description unless description.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCreateCourseRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'createCourse', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: '/v2/courses',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkCreateCourseResponseValue201ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
     # Search courses
     # @param filters [Array<SellApp::SearchRewardRulesRequestApplicationJsonPropertyFiltersItem>, nil]
     # @param sort [Array<SellApp::SearchRewardRulesRequestApplicationJsonPropertySortItem>, nil]
@@ -138,7 +214,10 @@ module SellApp
     # @param enrollment_limit [Integer, nil]
     # @param delivery_text [String, nil]
     # @param visibility [SellApp::Types::CatalogVisibility, nil]
-    # @param expected_updated_at [String, nil]
+    # @param expected_updated_at [String, nil] The `updated_at` you last read. If the course changed since, the request returns `422` on `expected_updated_at` and changes nothing. It is checked even when the request changes nothing else.
+    # @param title [String, nil] The course name customers see.
+    # @param slug [String, nil] The last part of the course's storefront URL: lowercase letters and numbers in words joined by single hyphens, such as `design-foundations`. It must be unused by every other product in the store, or the request returns `422` on `slug`.
+    # @param description [String, nil] The course description as HTML, at least 5 characters long and at most 2000 characters of visible text. `null` keeps the current description. To clear the description of a draft course, send an empty element such as `<p></p>`; a published course must keep one, so clearing it returns `422` on `description`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkReplaceCourseResponseValue200ApplicationJson]
     def replace(
@@ -158,6 +237,9 @@ module SellApp
       delivery_text: SellApp::OMIT,
       visibility: nil,
       expected_updated_at: nil,
+      title: nil,
+      slug: nil,
+      description: SellApp::OMIT,
       request_options: {}
     )
       body = {
@@ -168,7 +250,9 @@ module SellApp
         'certificate_enabled' => certificate_enabled,
         'access_type' => access_type,
         'visibility' => visibility,
-        'expected_updated_at' => expected_updated_at
+        'expected_updated_at' => expected_updated_at,
+        'title' => title,
+        'slug' => slug
       }.compact
       body['category'] = category unless category.equal?(SellApp::OMIT)
       body['subtitle'] = subtitle unless subtitle.equal?(SellApp::OMIT)
@@ -177,6 +261,7 @@ module SellApp
       body['access_duration_days'] = access_duration_days unless access_duration_days.equal?(SellApp::OMIT)
       body['enrollment_limit'] = enrollment_limit unless enrollment_limit.equal?(SellApp::OMIT)
       body['delivery_text'] = delivery_text unless delivery_text.equal?(SellApp::OMIT)
+      body['description'] = description unless description.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(course, {kind: :string}, "$request.course")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkReplaceCourseRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'replaceCourse', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
@@ -211,7 +296,10 @@ module SellApp
     # @param enrollment_limit [Integer, nil]
     # @param delivery_text [String, nil]
     # @param visibility [SellApp::Types::CatalogVisibility, nil]
-    # @param expected_updated_at [String, nil]
+    # @param expected_updated_at [String, nil] The `updated_at` you last read. If the course changed since, the request returns `422` on `expected_updated_at` and changes nothing. It is checked even when the request changes nothing else.
+    # @param title [String, nil] The course name customers see.
+    # @param slug [String, nil] The last part of the course's storefront URL: lowercase letters and numbers in words joined by single hyphens, such as `design-foundations`. It must be unused by every other product in the store, or the request returns `422` on `slug`.
+    # @param description [String, nil] The course description as HTML, at least 5 characters long and at most 2000 characters of visible text. `null` keeps the current description. To clear the description of a draft course, send an empty element such as `<p></p>`; a published course must keep one, so clearing it returns `422` on `description`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkUpdateCourseResponseValue200ApplicationJson]
     def update(
@@ -231,6 +319,9 @@ module SellApp
       delivery_text: SellApp::OMIT,
       visibility: nil,
       expected_updated_at: nil,
+      title: nil,
+      slug: nil,
+      description: SellApp::OMIT,
       request_options: {}
     )
       body = {
@@ -241,7 +332,9 @@ module SellApp
         'certificate_enabled' => certificate_enabled,
         'access_type' => access_type,
         'visibility' => visibility,
-        'expected_updated_at' => expected_updated_at
+        'expected_updated_at' => expected_updated_at,
+        'title' => title,
+        'slug' => slug
       }.compact
       body['category'] = category unless category.equal?(SellApp::OMIT)
       body['subtitle'] = subtitle unless subtitle.equal?(SellApp::OMIT)
@@ -250,6 +343,7 @@ module SellApp
       body['access_duration_days'] = access_duration_days unless access_duration_days.equal?(SellApp::OMIT)
       body['enrollment_limit'] = enrollment_limit unless enrollment_limit.equal?(SellApp::OMIT)
       body['delivery_text'] = delivery_text unless delivery_text.equal?(SellApp::OMIT)
+      body['description'] = description unless description.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(course, {kind: :string}, "$request.course")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateCourseRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'updateCourse', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
@@ -262,6 +356,46 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkUpdateCourseResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve a course student summary
+    # @param start_date [String] The first day to include, as `YYYY-MM-DD` in the store's timezone.
+    # @param end_date [String] The last day to include, as `YYYY-MM-DD` in the store's timezone. It must not be before `start_date`, and the range can cover at most 366 days; otherwise the request returns `422` on `end_date`.
+    # @param course_id [Integer, nil] Count one course only: the course `id` from `/v2/courses`. Another product, a deleted course, or another store's course returns `422` on `course_id`.
+    # @param limit [Integer, nil] How many rows `students` and `courses` each return: 10 by default, at most 20. A larger value returns `422` on `limit`. The `summary` totals always cover everything.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetCourseStudentSummaryResponseValue200ApplicationJson]
+    def get_student_summary(
+      start_date:,
+      end_date:,
+      course_id: nil,
+      limit: 10,
+      request_options: {}
+    )
+      params = {
+        'start_date' => start_date,
+        'end_date' => end_date,
+        'course_id' => course_id,
+        'limit' => limit
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(start_date, {kind: :string, format: "date"}, "$request.start_date")
+      SellApp::Types::BaseModel.validate_value!(end_date, {kind: :string, format: "date"}, "$request.end_date")
+      SellApp::Types::BaseModel.validate_value!(course_id, {kind: :integer, minimum: 1}, "$request.course_id") unless course_id.nil?
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 20}, "$request.limit") unless limit.nil?
+      request_options = request_options.merge(operation_id: 'getCourseStudentSummary', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/course-students',
+        auth: true,
+        params: params,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetCourseStudentSummaryResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

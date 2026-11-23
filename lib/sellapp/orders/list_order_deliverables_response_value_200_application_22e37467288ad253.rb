@@ -9,6 +9,7 @@ module SellApp
       line_item_id: :line_item_id,
       type: :type,
       status: :status,
+      delivered_product_id: :delivered_product_id,
       product_variant_id: :product_variant_id,
       quantity: :quantity,
       deliverable: :deliverable,
@@ -20,6 +21,7 @@ module SellApp
       line_item_id: {required: true, schema: {kind: :integer}},
       type: {required: true, schema: {kind: :string}},
       status: {required: true, schema: {kind: :enum, values: ["pending", "delivered"]}},
+      delivered_product_id: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
       product_variant_id: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
       quantity: {required: true, schema: {kind: :integer}},
       deliverable: {required: true, schema: {kind: :model, name: "SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverable"}},
@@ -33,6 +35,7 @@ module SellApp
       :line_item_id,
       :type,
       :status,
+      :delivered_product_id,
       :product_variant_id,
       :quantity,
       :deliverable,
@@ -47,6 +50,7 @@ module SellApp
       @line_item_id = hash[:line_item_id]
       @type = hash[:type]
       @status = hash[:status]
+      @delivered_product_id = hash[:delivered_product_id]
       @product_variant_id = hash[:product_variant_id]
       @quantity = hash[:quantity]
       @deliverable = hash[:deliverable] ? SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverable.new(hash[:deliverable]) : nil

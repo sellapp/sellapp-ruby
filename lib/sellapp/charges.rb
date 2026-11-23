@@ -13,19 +13,35 @@ module SellApp
     # List all charges
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
+    # @param status [SellApp::Types::ChargesStatus, nil] Keep charges in this status: `PENDING`, `REVERSED`, `PARTIAL`, `VOIDED`, `REFUNDED`, `PAID`, `COMPLETED`, `DISPUTING`, or `REVIEW`. `FAILED` is not accepted, because failed charges are never listed.
+    # @param customer_email [String, nil] Keep charges whose customer email contains this text.
+    # @param created_after [String, nil] Keep charges created on or after this moment. A date such as `2026-08-01` starts at midnight of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.
+    # @param created_before [String, nil] Keep charges created on or before this moment. A date such as `2026-08-31` runs to the last second of that day in the store's time zone; a date-time without an offset is also read in the store's time zone. Inclusive.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkListChargesResponseValue200ApplicationJson]
     def list(
       limit: 15,
       page: 1,
+      status: nil,
+      customer_email: nil,
+      created_after: nil,
+      created_before: nil,
       request_options: {}
     )
       params = {
         'limit' => limit,
-        'page' => page
+        'page' => page,
+        'status' => status,
+        'customer_email' => customer_email,
+        'created_after' => created_after,
+        'created_before' => created_before
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["PENDING", "REVERSED", "PARTIAL", "VOIDED", "REFUNDED", "PAID", "COMPLETED", "DISPUTING", "REVIEW"]}, "$request.status") unless status.nil?
+      SellApp::Types::BaseModel.validate_value!(customer_email, {kind: :string, max: 255}, "$request.customer_email") unless customer_email.nil?
+      SellApp::Types::BaseModel.validate_value!(created_after, {kind: :string, max: 64}, "$request.created_after") unless created_after.nil?
+      SellApp::Types::BaseModel.validate_value!(created_before, {kind: :string, max: 64}, "$request.created_before") unless created_before.nil?
       request_options = request_options.merge(operation_id: 'listCharges', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
@@ -181,6 +197,42 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkMarkPendingChargeVoidedResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Retrieve the charge summary
+    # @param preset [SellApp::Types::ChargesPreset, nil] A named range in the store's time zone: `today`, `yesterday`, `this_week`, `last_week`, `this_month`, `last_month`, `last_7_days`, `last_30_days` (the default), or `all_time`. `this_week`, `this_month`, and the `last_*_days` presets end today. `all_time` starts on the day the store was created or took its first order, whichever is earlier. Ignored when `start_date` or `end_date` is sent.
+    # @param start_date [String, nil] First day of the range, `YYYY-MM-DD`, in the store's time zone. Inclusive. Sent without `end_date`, the range runs to the end of today.
+    # @param end_date [String, nil] Last day of the range, `YYYY-MM-DD`, in the store's time zone. Inclusive. Sent without `start_date`, the range starts on the day the store was created or took its first order, whichever is earlier.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetChargeSummaryResponseValue200ApplicationJson]
+    def get_summary(
+      preset: 'last_30_days',
+      start_date: nil,
+      end_date: nil,
+      request_options: {}
+    )
+      params = {
+        'preset' => preset,
+        'start_date' => start_date,
+        'end_date' => end_date
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(preset, {kind: :enum, values: ["today", "yesterday", "this_week", "last_week", "this_month", "last_month", "last_7_days", "last_30_days", "all_time"]}, "$request.preset") unless preset.nil?
+      SellApp::Types::BaseModel.validate_value!(start_date, {kind: :string, format: "date"}, "$request.start_date") unless start_date.nil?
+      SellApp::Types::BaseModel.validate_value!(end_date, {kind: :string, format: "date"}, "$request.end_date") unless end_date.nil?
+      request_options = request_options.merge(operation_id: 'getChargeSummary', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/charges/summary',
+        auth: true,
+        params: params,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetChargeSummaryResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

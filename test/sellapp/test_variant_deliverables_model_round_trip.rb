@@ -5,10 +5,79 @@
 require 'test_helper'
 
 class VariantDeliverablesModelRoundTripTest < Minitest::Test
-  def test_get_variant_deliverable_configuration_response_value_20_16d147097dcc8bf1_round_trip
-    model = SellApp::GetVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData.new('{}')
+  def test_preview_variant_buyer_notification_response_value_200_a_3470a4e925d130d1_round_trip
+    fixture = {
+      "product_id" => 1,
+      "variant_id" => 1,
+      "file_count" => 1,
+      "order_count" => 1,
+      "email_count" => 1,
+      "has_upload_in_progress" => true,
+    }
+    model = SellApp::PreviewVariantBuyerNotificationResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["file_count"], json[:file_count]
+    assert_equal fixture["order_count"], json[:order_count]
+    assert_equal fixture["email_count"], json[:email_count]
+    assert_equal fixture["has_upload_in_progress"], json[:has_upload_in_progress]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_preview_variant_buyer_notification_response_value_2_41405523a775dcd2_round_trip
+    fixture = {
+      "data" => JSON.parse('{"product_id":1,"variant_id":1,"file_count":1,"order_count":1,"email_count":1,"has_upload_in_progress":true}'),
+    }
+    model = SellApp::SdkPreviewVariantBuyerNotificationResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_notify_variant_buyers_response_value_202_application_json_property_data_round_trip
+    fixture = {
+      "status" => 'queued',
+      "product_id" => 1,
+      "variant_id" => 1,
+      "order_count" => 1,
+      "email_count" => 1,
+    }
+    model = SellApp::NotifyVariantBuyersResponseValue202ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["order_count"], json[:order_count]
+    assert_equal fixture["email_count"], json[:email_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_notify_variant_buyers_response_value_202_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"status":"queued","product_id":1,"variant_id":1,"order_count":1,"email_count":1}'),
+    }
+    model = SellApp::SdkNotifyVariantBuyersResponseValue202ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_variant_deliverable_configuration_response_value_20_50dae985f30ec253_round_trip
+    fixture = {
+      "comment" => 'stub',
+      "licenseLength" => 1,
+      "licenseLengthUnit" => 'DAY',
+      "isLicenseLengthUnlimited" => true,
+      "licenseLimit" => 1,
+      "isLicenseLimitUnlimited" => true,
+      "licensePrefix" => 'stub',
+    }
+    model = SellApp::GetVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_get_variant_deliverable_configuration_response_value_20_ac82617bcd524820_round_trip
@@ -65,10 +134,20 @@ class VariantDeliverablesModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_replace_variant_deliverable_configuration_response_valu_48f1e7dc32346f23_round_trip
-    model = SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyData.new('{}')
+  def test_replace_variant_deliverable_configuration_response_valu_78e7d386560270b7_round_trip
+    fixture = {
+      "comment" => 'stub',
+      "licenseLength" => 1,
+      "licenseLengthUnit" => 'DAY',
+      "isLicenseLengthUnlimited" => true,
+      "licenseLimit" => 1,
+      "isLicenseLimitUnlimited" => true,
+      "licensePrefix" => 'stub',
+    }
+    model = SellApp::ReplaceVariantDeliverableConfigurationResponseValue200ApplicationJsonPropertyDataPropertyDataAnyOfValue1.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_replace_variant_deliverable_configuration_response_valu_69589bd61e840fbc_round_trip

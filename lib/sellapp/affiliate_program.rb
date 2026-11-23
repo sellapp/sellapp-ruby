@@ -122,5 +122,29 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # Resend an affiliate invitation
+    # @param invitation [Integer] The invitation ID, as returned by `GET /v2/affiliate-invitations` or `POST /v2/affiliate-invitations`.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkResendAffiliateInvitationResponseValue200ApplicationJson]
+    def resend(
+      invitation:,
+      request_options: {}
+    )
+      SellApp::Types::BaseModel.validate_value!(invitation, {kind: :integer}, "$request.invitation")
+      request_options = request_options.merge(operation_id: 'resendAffiliateInvitation', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: "/v2/affiliate-invitations/#{SellApp::Util.encode_path(invitation)}/resend",
+        auth: true,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkResendAffiliateInvitationResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

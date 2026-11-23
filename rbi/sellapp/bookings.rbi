@@ -60,5 +60,34 @@ module SellApp
     end
     def cancel(booking:, status:, request_options:); end
 
+    sig do
+      params(
+        title: String,
+        price_cents: Integer,
+        description: T.nilable(String),
+        visibility: T.nilable(String),
+        variant_title: T.nilable(String),
+        variant_description: T.nilable(String),
+        compare_at_price_cents: T.nilable(Integer),
+        currency: T.nilable(String),
+        payment_methods: T.nilable(T::Array[String]),
+        timezone: T.nilable(String),
+        duration_minutes: T.nilable(Integer),
+        min_notice_minutes: T.nilable(Integer),
+        max_advance_days: T.nilable(Integer),
+        buffer_before_minutes: T.nilable(Integer),
+        buffer_after_minutes: T.nilable(Integer),
+        provider_connection_ids: T.nilable(T::Array[Integer]),
+        video_provider: T.nilable(String),
+        video_provider_connection_id: T.nilable(Integer),
+        reminders_enabled: T.nilable(T::Boolean),
+        reminder_offset_value: T.nilable(Integer),
+        reminder_offset_unit: T.nilable(String),
+        availability: T.nilable(T::Array[SellApp::CreateBookingProductRequestApplicationJsonPropertyAvailabilityItem]),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkCreateBookingProductResponseValue201ApplicationJson)
+    end
+    def create(title:, price_cents:, description:, visibility:, variant_title:, variant_description:, compare_at_price_cents:, currency:, payment_methods:, timezone:, duration_minutes:, min_notice_minutes:, max_advance_days:, buffer_before_minutes:, buffer_after_minutes:, provider_connection_ids:, video_provider:, video_provider_connection_id:, reminders_enabled:, reminder_offset_value:, reminder_offset_unit:, availability:, request_options:); end
+
   end
 end

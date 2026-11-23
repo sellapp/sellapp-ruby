@@ -4,13 +4,6 @@
 
 module SellApp
   module Types
-    class GetDisputeResponseValue200ApplicationJsonPropertyDataStatus
-      OPEN = 'open'
-      UNDER_REVIEW = 'under_review'
-      WON = 'won'
-      LOST = 'lost'
-      CLOSED = 'closed'
-      ALL = [OPEN, UNDER_REVIEW, WON, LOST, CLOSED].freeze
-    end
+    GetDisputeResponseValue200ApplicationJsonPropertyDataStatus = DisputesStatus
   end
 end

@@ -13,6 +13,8 @@ module SellApp
     # List affiliate payouts
     # @param affiliate_id [Integer, nil] Filter by affiliate ID.
     # @param status [SellApp::Types::AffiliatePayoutsStatus, nil] Filter by payout status.
+    # @param payout_method [SellApp::Types::AffiliatePayoutsPayoutMethod, nil] List only payouts recorded for this payout method. Uppercase, as returned in `payout_method`; `paypal` returns `422`.
+    # @param search [String, nil] The start of the affiliate's email address, such as `alex` or `alex.morgan@`. It matches from the first character only, and `%` and `_` match themselves.
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
@@ -20,6 +22,8 @@ module SellApp
     def list(
       affiliate_id: nil,
       status: nil,
+      payout_method: nil,
+      search: nil,
       limit: 15,
       page: 1,
       request_options: {}
@@ -27,11 +31,15 @@ module SellApp
       params = {
         'affiliate_id' => affiliate_id,
         'status' => status,
+        'payout_method' => payout_method,
+        'search' => search,
         'limit' => limit,
         'page' => page
       }.compact
       SellApp::Types::BaseModel.validate_value!(affiliate_id, {kind: :integer, minimum: 1}, "$request.affiliate_id") unless affiliate_id.nil?
       SellApp::Types::BaseModel.validate_value!(status, {kind: :enum, values: ["due", "paid"]}, "$request.status") unless status.nil?
+      SellApp::Types::BaseModel.validate_value!(payout_method, {kind: :enum, values: ["PAYPAL", "CASHAPP", "VENMO", "WISE", "BTC", "LTC", "ETH", "XMR", "SOL", "ADA", "BNB", "TRX", "MATIC", "ETH_USDT", "ETH_USDC", "ETH_UNI", "ETH_SHIB", "ETH_DAI"]}, "$request.payout_method") unless payout_method.nil?
+      SellApp::Types::BaseModel.validate_value!(search, {kind: :string, max: 255}, "$request.search") unless search.nil?
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       request_options = request_options.merge(operation_id: 'listAffiliatePayouts', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
@@ -123,6 +131,37 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkUpdateAffiliatePayoutStatusResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Mark affiliate payouts paid
+    # @param payout_ids [Array<Integer>] The due payouts to record as paid, at most 20, each once. They are marked in this order.
+    # @param expected_total_usd_cents [Integer] The sum of the payouts' `amount_usd_cents`, in integer USD cents, as you read them. If they add up to anything else, nothing is marked.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson]
+    def mark_paid(
+      payout_ids:,
+      expected_total_usd_cents:,
+      request_options: {}
+    )
+      body = {
+        'payout_ids' => payout_ids,
+        'expected_total_usd_cents' => expected_total_usd_cents
+      }
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkMarkAffiliatePayoutsPaidRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'markAffiliatePayoutsPaid', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :post,
+        path: '/v2/affiliate-payouts/mark-paid',
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkMarkAffiliatePayoutsPaidResponseValue200ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

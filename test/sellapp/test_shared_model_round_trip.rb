@@ -5,6 +5,28 @@
 require 'test_helper'
 
 class SharedModelRoundTripTest < Minitest::Test
+  def test_error_envelope_round_trip
+    fixture = {
+      "type" => 'stub',
+      "code" => 'stub',
+      "message" => 'stub',
+      "status" => 1,
+      "param" => 'stub',
+      "request_id" => '00000000-0000-4000-8000-000000000000',
+      "docs_url" => 'https://example.com',
+      "fallback" => JSON.parse('{"transport":"cursor_polling","url":"https://example.com"}'),
+    }
+    model = SellApp::ErrorEnvelope.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["code"], json[:code]
+    assert_equal fixture["message"], json[:message]
+    assert_equal fixture["status"], json[:status]
+    assert_equal fixture["request_id"], json[:request_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
   def test_cursor_expired_error_round_trip
     fixture = {
       "message" => 'stub',
@@ -170,11 +192,15 @@ class SharedModelRoundTripTest < Minitest::Test
       "expires_at" => '2024-01-01T00:00:00Z',
       "full_price" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
       "original_amount" => JSON.parse('{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}'),
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateCheckoutSessionResponseValue201ApplicationJsonPropertyInvoicePropertyPayment.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -273,7 +299,7 @@ class SharedModelRoundTripTest < Minitest::Test
   def test_create_checkout_session_response_value_201_application_bd2067fbf179aaaa_round_trip
     fixture = {
       "id" => 1,
-      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}}'),
+      "payment" => JSON.parse('{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0}'),
       "status" => JSON.parse('{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}}'),
       "webhooks" => JSON.parse('[]'),
       "feedback" => 'stub',
@@ -301,7 +327,7 @@ class SharedModelRoundTripTest < Minitest::Test
     fixture = {
       "message" => 'stub',
       "payment_url" => 'stub',
-      "invoice" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}}},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"}}}'),
+      "invoice" => JSON.parse('{"id":1,"payment":{"fee":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"gateway":{"data":{},"type":"stub"},"subtotal":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"expires_at":"2024-01-01T00:00:00Z","full_price":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"original_amount":{"base":"stub","currency":"stub","units":1,"vat":1,"total":{"exclusive":"stub","inclusive":"stub"}},"refund_currency":"stub","refunded_total_cents":0},"status":{"history":[],"status":{"setAt":"2024-01-01T00:00:00Z","status":"stub","updatedAt":"2024-01-01T00:00:00Z"}},"webhooks":[],"feedback":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"coupon_id":1,"subscription_id":1,"customer_information":{"id":1,"email":"stub","country":"stub","location":"stub","ip":"stub","proxied":true,"browser_agent":"stub","vat":{"amount":"stub","country":"stub"}}}'),
     }
     model = SellApp::SdkCreateCheckoutSessionResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -666,6 +692,7 @@ class SharedModelRoundTripTest < Minitest::Test
       "updated_at" => '2024-01-01T00:00:00Z',
       "deleted_at" => '2024-01-01T00:00:00Z',
       "product" => JSON.parse('{"additional_information":[]}'),
+      "is_draft" => true,
     }
     model = SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -680,6 +707,7 @@ class SharedModelRoundTripTest < Minitest::Test
     assert_equal fixture["created_at"], json[:created_at]
     assert_equal fixture["updated_at"], json[:updated_at]
     assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["is_draft"], json[:is_draft]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1326,7 +1354,7 @@ class SharedModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::ListCreditsProductsResponseValue200ApplicationJsonAnyOfValue1PropertyDataItemPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -1406,7 +1434,7 @@ class SharedModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::ListCreditsProductsResponseValue200ApplicationJsonAnyOfValue2PropertyDataItemPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -1486,7 +1514,7 @@ class SharedModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::SearchCreditsProductsResponseValue200ApplicationJsonAnyOfValue1PropertyDataItemPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -1566,7 +1594,7 @@ class SharedModelRoundTripTest < Minitest::Test
     fixture = {
       "min_quantity" => 1,
       "max_quantity" => 1,
-      "unit_price" => '1',
+      "unit_price" => '1.00',
     }
     model = SellApp::SearchCreditsProductsResponseValue200ApplicationJsonAnyOfValue2PropertyDataItemPropertyDefaultVariantValuePropertyRateTiersItem.new(fixture.to_json)
     json = model.to_h
@@ -1639,6 +1667,32 @@ class SharedModelRoundTripTest < Minitest::Test
     assert_equal fixture["slug"], json[:slug]
     assert_equal fixture["is_draft"], json[:is_draft]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_affiliate_products_request_application_json_prop_1f242ab8899567bb_round_trip
+    fixture = {
+      "type" => 'percentage',
+      "percentage" => 'stub',
+      "amount_usd_cents" => 1,
+    }
+    model = SellApp::UpdateAffiliateProductsRequestApplicationJsonPropertyProductsItemPropertyCommissionAnyOfValue1OneOfValue1.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["percentage"], json[:percentage]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_affiliate_products_request_application_json_prop_eb7c5819f36f7bdc_round_trip
+    fixture = {
+      "type" => 'fixed',
+      "percentage" => 'stub',
+      "amount_usd_cents" => 1,
+    }
+    model = SellApp::UpdateAffiliateProductsRequestApplicationJsonPropertyProductsItemPropertyCommissionAnyOfValue1OneOfValue2.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["amount_usd_cents"], json[:amount_usd_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1942,6 +1996,8 @@ class SharedModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateOrderCheckoutResponseValue201ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1952,6 +2008,8 @@ class SharedModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1996,7 +2054,7 @@ class SharedModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -2014,7 +2072,7 @@ class SharedModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_order_checkout_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "message" => 'stub',
     }
     model = SellApp::SdkCreateOrderCheckoutResponseValue201ApplicationJson.new(fixture.to_json)
@@ -2056,6 +2114,18 @@ class SharedModelRoundTripTest < Minitest::Test
       "url" => 'https://example.com',
     }
     model = SellApp::CursorExpiredErrorFallback.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["url"], json[:url]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_error_envelope_fallback_round_trip
+    fixture = {
+      "transport" => 'cursor_polling',
+      "url" => 'https://example.com',
+    }
+    model = SellApp::ErrorEnvelopeFallback.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
     assert_equal fixture["url"], json[:url]

@@ -11,6 +11,20 @@ class VariantDeliverablesTest < Minitest::Test
     @client = SellApp::Client.new(api_key: "sk_test_123", store: "store_test_123", customer_session: "test_customer_session", browser_session: "session=test_browser")
   end
 
+  def test_preview_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/deliverable/buyer-notification(\?|\z)})
+      .to_return(body: '{"data":{"product_id":1,"variant_id":1,"file_count":1,"order_count":1,"email_count":1,"has_upload_in_progress":true}}', status: 200)
+    result = @client.variant_deliverables.preview(product: 1, variant: 1)
+    refute_nil result
+  end
+
+  def test_notify_returns_expected_result
+    stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/deliverable/buyer-notification(\?|\z)})
+      .to_return(body: '{"data":{"status":"queued","product_id":1,"variant_id":1,"order_count":1,"email_count":1}}', status: 200)
+    result = @client.variant_deliverables.notify(product: 1, variant: 1)
+    refute_nil result
+  end
+
   def test_get_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/products/stub/variants/1/deliverable(\?|\z)})
       .to_return(body: '{"data":{"types":[],"data":{},"webhook_configured":true,"updated_at":"2024-01-01T00:00:00Z"}}', status: 200)
@@ -27,6 +41,8 @@ class VariantDeliverablesTest < Minitest::Test
 
   # Parameterized authentication error tests (one per endpoint).
   [
+    {name: :preview, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/deliverable/buyer-notification(\?|\z)}, args: {product: 1, variant: 1}},
+    {name: :notify, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/products/1/variants/1/deliverable/buyer-notification(\?|\z)}, args: {product: 1, variant: 1}},
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/products/stub/variants/1/deliverable(\?|\z)}, args: {product: 'stub', variant: 1}},
     {name: :replace, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/products/stub/variants/1/deliverable(\?|\z)}, args: {product: 'stub', variant: 1, types: JSON.parse('["DOWNLOADABLE"]'), data: JSON.parse('{}')}},
   ].each do |spec|

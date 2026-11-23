@@ -132,5 +132,15 @@ module SellApp
     end
     def restore(promotion:, name:, status:, priority:, is_stackable:, phases:, starts_at:, ends_at:, max_redemptions:, applies_to:, subscription_payments:, store_wide:, products:, product_variants:, request_options:); end
 
+    sig do
+      params(
+        promotion: Integer,
+        with_trashed: T.nilable(T::Boolean),
+        only_trashed: T.nilable(T::Boolean),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetPromotionUsageResponseValue200ApplicationJson)
+    end
+    def get_usage(promotion:, with_trashed:, only_trashed:, request_options:); end
+
   end
 end

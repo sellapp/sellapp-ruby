@@ -53,6 +53,13 @@ class WalletBonusTiersTest < Minitest::Test
     refute_nil result
   end
 
+  def test_quote_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/wallet-bonus-tiers/quote(\?|\z)})
+      .to_return(body: '{"data":{"top_up_cents":1,"within_top_up_limits":true,"eligible":true,"bonus_cents":0,"reason":"stub","minimum_top_up_cents":1,"maximum_top_up_cents":1,"matching_tier":{"id":1,"minimum_top_up_cents":1,"bonus_kind":"fixed","fixed_bonus_cents":1,"percent_basis":1,"maximum_bonus_cents":1,"priority":0,"is_active":true,"superseded_by_id":1,"restorable":true}}}', status: 200)
+    result = @client.wallet_bonus_tiers.quote(top_up_cents: 1)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/wallet-bonus-tiers(\?|\z)}},
@@ -61,6 +68,7 @@ class WalletBonusTiersTest < Minitest::Test
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/wallet-bonus-tiers/1(\?|\z)}, args: {bonus_tier: 1}},
     {name: :archive, verb: :delete, url: %r{\Ahttps://sell\.app/api/v2/wallet-bonus-tiers/1(\?|\z)}, args: {bonus_tier: 1}},
     {name: :restore, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/wallet-bonus-tiers/1/restore(\?|\z)}, args: {bonus_tier: 1}},
+    {name: :quote, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/wallet-bonus-tiers/quote(\?|\z)}, args: {top_up_cents: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

@@ -215,6 +215,8 @@ module SellApp
     # @param sort [Array<SellApp::V2SearchTicketMessagesRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::V2SearchTicketMessagesRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::V2SearchTicketMessagesRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkV2SearchTicketMessagesResponseValue200ApplicationJson]
     def v2_search_ticket_messages(
@@ -223,8 +225,14 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      limit: 15,
+      page: 1,
       request_options: {}
     )
+      params = {
+        'limit' => limit,
+        'page' => page
+      }.compact
       body = {
         'filters' => filters,
         'sort' => sort,
@@ -232,12 +240,15 @@ module SellApp
         'includes' => includes
       }.compact
       SellApp::Types::BaseModel.validate_value!(ticket, {kind: :integer}, "$request.ticket")
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkV2SearchTicketMessagesRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'v2SearchTicketMessages', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: "/v2/tickets/#{SellApp::Util.encode_path(ticket)}/messages/search",
         auth: true,
+        params: params,
         body: body,
         request_options: request_options
       )

@@ -20,7 +20,8 @@ module SellApp
       created_at: :created_at,
       updated_at: :updated_at,
       deleted_at: :deleted_at,
-      product: :product
+      product: :product,
+      is_draft: :is_draft
     }.freeze
 
     SCHEMA = {
@@ -39,7 +40,8 @@ module SellApp
       created_at: {required: true, schema: {kind: :string, format: "date-time"}},
       updated_at: {required: true, schema: {kind: :string, format: "date-time"}},
       deleted_at: {required: true, schema: {kind: :nullable, inner: {kind: :string, format: "date-time"}}},
-      product: {required: true, schema: {kind: :model, name: "SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyProduct"}}
+      product: {required: true, schema: {kind: :model, name: "SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyProduct"}},
+      is_draft: {required: true, schema: {kind: :boolean}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -60,7 +62,8 @@ module SellApp
       :created_at,
       :updated_at,
       :deleted_at,
-      :product
+      :product,
+      :is_draft
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -83,6 +86,7 @@ module SellApp
       @updated_at = hash[:updated_at]
       @deleted_at = hash[:deleted_at]
       @product = hash[:product] ? SellApp::BatchCreateProductVariantsResponseValue201ApplicationJsonPropertyDataItemPropertyProduct.new(hash[:product]) : nil
+      @is_draft = hash[:is_draft]
     end
   end
 end

@@ -58,10 +58,11 @@ module SellApp
         order: Integer,
         status: String,
         expected_status: T.nilable(String),
+        payment_received: T.nilable(T::Boolean),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdateOrderStatusResponseValue200ApplicationJson)
     end
-    def update_status(order:, status:, expected_status:, request_options:); end
+    def update_status(order:, status:, expected_status:, payment_received:, request_options:); end
 
     sig do
       params(
@@ -75,7 +76,7 @@ module SellApp
     sig do
       params(
         order: Integer,
-        product_variants: SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants,
+        product_variants: T.any(Integer, T::Array[Integer], SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCreateOrderReplacementResponseValue200ApplicationJson)
     end
@@ -85,10 +86,11 @@ module SellApp
       params(
         order: Integer,
         amount: T.nilable(String),
+        expected_refunded_total_cents: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCreateOrderRefundResponseValue200ApplicationJson)
     end
-    def create_refund(order:, amount:, request_options:); end
+    def create_refund(order:, amount:, expected_refunded_total_cents:, request_options:); end
 
     sig do
       params(
@@ -117,6 +119,15 @@ module SellApp
       ).returns(SellApp::SdkSendOrderFulfillmentNotificationsResponseValue200ApplicationJson)
     end
     def send_fulfillment_notifications(order:, email:, product_variant_ids:, request_options:); end
+
+    sig do
+      params(
+        order: Integer,
+        variant_id: T.nilable(Integer),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson)
+    end
+    def regenerate_telegram_invite(order:, variant_id:, request_options:); end
 
     sig do
       params(

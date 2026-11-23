@@ -36,6 +36,9 @@ module SellApp
     sig { returns(SellApp::BundleItems) }
     def bundle_items; end
 
+    sig { returns(SellApp::VariantDeliverables) }
+    def variant_deliverables; end
+
     sig { returns(SellApp::Promotions) }
     def promotions; end
 
@@ -48,6 +51,18 @@ module SellApp
     sig { returns(SellApp::WebhookChannels) }
     def webhook_channels; end
 
+    sig { returns(SellApp::SupportReplyTemplates) }
+    def support_reply_templates; end
+
+    sig { returns(SellApp::SupportReasons) }
+    def support_reasons; end
+
+    sig { returns(SellApp::SupportAutomationRules) }
+    def support_automation_rules; end
+
+    sig { returns(SellApp::SupportAutomationSettings) }
+    def support_automation_settings; end
+
     sig { returns(SellApp::Customers) }
     def customers; end
 
@@ -56,9 +71,6 @@ module SellApp
 
     sig { returns(SellApp::LineItems) }
     def line_items; end
-
-    sig { returns(SellApp::VariantDeliverables) }
-    def variant_deliverables; end
 
     sig { returns(SellApp::VariantDeliverableFiles) }
     def variant_deliverable_files; end
@@ -99,11 +111,17 @@ module SellApp
     sig { returns(SellApp::Courses) }
     def courses; end
 
+    sig { returns(SellApp::CheckoutFieldTemplates) }
+    def checkout_field_templates; end
+
     sig { returns(SellApp::PaymentMethods) }
     def payment_methods; end
 
     sig { returns(SellApp::StoreSettings) }
     def store_settings; end
+
+    sig { returns(SellApp::Notifications) }
+    def notifications; end
 
     sig { returns(SellApp::CreditsProducts) }
     def credits_products; end

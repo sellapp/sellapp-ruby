@@ -76,5 +76,13 @@ module SellApp
     end
     def restore(bonus_tier:, request_options:); end
 
+    sig do
+      params(
+        top_up_cents: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkQuoteWalletBonusTierResponseValue200ApplicationJson)
+    end
+    def quote(top_up_cents:, request_options:); end
+
   end
 end

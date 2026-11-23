@@ -82,5 +82,188 @@ module SellApp
     end
     def update_marketing(abandoned_cart:, request_options:); end
 
+    sig do
+      params(
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetCheckoutSettingsResponseValue200ApplicationJson)
+    end
+    def get_checkout(request_options:); end
+
+    sig do
+      params(
+        shopping_cart_enabled: T::Boolean,
+        customer_email_required: T::Boolean,
+        allow_vpn_purchases: T::Boolean,
+        blacklist_on_dispute: T::Boolean,
+        minimum_spend: T.nilable(String),
+        billing_descriptor: T.nilable(String),
+        attempts_per_customer: Integer,
+        attempts_per_ip: T.nilable(Integer),
+        attempts_per_email: T.nilable(Integer),
+        attempts_per_fingerprint: T.nilable(Integer),
+        rate_limit_window_seconds: Integer,
+        crypto: T.nilable(SellApp::ReplaceCheckoutSettingsRequestApplicationJsonPropertyCrypto),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReplaceCheckoutSettingsResponseValue200ApplicationJson)
+    end
+    def replace_checkout(shopping_cart_enabled:, customer_email_required:, allow_vpn_purchases:, blacklist_on_dispute:, minimum_spend:, billing_descriptor:, attempts_per_customer:, attempts_per_ip:, attempts_per_email:, attempts_per_fingerprint:, rate_limit_window_seconds:, crypto:, request_options:); end
+
+    sig do
+      params(
+        shopping_cart_enabled: T.nilable(T::Boolean),
+        customer_email_required: T.nilable(T::Boolean),
+        allow_vpn_purchases: T.nilable(T::Boolean),
+        blacklist_on_dispute: T.nilable(T::Boolean),
+        minimum_spend: T.nilable(String),
+        billing_descriptor: T.nilable(String),
+        attempts_per_customer: T.nilable(Integer),
+        attempts_per_ip: T.nilable(Integer),
+        attempts_per_email: T.nilable(Integer),
+        attempts_per_fingerprint: T.nilable(Integer),
+        rate_limit_window_seconds: T.nilable(Integer),
+        crypto: T.nilable(SellApp::UpdateCheckoutSettingsRequestApplicationJsonPropertyCrypto),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkUpdateCheckoutSettingsResponseValue200ApplicationJson)
+    end
+    def update_checkout(shopping_cart_enabled:, customer_email_required:, allow_vpn_purchases:, blacklist_on_dispute:, minimum_spend:, billing_descriptor:, attempts_per_customer:, attempts_per_ip:, attempts_per_email:, attempts_per_fingerprint:, rate_limit_window_seconds:, crypto:, request_options:); end
+
+    sig do
+      params(
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetTaxSettingsResponseValue200ApplicationJson)
+    end
+    def get_taxes(request_options:); end
+
+    sig do
+      params(
+        vat_enabled: T::Boolean,
+        vat_inclusive_pricing: T::Boolean,
+        collect_billing_details: T::Boolean,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReplaceTaxSettingsResponseValue200ApplicationJson)
+    end
+    def replace_taxes(vat_enabled:, vat_inclusive_pricing:, collect_billing_details:, request_options:); end
+
+    sig do
+      params(
+        vat_enabled: T.nilable(T::Boolean),
+        vat_inclusive_pricing: T.nilable(T::Boolean),
+        collect_billing_details: T.nilable(T::Boolean),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkUpdateTaxSettingsResponseValue200ApplicationJson)
+    end
+    def update_taxes(vat_enabled:, vat_inclusive_pricing:, collect_billing_details:, request_options:); end
+
+    sig do
+      params(
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetCustomerEmailSettingsResponseValue200ApplicationJson)
+    end
+    def get_customer_emails(request_options:); end
+
+    sig do
+      params(
+        send_delivery_email: T::Boolean,
+        send_payment_failure_email: T::Boolean,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReplaceCustomerEmailSettingsResponseValue200ApplicationJson)
+    end
+    def replace_customer_emails(send_delivery_email:, send_payment_failure_email:, request_options:); end
+
+    sig do
+      params(
+        send_delivery_email: T.nilable(T::Boolean),
+        send_payment_failure_email: T.nilable(T::Boolean),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkUpdateCustomerEmailSettingsResponseValue200ApplicationJson)
+    end
+    def update_customer_emails(send_delivery_email:, send_payment_failure_email:, request_options:); end
+
+    sig do
+      params(
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetStoreAlertSettingsResponseValue200ApplicationJson)
+    end
+    def get_store_alerts(request_options:); end
+
+    sig do
+      params(
+        sale_emails_enabled: T::Boolean,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReplaceStoreAlertSettingsResponseValue200ApplicationJson)
+    end
+    def replace_store_alerts(sale_emails_enabled:, request_options:); end
+
+    sig do
+      params(
+        sale_emails_enabled: T.nilable(T::Boolean),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkUpdateStoreAlertSettingsResponseValue200ApplicationJson)
+    end
+    def update_store_alerts(sale_emails_enabled:, request_options:); end
+
+    sig do
+      params(
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkGetPersonalizationSettingsResponseValue200ApplicationJson)
+    end
+    def get_personalization(request_options:); end
+
+    sig do
+      params(
+        support_email: T.nilable(String),
+        trustpilot_email: T.nilable(String),
+        sender_name: T.nilable(String),
+        store_address: T.nilable(String),
+        store_city: T.nilable(String),
+        store_state: T.nilable(String),
+        store_zip: T.nilable(String),
+        store_country: T.nilable(String),
+        store_tax: T.nilable(String),
+        back_link_label: T.nilable(String),
+        back_link_url: T.nilable(String),
+        sender_email: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReplacePersonalizationSettingsResponseValue200ApplicationJson)
+    end
+    def replace_personalization(support_email:, trustpilot_email:, sender_name:, store_address:, store_city:, store_state:, store_zip:, store_country:, store_tax:, back_link_label:, back_link_url:, sender_email:, request_options:); end
+
+    sig do
+      params(
+        support_email: T.nilable(String),
+        trustpilot_email: T.nilable(String),
+        sender_name: T.nilable(String),
+        sender_email: T.nilable(String),
+        store_address: T.nilable(String),
+        store_city: T.nilable(String),
+        store_state: T.nilable(String),
+        store_zip: T.nilable(String),
+        store_country: T.nilable(String),
+        store_tax: T.nilable(String),
+        back_link_label: T.nilable(String),
+        back_link_url: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkUpdatePersonalizationSettingsResponseValue200ApplicationJson)
+    end
+    def update_personalization(support_email:, trustpilot_email:, sender_name:, sender_email:, store_address:, store_city:, store_state:, store_zip:, store_country:, store_tax:, back_link_label:, back_link_url:, request_options:); end
+
+    sig do
+      params(
+        underpaid_percentage: Integer,
+        minimum_confirmations: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkReplaceCryptoCheckoutSettingsResponseValue200ApplicationJson)
+    end
+    def replace_crypto_checkout(underpaid_percentage:, minimum_confirmations:, request_options:); end
+
+    sig do
+      params(
+        underpaid_percentage: T.nilable(Integer),
+        minimum_confirmations: T.nilable(Integer),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkUpdateCryptoCheckoutSettingsResponseValue200ApplicationJson)
+    end
+    def update_crypto_checkout(underpaid_percentage:, minimum_confirmations:, request_options:); end
+
   end
 end

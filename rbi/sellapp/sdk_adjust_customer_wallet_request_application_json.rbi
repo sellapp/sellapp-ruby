@@ -27,6 +27,12 @@ module SellApp
     sig { params(value: String).returns(String) }
     def note=(value); end
 
+    sig { returns(T.nilable(Integer)) }
+    def expected_balance_cents; end
+
+    sig { params(value: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def expected_balance_cents=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

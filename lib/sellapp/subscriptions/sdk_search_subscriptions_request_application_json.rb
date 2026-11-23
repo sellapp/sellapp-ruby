@@ -8,14 +8,30 @@ module SellApp
       filters: :filters,
       sort: :sort,
       search: :search,
-      includes: :includes
+      includes: :includes,
+      order_id: :order_id,
+      product_id: :product_id,
+      renews_after: :renews_after,
+      renews_before: :renews_before,
+      cancelled_after: :cancelled_after,
+      cancelled_before: :cancelled_before,
+      scheduled_to_cancel: :scheduled_to_cancel,
+      paused: :paused
     }.freeze
 
     SCHEMA = {
       filters: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertyFiltersItem"}}},
       sort: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem"}}},
       search: {required: false, schema: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch"}},
-      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem"}}}
+      includes: {required: false, schema: {kind: :array, items: {kind: :model, name: "SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem"}}},
+      order_id: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1}}},
+      product_id: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 1}}},
+      renews_after: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 64}}},
+      renews_before: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 64}}},
+      cancelled_after: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 64}}},
+      cancelled_before: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 64}}},
+      scheduled_to_cancel: {required: false, schema: {kind: :nullable, inner: {kind: :boolean}}},
+      paused: {required: false, schema: {kind: :nullable, inner: {kind: :boolean}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -24,7 +40,15 @@ module SellApp
       :filters,
       :sort,
       :search,
-      :includes
+      :includes,
+      :order_id,
+      :product_id,
+      :renews_after,
+      :renews_before,
+      :cancelled_after,
+      :cancelled_before,
+      :scheduled_to_cancel,
+      :paused
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -35,6 +59,14 @@ module SellApp
       @sort = hash[:sort] ? hash[:sort].map { |item| item ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertySortItem.new(item) : nil } : nil
       @search = hash[:search] ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertySearch.new(hash[:search]) : nil
       @includes = hash[:includes] ? hash[:includes].map { |item| item ? SellApp::SearchSubscriptionsRequestApplicationJsonPropertyIncludesItem.new(item) : nil } : nil
+      @order_id = hash[:order_id]
+      @product_id = hash[:product_id]
+      @renews_after = hash[:renews_after]
+      @renews_before = hash[:renews_before]
+      @cancelled_after = hash[:cancelled_after]
+      @cancelled_before = hash[:cancelled_before]
+      @scheduled_to_cancel = hash[:scheduled_to_cancel]
+      @paused = hash[:paused]
     end
   end
 end

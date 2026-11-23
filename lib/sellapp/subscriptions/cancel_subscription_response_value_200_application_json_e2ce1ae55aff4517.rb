@@ -19,7 +19,7 @@ module SellApp
       external_id: {required: true, schema: {kind: :nullable, inner: {kind: :string, max: 255}}},
       name: {required: true, schema: {kind: :nullable, inner: {kind: :string, max: 255}}},
       locale: {required: true, schema: {kind: :nullable, inner: {kind: :string, pattern: "^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"}}},
-      metadata: {required: true, schema: {kind: :map, values: {kind: :model, name: "SellApp::ScalarMetadataValue"}, max: 50}}
+      metadata: {required: true, schema: {kind: :map, values: {kind: :nullable, inner: {kind: :union, variants: [{kind: :string, max: 500}, {kind: :number}, {kind: :boolean}], composition: :oneOf}}, max: 50}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze

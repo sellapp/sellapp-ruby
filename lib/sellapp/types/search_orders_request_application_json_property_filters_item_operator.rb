@@ -8,7 +8,9 @@ module SellApp
       EQ = 'eq'
       CONTAINS = 'contains'
       IN = 'in'
-      ALL = [EQ, CONTAINS, IN].freeze
+      GTE = 'gte'
+      LTE = 'lte'
+      ALL = [EQ, CONTAINS, IN, GTE, LTE].freeze
     end
   end
 end

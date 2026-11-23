@@ -36,6 +36,14 @@ module SellApp
       @products ||= SellApp::Products.new(self)
     end
 
+    def products_featured_variant
+      @products_featured_variant ||= SellApp::ProductsFeaturedVariant.new(self)
+    end
+
+    def products_similar_products
+      @products_similar_products ||= SellApp::ProductsSimilarProducts.new(self)
+    end
+
     def product_variants
       @product_variants ||= SellApp::ProductVariants.new(self)
     end
@@ -46,6 +54,14 @@ module SellApp
 
     def product_variants_booking
       @product_variants_booking ||= SellApp::ProductVariantsBooking.new(self)
+    end
+
+    def product_variants_subscription_settings
+      @product_variants_subscription_settings ||= SellApp::ProductVariantsSubscriptionSettings.new(self)
+    end
+
+    def product_variants_community_access
+      @product_variants_community_access ||= SellApp::ProductVariantsCommunityAccess.new(self)
     end
 
     def subscriptions
@@ -66,6 +82,10 @@ module SellApp
 
     def bundle_items
       @bundle_items ||= SellApp::BundleItems.new(self)
+    end
+
+    def variant_deliverables
+      @variant_deliverables ||= SellApp::VariantDeliverables.new(self)
     end
 
     def promotions
@@ -100,6 +120,22 @@ module SellApp
       @webhook_channels ||= SellApp::WebhookChannels.new(self)
     end
 
+    def support_reply_templates
+      @support_reply_templates ||= SellApp::SupportReplyTemplates.new(self)
+    end
+
+    def support_reasons
+      @support_reasons ||= SellApp::SupportReasons.new(self)
+    end
+
+    def support_automation_rules
+      @support_automation_rules ||= SellApp::SupportAutomationRules.new(self)
+    end
+
+    def support_automation_settings
+      @support_automation_settings ||= SellApp::SupportAutomationSettings.new(self)
+    end
+
     def customers
       @customers ||= SellApp::Customers.new(self)
     end
@@ -114,10 +150,6 @@ module SellApp
 
     def orders_line_items
       @orders_line_items ||= SellApp::OrdersLineItems.new(self)
-    end
-
-    def variant_deliverables
-      @variant_deliverables ||= SellApp::VariantDeliverables.new(self)
     end
 
     def variant_deliverable_files
@@ -156,6 +188,14 @@ module SellApp
       @community_connections ||= SellApp::CommunityConnections.new(self)
     end
 
+    def community_connections_servers
+      @community_connections_servers ||= SellApp::CommunityConnectionsServers.new(self)
+    end
+
+    def community_connections_slack
+      @community_connections_slack ||= SellApp::CommunityConnectionsSlack.new(self)
+    end
+
     def wallet_settings
       @wallet_settings ||= SellApp::WalletSettings.new(self)
     end
@@ -166,6 +206,14 @@ module SellApp
 
     def wallet_transactions
       @wallet_transactions ||= SellApp::WalletTransactions.new(self)
+    end
+
+    def wallet_ledger
+      @wallet_ledger ||= SellApp::WalletLedger.new(self)
+    end
+
+    def wallet_overview
+      @wallet_overview ||= SellApp::WalletOverview.new(self)
     end
 
     def wallet_topups
@@ -192,8 +240,16 @@ module SellApp
       @courses_lessons ||= SellApp::CoursesLessons.new(self)
     end
 
+    def checkout_field_templates
+      @checkout_field_templates ||= SellApp::CheckoutFieldTemplates.new(self)
+    end
+
     def payment_methods
       @payment_methods ||= SellApp::PaymentMethods.new(self)
+    end
+
+    def payment_methods_modifier
+      @payment_methods_modifier ||= SellApp::PaymentMethodsModifier.new(self)
     end
 
     def payment_methods_custom
@@ -204,12 +260,24 @@ module SellApp
       @store_settings ||= SellApp::StoreSettings.new(self)
     end
 
+    def store_sender_email
+      @store_sender_email ||= SellApp::StoreSenderEmail.new(self)
+    end
+
+    def store_integrations
+      @store_integrations ||= SellApp::StoreIntegrations.new(self)
+    end
+
     def store_notification_channels
       @store_notification_channels ||= SellApp::StoreNotificationChannels.new(self)
     end
 
     def store_custom_domains
       @store_custom_domains ||= SellApp::StoreCustomDomains.new(self)
+    end
+
+    def notifications
+      @notifications ||= SellApp::Notifications.new(self)
     end
 
     def credits_products
@@ -230,6 +298,14 @@ module SellApp
 
     def affiliates
       @affiliates ||= SellApp::Affiliates.new(self)
+    end
+
+    def affiliates_products
+      @affiliates_products ||= SellApp::AffiliatesProducts.new(self)
+    end
+
+    def affiliates_coupon
+      @affiliates_coupon ||= SellApp::AffiliatesCoupon.new(self)
     end
 
     def affiliate_referrals
@@ -306,6 +382,14 @@ module SellApp
 
     def tickets_messages
       @tickets_messages ||= SellApp::TicketsMessages.new(self)
+    end
+
+    def tickets_wallet_refunds
+      @tickets_wallet_refunds ||= SellApp::TicketsWalletRefunds.new(self)
+    end
+
+    def tickets_analytics
+      @tickets_analytics ||= SellApp::TicketsAnalytics.new(self)
     end
 
     def oauth

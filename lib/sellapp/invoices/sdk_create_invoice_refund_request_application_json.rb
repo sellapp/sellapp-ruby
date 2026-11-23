@@ -5,16 +5,20 @@
 module SellApp
   class SdkCreateInvoiceRefundRequestApplicationJson < SellApp::Types::BaseModel
     HASH_ATTRS = {
-      amount: :amount
+      amount: :amount,
+      expected_refunded_total_cents: :expected_refunded_total_cents
     }.freeze
 
     SCHEMA = {
-      amount: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 32, pattern: "^\\d+(\\.\\d+)?$"}}}
+      amount: {required: false, schema: {kind: :nullable, inner: {kind: :string, max: 32, pattern: "^\\d+(\\.\\d+)?$"}}},
+      expected_refunded_total_cents: {required: false, schema: {kind: :nullable, inner: {kind: :integer, minimum: 0}}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
 
-    attr_accessor :amount
+    attr_accessor \
+      :amount,
+      :expected_refunded_total_cents
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -22,6 +26,7 @@ module SellApp
       @additional_properties = self.class.unknown_fields(hash, HASH_ATTRS.keys)
       @present_fields = hash.keys.map(&:to_s)
       @amount = hash[:amount]
+      @expected_refunded_total_cents = hash[:expected_refunded_total_cents]
     end
   end
 end

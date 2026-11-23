@@ -410,5 +410,40 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # Retrieve promotion usage
+    # @param promotion [Integer] The promotion ID.
+    # @param with_trashed [Boolean, nil] Set to `true` to also find a deleted promotion.
+    # @param only_trashed [Boolean, nil] Set to `true` to find only a deleted promotion. Ignored when `with_trashed` is `true`.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkGetPromotionUsageResponseValue200ApplicationJson]
+    def get_usage(
+      promotion:,
+      with_trashed: false,
+      only_trashed: false,
+      request_options: {}
+    )
+      params = {
+        'with_trashed' => with_trashed,
+        'only_trashed' => only_trashed
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(promotion, {kind: :integer}, "$request.promotion")
+      SellApp::Types::BaseModel.validate_value!(with_trashed, {kind: :boolean}, "$request.with_trashed") unless with_trashed.nil?
+      SellApp::Types::BaseModel.validate_value!(only_trashed, {kind: :boolean}, "$request.only_trashed") unless only_trashed.nil?
+      request_options = request_options.merge(operation_id: 'getPromotionUsage', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: "/v2/promotions/#{SellApp::Util.encode_path(promotion)}/usage",
+        auth: true,
+        params: params,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkGetPromotionUsageResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    ReplaceAffiliateProgramConfigurationRequestApplicationJsonPropertySettingsPayoutMethods = GetAffiliateProgramConfigurationResponseValue200ApplicationJsonPropertyDataPropertySettingsPayoutMethods
+    ReplaceAffiliateProgramConfigurationRequestApplicationJsonPropertySettingsPayoutMethods = AffiliatePayoutsPayoutMethod
   end
 end

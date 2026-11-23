@@ -159,17 +159,20 @@ module SellApp
     # @param order [Integer] The order identifier.
     # @param status [SellApp::Types::SdkUpdateOrderStatusRequestApplicationJsonStatus]
     # @param expected_status [SellApp::Types::ExpectedStatus, nil] Expected current status. A status update checks this under the order lock and returns 422 if the order has changed.
+    # @param payment_received [Boolean, nil] Send `true` to confirm that the store received the payment for this order outside SellApp, which can release purchased products to the customer. `true` is accepted only with `status: COMPLETED` (otherwise `422` on `payment_received`) and requires `expected_status` (otherwise `422` on `expected_status`). `false` is accepted with any status and changes nothing.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkUpdateOrderStatusResponseValue200ApplicationJson]
     def update_status(
       order:,
       status:,
       expected_status: SellApp::OMIT,
+      payment_received: nil,
       request_options: {}
     )
       body = {
-        'status' => status
-      }
+        'status' => status,
+        'payment_received' => payment_received
+      }.compact
       body['expected_status'] = expected_status unless expected_status.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(order, {kind: :integer}, "$request.order")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkUpdateOrderStatusRequestApplicationJson"}, "$request.body")
@@ -221,7 +224,7 @@ module SellApp
 
     # Issue replacements
     # @param order [Integer] The order identifier.
-    # @param product_variants [SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants]
+    # @param product_variants [Integer, Array<Integer>, SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3]
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCreateOrderReplacementResponseValue200ApplicationJson]
     def create_replacement(
@@ -252,16 +255,19 @@ module SellApp
 
     # Refund an order
     # @param order [Integer] The order identifier.
-    # @param amount [String, nil] Decimal major-unit amount in the order currency, positive and no greater than remaining balance. Precision follows that currency. Omission/null/empty requests the full remaining balance.
+    # @param amount [String, nil] Decimal major-unit amount in the order's `totals.refund_currency`, positive and no greater than remaining balance. Precision follows that currency. Omission/null/empty requests the full remaining balance.
+    # @param expected_refunded_total_cents [Integer, nil] The refunded total you expect, in integer minor units of the order's `totals.refund_currency`, which can differ from the order currency: `500` means $5.00 in USD. Read it from `totals.refunded_total_cents` on the order and send it unchanged; it is `0` before the first refund. After a refund, `data.order.totals.refunded_total_cents` in the response is the value to send with the next one. With this field, the refund goes out only while the refunded total still equals it and no other refund on the order is pending. Omit it or send null to refund without the check.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkCreateOrderRefundResponseValue200ApplicationJson]
     def create_refund(
       order:,
       amount: SellApp::OMIT,
+      expected_refunded_total_cents: SellApp::OMIT,
       request_options: {}
     )
       body = {}
       body['amount'] = amount unless amount.equal?(SellApp::OMIT)
+      body['expected_refunded_total_cents'] = expected_refunded_total_cents unless expected_refunded_total_cents.equal?(SellApp::OMIT)
       SellApp::Types::BaseModel.validate_value!(order, {kind: :integer}, "$request.order")
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkCreateOrderRefundRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'createOrderRefund', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
@@ -312,7 +318,7 @@ module SellApp
 
     # Retry dynamic delivery
     # @param order [Integer] The order identifier.
-    # @param delivered_product_id [Integer] Delivered product record ID, not a catalog product or order line-item ID. The public order-deliverables response does not currently expose this ID; obtain it from an authorized integration context before requesting a retry.
+    # @param delivered_product_id [Integer] Delivered product record ID, not a catalog product or order line-item ID. Read it from `delivered_product_id` in `GET /v2/orders/{order}/deliverables`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkRetryOrderDynamicDeliveryResponseValue202ApplicationJson]
     def retry_dynamic_delivery(
@@ -368,6 +374,36 @@ module SellApp
       )
       value = begin
         result = SellApp::SdkSendOrderFulfillmentNotificationsResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
+
+    # Create a Telegram invite link
+    # @param order [Integer] The order identifier.
+    # @param variant_id [Integer, nil] The purchased product variant whose Telegram access needs a new link, as in `line_items[].product_variant_id`. Required only when the order grants Telegram access for more than one product.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson]
+    def regenerate_telegram_invite(
+      order:,
+      variant_id: SellApp::OMIT,
+      request_options: {}
+    )
+      body = {}
+      body['variant_id'] = variant_id unless variant_id.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(order, {kind: :integer}, "$request.order")
+      SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkRegenerateOrderTelegramInviteRequestApplicationJson"}, "$request.body")
+      request_options = request_options.merge(operation_id: 'regenerateOrderTelegramInvite', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: true)
+      response = @client.request(
+        method: :post,
+        path: "/v2/orders/#{SellApp::Util.encode_path(order)}/telegram-invites",
+        auth: true,
+        body: body,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson.new(response.body)
         result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
         result
       end

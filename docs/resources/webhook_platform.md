@@ -56,11 +56,21 @@ List webhook deliveries
 [API reference](https://sell.app/docs/api/events) · Effect: **read**
 
 ```ruby
-def list_webhook_deliveries(request_options: {})
+def list_webhook_deliveries(
+      page: 1,
+      limit: 25,
+      event_type: nil,
+      status: nil,
+      request_options: {}
+    )
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| page | `Object` | No |
+| limit | `Object` | No |
+| event_type | `Object` | No |
+| status | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

@@ -220,4 +220,361 @@ class AffiliatesModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_get_affiliate_products_response_value_200_application_j_367df74657ef0866_round_trip
+    fixture = {
+      "type" => 'percentage',
+      "percentage" => 'stub',
+      "amount_usd_cents" => 1,
+    }
+    model = SellApp::GetAffiliateProductsResponseValue200ApplicationJsonPropertyDataPropertyProductsItemPropertyCommission.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["percentage"], json[:percentage]
+    assert_equal fixture["amount_usd_cents"], json[:amount_usd_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_affiliate_products_response_value_200_application_j_7d3f097aa3a22977_round_trip
+    fixture = {
+      "id" => 1,
+      "product_id" => 1,
+      "product_title" => 'stub',
+      "variant_title" => 'stub',
+      "enabled" => true,
+      "commission" => JSON.parse('{"type":"percentage","percentage":"stub","amount_usd_cents":1}'),
+    }
+    model = SellApp::GetAffiliateProductsResponseValue200ApplicationJsonPropertyDataPropertyProductsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["product_title"], json[:product_title]
+    assert_equal fixture["variant_title"], json[:variant_title]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_affiliate_products_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "affiliate_id" => 1,
+      "enable_specific_products" => true,
+      "products" => JSON.parse('[]'),
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::GetAffiliateProductsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["affiliate_id"], json[:affiliate_id]
+    assert_equal fixture["enable_specific_products"], json[:enable_specific_products]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_affiliate_products_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"affiliate_id":1,"enable_specific_products":true,"products":[],"updated_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkGetAffiliateProductsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_affiliate_products_request_application_json_prop_8e4f1a1663b34b10_round_trip
+    model = SellApp::UpdateAffiliateProductsRequestApplicationJsonPropertyProductsItemPropertyCommission.new('{}')
+    json = model.to_h
+    assert_kind_of Hash, json
+  end
+
+  def test_update_affiliate_products_request_application_json_prop_aabc6747a62229dc_round_trip
+    fixture = {
+      "id" => 1,
+      "enabled" => true,
+      "commission" => JSON.parse('{}'),
+    }
+    model = SellApp::UpdateAffiliateProductsRequestApplicationJsonPropertyProductsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["enabled"], json[:enabled]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_affiliate_products_request_application_json_round_trip
+    fixture = {
+      "enable_specific_products" => true,
+      "products" => JSON.parse('[]'),
+      "replace_products" => true,
+    }
+    model = SellApp::SdkUpdateAffiliateProductsRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_affiliate_products_response_value_200_applicatio_39946529bb2c5446_round_trip
+    fixture = {
+      "type" => 'percentage',
+      "percentage" => 'stub',
+      "amount_usd_cents" => 1,
+    }
+    model = SellApp::UpdateAffiliateProductsResponseValue200ApplicationJsonPropertyDataPropertyProductsItemPropertyCommission.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["percentage"], json[:percentage]
+    assert_equal fixture["amount_usd_cents"], json[:amount_usd_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_affiliate_products_response_value_200_applicatio_e092ea7a7fdc1b0e_round_trip
+    fixture = {
+      "id" => 1,
+      "product_id" => 1,
+      "product_title" => 'stub',
+      "variant_title" => 'stub',
+      "enabled" => true,
+      "commission" => JSON.parse('{"type":"percentage","percentage":"stub","amount_usd_cents":1}'),
+    }
+    model = SellApp::UpdateAffiliateProductsResponseValue200ApplicationJsonPropertyDataPropertyProductsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["product_title"], json[:product_title]
+    assert_equal fixture["variant_title"], json[:variant_title]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_update_affiliate_products_response_value_200_applicatio_5a58488e9c4ba0d6_round_trip
+    fixture = {
+      "affiliate_id" => 1,
+      "enable_specific_products" => true,
+      "products" => JSON.parse('[]'),
+      "updated_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::UpdateAffiliateProductsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["affiliate_id"], json[:affiliate_id]
+    assert_equal fixture["enable_specific_products"], json[:enable_specific_products]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_update_affiliate_products_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"affiliate_id":1,"enable_specific_products":true,"products":[],"updated_at":"2024-01-01T00:00:00Z"}'),
+    }
+    model = SellApp::SdkUpdateAffiliateProductsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_affiliate_coupon_response_value_200_application_jso_b1aae63412993c4c_round_trip
+    fixture = {
+      "id" => 1,
+      "code" => 'stub',
+      "type" => 'PERCENTAGE',
+      "discount" => 'stub',
+      "limit" => 1,
+      "store_wide" => true,
+      "minimum_amount" => 'stub',
+      "expires_at" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "store_id" => 1,
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
+    }
+    model = SellApp::GetAffiliateCouponResponseValue200ApplicationJsonPropertyDataPropertyCoupon.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["code"], json[:code]
+    assert_equal fixture["discount"], json[:discount]
+    assert_equal fixture["limit"], json[:limit]
+    assert_equal fixture["store_wide"], json[:store_wide]
+    assert_equal fixture["minimum_amount"], json[:minimum_amount]
+    assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["store_id"], json[:store_id]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_affiliate_coupon_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "affiliate_id" => 1,
+      "status" => 'not_configured',
+      "coupon" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
+    }
+    model = SellApp::GetAffiliateCouponResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["affiliate_id"], json[:affiliate_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_affiliate_coupon_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"affiliate_id":1,"status":"not_configured","coupon":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}'),
+    }
+    model = SellApp::SdkGetAffiliateCouponResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_save_affiliate_coupon_request_application_json_round_trip
+    fixture = {
+      "code" => 'stub',
+      "type" => 'PERCENTAGE',
+      "discount" => 1,
+      "store_wide" => true,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
+      "limit" => 1,
+      "expires_at" => '2024-01-01T00:00:00Z',
+      "minimum_amount" => 1,
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "maximum_discount_amount" => 'stub',
+    }
+    model = SellApp::SdkSaveAffiliateCouponRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_save_affiliate_coupon_response_value_200_application_js_1be5f8f1d5fee7e8_round_trip
+    fixture = {
+      "id" => 1,
+      "code" => 'stub',
+      "type" => 'PERCENTAGE',
+      "discount" => 'stub',
+      "limit" => 1,
+      "store_wide" => true,
+      "minimum_amount" => 'stub',
+      "expires_at" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "store_id" => 1,
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
+    }
+    model = SellApp::SaveAffiliateCouponResponseValue200ApplicationJsonPropertyDataPropertyCoupon.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["code"], json[:code]
+    assert_equal fixture["discount"], json[:discount]
+    assert_equal fixture["limit"], json[:limit]
+    assert_equal fixture["store_wide"], json[:store_wide]
+    assert_equal fixture["minimum_amount"], json[:minimum_amount]
+    assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["store_id"], json[:store_id]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_save_affiliate_coupon_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "affiliate_id" => 1,
+      "status" => 'not_configured',
+      "coupon" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
+    }
+    model = SellApp::SaveAffiliateCouponResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["affiliate_id"], json[:affiliate_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_save_affiliate_coupon_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"affiliate_id":1,"status":"not_configured","coupon":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}'),
+    }
+    model = SellApp::SdkSaveAffiliateCouponResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_disable_affiliate_coupon_response_value_200_application_66c73eeed31b8edd_round_trip
+    fixture = {
+      "id" => 1,
+      "code" => 'stub',
+      "type" => 'PERCENTAGE',
+      "discount" => 'stub',
+      "limit" => 1,
+      "store_wide" => true,
+      "minimum_amount" => 'stub',
+      "expires_at" => 'stub',
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "store_id" => 1,
+      "deleted_at" => '2024-01-01T00:00:00Z',
+      "maximum_discount_amount" => 'stub',
+      "applies_to" => 'one_time',
+      "subscription_payments" => 1,
+      "products" => JSON.parse('[]'),
+      "product_variants" => JSON.parse('[]'),
+    }
+    model = SellApp::DisableAffiliateCouponResponseValue200ApplicationJsonPropertyDataPropertyCoupon.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["code"], json[:code]
+    assert_equal fixture["discount"], json[:discount]
+    assert_equal fixture["limit"], json[:limit]
+    assert_equal fixture["store_wide"], json[:store_wide]
+    assert_equal fixture["minimum_amount"], json[:minimum_amount]
+    assert_equal fixture["expires_at"], json[:expires_at]
+    assert_equal fixture["created_at"], json[:created_at]
+    assert_equal fixture["updated_at"], json[:updated_at]
+    assert_equal fixture["store_id"], json[:store_id]
+    assert_equal fixture["deleted_at"], json[:deleted_at]
+    assert_equal fixture["maximum_discount_amount"], json[:maximum_discount_amount]
+    assert_equal fixture["subscription_payments"], json[:subscription_payments]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_disable_affiliate_coupon_response_value_200_application_f15362a0e3e00333_round_trip
+    fixture = {
+      "affiliate_id" => 1,
+      "status" => 'not_configured',
+      "coupon" => JSON.parse('{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}'),
+    }
+    model = SellApp::DisableAffiliateCouponResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["affiliate_id"], json[:affiliate_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_disable_affiliate_coupon_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"affiliate_id":1,"status":"not_configured","coupon":{"id":1,"code":"stub","type":"PERCENTAGE","discount":"stub","limit":1,"store_wide":true,"minimum_amount":"stub","expires_at":"stub","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"deleted_at":"2024-01-01T00:00:00Z","maximum_discount_amount":"stub","applies_to":"one_time","subscription_payments":1,"products":[],"product_variants":[]}}'),
+    }
+    model = SellApp::SdkDisableAffiliateCouponResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

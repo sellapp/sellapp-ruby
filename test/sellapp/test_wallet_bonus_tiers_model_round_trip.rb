@@ -310,4 +310,69 @@ class WalletBonusTiersModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_quote_wallet_bonus_tier_response_value_200_application_71e8d1dd7a292802_round_trip
+    fixture = {
+      "id" => 1,
+      "minimum_top_up_cents" => 1,
+      "bonus_kind" => 'fixed',
+      "fixed_bonus_cents" => 1,
+      "percent_basis" => 1,
+      "maximum_bonus_cents" => 1,
+      "priority" => 0,
+      "is_active" => true,
+      "superseded_by_id" => 1,
+      "restorable" => true,
+      "created_at" => '2024-01-01T00:00:00Z',
+      "updated_at" => '2024-01-01T00:00:00Z',
+      "deleted_at" => '2024-01-01T00:00:00Z',
+    }
+    model = SellApp::QuoteWalletBonusTierResponseValue200ApplicationJsonPropertyDataPropertyMatchingTier.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["minimum_top_up_cents"], json[:minimum_top_up_cents]
+    assert_equal fixture["fixed_bonus_cents"], json[:fixed_bonus_cents]
+    assert_equal fixture["percent_basis"], json[:percent_basis]
+    assert_equal fixture["maximum_bonus_cents"], json[:maximum_bonus_cents]
+    assert_equal fixture["priority"], json[:priority]
+    assert_equal fixture["is_active"], json[:is_active]
+    assert_equal fixture["superseded_by_id"], json[:superseded_by_id]
+    assert_equal fixture["restorable"], json[:restorable]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_quote_wallet_bonus_tier_response_value_200_application_db36705665bbafbf_round_trip
+    fixture = {
+      "top_up_cents" => 1,
+      "within_top_up_limits" => true,
+      "eligible" => true,
+      "bonus_cents" => 0,
+      "reason" => 'stub',
+      "minimum_top_up_cents" => 1,
+      "maximum_top_up_cents" => 1,
+      "matching_tier" => JSON.parse('{"id":1,"minimum_top_up_cents":1,"bonus_kind":"fixed","fixed_bonus_cents":1,"percent_basis":1,"maximum_bonus_cents":1,"priority":0,"is_active":true,"superseded_by_id":1,"restorable":true}'),
+    }
+    model = SellApp::QuoteWalletBonusTierResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["top_up_cents"], json[:top_up_cents]
+    assert_equal fixture["within_top_up_limits"], json[:within_top_up_limits]
+    assert_equal fixture["eligible"], json[:eligible]
+    assert_equal fixture["bonus_cents"], json[:bonus_cents]
+    assert_equal fixture["reason"], json[:reason]
+    assert_equal fixture["minimum_top_up_cents"], json[:minimum_top_up_cents]
+    assert_equal fixture["maximum_top_up_cents"], json[:maximum_top_up_cents]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_quote_wallet_bonus_tier_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"top_up_cents":1,"within_top_up_limits":true,"eligible":true,"bonus_cents":0,"reason":"stub","minimum_top_up_cents":1,"maximum_top_up_cents":1,"matching_tier":{"id":1,"minimum_top_up_cents":1,"bonus_kind":"fixed","fixed_bonus_cents":1,"percent_basis":1,"maximum_bonus_cents":1,"priority":0,"is_active":true,"superseded_by_id":1,"restorable":true}}'),
+    }
+    model = SellApp::SdkQuoteWalletBonusTierResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

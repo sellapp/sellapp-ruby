@@ -77,6 +77,14 @@ def list_subscriptions(
       page: 1,
       pagination: true,
       status: nil,
+      order_id: nil,
+      product_id: nil,
+      renews_after: nil,
+      renews_before: nil,
+      cancelled_after: nil,
+      cancelled_before: nil,
+      scheduled_to_cancel: nil,
+      paused: nil,
       request_options: {}
     )
 ```
@@ -87,6 +95,14 @@ def list_subscriptions(
 | page | `Object` | No |
 | pagination | `Object` | No |
 | status | `Object` | No |
+| order_id | `Object` | No |
+| product_id | `Object` | No |
+| renews_after | `Object` | No |
+| renews_before | `Object` | No |
+| cancelled_after | `Object` | No |
+| cancelled_before | `Object` | No |
+| scheduled_to_cancel | `Object` | No |
+| paused | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -134,6 +150,14 @@ def search_subscriptions(
       sort: nil,
       search: nil,
       includes: nil,
+      order_id: SellApp::OMIT,
+      product_id: SellApp::OMIT,
+      renews_after: SellApp::OMIT,
+      renews_before: SellApp::OMIT,
+      cancelled_after: SellApp::OMIT,
+      cancelled_before: SellApp::OMIT,
+      scheduled_to_cancel: SellApp::OMIT,
+      paused: SellApp::OMIT,
       limit: 15,
       page: 1,
       pagination: true,
@@ -147,6 +171,14 @@ def search_subscriptions(
 | sort | `Object` | No |
 | search | `Object` | No |
 | includes | `Object` | No |
+| order_id | `Object` | No |
+| product_id | `Object` | No |
+| renews_after | `Object` | No |
+| renews_before | `Object` | No |
+| cancelled_after | `Object` | No |
+| cancelled_before | `Object` | No |
+| scheduled_to_cancel | `Object` | No |
+| paused | `Object` | No |
 | limit | `Object` | No |
 | page | `Object` | No |
 | pagination | `Object` | No |

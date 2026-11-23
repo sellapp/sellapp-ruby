@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    ListDisputesResponseValue200ApplicationJsonPropertyDataItemStatus = GetDisputeResponseValue200ApplicationJsonPropertyDataStatus
+    ListDisputesResponseValue200ApplicationJsonPropertyDataItemStatus = DisputesStatus
   end
 end

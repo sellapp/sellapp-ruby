@@ -11,6 +11,7 @@ module SellApp
 
     sig do
       params(
+        search: T.nilable(String),
         affiliate_id: T.nilable(Integer),
         order_id: T.nilable(Integer),
         status: T.nilable(String),
@@ -19,7 +20,7 @@ module SellApp
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListAffiliateReferralsResponseValue200ApplicationJson)
     end
-    def list(affiliate_id:, order_id:, status:, limit:, page:, request_options:); end
+    def list(search:, affiliate_id:, order_id:, status:, limit:, page:, request_options:); end
 
     sig do
       params(

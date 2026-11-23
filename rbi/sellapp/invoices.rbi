@@ -116,7 +116,7 @@ module SellApp
     sig do
       params(
         invoice: Integer,
-        product_variants: SellApp::IssueReplacementForCompletedInvoiceRequestApplicationJsonPropertyProductVariants,
+        product_variants: T.any(Integer, T::Array[Integer]),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkIssueReplacementForCompletedInvoiceResponseValue200ApplicationJson)
     end
@@ -136,10 +136,11 @@ module SellApp
       params(
         invoice: Integer,
         amount: T.nilable(String),
+        expected_refunded_total_cents: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkCreateInvoiceRefundResponseValue200ApplicationJson)
     end
-    def create_refund(invoice:, amount:, request_options:); end
+    def create_refund(invoice:, amount:, expected_refunded_total_cents:, request_options:); end
 
     sig do
       params(

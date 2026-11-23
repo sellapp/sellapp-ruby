@@ -721,4 +721,28 @@ class PromotionsModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_get_promotion_usage_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "promotion_id" => 1,
+      "uses" => 0,
+      "recent_order_ids" => JSON.parse('[]'),
+    }
+    model = SellApp::GetPromotionUsageResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["promotion_id"], json[:promotion_id]
+    assert_equal fixture["uses"], json[:uses]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_promotion_usage_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"promotion_id":1,"uses":0,"recent_order_ids":[]}'),
+    }
+    model = SellApp::SdkGetPromotionUsageResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end

@@ -193,5 +193,37 @@ module SellApp
       end
       @client.wrap_response(value, response, request_options)
     end
+
+    # Quote a cashback rule
+    # @param product_id [Integer, nil] The product to quote. Leave it out to quote the store-wide rule.
+    # @param purchase_cents [Integer, nil] The purchase amount to quote, in integer USD cents.
+    # @param request_options [Hash] (see SellApp::Types::RequestOptions)
+    # @return [SellApp::SdkQuoteCashbackRuleResponseValue200ApplicationJson]
+    def quote(
+      product_id: nil,
+      purchase_cents: nil,
+      request_options: {}
+    )
+      params = {
+        'product_id' => product_id,
+        'purchase_cents' => purchase_cents
+      }.compact
+      SellApp::Types::BaseModel.validate_value!(product_id, {kind: :integer, minimum: 1}, "$request.product_id") unless product_id.nil?
+      SellApp::Types::BaseModel.validate_value!(purchase_cents, {kind: :integer, minimum: 1}, "$request.purchase_cents") unless purchase_cents.nil?
+      request_options = request_options.merge(operation_id: 'quoteCashbackRule', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
+      response = @client.request(
+        method: :get,
+        path: '/v2/cashback-rules/quote',
+        auth: true,
+        params: params,
+        request_options: request_options
+      )
+      value = begin
+        result = SellApp::SdkQuoteCashbackRuleResponseValue200ApplicationJson.new(response.body)
+        result.last_response = SellApp::Types::ApiResponse.new(http_status: response.code.to_i, http_headers: response.each_header.to_h, request_id: response["x-request-id"])
+        result
+      end
+      @client.wrap_response(value, response, request_options)
+    end
   end
 end

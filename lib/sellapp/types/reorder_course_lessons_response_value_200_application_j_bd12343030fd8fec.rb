@@ -4,6 +4,6 @@
 
 module SellApp
   module Types
-    ReorderCourseLessonsResponseValue200ApplicationJsonPropertyDataAccessType = GetCourseResponseValue200ApplicationJsonPropertyDataAccessType
+    ReorderCourseLessonsResponseValue200ApplicationJsonPropertyDataAccessType = CreateCourseResponseValue201ApplicationJsonPropertyDataAccessType
   end
 end

@@ -67,6 +67,13 @@ class PromotionsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_get_usage_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/promotions/1/usage(\?|\z)})
+      .to_return(body: '{"data":{"promotion_id":1,"uses":0,"recent_order_ids":[]}}', status: 200)
+    result = @client.promotions.get_usage(promotion: 1)
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :list, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/promotions(\?|\z)}},
@@ -77,6 +84,7 @@ class PromotionsTest < Minitest::Test
     {name: :update, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/promotions/1(\?|\z)}, args: {promotion: 1}},
     {name: :delete, verb: :delete, url: %r{\Ahttps://sell\.app/api/v2/promotions/1(\?|\z)}, args: {promotion: 1}},
     {name: :restore, verb: :post, url: %r{\Ahttps://sell\.app/api/v2/promotions/1/restore(\?|\z)}, args: {promotion: 1, name: 'stub', status: 'active', priority: 0, is_stackable: true, phases: JSON.parse('[{"discount_type":"percentage","discount_value":1}]')}},
+    {name: :get_usage, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/promotions/1/usage(\?|\z)}, args: {promotion: 1}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

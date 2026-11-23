@@ -41,10 +41,13 @@ module SellApp
       params(
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
+        waiting_on: T.nilable(String),
+        reason: T.nilable(String),
+        customer_email: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2ListTicketsResponseValue200ApplicationJson)
     end
-    def v2_list_tickets(limit:, page:, request_options:); end
+    def v2_list_tickets(limit:, page:, waiting_on:, reason:, customer_email:, request_options:); end
 
     sig do
       params(
@@ -52,10 +55,15 @@ module SellApp
         sort: T.nilable(T::Array[SellApp::V2SearchTicketsRequestApplicationJsonPropertySortItem]),
         search: T.nilable(SellApp::V2SearchTicketsRequestApplicationJsonPropertySearch),
         includes: T.nilable(T::Array[SellApp::V2SearchTicketsRequestApplicationJsonPropertyIncludesItem]),
+        waiting_on: T.nilable(String),
+        reason: T.nilable(String),
+        customer_email: T.nilable(String),
+        limit: T.nilable(Integer),
+        page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkV2SearchTicketsResponseValue200ApplicationJson)
     end
-    def v2_search_tickets(filters:, sort:, search:, includes:, request_options:); end
+    def v2_search_tickets(filters:, sort:, search:, includes:, waiting_on:, reason:, customer_email:, limit:, page:, request_options:); end
 
     sig do
       params(
@@ -70,10 +78,29 @@ module SellApp
         ticket: Integer,
         status: T.nilable(String),
         archived: T.nilable(T::Boolean),
+        outcome: T.nilable(String),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkUpdateTicketResponseValue200ApplicationJson)
     end
-    def update(ticket:, status:, archived:, request_options:); end
+    def update(ticket:, status:, archived:, outcome:, request_options:); end
+
+    sig do
+      params(
+        action: String,
+        resources: T::Array[Integer],
+        outcome: T.nilable(String),
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkBatchUpdateTicketsResponseValue200ApplicationJson)
+    end
+    def batch_update(action:, resources:, outcome:, request_options:); end
+
+    sig do
+      params(
+        ticket: Integer,
+        request_options: T::Hash[Symbol, T.untyped]
+      ).returns(SellApp::SdkV2GetTicketContextResponseValue200ApplicationJson)
+    end
+    def get_context(ticket:, request_options:); end
 
   end
 end

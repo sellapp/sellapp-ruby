@@ -105,6 +105,12 @@ module SellApp
     sig { params(value: SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyProduct).returns(SellApp::ReplaceProductVariantPricingResponseValue200ApplicationJsonPropertyDataPropertyProduct) }
     def product=(value); end
 
+    sig { returns(T::Boolean) }
+    def is_draft; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def is_draft=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

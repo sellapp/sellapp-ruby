@@ -137,19 +137,23 @@ module SellApp
     # List all feedback
     # @param limit [Integer, nil] Number of items to return per page.
     # @param page [Integer, nil] Page number to return.
+    # @param reply_state [SellApp::Types::FeedbackReplyState, nil] `replied`: feedback with a non-empty seller reply. `unreplied`: feedback without one. `all` (default): both. Any other value returns `422`.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkV2ListFeedbackResponseValue200ApplicationJson]
     def v2_list_feedback(
       limit: 15,
       page: 1,
+      reply_state: 'all',
       request_options: {}
     )
       params = {
         'limit' => limit,
-        'page' => page
+        'page' => page,
+        'reply_state' => reply_state
       }.compact
       SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
       SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
+      SellApp::Types::BaseModel.validate_value!(reply_state, {kind: :enum, values: ["all", "replied", "unreplied"]}, "$request.reply_state") unless reply_state.nil?
       request_options = request_options.merge(operation_id: 'v2ListFeedback', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :get,
@@ -171,6 +175,9 @@ module SellApp
     # @param sort [Array<SellApp::V2SearchFeedbackRequestApplicationJsonPropertySortItem>, nil]
     # @param search [SellApp::V2SearchFeedbackRequestApplicationJsonPropertySearch, nil]
     # @param includes [Array<SellApp::V2SearchFeedbackRequestApplicationJsonPropertyIncludesItem>, nil]
+    # @param reply_state [SellApp::Types::ReplyState, nil] `replied`: feedback with a non-empty seller reply. `unreplied`: feedback without one. `all` (default): both. Any other value returns `422`.
+    # @param limit [Integer, nil] Number of items to return per page.
+    # @param page [Integer, nil] Page number to return.
     # @param request_options [Hash] (see SellApp::Types::RequestOptions)
     # @return [SellApp::SdkV2SearchFeedbackResponseValue200ApplicationJson]
     def v2_search_feedback(
@@ -178,20 +185,31 @@ module SellApp
       sort: nil,
       search: nil,
       includes: nil,
+      reply_state: SellApp::OMIT,
+      limit: 15,
+      page: 1,
       request_options: {}
     )
+      params = {
+        'limit' => limit,
+        'page' => page
+      }.compact
       body = {
         'filters' => filters,
         'sort' => sort,
         'search' => search,
         'includes' => includes
       }.compact
+      body['reply_state'] = reply_state unless reply_state.equal?(SellApp::OMIT)
+      SellApp::Types::BaseModel.validate_value!(limit, {kind: :integer, minimum: 1, maximum: 100}, "$request.limit") unless limit.nil?
+      SellApp::Types::BaseModel.validate_value!(page, {kind: :integer, minimum: 1}, "$request.page") unless page.nil?
       SellApp::Types::BaseModel.validate_value!(body, {kind: :model, name: "SellApp::SdkV2SearchFeedbackRequestApplicationJson"}, "$request.body")
       request_options = request_options.merge(operation_id: 'v2SearchFeedback', credential_policy: {anonymous: false, apiKey: true, accessToken: true, customerSession: false, browserSession: false, clientBasic: false, apiKeyRequiresStore: false, apiKeyUsesStore: true, accessTokenRequiresStore: true}, retry_forbidden: false, idempotency_supported: false)
       response = @client.request(
         method: :post,
         path: '/v2/feedback/search',
         auth: true,
+        params: params,
         body: body,
         request_options: request_options
       )

@@ -11,10 +11,17 @@ module SellApp
 
     sig do
       params(
+        page: T.nilable(Integer),
+        limit: T.nilable(Integer),
+        status: T.nilable(String),
+        provider: T.nilable(String),
+        source: T.nilable(String),
+        refundable_type: T.nilable(String),
+        refundable_id: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListRefundsResponseValue200ApplicationJson)
     end
-    def list_refunds(request_options:); end
+    def list_refunds(page:, limit:, status:, provider:, source:, refundable_type:, refundable_id:, request_options:); end
 
     sig do
       params(

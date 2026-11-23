@@ -66,6 +66,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::ListOrdersResponseValue200ApplicationJsonPropertyDataItemPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -76,6 +78,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -120,7 +124,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -269,6 +273,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateOrderResponseValue201ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -279,6 +285,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -323,7 +331,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -341,7 +349,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_order_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkCreateOrderResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -351,14 +359,13 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_search_orders_request_application_json_property_filters_item_round_trip
     fixture = {
-      "field" => 'stub',
+      "field" => 'id',
       "operator" => 'eq',
       "value" => JSON.parse('{}'),
     }
     model = SellApp::SearchOrdersRequestApplicationJsonPropertyFiltersItem.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
-    assert_equal fixture["field"], json[:field]
     assert_equal fixture["value"], json[:value]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
@@ -458,6 +465,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::SearchOrdersResponseValue200ApplicationJsonPropertyDataItemPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -468,6 +477,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -512,7 +523,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -601,6 +612,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::GetOrderResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -611,6 +624,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -655,7 +670,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -673,7 +688,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_get_order_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkGetOrderResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -685,6 +700,7 @@ class OrdersModelRoundTripTest < Minitest::Test
     fixture = {
       "status" => 'COMPLETED',
       "expected_status" => 'PENDING',
+      "payment_received" => true,
     }
     model = SellApp::SdkUpdateOrderStatusRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -753,6 +769,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::UpdateOrderStatusResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -763,6 +781,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -807,7 +827,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -825,7 +845,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_update_order_status_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkUpdateOrderStatusResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -906,6 +926,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateOrderCheckoutResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -916,6 +938,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -960,7 +984,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -978,7 +1002,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_order_checkout_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "message" => 'stub',
     }
     model = SellApp::SdkCreateOrderCheckoutResponseValue200ApplicationJson.new(fixture.to_json)
@@ -988,15 +1012,15 @@ class OrdersModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_create_order_replacement_request_application_json_prope_7f82cac538132f63_round_trip
-    model = SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariants.new('{}')
+  def test_create_order_replacement_request_application_json_prope_ac981c58b9d7936a_round_trip
+    model = SellApp::CreateOrderReplacementRequestApplicationJsonPropertyProductVariantsAnyOfValue3.new('{}')
     json = model.to_h
     assert_kind_of Hash, json
   end
 
   def test_sdk_create_order_replacement_request_application_json_round_trip
     fixture = {
-      "product_variants" => JSON.parse('{}'),
+      "product_variants" => 1,
     }
     model = SellApp::SdkCreateOrderReplacementRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1065,6 +1089,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateOrderReplacementResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1075,6 +1101,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1119,7 +1147,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -1137,7 +1165,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_order_replacement_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkCreateOrderReplacementResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1148,6 +1176,7 @@ class OrdersModelRoundTripTest < Minitest::Test
   def test_sdk_create_order_refund_request_application_json_round_trip
     fixture = {
       "amount" => 'stub',
+      "expected_refunded_total_cents" => 0,
     }
     model = SellApp::SdkCreateOrderRefundRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1216,6 +1245,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateOrderRefundResponseValue200ApplicationJsonPropertyDataPropertyOrderPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1226,6 +1257,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1270,7 +1303,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -1305,7 +1338,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_create_order_refund_response_value_200_application_json_property_data_round_trip
     fixture = {
-      "order" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "order" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "refund" => JSON.parse('{"status":"pending","provider":"manual","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}'),
     }
     model = SellApp::CreateOrderRefundResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
@@ -1316,7 +1349,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_order_refund_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"order":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"refund":{"status":"pending","provider":"manual","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}}'),
+      "data" => JSON.parse('{"order":{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"},"refund":{"status":"pending","provider":"manual","provider_refund_id":"stub","amount_cents":1,"currency":"stub"}}'),
     }
     model = SellApp::SdkCreateOrderRefundResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1395,6 +1428,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::RetryOrderFulfillmentResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1405,6 +1440,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1449,7 +1486,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -1478,7 +1515,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_retry_order_fulfillment_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "meta" => JSON.parse('{"effects_reset":0}'),
     }
     model = SellApp::SdkRetryOrderFulfillmentResponseValue200ApplicationJson.new(fixture.to_json)
@@ -1559,6 +1596,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::RetryOrderDynamicDeliveryResponseValue202ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1569,6 +1608,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1613,7 +1654,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -1641,7 +1682,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_retry_order_dynamic_delivery_response_value_202_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "meta" => JSON.parse('{"queued":true}'),
     }
     model = SellApp::SdkRetryOrderDynamicDeliveryResponseValue202ApplicationJson.new(fixture.to_json)
@@ -1722,6 +1763,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::SendOrderFulfillmentNotificationsResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1732,6 +1775,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1776,7 +1821,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -1805,7 +1850,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_send_order_fulfillment_notifications_response_value_2b952ae84120469b_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
       "meta" => JSON.parse('{"notifications_sent":0}'),
     }
     model = SellApp::SdkSendOrderFulfillmentNotificationsResponseValue200ApplicationJson.new(fixture.to_json)
@@ -1814,10 +1859,54 @@ class OrdersModelRoundTripTest < Minitest::Test
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
-  def test_list_order_deliverables_response_value_200_application_2a8db12d77216350_round_trip
-    model = SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyData.new('{}')
+  def test_sdk_regenerate_order_telegram_invite_request_application_json_round_trip
+    fixture = {
+      "variant_id" => 1,
+    }
+    model = SellApp::SdkRegenerateOrderTelegramInviteRequestApplicationJson.new(fixture.to_json)
     json = model.to_h
     assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_regenerate_order_telegram_invite_response_value_201_app_0fa94a62e49db6bf_round_trip
+    fixture = {
+      "order_id" => 1,
+      "variant_id" => 1,
+      "invite_link" => 'https://example.com',
+    }
+    model = SellApp::RegenerateOrderTelegramInviteResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["order_id"], json[:order_id]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["invite_link"], json[:invite_link]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_regenerate_order_telegram_invite_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"order_id":1,"variant_id":1,"invite_link":"https://example.com"}'),
+    }
+    model = SellApp::SdkRegenerateOrderTelegramInviteResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_order_deliverables_response_value_200_application_2c340012311914a6_round_trip
+    fixture = {
+      "serials" => JSON.parse('[]'),
+      "delivered_files" => JSON.parse('[]'),
+      "dynamic" => 'stub',
+      "manual" => 'stub',
+      "license_keys" => JSON.parse('[]'),
+      "credits_granted" => 1,
+    }
+    model = SellApp::ListOrderDeliverablesResponseValue200ApplicationJsonPropertyDataItemPropertyDeliverablePropertyDataAnyOfValue1.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_list_order_deliverables_response_value_200_application_7f6a51fcb970dc89_round_trip
@@ -1843,6 +1932,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "line_item_id" => 1,
       "type" => 'stub',
       "status" => 'pending',
+      "delivered_product_id" => 1,
       "product_variant_id" => 1,
       "quantity" => 1,
       "deliverable" => JSON.parse('{"types":[],"data":{}}'),
@@ -1854,6 +1944,7 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["order_id"], json[:order_id]
     assert_equal fixture["line_item_id"], json[:line_item_id]
     assert_equal fixture["type"], json[:type]
+    assert_equal fixture["delivered_product_id"], json[:delivered_product_id]
     assert_equal fixture["product_variant_id"], json[:product_variant_id]
     assert_equal fixture["quantity"], json[:quantity]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
@@ -1988,6 +2079,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::CreateWalletOrderResponseValue201ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -1998,6 +2091,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2042,7 +2137,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -2060,7 +2155,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_create_wallet_order_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true,"checkout_url":"https://example.com"},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkCreateWalletOrderResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2139,6 +2234,8 @@ class OrdersModelRoundTripTest < Minitest::Test
       "total_cents" => 0,
       "total_exclusive_usd_cents" => 0,
       "total_usd_cents" => 0,
+      "refund_currency" => 'stub',
+      "refunded_total_cents" => 0,
     }
     model = SellApp::PayOrderFromWalletResponseValue200ApplicationJsonPropertyDataPropertyTotals.new(fixture.to_json)
     json = model.to_h
@@ -2149,6 +2246,8 @@ class OrdersModelRoundTripTest < Minitest::Test
     assert_equal fixture["total_cents"], json[:total_cents]
     assert_equal fixture["total_exclusive_usd_cents"], json[:total_exclusive_usd_cents]
     assert_equal fixture["total_usd_cents"], json[:total_usd_cents]
+    assert_equal fixture["refund_currency"], json[:refund_currency]
+    assert_equal fixture["refunded_total_cents"], json[:refunded_total_cents]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2193,7 +2292,7 @@ class OrdersModelRoundTripTest < Minitest::Test
       "timeline" => JSON.parse('[]'),
       "customer" => JSON.parse('{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true}'),
       "payment" => JSON.parse('{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true}'),
-      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0}'),
+      "totals" => JSON.parse('{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0}'),
       "coupon_id" => 1,
       "line_items" => JSON.parse('[]'),
       "created_at" => '2024-01-01T00:00:00Z',
@@ -2211,7 +2310,7 @@ class OrdersModelRoundTripTest < Minitest::Test
 
   def test_sdk_pay_order_from_wallet_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
+      "data" => JSON.parse('{"id":1,"status":"PENDING","timeline":[],"customer":{"id":1,"email":"sdk@example.com","country":"stub","location":"stub","proxied":true},"payment":{"method":"AUTHNET","transaction_id":"stub","payment_id":"stub","payment_capture_id":"stub","blockchain_txid":"stub","settlement_gateway":"stub","has_checkout_url":true},"totals":{"currency":"stub","subtotal_cents":0,"total_exclusive_cents":0,"total_cents":0,"total_exclusive_usd_cents":0,"total_usd_cents":0,"refund_currency":"stub","refunded_total_cents":0},"coupon_id":1,"line_items":[],"created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z"}'),
     }
     model = SellApp::SdkPayOrderFromWalletResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h

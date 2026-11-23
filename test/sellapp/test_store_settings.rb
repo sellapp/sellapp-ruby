@@ -60,6 +60,125 @@ class StoreSettingsTest < Minitest::Test
     refute_nil result
   end
 
+  def test_get_checkout_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/store/settings/checkout(\?|\z)})
+      .to_return(body: '{"data":{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}}', status: 200)
+    result = @client.store_settings.get_checkout()
+    refute_nil result
+  end
+
+  def test_replace_checkout_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/store/settings/checkout(\?|\z)})
+      .to_return(body: '{"data":{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}}', status: 200)
+    result = @client.store_settings.replace_checkout(shopping_cart_enabled: true, customer_email_required: true, allow_vpn_purchases: true, blacklist_on_dispute: true, minimum_spend: '1.00', billing_descriptor: 'stub', attempts_per_customer: 1, attempts_per_ip: 1, attempts_per_email: 1, attempts_per_fingerprint: 1, rate_limit_window_seconds: 60)
+    refute_nil result
+  end
+
+  def test_update_checkout_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/store/settings/checkout(\?|\z)})
+      .to_return(body: '{"data":{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}}', status: 200)
+    result = @client.store_settings.update_checkout()
+    refute_nil result
+  end
+
+  def test_get_taxes_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/store/settings/taxes(\?|\z)})
+      .to_return(body: '{"data":{"vat_enabled":true,"vat_inclusive_pricing":true,"collect_billing_details":true}}', status: 200)
+    result = @client.store_settings.get_taxes()
+    refute_nil result
+  end
+
+  def test_replace_taxes_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/store/settings/taxes(\?|\z)})
+      .to_return(body: '{"data":{"vat_enabled":true,"vat_inclusive_pricing":true,"collect_billing_details":true}}', status: 200)
+    result = @client.store_settings.replace_taxes(vat_enabled: true, vat_inclusive_pricing: true, collect_billing_details: true)
+    refute_nil result
+  end
+
+  def test_update_taxes_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/store/settings/taxes(\?|\z)})
+      .to_return(body: '{"data":{"vat_enabled":true,"vat_inclusive_pricing":true,"collect_billing_details":true}}', status: 200)
+    result = @client.store_settings.update_taxes()
+    refute_nil result
+  end
+
+  def test_get_customer_emails_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/store/settings/customer-emails(\?|\z)})
+      .to_return(body: '{"data":{"send_delivery_email":true,"send_payment_failure_email":true}}', status: 200)
+    result = @client.store_settings.get_customer_emails()
+    refute_nil result
+  end
+
+  def test_replace_customer_emails_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/store/settings/customer-emails(\?|\z)})
+      .to_return(body: '{"data":{"send_delivery_email":true,"send_payment_failure_email":true}}', status: 200)
+    result = @client.store_settings.replace_customer_emails(send_delivery_email: true, send_payment_failure_email: true)
+    refute_nil result
+  end
+
+  def test_update_customer_emails_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/store/settings/customer-emails(\?|\z)})
+      .to_return(body: '{"data":{"send_delivery_email":true,"send_payment_failure_email":true}}', status: 200)
+    result = @client.store_settings.update_customer_emails()
+    refute_nil result
+  end
+
+  def test_get_store_alerts_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/store/settings/store-alerts(\?|\z)})
+      .to_return(body: '{"data":{"sale_emails_enabled":true}}', status: 200)
+    result = @client.store_settings.get_store_alerts()
+    refute_nil result
+  end
+
+  def test_replace_store_alerts_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/store/settings/store-alerts(\?|\z)})
+      .to_return(body: '{"data":{"sale_emails_enabled":true}}', status: 200)
+    result = @client.store_settings.replace_store_alerts(sale_emails_enabled: true)
+    refute_nil result
+  end
+
+  def test_update_store_alerts_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/store/settings/store-alerts(\?|\z)})
+      .to_return(body: '{"data":{"sale_emails_enabled":true}}', status: 200)
+    result = @client.store_settings.update_store_alerts()
+    refute_nil result
+  end
+
+  def test_get_personalization_returns_expected_result
+    stub_request(:get, %r{\Ahttps://sell\.app/api/v2/store/settings/personalization(\?|\z)})
+      .to_return(body: '{"data":{"support_email":"sdk@example.com","trustpilot_email":"sdk@example.com","sender_name":"stub","sender_email":"sdk@example.com","store_address":"stub","store_city":"stub","store_state":"stub","store_zip":"stub","store_country":"stub","store_tax":"stub","back_link_label":"stub","back_link_url":"https://example.com"}}', status: 200)
+    result = @client.store_settings.get_personalization()
+    refute_nil result
+  end
+
+  def test_replace_personalization_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/store/settings/personalization(\?|\z)})
+      .to_return(body: '{"data":{"support_email":"sdk@example.com","trustpilot_email":"sdk@example.com","sender_name":"stub","sender_email":"sdk@example.com","store_address":"stub","store_city":"stub","store_state":"stub","store_zip":"stub","store_country":"stub","store_tax":"stub","back_link_label":"stub","back_link_url":"https://example.com"}}', status: 200)
+    result = @client.store_settings.replace_personalization(support_email: 'sdk@example.com', trustpilot_email: 'sdk@example.com', sender_name: 'stub', store_address: 'stub', store_city: 'stub', store_state: 'stub', store_zip: 'stub', store_country: 'stub', store_tax: 'stub', back_link_label: 'stub', back_link_url: 'https://example.com')
+    refute_nil result
+  end
+
+  def test_update_personalization_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/store/settings/personalization(\?|\z)})
+      .to_return(body: '{"data":{"support_email":"sdk@example.com","trustpilot_email":"sdk@example.com","sender_name":"stub","sender_email":"sdk@example.com","store_address":"stub","store_city":"stub","store_state":"stub","store_zip":"stub","store_country":"stub","store_tax":"stub","back_link_label":"stub","back_link_url":"https://example.com"}}', status: 200)
+    result = @client.store_settings.update_personalization()
+    refute_nil result
+  end
+
+  def test_replace_crypto_checkout_returns_expected_result
+    stub_request(:put, %r{\Ahttps://sell\.app/api/v2/store/settings/checkout/crypto(\?|\z)})
+      .to_return(body: '{"data":{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}}', status: 200)
+    result = @client.store_settings.replace_crypto_checkout(underpaid_percentage: 0, minimum_confirmations: 1)
+    refute_nil result
+  end
+
+  def test_update_crypto_checkout_returns_expected_result
+    stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/store/settings/checkout/crypto(\?|\z)})
+      .to_return(body: '{"data":{"shopping_cart_enabled":true,"customer_email_required":true,"allow_vpn_purchases":true,"blacklist_on_dispute":true,"minimum_spend":"1.00","billing_descriptor":"stub","attempts_per_customer":1,"attempts_per_ip":1,"attempts_per_email":1,"attempts_per_fingerprint":1,"rate_limit_window_seconds":60,"crypto":{"underpaid_percentage":0,"minimum_confirmations":1}}}', status: 200)
+    result = @client.store_settings.update_crypto_checkout()
+    refute_nil result
+  end
+
   # Parameterized authentication error tests (one per endpoint).
   [
     {name: :get, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/store/settings(\?|\z)}},
@@ -69,6 +188,23 @@ class StoreSettingsTest < Minitest::Test
     {name: :update_analytics, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/analytics(\?|\z)}},
     {name: :replace_marketing, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/marketing(\?|\z)}, args: {abandoned_cart: JSON.parse('{"enabled":true}')}},
     {name: :update_marketing, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/marketing(\?|\z)}, args: {abandoned_cart: JSON.parse('{}')}},
+    {name: :get_checkout, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/store/settings/checkout(\?|\z)}},
+    {name: :replace_checkout, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/checkout(\?|\z)}, args: {shopping_cart_enabled: true, customer_email_required: true, allow_vpn_purchases: true, blacklist_on_dispute: true, minimum_spend: '1.00', billing_descriptor: 'stub', attempts_per_customer: 1, attempts_per_ip: 1, attempts_per_email: 1, attempts_per_fingerprint: 1, rate_limit_window_seconds: 60}},
+    {name: :update_checkout, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/checkout(\?|\z)}},
+    {name: :get_taxes, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/store/settings/taxes(\?|\z)}},
+    {name: :replace_taxes, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/taxes(\?|\z)}, args: {vat_enabled: true, vat_inclusive_pricing: true, collect_billing_details: true}},
+    {name: :update_taxes, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/taxes(\?|\z)}},
+    {name: :get_customer_emails, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/store/settings/customer-emails(\?|\z)}},
+    {name: :replace_customer_emails, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/customer-emails(\?|\z)}, args: {send_delivery_email: true, send_payment_failure_email: true}},
+    {name: :update_customer_emails, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/customer-emails(\?|\z)}},
+    {name: :get_store_alerts, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/store/settings/store-alerts(\?|\z)}},
+    {name: :replace_store_alerts, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/store-alerts(\?|\z)}, args: {sale_emails_enabled: true}},
+    {name: :update_store_alerts, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/store-alerts(\?|\z)}},
+    {name: :get_personalization, verb: :get, url: %r{\Ahttps://sell\.app/api/v2/store/settings/personalization(\?|\z)}},
+    {name: :replace_personalization, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/personalization(\?|\z)}, args: {support_email: 'sdk@example.com', trustpilot_email: 'sdk@example.com', sender_name: 'stub', store_address: 'stub', store_city: 'stub', store_state: 'stub', store_zip: 'stub', store_country: 'stub', store_tax: 'stub', back_link_label: 'stub', back_link_url: 'https://example.com'}},
+    {name: :update_personalization, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/personalization(\?|\z)}},
+    {name: :replace_crypto_checkout, verb: :put, url: %r{\Ahttps://sell\.app/api/v2/store/settings/checkout/crypto(\?|\z)}, args: {underpaid_percentage: 0, minimum_confirmations: 1}},
+    {name: :update_crypto_checkout, verb: :patch, url: %r{\Ahttps://sell\.app/api/v2/store/settings/checkout/crypto(\?|\z)}},
   ].each do |spec|
     define_method("test_#{spec[:name]}_raises_authentication_error_on_401") do
       stub_request(spec[:verb], spec[:url])

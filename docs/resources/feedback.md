@@ -212,6 +212,7 @@ List all feedback
 def v2_list_feedback(
       limit: 15,
       page: 1,
+      reply_state: 'all',
       request_options: {}
     )
 ```
@@ -220,6 +221,7 @@ def v2_list_feedback(
 | --- | --- | --- |
 | limit | `Object` | No |
 | page | `Object` | No |
+| reply_state | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.
@@ -267,6 +269,9 @@ def v2_search_feedback(
       sort: nil,
       search: nil,
       includes: nil,
+      reply_state: SellApp::OMIT,
+      limit: 15,
+      page: 1,
       request_options: {}
     )
 ```
@@ -277,6 +282,9 @@ def v2_search_feedback(
 | sort | `Object` | No |
 | search | `Object` | No |
 | includes | `Object` | No |
+| reply_state | `Object` | No |
+| limit | `Object` | No |
+| page | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

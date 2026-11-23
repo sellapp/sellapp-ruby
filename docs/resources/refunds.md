@@ -9,11 +9,27 @@ List refunds
 [API reference](https://sell.app/docs/api/refunds) · Effect: **read**
 
 ```ruby
-def list_refunds(request_options: {})
+def list_refunds(
+      page: 1,
+      limit: 15,
+      status: nil,
+      provider: nil,
+      source: nil,
+      refundable_type: nil,
+      refundable_id: nil,
+      request_options: {}
+    )
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| page | `Object` | No |
+| limit | `Object` | No |
+| status | `Object` | No |
+| provider | `Object` | No |
+| source | `Object` | No |
+| refundable_type | `Object` | No |
+| refundable_id | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

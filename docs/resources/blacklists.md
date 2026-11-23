@@ -255,11 +255,21 @@ List blacklist rules
 [API reference](https://sell.app/docs/api/blacklists/list-blacklists) · Effect: **read**
 
 ```ruby
-def v2_list_blacklists(request_options: {})
+def v2_list_blacklists(
+      limit: 15,
+      page: 1,
+      search: nil,
+      type: nil,
+      request_options: {}
+    )
 ```
 
 | Argument | Native type | Required |
 | --- | --- | --- |
+| limit | `Object` | No |
+| page | `Object` | No |
+| search | `Object` | No |
+| type | `Object` | No |
 | request_options | `Object` | No |
 
 Returns: `Object`.

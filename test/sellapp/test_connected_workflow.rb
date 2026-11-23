@@ -30,7 +30,7 @@ class ConnectedWorkflowTest < Minitest::Test
         case [request.method, path]
         when [:get, "/api/v2/products"]
           number = URI.decode_www_form(URI(request.uri).query || "").to_h.fetch("page", "1").to_i
-          response = {data: number == 2 ? [] : [fixture["product"]["data"]], meta: {current_page: number, from: 1, last_page: 3, links: [], path: "http://127.0.0.1:54321/api/v2/products", per_page: 1, to: 1, total: 2}, links: {first: "?page=1", last: "?page=3", prev: number > 1 ? "?page=#{number - 1}" : nil, next: number < 3 ? "?page=#{number + 1}" : nil}}
+          response = {data: number == 2 ? [] : [fixture["product"]["data"].merge("price_range" => nil, "stock" => 0, "sales" => 0, "sold_out" => true)], meta: {current_page: number, from: 1, last_page: 3, links: [], path: "http://127.0.0.1:54321/api/v2/products", per_page: 1, to: 1, total: 2}, links: {first: "?page=1", last: "?page=3", prev: number > 1 ? "?page=#{number - 1}" : nil, next: number < 3 ? "?page=#{number + 1}" : nil}}
         when [:post, "/api/v2/products"]
           refute JSON.parse(request.body).key?("section")
           status, response = 201, fixture["product"]

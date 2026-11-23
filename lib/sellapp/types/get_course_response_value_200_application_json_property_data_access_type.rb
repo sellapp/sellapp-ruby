@@ -4,10 +4,6 @@
 
 module SellApp
   module Types
-    class GetCourseResponseValue200ApplicationJsonPropertyDataAccessType
-      LIFETIME = 'lifetime'
-      LIMITED = 'limited'
-      ALL = [LIFETIME, LIMITED].freeze
-    end
+    GetCourseResponseValue200ApplicationJsonPropertyDataAccessType = CreateCourseResponseValue201ApplicationJsonPropertyDataAccessType
   end
 end

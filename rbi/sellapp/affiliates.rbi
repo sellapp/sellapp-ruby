@@ -13,12 +13,15 @@ module SellApp
       params(
         status: T.nilable(String),
         search: T.nilable(String),
+        custom_rates_only: T.nilable(T::Boolean),
+        payout_method: T.nilable(String),
+        sort: T.nilable(String),
         limit: T.nilable(Integer),
         page: T.nilable(Integer),
         request_options: T::Hash[Symbol, T.untyped]
       ).returns(SellApp::SdkListAffiliatesResponseValue200ApplicationJson)
     end
-    def list(status:, search:, limit:, page:, request_options:); end
+    def list(status:, search:, custom_rates_only:, payout_method:, sort:, limit:, page:, request_options:); end
 
     sig do
       params(

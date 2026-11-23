@@ -39,6 +39,18 @@ module SellApp
     sig { params(value: T::Boolean).returns(T::Boolean) }
     def signing_secret_configured=(value); end
 
+    sig { returns(SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth) }
+    def health; end
+
+    sig { params(value: SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth).returns(SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyHealth) }
+    def health=(value); end
+
+    sig { returns(T.nilable(SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery)) }
+    def last_delivery; end
+
+    sig { params(value: T.nilable(SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery)).returns(T.nilable(SellApp::ListWebhookChannelsResponseValue200ApplicationJsonPropertyDataItemPropertyLastDelivery)) }
+    def last_delivery=(value); end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def to_h; end
 

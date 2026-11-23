@@ -333,4 +333,287 @@ class CommunityConnectionsModelRoundTripTest < Minitest::Test
     assert_kind_of Hash, json
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
+
+  def test_list_community_failed_grant_reasons_response_value_200_aa27865fe33d0bef_round_trip
+    fixture = {
+      "reason" => 'invalid_credentials',
+      "label" => 'stub',
+      "count" => 1,
+      "what_to_do" => 'stub',
+    }
+    model = SellApp::ListCommunityFailedGrantReasonsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["label"], json[:label]
+    assert_equal fixture["count"], json[:count]
+    assert_equal fixture["what_to_do"], json[:what_to_do]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_list_community_failed_grant_reasons_response_value_4ebbdaf185bd6d3d_round_trip
+    fixture = {
+      "data" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkListCommunityFailedGrantReasonsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_community_server_response_value_200_application_jso_3afa565873f40159_round_trip
+    fixture = {
+      "product_id" => 1,
+      "product" => 'stub',
+      "variant_id" => 1,
+      "variant" => 'stub',
+    }
+    model = SellApp::GetCommunityServerResponseValue200ApplicationJsonPropertyDataPropertyAffectedVariantsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["product"], json[:product]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["variant"], json[:variant]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_get_community_server_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "platform" => 'discord',
+      "id" => 'stub',
+      "name" => 'stub',
+      "type" => 'stub',
+      "is_last" => true,
+      "affected_variants" => JSON.parse('[]'),
+    }
+    model = SellApp::GetCommunityServerResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["name"], json[:name]
+    assert_equal fixture["type"], json[:type]
+    assert_equal fixture["is_last"], json[:is_last]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_get_community_server_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"platform":"discord","id":"stub","name":"stub","type":"stub","is_last":true,"affected_variants":[]}'),
+    }
+    model = SellApp::SdkGetCommunityServerResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_remove_community_server_request_application_json_round_trip
+    fixture = {
+      "affected_variant_ids" => JSON.parse('[]'),
+    }
+    model = SellApp::SdkRemoveCommunityServerRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_remove_community_server_response_value_200_application_983d2a1708b7973f_round_trip
+    fixture = {
+      "product_id" => 1,
+      "product" => 'stub',
+      "variant_id" => 1,
+      "variant" => 'stub',
+    }
+    model = SellApp::RemoveCommunityServerResponseValue200ApplicationJsonPropertyDataPropertyAccessRulesRemovedItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["product_id"], json[:product_id]
+    assert_equal fixture["product"], json[:product]
+    assert_equal fixture["variant_id"], json[:variant_id]
+    assert_equal fixture["variant"], json[:variant]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_remove_community_server_response_value_200_application_656b33f55b2ef06e_round_trip
+    fixture = {
+      "platform" => 'discord',
+      "id" => 'stub',
+      "name" => 'stub',
+      "removed" => true,
+      "access_rules_removed" => JSON.parse('[]'),
+    }
+    model = SellApp::RemoveCommunityServerResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["name"], json[:name]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_remove_community_server_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"platform":"discord","id":"stub","name":"stub","removed":true,"access_rules_removed":[]}'),
+    }
+    model = SellApp::SdkRemoveCommunityServerResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_sync_discord_roles_request_application_json_round_trip
+    fixture = {
+      "server_id" => 'stub',
+    }
+    model = SellApp::SdkSyncDiscordRolesRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sync_discord_roles_response_value_200_application_json_779512c76d3d6078_round_trip
+    fixture = {
+      "id" => 'stub',
+      "name" => 'stub',
+      "synced" => true,
+      "roles_synced" => 0,
+      "hierarchy" => 'healthy',
+      "bot_can_assign" => 0,
+      "total_roles" => 0,
+      "error" => 'stub',
+    }
+    model = SellApp::SyncDiscordRolesResponseValue200ApplicationJsonPropertyDataPropertySyncedServersItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["name"], json[:name]
+    assert_equal fixture["synced"], json[:synced]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sync_discord_roles_response_value_200_application_json_property_data_round_trip
+    fixture = {
+      "platform" => 'discord',
+      "synced_servers" => JSON.parse('[]'),
+      "failed_count" => 0,
+    }
+    model = SellApp::SyncDiscordRolesResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["failed_count"], json[:failed_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_sync_discord_roles_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"platform":"discord","synced_servers":[],"failed_count":0}'),
+    }
+    model = SellApp::SdkSyncDiscordRolesResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_slack_available_channels_response_value_200_applic_3c0d0d001599f823_round_trip
+    fixture = {
+      "id" => 'stub',
+      "name" => 'stub',
+      "is_private" => true,
+      "num_members" => 0,
+    }
+    model = SellApp::ListSlackAvailableChannelsResponseValue200ApplicationJsonPropertyDataPropertyChannelsItem.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["name"], json[:name]
+    assert_equal fixture["is_private"], json[:is_private]
+    assert_equal fixture["num_members"], json[:num_members]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_list_slack_available_channels_response_value_200_applic_edac7e32ad1c7eae_round_trip
+    fixture = {
+      "channels" => JSON.parse('[]'),
+      "registered_count" => 0,
+    }
+    model = SellApp::ListSlackAvailableChannelsResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["registered_count"], json[:registered_count]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_list_slack_available_channels_response_value_200_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"channels":[],"registered_count":0}'),
+    }
+    model = SellApp::SdkListSlackAvailableChannelsResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_add_slack_channel_request_application_json_round_trip
+    fixture = {
+      "channel_id" => 'stub',
+    }
+    model = SellApp::SdkAddSlackChannelRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["channel_id"], json[:channel_id]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_add_slack_channel_response_value_201_application_json_property_data_round_trip
+    fixture = {
+      "id" => 'stub',
+      "name" => 'stub',
+    }
+    model = SellApp::AddSlackChannelResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["id"], json[:id]
+    assert_equal fixture["name"], json[:name]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_add_slack_channel_response_value_201_application_json_round_trip
+    fixture = {
+      "data" => JSON.parse('{"id":"stub","name":"stub"}'),
+    }
+    model = SellApp::SdkAddSlackChannelResponseValue201ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_slack_workspace_invite_link_request_application_json_round_trip
+    fixture = {
+      "invite_link" => 'stub',
+      "workspace_invite_link" => 'stub',
+    }
+    model = SellApp::SdkReplaceSlackWorkspaceInviteLinkRequestApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_replace_slack_workspace_invite_link_response_value_200_2c47d11fa9c2a6a4_round_trip
+    fixture = {
+      "workspace_invite_link" => 'https://example.com',
+    }
+    model = SellApp::ReplaceSlackWorkspaceInviteLinkResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    assert_equal fixture["workspace_invite_link"], json[:workspace_invite_link]
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
+
+  def test_sdk_replace_slack_workspace_invite_link_response_value_a885e943a4eb9879_round_trip
+    fixture = {
+      "data" => JSON.parse('{"workspace_invite_link":"https://example.com"}'),
+    }
+    model = SellApp::SdkReplaceSlackWorkspaceInviteLinkResponseValue200ApplicationJson.new(fixture.to_json)
+    json = model.to_h
+    assert_kind_of Hash, json
+    fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
+  end
 end
