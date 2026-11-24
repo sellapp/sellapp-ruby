@@ -483,6 +483,7 @@ class SharedModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::BatchCreateProductsResponseValue201ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -502,6 +503,7 @@ class SharedModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 

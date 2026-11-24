@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "language": "ruby",
   "repository": "sellapp/sellapp-ruby",
-  "sourceSha": "77cf567815f22f4c07cf6b707ab25d4ca74877af",
-  "specSha256": "588138cc0421d9c2f8b7382d2924ce51982635c344b9e57f6f46b68e18ea4d69",
+  "sourceSha": "47e5b156f89777b62ae90a33cac16756b9830558",
+  "specSha256": "2319bc01512943c10a5788a130a1d189fbb2b14d76b0142e62a47b759c391662",
   "runId": "0",
   "runAttempt": "1",
-  "treeDigest": "582634af86319af4beadb5efef83d7bb35f4c886d4e89298eedbc740ef4e1acb",
-  "contentDigest": "dbf9094994217442dd4a5fa54a7f12b1605c6c1f01dbe740cf0b10f30e892360",
+  "treeDigest": "efca7d73115392465903f9a89fb33a59e8d651d1b7b7200d8c22904ee31c2a46",
+  "contentDigest": "3ecc50815c286aa33e374cbdcab2ee76ae3ad902a9833bcb50f352613667766a",
   "files": [
     {
       "path": ".github/scripts/native-ci.mjs",
@@ -67,7 +67,7 @@
     {
       "path": "README.md",
       "mode": "100644",
-      "sha256": "96c65eb6fbad7b3e626ad5ac2abf5e05d1780c5bc5efa5f0253afb0aa54ff9a6"
+      "sha256": "480db61cdc85aea44f4c90d8d44d1a2347e4c738f8687100511539dcb377f6fe"
     },
     {
       "path": "Rakefile",
@@ -82,7 +82,7 @@
     {
       "path": "docs/migration.md",
       "mode": "100644",
-      "sha256": "93cb5f3632ba41e91cbef0eca56536cabd6d525e748dc9aac4e736502807b09e"
+      "sha256": "2a2c9726edcf4a78185eac87a67824fed8e50054d5c67c18bd1d44255cb49c8f"
     },
     {
       "path": "docs/operation-examples.json",
@@ -617,7 +617,7 @@
     {
       "path": "generation-manifest.json",
       "mode": "100644",
-      "sha256": "de66373c0813b459ea11925b9c0f67761e920fa54334a59e8b5e7b4b036744a7"
+      "sha256": "297a22bd47b6ff3e064ae7c418c47989386051fc27295bb326004e868a0aef46"
     },
     {
       "path": "lib/sellapp.rb",
@@ -3412,7 +3412,7 @@
     {
       "path": "lib/sellapp/bookings/create_booking_product_response_value_201_application_json_property_data.rb",
       "mode": "100644",
-      "sha256": "43fdcdb7db9050053cd12a0c14645f8e7549bb4a95e10984aa1c1669e1b3bb53"
+      "sha256": "ef36c17648c0687bf81d461c3b83e83b3e401fc18cc1458850748d1dc9367683"
     },
     {
       "path": "lib/sellapp/bookings/get_appointment_response_value_200_application_json_pro_52f8f6e14bc5bebe.rb",
@@ -11747,7 +11747,7 @@
     {
       "path": "lib/sellapp/products/batch_create_products_response_value_200_application_js_4c8127b865b3dc00.rb",
       "mode": "100644",
-      "sha256": "3f7d5bb7df3cc2b48707b3253035bbb33af2297ddf972e6dfe61fa51f7275dca"
+      "sha256": "1e85995c0231e934aeb0be20bd51f6e26143b59281c534be87a4784248e2f471"
     },
     {
       "path": "lib/sellapp/products/batch_create_products_response_value_200_application_js_7e383f9dc445fb64.rb",
@@ -12082,7 +12082,7 @@
     {
       "path": "lib/sellapp/products/list_products_response_value_200_application_json_property_data_item.rb",
       "mode": "100644",
-      "sha256": "8193fce409eb5c0003e7b2106bb6ae32bc9d42c1a29963d91d7967fdac70bde0"
+      "sha256": "d6e0b2a59d7fa262116035379d29274678bb93a93d78b12aa2f1a76f6d94595f"
     },
     {
       "path": "lib/sellapp/products/move_product_response_value_200_application_json_proper_030a9bc6ec5525ad.rb",
@@ -12242,7 +12242,7 @@
     {
       "path": "lib/sellapp/products/sdk_create_product_response_value_201_application_json.rb",
       "mode": "100644",
-      "sha256": "3bf91964e908a21dd2cdb7c35ab09d570693078fd511fe50faf3f6bf54207f52"
+      "sha256": "c872370e98eab3598ee11d7c50b18c9bf324ca5d42071d343fb0b00b8d1a2407"
     },
     {
       "path": "lib/sellapp/products/sdk_delete_product_request_application_json.rb",
@@ -12252,12 +12252,12 @@
     {
       "path": "lib/sellapp/products/sdk_delete_product_response_value_200_application_json.rb",
       "mode": "100644",
-      "sha256": "80eb89beb8b2446f57696f9b8edb910cf00629d65146f5cc864da6db56ffd0d4"
+      "sha256": "10f7b87f6beadc2993ca454335d7d82543d1ef349b7c71b22e0de28f7d05709c"
     },
     {
       "path": "lib/sellapp/products/sdk_duplicate_product_response_value_201_application_json.rb",
       "mode": "100644",
-      "sha256": "b21538e6bd0ddb494ded3546071ffcc2076c31b789eeab008dcb3a91b1aecd8b"
+      "sha256": "e5daf4478bbe0396c4b3f26375f8f399b604d51adb48989908eeeec212f5d82e"
     },
     {
       "path": "lib/sellapp/products/sdk_get_product_featured_variant_response_value_200_application_json.rb",
@@ -12267,7 +12267,7 @@
     {
       "path": "lib/sellapp/products/sdk_get_product_response_value_200_application_json.rb",
       "mode": "100644",
-      "sha256": "0c3fc95e38f18fe31f8f20670abc5d93492650082cffa0e9e2177ad0d4f3048a"
+      "sha256": "54848dbd25f7a25772c998a5a88958cac6644b1fa0628a2a0fa8d21c439f2c17"
     },
     {
       "path": "lib/sellapp/products/sdk_list_product_similar_products_response_value_200_application_json.rb",
@@ -12287,7 +12287,7 @@
     {
       "path": "lib/sellapp/products/sdk_move_product_response_value_200_application_json.rb",
       "mode": "100644",
-      "sha256": "c4defab5ea26fa75e4eee5503f3b3d20f66d44a2da5b21a7c373e4f7836c7823"
+      "sha256": "95728f0e59e9e507495e3c34b2419c90875d23f0508fc3b1ff0b239a66a48c4c"
     },
     {
       "path": "lib/sellapp/products/sdk_publish_product_request_application_json.rb",
@@ -12297,7 +12297,7 @@
     {
       "path": "lib/sellapp/products/sdk_publish_product_response_value_200_application_json.rb",
       "mode": "100644",
-      "sha256": "0cac614e38c1ba5a91a8cfb8d246528ab22b625e40914389b30103f47dfc4731"
+      "sha256": "18929d3a7db6f28c8f294503e346d8e028a1719bccfd8f435856475fdf602293"
     },
     {
       "path": "lib/sellapp/products/sdk_replace_product_featured_variant_request_application_json.rb",
@@ -12317,7 +12317,7 @@
     {
       "path": "lib/sellapp/products/sdk_replace_product_response_value_200_application_json.rb",
       "mode": "100644",
-      "sha256": "dd7fa3eeaed050b017225452993f4c11a963855c58d24703f78481bf3babef2c"
+      "sha256": "2f33525c14d499f7bfa3c0516deba1572d77e1228fd9d43b7720d62948f3f762"
     },
     {
       "path": "lib/sellapp/products/sdk_replace_product_similar_products_request_application_json.rb",
@@ -12347,7 +12347,7 @@
     {
       "path": "lib/sellapp/products/sdk_update_product_response_value_200_application_json.rb",
       "mode": "100644",
-      "sha256": "2bfba4e3c71126912398a0c5610c2a1fbc812a89e83c7059504258f7c1936635"
+      "sha256": "cb8a970d27af4992bfb1061f3ab22fb8e4af4f68b46734576ca56e6bf1568c16"
     },
     {
       "path": "lib/sellapp/products/search_products_request_application_json_property_filte_551b39b0d99e5285.rb",
@@ -19997,7 +19997,7 @@
     {
       "path": "lib/sellapp/version.rb",
       "mode": "100644",
-      "sha256": "c6978b6e6a5e9780cbe7ed1c45b6d5e49004b4edcdbca2d643561e374da16e96"
+      "sha256": "54cbf22841391c0081301c058521f6a8fb3f6c6cebe4d4cfbdcedceb5e79b876"
     },
     {
       "path": "lib/sellapp/wallet.rb",
@@ -20862,7 +20862,7 @@
     {
       "path": "rbi/sellapp/batch_create_products_response_value_200_application_js_4c8127b865b3dc00.rbi",
       "mode": "100644",
-      "sha256": "5f26f985547ab5fbf79d2e6459a7323384f9c886e5e9b8fbd903f58728867d01"
+      "sha256": "4e9b642fea50c0b78d322ea0f5e3b0384e8d7579f13b807b3a67ea7303ea20ce"
     },
     {
       "path": "rbi/sellapp/batch_create_products_response_value_200_application_js_7e383f9dc445fb64.rbi",
@@ -20902,7 +20902,7 @@
     {
       "path": "rbi/sellapp/batch_create_products_response_value_201_application_js_819234ef38f6ec2a.rbi",
       "mode": "100644",
-      "sha256": "5280e8b30e05fad0905b229c79b4946904c032accf26e00f1d6369fbb059d23d"
+      "sha256": "bf2dc05ec738f5f5ced5bdba1d3f61c3f2457f60bd23876f435f9fe84651e6a8"
     },
     {
       "path": "rbi/sellapp/batch_create_products_response_value_201_application_js_8f5d684ef764f12d.rbi",
@@ -21022,7 +21022,7 @@
     {
       "path": "rbi/sellapp/batch_delete_products_response_value_200_application_js_2607d46235c032b5.rbi",
       "mode": "100644",
-      "sha256": "fb66e66604615fcd1e013628e1b56bab08343e4a586cfd0744f1d57a578dee16"
+      "sha256": "3c358a2f25589721e2643b57734586f1e0740743ab01211d6c62b98a1f528cbc"
     },
     {
       "path": "rbi/sellapp/batch_delete_products_response_value_200_application_js_7ab19222e1fb0f40.rbi",
@@ -21237,7 +21237,7 @@
     {
       "path": "rbi/sellapp/batch_update_products_response_value_200_application_js_5cd5fc6ada40a1f4.rbi",
       "mode": "100644",
-      "sha256": "298326cdcf99ce3ee1c0be40bde619ea57ab4e5ea26fce57e5c684f5e1389d3c"
+      "sha256": "fcd676295bfe8a48b18b757ff061514ed85df70a22ab9c862cd04ffe006fcf48"
     },
     {
       "path": "rbi/sellapp/batch_update_products_response_value_200_application_js_5f16ab7f7a6b20bc.rbi",
@@ -21637,7 +21637,7 @@
     {
       "path": "rbi/sellapp/create_booking_product_response_value_201_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "2685818d732870b9e668c4276ce155e0c7ae57235481c071ac6652354a92ea4a"
+      "sha256": "c57feb2e2d09634843cbdc1743f960b95946808fe80d4e38c00e54047deb17f6"
     },
     {
       "path": "rbi/sellapp/create_cashback_rule_response_value_201_application_json_property_data.rbi",
@@ -22747,7 +22747,7 @@
     {
       "path": "rbi/sellapp/create_product_response_value_201_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "f9609dd0d871b8307c926d58781b0338d05534ffba1896c1ac9de36ae7bb7786"
+      "sha256": "74534272b5fa7292e044ee64f0f0c1c05f81f0fb2e76f4d5de7d4be9703eb3a0"
     },
     {
       "path": "rbi/sellapp/create_product_variant_request_application_json_propert_235c3a24b2441f2d.rbi",
@@ -23337,7 +23337,7 @@
     {
       "path": "rbi/sellapp/delete_product_response_value_200_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "21f34016c9e263d85e939825d4bfe180f06c3542c3e8d5f257b30ba0d08df3cb"
+      "sha256": "47f88e1c7b850fca0a26a150df64874deb73693c257c7adeccc7a92242d08026"
     },
     {
       "path": "rbi/sellapp/delete_product_variant_response_value_200_application_j_1625f933ea9ef222.rbi",
@@ -23617,7 +23617,7 @@
     {
       "path": "rbi/sellapp/duplicate_product_response_value_201_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "15621aa86f7451947d5482a5789fd810d6fc2d6c749dad06c7ee83b9e0aa9feb"
+      "sha256": "596f12c763ea50a89bb0ad6ec6040c95a9eb1f60f57b8069882631c3a2c9bf89"
     },
     {
       "path": "rbi/sellapp/duplicate_product_variant_response_value_201_applicatio_0f4e379cf78efcc4.rbi",
@@ -24637,7 +24637,7 @@
     {
       "path": "rbi/sellapp/get_product_response_value_200_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "59682481bd3c8a22cfd173cb8412241ffb1b09edd06aae52d4a1e03a0caad399"
+      "sha256": "1095638d6f046e4d4299815299d7edbe61d3f60b5d87da2d4586b0717d71c7c3"
     },
     {
       "path": "rbi/sellapp/get_product_variant_response_value_200_application_json_0ca224ad8c6c80f6.rbi",
@@ -26282,7 +26282,7 @@
     {
       "path": "rbi/sellapp/list_products_response_value_200_application_json_property_data_item.rbi",
       "mode": "100644",
-      "sha256": "95ccd28172de14104e676fcaadaa6fa0f303b65f545e05f7b6e7878bb01d3619"
+      "sha256": "1404da3c34cca05802b04cca428fc421df1503606f1fc950cdae692e0b33bd9c"
     },
     {
       "path": "rbi/sellapp/list_products_within_group_response_value_200_applicati_19849f625b961d5b.rbi",
@@ -26752,7 +26752,7 @@
     {
       "path": "rbi/sellapp/move_product_response_value_200_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "a2383202ee93a69b61b7c0709882ff4837621167d0cd7b67859322954fe276cf"
+      "sha256": "5f2fe81d0fbcde7f644b2c94b32f131d6c3354fabdb90b05c312eaf3df4230d7"
     },
     {
       "path": "rbi/sellapp/notifications.rbi",
@@ -27032,7 +27032,7 @@
     {
       "path": "rbi/sellapp/publish_product_response_value_200_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "cf9c5d9339de7550ca9808eef1a6eeda9f02e864480d2d9ede9e57c02af5a9b4"
+      "sha256": "e3e90a22bbc7bb8cd27612898bde918698923287a6a36d878371570a303c61ee"
     },
     {
       "path": "rbi/sellapp/publish_product_variant_response_value_200_application_04cdc7742f585e54.rbi",
@@ -27957,7 +27957,7 @@
     {
       "path": "rbi/sellapp/replace_product_response_value_200_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "68821d507ba9cb44071bddf36cc58222be9d3afd1367bc613a6bbd5064530dac"
+      "sha256": "5d1f5398204ae60204326544e635ebf403cf736fac1025857a9931e4d16d7340"
     },
     {
       "path": "rbi/sellapp/replace_product_s_add_ons_response_value_200_applicatio_161fdd60793580b6.rbi",
@@ -33652,7 +33652,7 @@
     {
       "path": "rbi/sellapp/search_products_response_value_200_application_json_property_data_item.rbi",
       "mode": "100644",
-      "sha256": "ce297b7b7723d5f1e55ebce9ec2cbf9470d49398e0a0833edba3fa9b315bfd06"
+      "sha256": "cd4ab1cdd89807086f0fa9df2521c3e2847efd6e7812ad9fb61b81f01a8d8770"
     },
     {
       "path": "rbi/sellapp/search_products_within_group_request_application_json_p_2be6573f44f0c3c1.rbi",
@@ -34907,7 +34907,7 @@
     {
       "path": "rbi/sellapp/update_product_response_value_200_application_json_property_data.rbi",
       "mode": "100644",
-      "sha256": "a56c99296a07724d47cc26fd794118265c5f5a7de8b9fd1f6bb9de356068da07"
+      "sha256": "6f178cd71c7cdeb5eb23eb36029eae36e0d92ac177a8ddc34775af13012b7980"
     },
     {
       "path": "rbi/sellapp/update_product_variant_pricing_request_application_json_15f5ffbac38b0337.rbi",
@@ -36247,22 +36247,22 @@
     {
       "path": "sellapp.gemspec",
       "mode": "100644",
-      "sha256": "7b882357c3a30627f9f8fd8fc694ce58e410d9323cb9230703d70604da672893"
+      "sha256": "12f140af8a48a90e043ab8d39c4e36792c10af57c29ad9213dd764f0d4cb2b5b"
     },
     {
       "path": "sig/sellapp.rbs",
       "mode": "100644",
-      "sha256": "d0a1be6cee0529130cc2c330647ec585f3c45b0bd9ac26f1aa23560d9c8b7f16"
+      "sha256": "312359c4d9f808cc98fe1839a697f1358fc6b3b9ad17c2fe4c05a2f43fb82e1e"
     },
     {
       "path": "test/connected-workflow.json",
       "mode": "100644",
-      "sha256": "756072b6bdaf6db1f96339ca1b3c3248a9a7e22c143336627d7a0dd4f48c00e2"
+      "sha256": "33eed5386513b7977ffb1a0eefb503256bbe625a4c7756c2383425c857cbdcf4"
     },
     {
       "path": "test/documentation-product.json",
       "mode": "100644",
-      "sha256": "bffe9b50199ec59e290dbffd4a3304a251a9aec35ffd6039202c2477ec5ca726"
+      "sha256": "08af45a32b4f0a13c61d8077c763962d184183542eced9e652ceecaa4156fbbd"
     },
     {
       "path": "test/sellapp/test_account.rb",
@@ -36362,7 +36362,7 @@
     {
       "path": "test/sellapp/test_bookings.rb",
       "mode": "100644",
-      "sha256": "78145ccf532e9e4b5d883efcec2e12fcd73228e46b47e4e1500f2dabbe243c97"
+      "sha256": "9b965f8b76507a11b5263e0e9fbc77b0887130f934f3ac98caf6ea490c526bd0"
     },
     {
       "path": "test/sellapp/test_bookings_calendar_events.rb",
@@ -36372,7 +36372,7 @@
     {
       "path": "test/sellapp/test_bookings_model_round_trip.rb",
       "mode": "100644",
-      "sha256": "3d9c7a98d90abbac444d91b2efeef502aa3be57de60619f58689dc2e488fdcb9"
+      "sha256": "6ba07b7a07bd93aeac0ba5c289436a55a789aa86a96fc561b4cc93f4ac3e8a49"
     },
     {
       "path": "test/sellapp/test_bundle_items.rb",
@@ -36742,7 +36742,7 @@
     {
       "path": "test/sellapp/test_products.rb",
       "mode": "100644",
-      "sha256": "270ddad532ff9f4221546c12348befbfb8210c65490bf0d2879d007397aebaad"
+      "sha256": "cea1a9ae862c7268c5894dda327108b5fe9f48dae9365fa6c897eeb627a7cc5b"
     },
     {
       "path": "test/sellapp/test_products_addons.rb",
@@ -36757,7 +36757,7 @@
     {
       "path": "test/sellapp/test_products_model_round_trip.rb",
       "mode": "100644",
-      "sha256": "3ab7637f853c5776c937d8b61e8bf3ea1d2b0e0bc1437e3a50bde2a8a07c64d8"
+      "sha256": "ab7be4f80ac57613e72f84fd495e344745275c35abb4cffdf9b09393d93ec83b"
     },
     {
       "path": "test/sellapp/test_products_similar_products.rb",
@@ -36832,7 +36832,7 @@
     {
       "path": "test/sellapp/test_shared_model_round_trip.rb",
       "mode": "100644",
-      "sha256": "4ab9cbbbe245641174553966369de944d4bb21a89755ac1a51ad23b76b54899f"
+      "sha256": "e910fd1be926abd489fd04ed9c13c6a86d4849db99e56feb210cc05e747c123e"
     },
     {
       "path": "test/sellapp/test_store_custom_domains.rb",

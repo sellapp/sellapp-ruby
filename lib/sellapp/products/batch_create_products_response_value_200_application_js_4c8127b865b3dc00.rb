@@ -23,7 +23,8 @@ module SellApp
       section_order: :section_order,
       is_discoverable: :is_discoverable,
       variants: :variants,
-      url: :url
+      url: :url,
+      type: :type
     }.freeze
 
     SCHEMA = {
@@ -45,7 +46,8 @@ module SellApp
       section_order: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
       is_discoverable: {required: true, schema: {kind: :boolean}},
       variants: {required: true, schema: {kind: :array, items: {kind: :model, name: "SellApp::BatchCreateProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem"}}},
-      url: {required: true, schema: {kind: :string}}
+      url: {required: true, schema: {kind: :string}},
+      type: {required: true, schema: {kind: :string}}
     }.freeze
     ADDITIONAL_PROPERTIES = true
     MODEL_CONSTRAINTS = {}.freeze
@@ -69,7 +71,8 @@ module SellApp
       :section_order,
       :is_discoverable,
       :variants,
-      :url
+      :url,
+      :type
 
     def initialize(json)
       hash = self.class.normalize(json)
@@ -95,6 +98,7 @@ module SellApp
       @is_discoverable = hash[:is_discoverable]
       @variants = hash[:variants] ? hash[:variants].map { |item| item ? SellApp::BatchCreateProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem.new(item) : nil } : nil
       @url = hash[:url]
+      @type = hash[:type]
     end
   end
 end

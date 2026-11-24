@@ -3163,6 +3163,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::ListProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     attr_accessor price_range: String?
     attr_accessor stock: Integer?
     attr_accessor sales: Integer
@@ -3406,6 +3407,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::CreateProductResponseValue201ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -3478,6 +3480,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::GetProductResponseValue200ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -3592,6 +3595,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::ReplaceProductResponseValue200ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -3706,6 +3710,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::UpdateProductResponseValue200ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -3784,6 +3789,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::DeleteProductResponseValue200ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -5577,6 +5583,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::SearchProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     attr_accessor price_range: String?
     attr_accessor stock: Integer?
     attr_accessor sales: Integer
@@ -7801,6 +7808,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::BatchCreateProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7873,6 +7881,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::BatchCreateProductsResponseValue201ApplicationJsonPropertyDataItemPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -7998,6 +8007,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::BatchUpdateProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8076,6 +8086,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::BatchDeleteProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8155,6 +8166,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::PublishProductResponseValue200ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8227,6 +8239,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::DuplicateProductResponseValue201ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -8306,6 +8319,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::MoveProductResponseValue200ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end
@@ -19390,7 +19404,7 @@ module SellApp
     attr_accessor is_discoverable: bool
     attr_accessor variants: Array[SellApp::CreateBookingProductResponseValue201ApplicationJsonPropertyDataPropertyVariantsItem]
     attr_accessor url: String
-    attr_accessor type: String?
+    attr_accessor type: String
     def to_h: () -> Hash[Symbol, untyped]
     def to_json: (*untyped) -> String
   end

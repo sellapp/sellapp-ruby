@@ -48,7 +48,7 @@ class BookingsTest < Minitest::Test
 
   def test_create_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/booking-products(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.bookings.create(title: 'stub', price_cents: 0)
     refute_nil result
   end

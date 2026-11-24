@@ -1,6 +1,7 @@
 {
   "id": 120,
   "title": "Design kit",
+  "type": "product",
   "slug": "design-kit",
   "description": "<p>Templates for your next project.</p>",
   "images": [

@@ -24,6 +24,7 @@ module SellApp
       is_discoverable: :is_discoverable,
       variants: :variants,
       url: :url,
+      type: :type,
       price_range: :price_range,
       stock: :stock,
       sales: :sales,
@@ -50,6 +51,7 @@ module SellApp
       is_discoverable: {required: true, schema: {kind: :boolean}},
       variants: {required: true, schema: {kind: :array, items: {kind: :model, name: "SellApp::ListProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem"}}},
       url: {required: true, schema: {kind: :string}},
+      type: {required: true, schema: {kind: :string}},
       price_range: {required: true, schema: {kind: :nullable, inner: {kind: :string}}},
       stock: {required: true, schema: {kind: :nullable, inner: {kind: :integer}}},
       sales: {required: true, schema: {kind: :integer}},
@@ -78,6 +80,7 @@ module SellApp
       :is_discoverable,
       :variants,
       :url,
+      :type,
       :price_range,
       :stock,
       :sales,
@@ -107,6 +110,7 @@ module SellApp
       @is_discoverable = hash[:is_discoverable]
       @variants = hash[:variants] ? hash[:variants].map { |item| item ? SellApp::ListProductsResponseValue200ApplicationJsonPropertyDataItemPropertyVariantsItem.new(item) : nil } : nil
       @url = hash[:url]
+      @type = hash[:type]
       @price_range = hash[:price_range]
       @stock = hash[:stock]
       @sales = hash[:sales]

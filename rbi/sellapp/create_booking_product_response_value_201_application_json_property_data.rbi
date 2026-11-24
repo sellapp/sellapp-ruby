@@ -123,10 +123,10 @@ module SellApp
     sig { params(value: String).returns(String) }
     def url=(value); end
 
-    sig { returns(T.nilable(String)) }
+    sig { returns(String) }
     def type; end
 
-    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    sig { params(value: String).returns(String) }
     def type=(value); end
 
     sig { returns(T::Hash[Symbol, T.untyped]) }

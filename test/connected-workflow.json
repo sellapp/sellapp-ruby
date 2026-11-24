@@ -25,7 +25,8 @@
       "section_order": 1,
       "is_discoverable": true,
       "variants": [],
-      "url": "stub"
+      "url": "stub",
+      "type": "stub"
     }
   },
   "variant": {

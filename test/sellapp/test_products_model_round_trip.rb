@@ -103,6 +103,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
       "price_range" => 'stub',
       "stock" => 1,
       "sales" => 1,
@@ -126,6 +127,7 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     assert_equal fixture["price_range"], json[:price_range]
     assert_equal fixture["stock"], json[:stock]
     assert_equal fixture["sales"], json[:sales]
@@ -492,6 +494,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::CreateProductResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -511,12 +514,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_create_product_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkCreateProductResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -622,6 +626,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::GetProductResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -641,12 +646,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_get_product_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkGetProductResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -809,6 +815,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::ReplaceProductResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -828,12 +835,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_replace_product_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkReplaceProductResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -996,6 +1004,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::UpdateProductResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -1015,12 +1024,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_update_product_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkUpdateProductResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1136,6 +1146,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::DeleteProductResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -1155,12 +1166,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_delete_product_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkDeleteProductResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -1338,6 +1350,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
       "price_range" => 'stub',
       "stock" => 1,
       "sales" => 1,
@@ -1361,6 +1374,7 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     assert_equal fixture["price_range"], json[:price_range]
     assert_equal fixture["stock"], json[:stock]
     assert_equal fixture["sales"], json[:sales]
@@ -1547,6 +1561,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::BatchCreateProductsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -1566,6 +1581,7 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1750,6 +1766,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::BatchUpdateProductsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -1769,6 +1786,7 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -1890,6 +1908,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::BatchDeleteProductsResponseValue200ApplicationJsonPropertyDataItem.new(fixture.to_json)
     json = model.to_h
@@ -1909,6 +1928,7 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
@@ -2031,6 +2051,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::PublishProductResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -2050,12 +2071,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_publish_product_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkPublishProductResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2161,6 +2183,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::DuplicateProductResponseValue201ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -2180,12 +2203,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_duplicate_product_response_value_201_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkDuplicateProductResponseValue201ApplicationJson.new(fixture.to_json)
     json = model.to_h
@@ -2303,6 +2327,7 @@ class ProductsModelRoundTripTest < Minitest::Test
       "is_discoverable" => true,
       "variants" => JSON.parse('[]'),
       "url" => 'stub',
+      "type" => 'stub',
     }
     model = SellApp::MoveProductResponseValue200ApplicationJsonPropertyData.new(fixture.to_json)
     json = model.to_h
@@ -2322,12 +2347,13 @@ class ProductsModelRoundTripTest < Minitest::Test
     assert_equal fixture["section_order"], json[:section_order]
     assert_equal fixture["is_discoverable"], json[:is_discoverable]
     assert_equal fixture["url"], json[:url]
+    assert_equal fixture["type"], json[:type]
     fixture.each_key { |k| assert json.key?(k.to_sym) || json.key?(k), "Expected to_h to include key #{k}" }
   end
 
   def test_sdk_move_product_response_value_200_application_json_round_trip
     fixture = {
-      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}'),
+      "data" => JSON.parse('{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}'),
     }
     model = SellApp::SdkMoveProductResponseValue200ApplicationJson.new(fixture.to_json)
     json = model.to_h

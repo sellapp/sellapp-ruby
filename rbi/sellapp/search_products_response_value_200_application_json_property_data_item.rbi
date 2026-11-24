@@ -123,6 +123,12 @@ module SellApp
     sig { params(value: String).returns(String) }
     def url=(value); end
 
+    sig { returns(String) }
+    def type; end
+
+    sig { params(value: String).returns(String) }
+    def type=(value); end
+
     sig { returns(T.nilable(String)) }
     def price_range; end
 

@@ -20,35 +20,35 @@ class ProductsTest < Minitest::Test
 
   def test_create_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.create(title: 'stub', description: 'stub', visibility: 'PUBLIC')
     refute_nil result
   end
 
   def test_get_returns_expected_result
     stub_request(:get, %r{\Ahttps://sell\.app/api/v2/products/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.get(product: 1)
     refute_nil result
   end
 
   def test_replace_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v2/products/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.replace(product: 1)
     refute_nil result
   end
 
   def test_update_returns_expected_result
     stub_request(:patch, %r{\Ahttps://sell\.app/api/v2/products/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.update(product: 1)
     refute_nil result
   end
 
   def test_delete_returns_expected_result
     stub_request(:delete, %r{\Ahttps://sell\.app/api/v2/products/1(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.delete(product: 1)
     refute_nil result
   end
@@ -83,21 +83,21 @@ class ProductsTest < Minitest::Test
 
   def test_publish_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products/1/publish(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.publish(product: 1)
     refute_nil result
   end
 
   def test_duplicate_returns_expected_result
     stub_request(:post, %r{\Ahttps://sell\.app/api/v2/products/1/duplicate(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.duplicate(product: 1)
     refute_nil result
   end
 
   def test_move_returns_expected_result
     stub_request(:put, %r{\Ahttps://sell\.app/api/v2/products/1/position(\?|\z)})
-      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub"}}', status: 200)
+      .to_return(body: '{"data":{"id":1,"title":"stub","slug":"stub","description":"stub","images":[],"order":1,"visibility":"stub","delivery_text":"stub","additional_information":[],"other_settings":{"faq":[],"video_url":"stub","redirect_url":"stub","product_title":"stub","product_description":"stub"},"deleted_at":"2024-01-01T00:00:00Z","created_at":"2024-01-01T00:00:00Z","updated_at":"2024-01-01T00:00:00Z","store_id":1,"section_id":1,"section_order":1,"is_discoverable":true,"variants":[],"url":"stub","type":"stub"}}', status: 200)
     result = @client.products.move(product: 1, position: 1)
     refute_nil result
   end
